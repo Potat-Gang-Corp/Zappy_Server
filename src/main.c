@@ -6,6 +6,10 @@
 */
 #include "../include/my.h"
 
+/**
+* @file main.c
+* @brief just brief main
+*/
 int main(void)
 {
     return 0;

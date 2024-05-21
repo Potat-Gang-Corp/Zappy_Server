@@ -39,6 +39,9 @@ tests_run: $(TESTNAME)
 	@gcovr -r . --exclude 'tests/*' --html --html-details -o tests/coverage.html
 	@echo "Coverage report generated in coverage.html"
 
+run_ftests:
+	@./tests/functional-tests/test.sh
+
 clean:
 	$(RM) $(OBJS) $(TOBJS)
 	$(RM) src/*.gc*

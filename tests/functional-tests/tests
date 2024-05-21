@@ -1,0 +1,17 @@
+[001]
+NAME="Test main return 0"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  ./zappy_server
+EXPECTED_RETURN_CODE=0
+[001-END]
+
+[002]
+NAME="Test main return 1"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=
+  ./zappy_server
+EXPECTED_RETURN_CODE=1
+[002-END]

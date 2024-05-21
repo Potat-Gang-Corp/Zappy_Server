@@ -5,29 +5,40 @@
 ## Makefile
 ##
 
-NAME	=	zappy_server
+NAME = zappy_server
+TESTNAME = unit_tests
 
-CC	=	gcc
+CC = gcc
+RM = rm -f
 
-RM	=	rm -f
+SRCS = $(wildcard *.c)
+TSRCS = $(wildcard tests/unit-tests/*.c)
 
-SRCS	=	($wildcard *.c)
-
-OBJS	=	$(SRCS:.c=.o)
+OBJS = $(SRCS:.c=.o)
+TOBJS = $(TSRCS:.c=.o)
 
 CFLAGS = -I./include -Wall -Wextra -Werror
+LDFLAGS = --coverage -lcriterion
 
-all:	$(NAME)
+all: $(NAME)
 
-$(NAME):	$(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(CFLAGS)	
+$(NAME): $(OBJS)
+	$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
+
+$(TESTNAME): $(TOBJS)
+	$(CC) -o $(TESTNAME) $(TOBJS) $(CFLAGS) $(LDFLAGS)
+
+tests_run: $(TESTNAME)
+	./$(TESTNAME)
+	@gcovr --exclude tests/
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(TOBJS)
+	$(RM) *.gc* $(TESTNAME)
+
+fclean: clean
 	$(RM) $(NAME)
 
-fclean:	clean
+re: fclean all
 
-re:	fclean all
-
-.PHONY:	all clean fclean re
+.PHONY: all clean fclean re tests_run

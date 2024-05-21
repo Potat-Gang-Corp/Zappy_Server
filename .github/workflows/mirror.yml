@@ -35,5 +35,5 @@ jobs:
 
         cd private-repo
         git add Server/
-        git commit -m "[+] Sync Server changes"
+        git commit -m "[+] Sync Server repository with Final one"
         git push origin main

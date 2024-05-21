@@ -1,0 +1,39 @@
+name: Mirror Server to Private Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync_server:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Server Repository
+      uses: actions/checkout@v3
+
+    - name: Sync with Private Repository
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.POTAT_KEY }}
+      run: |
+        git config --global user.email "camille.ricardon@epitech.eu"
+        git config --global user.name "camille-ricardon"
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+        # Clone the private repo
+        git clone --depth 1 git@github.com:MathisGheri/Zappy.git private-repo
+
+        # Ensure the destination directory exists
+        mkdir -p private-repo/Server
+
+        # Copy server files to the Server directory in the private repo
+        rsync -av --delete --exclude '.git' --exclude 'private-repo' --exclude '.github' . private-repo/Server/
+
+        cd private-repo
+        git add Server/
+        git commit -m "[+] Sync Server changes"
+        git push origin main

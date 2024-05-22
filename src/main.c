@@ -14,6 +14,5 @@ int main(int argc, char **argv)
 {
     display_help();
     handle_flags(argc, argv);
-    
     return 0;
 }

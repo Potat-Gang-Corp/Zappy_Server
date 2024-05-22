@@ -11,7 +11,8 @@ TESTNAME = unit_tests
 CC = gcc
 RM = rm -f
 
-SRCS = $(shell find . -name '*.c')
+SRC_DIR = src
+SRCS = $(shell find $(SRC_DIR) -name '*.c')
 TSRCS = $(wildcard tests/unit-tests/*.c)
 
 SRCS_NO_MAIN = $(filter-out src/main.c, $(SRCS))

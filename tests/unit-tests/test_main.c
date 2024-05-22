@@ -8,7 +8,7 @@
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
 #include <criterion/assert.h>
-#include "../include/my.h"
+#include "../../include/my.h"
 
 Test(add_func, return_type)
 {

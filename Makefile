@@ -28,6 +28,7 @@ TOBJS = $(TSRCS:.c=.o)
 
 CFLAGS = -I./include -Wall -Wextra -Werror --coverage
 LDFLAGS = --coverage -lcriterion
+GCOVRFLAGS = -r . --exclude 'tests/*'
 
 all: $(NAME)
 
@@ -43,8 +44,8 @@ $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
 
 tests_run: $(TESTNAME)
 	@$(ECHO) "$(GREEN)Compiling unit tests $(RESET) ..."
-	@gcovr -r . --exclude 'tests/*'
-	@gcovr -r . --exclude 'tests/*' --html --html-details -o tests/coverage.html
+	@gcovr $(GCOVRFLAGS)
+	@gcovr $(GCOVRFLAGS) --html --html-details -o tests/coverage.html
 	@echo "Coverage report generated in coverage.html"
 
 run_ftests:
@@ -53,7 +54,7 @@ run_ftests:
 clean:
 	@$(ECHO) "$(RED)Cleaning objects and temporary files ...$(RESET)"
 	$(RM) $(OBJS) $(TOBJS)
-	find src -name '*.gc*' -exec $(RM) {} +	
+	find src -name '*.gc*' -exec $(RM) {} +
 	$(RM) *.gc* $(TESTNAME) coverage.html
 	$(RM) tests/*.gc*
 	$(RM) tests/unit-tests/*.gc*

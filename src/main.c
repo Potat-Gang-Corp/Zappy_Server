@@ -5,6 +5,7 @@
 ** main
 */
 #include "../include/my.h"
+#include "../include/handle_flags.h"
 
 /**
 * @file main.c

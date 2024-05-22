@@ -6,6 +6,7 @@
 */
 
 #include "../../include/my.h"
+#include "../../include/handle_flags.h"
 
 /**
 * @file handle_flags.c
@@ -28,11 +29,9 @@ void display_help(void)
 * @file handle_flags.c
 * @brief function that checks if every flags has a valid definition
 */
-
 void check_av(int i, int ac, char **av)
 {
     if (i + 1 >= ac) {
-        printf("Chou\n");
         fprintf(stderr, "Error: flag %s has no definition\n", av[i]);
         exit(84);
     }
@@ -42,15 +41,26 @@ void check_av(int i, int ac, char **av)
     }
 }
 
-/**
-* @file handle_p.c
-* @brief handle the port 
-*/
-void handle_p(int i, char *av)
+void handle_fp(int flags_present)
 {
-    (void)i;
-    (void)av;
-    return;
+    int required_flags = 0x3F;
+
+    if ((flags_present & required_flags) != required_flags) {
+            fprintf(stderr, "Error: missing required flags:\n");
+        if (!(flags_present & (1 << 0)))
+            fprintf(stderr, "-p flag is missing\n");
+        if (!(flags_present & (1 << 1)))
+            fprintf(stderr, "-x flag is missing\n");
+        if (!(flags_present & (1 << 2)))
+            fprintf(stderr, "-y flag is missing\n");
+        if (!(flags_present & (1 << 3)))
+            fprintf(stderr, "-n flag is missing\n");
+        if (!(flags_present & (1 << 4)))
+            fprintf(stderr, "-c flag is missing\n");
+        if (!(flags_present & (1 << 5)))
+            fprintf(stderr, "-f flag is missing\n");
+        exit(84);
+    }
 }
 
 /**
@@ -59,15 +69,21 @@ void handle_p(int i, char *av)
 */
 int handle_flags(int ac, char **av)
 {
+    int flags_present = 0;
+    int i;
+
     if (ac == 2 && (strcmp(av[1], "-help") == 0 || strcmp(av[1], "-h") == 0))
         display_help();
-    for (int i = 1; i < ac; i++) {
+    for (i = 1; i < ac; i++) {
         if (strcmp(av[i], "-p") == 0) {
             check_av(i, ac, av);
-            handle_p(i, av[i] + 1);
+            handle_p(av[i] + 1);
+            flags_present |= 1 << 0;
             continue;
         }
-        handle_x_y(ac, &i, av);
+        handle_x_y(ac, &i, av, &flags_present);
+        handle_n_c_f(ac, &i, av, &flags_present);
     }
+    handle_fp(flags_present);
     return 0;
 }

@@ -32,6 +32,7 @@ void display_help(void)
 void check_av(int i, int ac, char **av)
 {
     if (i + 1 >= ac) {
+        printf("Chou\n");
         fprintf(stderr, "Error: flag %s has no definition\n", av[i]);
         exit(84);
     }

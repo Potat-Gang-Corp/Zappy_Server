@@ -10,6 +10,11 @@ TESTNAME = unit_tests
 
 CC = gcc
 RM = rm -rf
+ECHO = /bin/echo -e
+
+GREEN	= \x1b[36m
+RED		= \033[0;31m
+RESET	= \033[0m
 
 SRC_DIR = src
 SRCS = $(shell find $(SRC_DIR) -name '*.c')
@@ -27,6 +32,7 @@ LDFLAGS = --coverage -lcriterion
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	@$(ECHO) "$(GREEN)Compiling $@$(RESET) ..."
 	$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
 
 %.o: %.c
@@ -36,16 +42,16 @@ $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
 	$(CC) -o $(TESTNAME) $(TOBJS) $(OBJS_NO_MAIN) $(CFLAGS) $(LDFLAGS)
 
 tests_run: $(TESTNAME)
-	./$(TESTNAME)
+	@$(ECHO) "$(GREEN)Compiling unit tests $(RESET) ..."
 	@gcovr -r . --exclude 'tests/*'
-	@gcovr -r . --exclude 'tests/*' --html \
-	--html-details -o tests/coverage.html
+	@gcovr -r . --exclude 'tests/*' --html --html-details -o tests/coverage.html
 	@echo "Coverage report generated in coverage.html"
 
 run_ftests:
 	@./tests/functional-tests/test.sh
 
 clean:
+	@$(ECHO) "$(RED)Cleaning objects and temporary files ...$(RESET)"
 	$(RM) $(OBJS) $(TOBJS)
 	find src -name '*.gc*' -exec $(RM) {} +	
 	$(RM) *.gc* $(TESTNAME) coverage.html
@@ -56,6 +62,7 @@ clean:
 	$(RM) coding-style-reports.log
 
 fclean: clean
+	@$(ECHO) "$(RED)Cleaning executable...$(RESET)"
 	$(RM) $(NAME)
 
 re: fclean all

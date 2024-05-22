@@ -25,11 +25,13 @@ void handle_x_y(int ac, int *i, char **av)
     if (strcmp(av[(*i)], "-x") == 0) {
             check_av((*i), ac, av);
             handle_x((*i), av[(*i)] + 1);
-            i++;
+            if ((*i) + 1 >= ac)
+                exit(84);
         }
         if (strcmp(av[(*i)], "-y") == 0) {
             check_av((*i), ac, av);
             handle_y((*i), av[(*i)] + 1);
-            i++;
+            if ((*i) + 1 >= ac)
+                exit(84);
         }
 }

@@ -12,17 +12,17 @@
 * @brief defines the data structures used in the project for the
 * client/player, such as inventory, position, etc.
 */
-enum orientation_e {
+typedef enum orientation_e {
     NORTH,
     EAST,
     SOUTH,
     WEST
-};
+} orientation_t;
 
 typedef struct position_s {
     int x;
     int y;
-    orientation_e orientation;
+    orientation_t orientation;
 } position_t;
 
 typedef struct inventory_s {
@@ -45,6 +45,7 @@ typedef struct client_s {
     unsigned int level;
     int time_to_live;
     bool status;
+    int nb_commands;
     struct client_s *next;
 } client_t;
 

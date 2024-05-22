@@ -9,11 +9,18 @@
     #define STRUCT_SERVER_H_
 
     #include "my.h"
+    #include "struct_client.h"
 /**
  * @file struct_server.h
  * @brief defines the data structures used in the project for the
  * server, such as client, team, etc.
  */
+
+typedef struct waiting_client_s {
+    int socket;
+    char *team;
+    TAILQ_ENTRY(waiting_client_s) entries;
+} waiting_client_t;
 
 typedef struct team_s {
     char *name;
@@ -21,13 +28,19 @@ typedef struct team_s {
     struct team_s *next;
 } team_t;
 
+typedef struct command_s {
+    int cli_id;
+    char *command;
+    TAILQ_ENTRY(command_s) entries;
+} command_t;
+
 typedef struct server_s {
     int maxfd;
     int socket;
-    struct client_s *clients;
-    struct team_s *teams;
-    queue_t *waiting_list;
-    queue_t *commands;
+    client_t *clients;
+    team_t *teams;
+    TAILQ_HEAD(, waiting_client_s) waiting_list;
+    TAILQ_HEAD(, command_s) commands;
     int port;
     struct sockaddr_in server;
     fd_set readfs;

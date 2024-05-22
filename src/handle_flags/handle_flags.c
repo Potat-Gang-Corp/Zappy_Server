@@ -10,7 +10,7 @@
 
 /**
 * @file handle_flags.c
-* @brief functions to handle the flags, hub and error handling part 
+* @brief functions to handle the flags, hub and error handling part
 */
 void display_help(void)
 {

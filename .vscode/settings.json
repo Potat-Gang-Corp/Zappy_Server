@@ -3,6 +3,7 @@
         "string.h": "c",
         "my.h": "c",
         "socket.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "struct_map.h": "c"
     }
 }

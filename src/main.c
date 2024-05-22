@@ -10,7 +10,10 @@
 * @file main.c
 * @brief just brief main
 */
-int main(void)
+int main(int argc, char **argv)
 {
+    display_help();
+    handle_flags(argc, argv);
+    
     return 0;
 }

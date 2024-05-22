@@ -1,0 +1,14 @@
+./docs/html/add_8c__incl.map:1: MAJOR:C-O1
+./docs/html/dir_68267d1309a1af8e8297ef4c3efbcdba_dep.map:1: MAJOR:C-O1
+./docs/html/handle__flags_8c__incl.map:1: MAJOR:C-O1
+./docs/html/handle__flags_8c_acaff8bafd71f586bed7caf06aa75a881_cgraph.map:1: MAJOR:C-O1
+./docs/html/handle__flags_8c_acaff8bafd71f586bed7caf06aa75a881_icgraph.map:1: MAJOR:C-O1
+./docs/html/handle__flags_8c_af6e2239bd86c9c8533070687ab8cfbf4_icgraph.map:1: MAJOR:C-O1
+./docs/html/main_8c__incl.map:1: MAJOR:C-O1
+./docs/html/main_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph.map:1: MAJOR:C-O1
+./docs/html/my_8h__dep__incl.map:1: MAJOR:C-O1
+./docs/html/my_8h_a90df9fdfc1c81ca741a635ff9d8ff1f9_cgraph.map:1: MAJOR:C-O1
+./docs/html/my_8h_a90df9fdfc1c81ca741a635ff9d8ff1f9_icgraph.map:1: MAJOR:C-O1
+./docs/html/my_8h_af6e2239bd86c9c8533070687ab8cfbf4_icgraph.map:1: MAJOR:C-O1
+./src/add.c:10: MINOR:C-L2
+./src/add.c:14: MINOR:C-G7

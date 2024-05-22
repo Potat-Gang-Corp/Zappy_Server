@@ -1,3 +1,4 @@
+##
 ## EPITECH PROJECT, 2024
 ## ZAPPY
 ## File description:
@@ -10,7 +11,7 @@ TESTNAME = unit_tests
 CC = gcc
 RM = rm -f
 
-SRCS = $(wildcard src/*.c)
+SRCS = $(shell find . -name '*.c')
 TSRCS = $(wildcard tests/unit-tests/*.c)
 
 SRCS_NO_MAIN = $(filter-out src/main.c, $(SRCS))
@@ -36,7 +37,8 @@ $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
 tests_run: $(TESTNAME)
 	./$(TESTNAME)
 	@gcovr -r . --exclude 'tests/*'
-	@gcovr -r . --exclude 'tests/*' --html --html-details -o tests/coverage.html
+	@gcovr -r . --exclude 'tests/*' --html \
+	--html-details -o tests/coverage.html
 	@echo "Coverage report generated in coverage.html"
 
 run_ftests:

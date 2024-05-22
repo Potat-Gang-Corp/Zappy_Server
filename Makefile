@@ -9,7 +9,7 @@ NAME = zappy_server
 TESTNAME = unit_tests
 
 CC = gcc
-RM = rm -f
+RM = rm -rf
 
 SRC_DIR = src
 SRCS = $(shell find $(SRC_DIR) -name '*.c')
@@ -47,12 +47,13 @@ run_ftests:
 
 clean:
 	$(RM) $(OBJS) $(TOBJS)
-	$(RM) src/*.gc*
+	find src -name '*.gc*' -exec $(RM) {} +	
 	$(RM) *.gc* $(TESTNAME) coverage.html
 	$(RM) tests/*.gc*
 	$(RM) tests/unit-tests/*.gc*
 	$(RM) tests/coverage*
 	$(RM) coverage*
+	$(RM) coding-style-reports.log
 
 fclean: clean
 	$(RM) $(NAME)

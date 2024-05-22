@@ -4,12 +4,13 @@
 ** File description:
 ** handle_x_y
 */
+
 #include "../../include/my.h"
 #include "../../include/handle_flags.h"
 
 /**
-* @file handle_p.c
-* @brief handle the port
+* @file handle_p_x_y.c
+* @brief handle the p, x and y flags
 */
 void handle_p(char *av)
 {

@@ -8,6 +8,10 @@
 #include "../../include/my.h"
 #include "../../include/handle_flags.h"
 
+/**
+* @file handle_n_c_f.c
+* @brief handle the n, c and f flags
+*/
 void handle_n(int ac, int *i, char **av, int *fp)
 {
     (*fp) |= 1 << 3;

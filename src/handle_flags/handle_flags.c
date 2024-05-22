@@ -10,7 +10,7 @@
 
 /**
 * @file handle_flags.c
-* @brief function that display_help
+* @brief functions to handle the flags, hub and error handling part 
 */
 void display_help(void)
 {
@@ -25,10 +25,6 @@ void display_help(void)
     exit(0);
 }
 
-/**
-* @file handle_flags.c
-* @brief function that checks if every flags has a valid definition
-*/
 void check_av(int i, int ac, char **av)
 {
     if (i + 1 >= ac) {
@@ -63,10 +59,6 @@ void handle_fp(int flags_present)
     }
 }
 
-/**
-* @file handle_flags.c
-* @brief hub to handle differents flags
-*/
 int handle_flags(int ac, char **av)
 {
     int flags_present = 0;

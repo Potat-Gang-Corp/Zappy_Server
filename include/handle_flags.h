@@ -7,7 +7,10 @@
 
 #ifndef HANDLE_FLAGS_H_
     #define HANDLE_FLAGS_H_
-
+/**
+* @file handle_flags.h
+* @brief Contains definitions of the flags handling functions
+*/
 ///////////////////////handle_flags.c///////////////////////
 /**
  * @brief Function that allows to handle the flags.
@@ -51,14 +54,74 @@ void handle_p(char *av);
 void check_av(int i, int ac, char **av);
 
 ///////////////////////handle_x_y.c///////////////////////
+/**
+* @brief Function that check the existence of a definition for x flag
+* @param char *av string that contains the argument
+*
+* @details The function gets the width of the world
+* @return void
+*/
 void handle_x(char *av);
+/**
+* @brief Function that check the existence of a definition for y flag
+* @param char *av string that contains the argument
+*
+* @details The function gets the height of the world
+* @return void
+*/
 void handle_y(char *av);
+/**
+* @brief Function that check the existence of a definition for y and x flags
+* @param int ac total number of arguments
+* @param int *i index position of the flag
+* @param char **av array that contains all of the arguments of the command line
+* @param int *fp pointer to the flags_present variable
+*
+* @details The function gets the width and height of the world
+* @return void unless the function found a problem so it exit 84
+*/
 void handle_x_y(int ac, int *i, char **av, int *fp);
 
 ///////////////////////handle_n_c_f.c///////////////////////
+/**
+* @brief Function that check the existence of a definition for n flag
+* @param char *av string that contains the argument
+* @param int *fp pointer to the flags_present variable
+* @param int ac total number of arguments
+* @param int *i index position of the flag
+*
+* @details The function gets the teams names
+* @return void
+*/
 void handle_n(int ac, int *i, char **av, int *fp);
+/**
+* @brief Function that check the existence of a definition for c flag
+* @param char *av string that contains the argument
+* @param int *fp pointer to the flags_present variable
+*
+* @details The function gets the number of clients per team
+* @return void
+*/
 void handle_c(char *av, int *fp);
+/**
+* @brief Function that check the existence of a definition for f flag
+* @param char *av string that contains the argument
+* @param int *fp pointer to the flags_present variable
+*
+* @details The function gets the frequency
+* @return void
+*/
 void handle_f(char *av, int *fp);
+/**
+* @brief Function that check the existence of a definition for n, c and f flags
+* @param int ac total number of arguments
+* @param int *i index position of the flag
+* @param char **av array that contains all of the arguments of the command line
+* @param int *fp pointer to the flags_present variable
+*
+* @details The function gets the teams names, the nb of clients and frequency
+* @return void unless the function found a problem so it exit 84
+*/
 void handle_n_c_f(int ac, int *i, char **av, int *fp);
 
 #endif /* !HANDLE_FLAGS_H_ */

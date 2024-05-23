@@ -25,7 +25,7 @@ typedef struct waiting_client_s {
 typedef struct team_s {
     char *name;
     int max_clients;
-    struct team_s *next;
+    int cpt_egg;
 } team_t;
 
 typedef struct command_s {
@@ -38,7 +38,7 @@ typedef struct server_s {
     int maxfd;
     int socket;
     client_t *clients;
-    team_t *teams;
+    team_t **teams;
     TAILQ_HEAD(, waiting_client_s) waiting_list;
     TAILQ_HEAD(, command_s) commands;
     int port;

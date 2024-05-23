@@ -24,14 +24,40 @@ void handle_n(int ac, int *i, char **av, int *fp)
 
 void handle_c(char *av, int *fp)
 {
+    int nb;
+    int i;
+
     (*fp) |= 1 << 4;
+    for (i = 0; av[i]; i++) {
+        if (av[i] < '0' || av[i] > '9') {
+            printf("Error: flag -c has no definition\n");
+            exit(84);
+        }
+    }
+    nb = atoi(av);
+    if (nb <= 0) {
+        exit(84);
+    }
+    printf("Clients per team: %d\n", nb);
     printf("Clients per team: %s\n", av);
     return;
 }
 
 void handle_f(char *av, int *fp)
 {
+    int nb;
     (*fp) |= 1 << 5;
+    for (int i = 0; av[i]; i++) {
+        if (av[i] < '0' || av[i] > '9') {
+            printf("Error: flag -f has no definition\n");
+            exit(84);
+        }
+    }
+    nb = atoi(av);
+    if (nb < 0) {
+        printf("Error: frequency should be greater than 0\n");
+        exit(84);
+    }
     printf("Frequency: %s\n", av);
     return;
 }

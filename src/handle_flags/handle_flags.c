@@ -69,7 +69,7 @@ int handle_flags(int ac, char **av)
     for (i = 1; i < ac; i++) {
         if (strcmp(av[i], "-p") == 0) {
             check_av(i, ac, av);
-            handle_p(av[i] + 1);
+            handle_p(av[i + 1]);
             flags_present |= 1 << 0;
             continue;
         }

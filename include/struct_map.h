@@ -11,7 +11,6 @@
 * @file my.h
 * @brief defines data structures used in the project for the map
 */
-
 typedef enum item_type_e {
     FOOD,
     LINEMATE,

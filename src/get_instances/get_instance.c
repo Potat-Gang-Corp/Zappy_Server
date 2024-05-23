@@ -11,6 +11,10 @@
 #include "../../include/struct_client.h"
 #include "../../include/struct_game.h"
 
+/**
+* @file get_instance.c
+* @brief get the server, map and game instances
+*/
 server_t *get_instance(void)
 {
     static server_t server;
@@ -31,4 +35,3 @@ game_t *get_game_instance(void)
 
     return &game;
 }
-

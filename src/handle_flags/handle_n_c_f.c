@@ -7,25 +7,32 @@
 
 #include "../../include/my.h"
 #include "../../include/handle_flags.h"
-
+#include "../../include/get_instance.h"
 /**
 * @file handle_n_c_f.c
 * @brief handle the n, c and f flags
 */
 void handle_n(int ac, int *i, char **av, int *fp)
 {
+    game_t *game = get_game_instance();
+    int k;
+
+    game->nb_teams = 0;
     (*fp) |= 1 << 3;
-    printf("Teams: ");
-    while (*i + 1 < ac && av[*i + 1][0] != '-') {
-        printf("%s ", av[++(*i)]);
+    while (*i + 1 < ac && av[*i + 1][0] != '-')
+        game->nb_teams++;
+    game->teams = malloc(sizeof(team_t) * (game->nb_teams + 1));
+    for (k = 0; k < game->nb_teams; k++) {
+        game->teams[k] = malloc(sizeof(team_t));
+        game->teams[k]->name = strdup(av[*i + k + 1]);
     }
-    printf("\n");
 }
 
 void handle_c(char *av, int *fp)
 {
     int nb;
     int i;
+    game_t *game = get_game_instance();
 
     (*fp) |= 1 << 4;
     for (i = 0; av[i]; i++) {
@@ -39,14 +46,15 @@ void handle_c(char *av, int *fp)
         printf("Error: clients per team should be greater than 0\n");
         exit(84);
     }
-    printf("Clients per team: %d\n", nb);
-    printf("Clients per team: %s\n", av);
-    return;
+    for (int i = 0; i < game->nb_teams; i++)
+        game->teams[i]->max_clients = nb;
 }
 
 void handle_f(char *av, int *fp)
 {
     int nb;
+    game_t *game = get_game_instance();
+
     (*fp) |= 1 << 5;
     for (int i = 0; av[i]; i++) {
         if (av[i] < '0' || av[i] > '9') {
@@ -59,7 +67,7 @@ void handle_f(char *av, int *fp)
         printf("Error: frequency should be greater than 0\n");
         exit(84);
     }
-    printf("Frequency: %s\n", av);
+    game->freq = nb;
     return;
 }
 

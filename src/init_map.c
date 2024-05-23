@@ -11,6 +11,15 @@
 * @file init_map.c
 * @brief Initializes the map structure
 */
+
+void display_suite(items_t *item)
+{
+    while (item) {
+        printf("Item: %s\n", item->type == FOOD ? "FOOD" : "RESOURCE");
+        item = item->next;
+    }
+}
+
 void display(struct map_s *map)
 {
     items_t *item;
@@ -19,10 +28,7 @@ void display(struct map_s *map)
         for (int y = 0; y < map->height; y++) {
             printf("Tile at (%d, %d):\n", x, y);
             item = map->tiles[x + y * map->width]->items;
-            while (item) {
-                printf("Item: %s\n", item->type == FOOD ? "FOOD" : "RESOURCE");
-                item = item->next;
-            }
+            display_suite(item);
         }
     }
 }

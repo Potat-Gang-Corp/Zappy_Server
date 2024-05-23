@@ -22,6 +22,8 @@
     #include <signal.h>
     #include <sys/socket.h>
     #include <sys/queue.h>
+    #include <sys/select.h>
+    #include <sys/types.h>
     #include "struct_map.h"
 
 int add_func(int a, int b);

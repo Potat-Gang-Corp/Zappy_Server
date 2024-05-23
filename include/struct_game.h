@@ -11,7 +11,6 @@
 * @file struct_game.h
 * @brief defines data structures used in the project for the game
 */
-
     #define DENSITY_FOOD 0.5
     #define DENSITY_LINEMATE 0.3
     #define DENSITY_DERAUMERE 0.15
@@ -20,11 +19,27 @@
     #define DENSITY_PHIRAS 0.08
     #define DENSITY_THYSTAME 0.05
 
+/**
+* @struct team_s
+* @brief struct that holds the team name and the max number of clients
+*/
+typedef struct team_s {
+    char *name;
+    int max_clients;
+    int cpt_egg;
+} team_t;
+
+/**
+* @struct game_s
+* @brief struct that holds the game data
+*/
 typedef struct game_s {
     int width;
     int height;
     int freq;
     int cycle;
+    int nb_teams;
+    team_t **teams;
 } game_t;
 
 #endif /* !STRUCT_GAME_H_ */

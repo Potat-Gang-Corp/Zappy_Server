@@ -7,6 +7,7 @@
 
 #include "../../include/my.h"
 #include "../../include/handle_flags.h"
+#include "../../include/get_instance.h"
 
 /**
 * @file handle_p_x_y.c
@@ -15,37 +16,41 @@
 void handle_p(char *av)
 {
     int port;
+    server_t *server = get_instance();
 
     port = atoi(av);
     if (port < 1 || port > 65535) {
         fprintf(stderr, "Error: port number must be between 1 and 65535\n");
         exit(84);
     }
-    printf("Port: %s\n", av);
-    return;
+    server->port = port;
+    printf("port: %d\n", server->port);
 }
 
 void handle_x(char *av)
 {
     int x = atoi(av);
+    game_t *game = get_game_instance();
 
     if (x <= 0) {
         printf("Error: width should be greater than 0\n");
         exit(84);
     }
-    printf("Width: %s\n", av);
-    return;
+    game->width = x;
+    printf("width: %d\n", game->width);
 }
 
 void handle_y(char *av)
 {
     int y = atoi(av);
+    game_t *game = get_game_instance();
 
     if (y <= 0) {
         printf("Error: height should be greater than 0\n");
         exit(84);
     }
-    printf("Height: %s\n", av);
+    game->height = y;
+    printf("height: %d\n", game->height);
     return;
 }
 

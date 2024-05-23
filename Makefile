@@ -61,6 +61,7 @@ clean:
 	$(RM) tests/coverage*
 	$(RM) coverage*
 	$(RM) coding-style-reports.log
+	$(RM) vgcore.*
 
 fclean: clean
 	@$(ECHO) "$(RED)Cleaning executable...$(RESET)"

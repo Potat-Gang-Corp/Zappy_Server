@@ -7,6 +7,7 @@
 
 #include "../../include/my.h"
 #include "../../include/handle_flags.h"
+#include "../../include/get_instance.h"
 
 /**
 * @file handle_flags.c
@@ -39,7 +40,7 @@ void check_av(int i, int ac, char **av)
 
 void handle_fp(int flags_present)
 {
-    int required_flags = 0x3F;
+    int required_flags = 0x1F;
 
     if ((flags_present & required_flags) != required_flags) {
             fprintf(stderr, "Error: missing required flags:\n");
@@ -53,8 +54,6 @@ void handle_fp(int flags_present)
             fprintf(stderr, "-n flag is missing\n");
         if (!(flags_present & (1 << 4)))
             fprintf(stderr, "-c flag is missing\n");
-        if (!(flags_present & (1 << 5)))
-            fprintf(stderr, "-f flag is missing\n");
         exit(84);
     }
 }
@@ -63,6 +62,7 @@ int handle_flags(int ac, char **av)
 {
     int flags_present = 0;
     int i;
+    game_t *game = get_game_instance();
 
     if (ac == 2 && (strcmp(av[1], "-help") == 0 || strcmp(av[1], "-h") == 0))
         display_help();
@@ -77,5 +77,7 @@ int handle_flags(int ac, char **av)
         handle_n_c_f(ac, &i, av, &flags_present);
     }
     handle_fp(flags_present);
+    if (flags_present & (1 << 5))
+        game->freq = 100;
     return 0;
 }

@@ -14,9 +14,6 @@
 */
 int main(int argc, char **argv)
 {
-    //map_t *map = initialize_map(10, 10);
-
     handle_flags(argc, argv);
-    //map->display(map);
     return 0;
 }

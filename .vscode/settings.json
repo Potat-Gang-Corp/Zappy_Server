@@ -4,6 +4,7 @@
         "my.h": "c",
         "socket.h": "c",
         "stdbool.h": "c",
-        "struct_map.h": "c"
+        "struct_map.h": "c",
+        "struct_client.h": "c"
     }
 }

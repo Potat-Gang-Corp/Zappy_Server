@@ -56,3 +56,5 @@ docs/*
 *.pdf
 *.gcda
 *.gcno
+
+zappy_server

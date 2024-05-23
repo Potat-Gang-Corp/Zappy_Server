@@ -46,13 +46,13 @@ void handle_n_c_f(int ac, int *i, char **av, int *fp)
     }
     if (strcmp(av[(*i)], "-c") == 0) {
         check_av((*i), ac, av);
-        handle_c(av[(*i)] + 1, fp);
+        handle_c(av[(*i) + 1], fp);
         if ((*i) + 1 >= ac)
             exit(84);
     }
     if (strcmp(av[(*i)], "-f") == 0) {
         check_av((*i), ac, av);
-        handle_f(av[(*i)] + 1, fp);
+        handle_f(av[(*i) + 1], fp);
         if ((*i) + 1 >= ac)
             exit(84);
     }

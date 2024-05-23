@@ -61,3 +61,5 @@ zappy_server
 
 *.vscode/
 *.idea/
+
+docs/

@@ -58,3 +58,6 @@ docs/*
 *.gcno
 
 zappy_server
+
+*.vscode/
+*.idea/

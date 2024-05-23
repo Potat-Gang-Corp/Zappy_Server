@@ -31,3 +31,4 @@ game_t *get_game_instance(void)
 
     return &game;
 }
+

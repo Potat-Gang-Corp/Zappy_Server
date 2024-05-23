@@ -36,6 +36,7 @@ void handle_c(char *av, int *fp)
     }
     nb = atoi(av);
     if (nb <= 0) {
+        printf("Error: clients per team should be greater than 0\n");
         exit(84);
     }
     printf("Clients per team: %d\n", nb);

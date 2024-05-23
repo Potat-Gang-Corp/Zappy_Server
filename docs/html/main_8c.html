@@ -77,17 +77,28 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="my_8h_source.html">../include/my.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="handle__flags_8h_source.html">../include/handle_flags.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="struct__map_8h_source.html">../include/struct_map.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8c__incl.png" border="0" usemap="#asrc_2main_8c" alt=""/></div>
 <map name="asrc_2main_8c" id="asrc_2main_8c">
-<area shape="rect" title="just brief main" alt="" coords="161,5,244,32"/>
-<area shape="rect" href="my_8h.html" title="defines the prototypes of the functions used in the project as well as the includes of the libs neede..." alt="" coords="71,80,177,107"/>
-<area shape="rect" href="handle__flags_8h.html" title="Contains definitions of the flags handling functions." alt="" coords="201,80,364,107"/>
+<area shape="rect" title="just brief main" alt="" coords="959,5,1041,32"/>
+<area shape="rect" href="my_8h.html" title="defines the prototypes of the functions used in the project as well as the includes of the libs neede..." alt="" coords="591,80,697,107"/>
+<area shape="rect" href="struct__map_8h.html" title=" " alt="" coords="1217,155,1316,181"/>
+<area shape="rect" href="handle__flags_8h.html" title="Contains definitions of the flags handling functions." alt="" coords="1037,80,1200,107"/>
 <area shape="rect" title=" " alt="" coords="5,155,67,181"/>
 <area shape="rect" title=" " alt="" coords="91,155,157,181"/>
 <area shape="rect" title=" " alt="" coords="181,155,245,181"/>
+<area shape="rect" title=" " alt="" coords="269,155,344,181"/>
+<area shape="rect" title=" " alt="" coords="369,155,455,181"/>
+<area shape="rect" title=" " alt="" coords="479,155,547,181"/>
+<area shape="rect" title=" " alt="" coords="572,155,631,181"/>
+<area shape="rect" title=" " alt="" coords="655,155,721,181"/>
+<area shape="rect" title=" " alt="" coords="746,155,843,181"/>
+<area shape="rect" title=" " alt="" coords="868,155,961,181"/>
+<area shape="rect" title=" " alt="" coords="985,155,1079,181"/>
+<area shape="rect" title=" " alt="" coords="1103,155,1193,181"/>
 </map>
 </div>
 </div>
@@ -129,12 +140,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00014">14</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
-<div class="fragment"><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="handle__flags_8c.html#acaff8bafd71f586bed7caf06aa75a881">handle_flags</a>(argc, argv);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="ttc" id="ahandle__flags_8c_html_acaff8bafd71f586bed7caf06aa75a881"><div class="ttname"><a href="handle__flags_8c.html#acaff8bafd71f586bed7caf06aa75a881">handle_flags</a></div><div class="ttdeci">int handle_flags(int ac, char **av)</div><div class="ttdoc">Function that allows to handle the flags.</div><div class="ttdef"><b>Definition:</b> <a href="handle__flags_8c_source.html#l00062">handle_flags.c:62</a></div></div>
+<p class="definition">Definition at line <a class="el" href="main_8c_source.html#l00015">15</a> of file <a class="el" href="main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="handle__flags_8c.html#acaff8bafd71f586bed7caf06aa75a881">handle_flags</a>(argc, argv);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="ttc" id="ahandle__flags_8c_html_acaff8bafd71f586bed7caf06aa75a881"><div class="ttname"><a href="handle__flags_8c.html#acaff8bafd71f586bed7caf06aa75a881">handle_flags</a></div><div class="ttdeci">int handle_flags(int ac, char **av)</div><div class="ttdoc">Function that allows to handle the flags.</div><div class="ttdef"><b>Definition:</b> <a href="handle__flags_8c_source.html#l00061">handle_flags.c:61</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="handle__flags_8c.html#acaff8bafd71f586bed7caf06aa75a881">handle_flags()</a>.</p>
 <div class="dynheader">
@@ -142,19 +153,21 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph.png" border="0" usemap="#amain_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph" alt=""/></div>
 <map name="amain_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph" id="amain_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph">
-<area shape="rect" title=" " alt="" coords="5,183,56,209"/>
-<area shape="rect" href="handle__flags_8c.html#acaff8bafd71f586bed7caf06aa75a881" title="Function that allows to handle the flags." alt="" coords="104,183,199,209"/>
-<area shape="rect" href="handle__flags_8c.html#ae479a228b79cb67b27e6aef416cf0222" title="Function that check the existence of a definition for a flag." alt="" coords="393,208,472,235"/>
-<area shape="rect" href="handle__flags_8c.html#af6e2239bd86c9c8533070687ab8cfbf4" title="Function that displays the help text." alt="" coords="249,107,343,133"/>
-<area shape="rect" href="handle__flags_8c.html#acada87356104b9813fbfc74ed5995783" title=" " alt="" coords="257,157,335,184"/>
-<area shape="rect" href="handle__n__c__f_8c.html#a97a29becec246ae5c23cd0deea9f4c5f" title="Function that check the existence of a definition for n, c and f flags." alt="" coords="247,56,345,83"/>
-<area shape="rect" href="handle__p__x__y_8c.html#ab7e5995bec06a2f22583c2fbbad81bda" title="Function that handles the port." alt="" coords="259,259,333,285"/>
-<area shape="rect" href="handle__p__x__y_8c.html#a2399c9dc5effc85406670c8d9642e7a4" title="Function that check the existence of a definition for y and x flags." alt="" coords="252,309,340,336"/>
-<area shape="rect" href="handle__n__c__f_8c.html#a76eb3db84f2f0ad7b4626c5a1b36954c" title="Function that check the existence of a definition for c flag." alt="" coords="395,107,470,133"/>
-<area shape="rect" href="handle__n__c__f_8c.html#a245a1e25cf69a65fc501bf14446bf4f8" title="Function that check the existence of a definition for f flag." alt="" coords="397,5,468,32"/>
-<area shape="rect" href="handle__n__c__f_8c.html#aca879087ffd3a4312f78e30f07b2cee4" title="Function that check the existence of a definition for n flag." alt="" coords="395,56,470,83"/>
-<area shape="rect" href="handle__p__x__y_8c.html#a79418f97759aa20d40879e3ba4a5994a" title="Function that check the existence of a definition for x flag." alt="" coords="395,284,470,311"/>
-<area shape="rect" href="handle__p__x__y_8c.html#a50c7ed28337009a370082349f932f011" title="Function that check the existence of a definition for y flag." alt="" coords="395,335,470,361"/>
+<area shape="rect" title=" " alt="" coords="5,309,56,336"/>
+<area shape="rect" href="handle__flags_8c.html#acaff8bafd71f586bed7caf06aa75a881" title="Function that allows to handle the flags." alt="" coords="104,309,199,336"/>
+<area shape="rect" href="handle__flags_8c.html#ae479a228b79cb67b27e6aef416cf0222" title="Function that check the existence of a definition for a flag." alt="" coords="402,157,481,184"/>
+<area shape="rect" href="handle__flags_8c.html#af6e2239bd86c9c8533070687ab8cfbf4" title="Function that displays the help text." alt="" coords="249,360,343,387"/>
+<area shape="rect" href="get__instance_8c.html#a1703d587886f74328ade68d9dccf9b03" title="Function that return the game instance." alt="" coords="537,157,672,184"/>
+<area shape="rect" href="handle__flags_8c.html#acada87356104b9813fbfc74ed5995783" title=" " alt="" coords="257,411,335,437"/>
+<area shape="rect" href="handle__n__c__f_8c.html#a97a29becec246ae5c23cd0deea9f4c5f" title="Function that check the existence of a definition for n, c and f flags." alt="" coords="247,107,345,133"/>
+<area shape="rect" href="handle__p__x__y_8c.html#ab7e5995bec06a2f22583c2fbbad81bda" title="Function that handles the port." alt="" coords="259,461,333,488"/>
+<area shape="rect" href="handle__p__x__y_8c.html#a2399c9dc5effc85406670c8d9642e7a4" title="Function that check the existence of a definition for y and x flags." alt="" coords="252,245,340,272"/>
+<area shape="rect" href="handle__n__c__f_8c.html#a76eb3db84f2f0ad7b4626c5a1b36954c" title="Function that check the existence of a definition for c flag." alt="" coords="404,56,479,83"/>
+<area shape="rect" href="handle__n__c__f_8c.html#a245a1e25cf69a65fc501bf14446bf4f8" title="Function that check the existence of a definition for f flag." alt="" coords="406,107,477,133"/>
+<area shape="rect" href="handle__n__c__f_8c.html#aca879087ffd3a4312f78e30f07b2cee4" title="Function that check the existence of a definition for n flag." alt="" coords="404,5,479,32"/>
+<area shape="rect" href="get__instance_8c.html#a98ba833762de1933d74b19d1f5f756c0" title="Function that return the server instance." alt="" coords="393,461,489,488"/>
+<area shape="rect" href="handle__p__x__y_8c.html#a79418f97759aa20d40879e3ba4a5994a" title="Function that check the existence of a definition for x flag." alt="" coords="404,208,479,235"/>
+<area shape="rect" href="handle__p__x__y_8c.html#a50c7ed28337009a370082349f932f011" title="Function that check the existence of a definition for y flag." alt="" coords="404,259,479,285"/>
 </map>
 </div>
 

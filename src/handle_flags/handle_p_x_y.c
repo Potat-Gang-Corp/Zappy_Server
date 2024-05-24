@@ -33,7 +33,7 @@ void handle_x(char *av)
     game_t *game = get_game_instance();
 
     if (x <= 0) {
-        printf("Error: width should be greater than 0\n");
+        fprintf(stderr, "Error: width should be greater than 0\n");
         exit(84);
     }
     game->width = x;
@@ -46,7 +46,7 @@ void handle_y(char *av)
     game_t *game = get_game_instance();
 
     if (y <= 0) {
-        printf("Error: height should be greater than 0\n");
+        fprintf(stderr, "Error: height should be greater than 0\n");
         exit(84);
     }
     game->height = y;

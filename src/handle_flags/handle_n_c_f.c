@@ -19,8 +19,10 @@ void handle_n(int ac, int *i, char **av, int *fp)
 
     game->nb_teams = 0;
     (*fp) |= 1 << 3;
-    while (*i + 1 < ac && av[*i + 1][0] != '-')
+    while (*i + 1 < ac && av[*i + 1][0] != '-') {
+        (*i)++;
         game->nb_teams++;
+    }
     game->teams = malloc(sizeof(team_t) * (game->nb_teams + 1));
     for (k = 0; k < game->nb_teams; k++) {
         game->teams[k] = malloc(sizeof(team_t));
@@ -37,13 +39,13 @@ void handle_c(char *av, int *fp)
     (*fp) |= 1 << 4;
     for (i = 0; av[i]; i++) {
         if (av[i] < '0' || av[i] > '9') {
-            printf("Error: flag -c has no definition\n");
+            fprintf(stderr, "Error: flag -c has no definition\n");
             exit(84);
         }
     }
     nb = atoi(av);
     if (nb <= 0) {
-        printf("Error: clients per team should be greater than 0\n");
+        fprintf(stderr, "Error: clients per team should be greater than 0\n");
         exit(84);
     }
     for (int i = 0; i < game->nb_teams; i++)
@@ -58,13 +60,13 @@ void handle_f(char *av, int *fp)
     (*fp) |= 1 << 5;
     for (int i = 0; av[i]; i++) {
         if (av[i] < '0' || av[i] > '9') {
-            printf("Error: flag -f has no definition\n");
+            fprintf(stderr, "Error: flag -f has no definition\n");
             exit(84);
         }
     }
     nb = atoi(av);
     if (nb < 0) {
-        printf("Error: frequency should be greater than 0\n");
+        fprintf(stderr, "Error: frequency should be greater than 0\n");
         exit(84);
     }
     game->freq = nb;

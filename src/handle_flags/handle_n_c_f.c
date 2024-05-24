@@ -41,7 +41,7 @@ int handle_c(char *av, int *fp)
     (*fp) |= 1 << 4;
     for (i = 0; av[i]; i++) {
         if (av[i] < '0' || av[i] > '9') {
-            fprintf(stderr, "Error: flag -c has no definition\n");
+            fprintf(stderr, "Error: flag -c must be a number\n");
             return 84;
         }
     }
@@ -63,7 +63,7 @@ int handle_f(char *av, int *fp)
     (*fp) |= 1 << 5;
     for (int i = 0; av[i]; i++) {
         if (av[i] < '0' || av[i] > '9') {
-            fprintf(stderr, "Error: flag -f has no definition\n");
+            fprintf(stderr, "Error: flag -f must be a number\n");
             return 84;
         }
     }
@@ -80,20 +80,17 @@ int handle_n_c_f(int ac, int *i, char **av, int *fp)
 {
     if (strcmp(av[(*i)], "-n") == 0) {
         check_av((*i), ac, av);
-        handle_n(ac, i, av, fp);
-        if ((*i) + 1 >= ac)
+        if (handle_n(ac, i, av, fp) || (*i) + 1 >= ac)
             return 84;
     }
     if (strcmp(av[(*i)], "-c") == 0) {
         check_av((*i), ac, av);
-        handle_c(av[(*i) + 1], fp);
-        if ((*i) + 1 >= ac)
+        if ((*i) + 1 >= ac || handle_c(av[(*i) + 1], fp))
             return 84;
     }
     if (strcmp(av[(*i)], "-f") == 0) {
         check_av((*i), ac, av);
-        handle_f(av[(*i) + 1], fp);
-        if ((*i) + 1 >= ac)
+        if ((*i) + 1 >= ac || handle_f(av[(*i) + 1], fp))
             return 84;
     }
     return 0;

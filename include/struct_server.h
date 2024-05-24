@@ -45,7 +45,6 @@ typedef struct command_s {
 * @struct server_t
 * @brief struct that holds the server parameters
 */
-
 typedef struct server_s {
     int maxfd;
     int socket;

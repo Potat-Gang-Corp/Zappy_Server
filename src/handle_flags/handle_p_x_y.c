@@ -20,7 +20,7 @@ int handle_p(char *av)
 
     for (int i = 0; av[i]; i++)
         if (av[i] < '0' || av[i] > '9') {
-            fprintf(stderr, "Error: flag -p has no definition\n");
+            fprintf(stderr, "Error: flag -p must be a number\n");
             return 84;
         }
     port = atoi(av);
@@ -36,7 +36,13 @@ int handle_x(char *av)
 {
     int x = atoi(av);
     game_t *game = get_game_instance();
+    int k;
 
+    for (k = 0; av[k]; k++)
+        if (av[k] < '0' || av[k] > '9') {
+            fprintf(stderr, "Error: flag -x must be a number\n");
+            return 84;
+        }
     if (x <= 0) {
         fprintf(stderr, "Error: width should be greater than 0\n");
         return 84;
@@ -49,7 +55,13 @@ int handle_y(char *av)
 {
     int y = atoi(av);
     game_t *game = get_game_instance();
+    int k;
 
+    for (k = 0; av[k]; k++)
+        if (av[k] < '0' || av[k] > '9') {
+            fprintf(stderr, "Error: flag -y has no definition\n");
+            return 84;
+        }
     if (y <= 0) {
         fprintf(stderr, "Error: height should be greater than 0\n");
         return 84;

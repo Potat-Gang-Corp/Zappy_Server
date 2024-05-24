@@ -49,7 +49,7 @@ tests_run: $(TESTNAME)
 	@echo "Coverage report generated in coverage.html"
 
 run_ftests:
-	@./tests/functional-tests/test.sh
+	@./tests/functional-tests/tests.sh
 
 clean:
 	@$(ECHO) "$(RED)Cleaning objects and temporary files ...$(RESET)"

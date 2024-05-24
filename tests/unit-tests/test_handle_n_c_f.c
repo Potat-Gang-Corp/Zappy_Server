@@ -16,46 +16,29 @@
 #include <sys/wait.h>
 #include "../../include/handle_flags.h"
 
-void handle_c_wrapper(char *av, int *fp) {
-    if (fork() == 0) {
-        handle_c(av, fp);
-        exit(0);
-    } else {
-        int status;
-        wait(&status);
-        if (WIFEXITED(status)) {
-            int exit_status = WEXITSTATUS(status);
-            cr_assert_eq(exit_status, 84, "Expected exit status 84, but got %d", exit_status);
-        } else {
-            cr_assert_fail("handle_c did not exit normally");
-        }
-    }
-}
-
-Test(handle_c, test_exit_84_invalid_flag) {
+Test(handle_n, test_handle_c_function) {
     int fp = 0;
-    char *buffer = "abc";
-    cr_redirect_stderr();
+    char *null_array
+}
 
-    handle_c_wrapper(buffer, &fp);
-
-    cr_assert_stderr_eq_str("Error: flag -c has no definition\n");
+Test(handle_c, test_handle_c_function) {
+    int fp = 0;
+    char *invalid_buffer = "abc";
+    char *negative_value = "-1";
+    char *valid_value = "1";
+    cr_assert_eq(handle_c(invalid_buffer, &fp), 84, "Expected exit code 84 for char value");
+    cr_assert_eq(handle_c(negative_value, &fp), 84, "Expected exit code 84 for negative value");
+    cr_assert_eq(handle_c(valid_value, &fp), 0, "Expected exit code 0 for positive value");
 }
 
 
- Test(handle_c, test_exit_84_invalid_number) {
-     char *argv = "-1";
-     int fp = 0;
-    cr_redirect_stderr();
+Test(handle_f, test_handle_f_function) {
+    int fp = 0;
+    char *invalid_buffer = "abc";
+    char *negative_value = "-1";
+    char *valid_value = "1";
+    cr_assert_eq(handle_f(invalid_buffer, &fp), 84, "Expected exit code 84 for char value");
+    cr_assert_eq(handle_f(negative_value, &fp), 84, "Expected exit code 84 for negative value");
+    cr_assert_eq(handle_f(valid_value, &fp), 0, "Expected exit code 0 for positive value");
+}
 
-    handle_c_wrapper(argv, &fp);
-
-    cr_assert_stderr_eq_str("Error: flag -c has no definition\n");
- }
-
- //Test(handle_c, test_valid_input) {
- //    char *argv = "3";
- //    int fp = 0;
- //    cr_redirect_stderr();
- //    cr_assert_exit(handle_c(argv, &fp), 0, "Expected exit code 0 for valid input");
- //}

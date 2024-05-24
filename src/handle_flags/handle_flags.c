@@ -13,7 +13,7 @@
 * @file handle_flags.c
 * @brief functions to handle the flags, hub and error handling part
 */
-void display_help(void)
+int display_help(void)
 {
     printf("USAGE: ./zappy_server -p port -x width -y height -n name1"
     " name2 ... -c clientsNb -f freq\n");
@@ -23,22 +23,23 @@ void display_help(void)
     printf("\t-n name1 name2 ... name of the team\n");
     printf("\t-c clientsNb number of authorized clients per team\n");
     printf("\t-f freq reciprocal of time unit for execution of actions\n");
-    exit(0);
+    return 84;
 }
 
-void check_av(int i, int ac, char **av)
+int check_av(int i, int ac, char **av)
 {
     if (i + 1 >= ac) {
         fprintf(stderr, "Error: flag %s has no definition\n", av[i]);
-        exit(84);
+        return 84;
     }
     if (av[i + 1][0] == '-') {
         fprintf(stderr, "Error: flag %s has no definition\n", av[i]);
-        exit(84);
+        return 84;
     }
+    return 0;
 }
 
-void handle_fp(int flags_present)
+int handle_fp(int flags_present)
 {
     int required_flags = 0x1F;
 
@@ -54,8 +55,25 @@ void handle_fp(int flags_present)
             fprintf(stderr, "-n flag is missing\n");
         if (!(flags_present & (1 << 4)))
             fprintf(stderr, "-c flag is missing\n");
-        exit(84);
+        return 84;
     }
+    return 0;
+}
+
+int handle_flags_bis(int ac, char **av, int i, int *flags_present)
+{
+    if (strcmp(av[i], "-p") == 0) {
+        check_av(i, ac, av);
+        if (handle_p(av[i + 1]) == 84)
+            return 84;
+        (*flags_present) |= 1 << 0;
+        return 0;
+    }
+    if (handle_x_y(ac, &i, av, flags_present) == 84)
+        return 84;
+    if (handle_n_c_f(ac, &i, av, flags_present) == 84)
+        return 84;
+    return 0;
 }
 
 int handle_flags(int ac, char **av)
@@ -67,16 +85,11 @@ int handle_flags(int ac, char **av)
     if (ac == 2 && (strcmp(av[1], "-help") == 0 || strcmp(av[1], "-h") == 0))
         display_help();
     for (i = 1; i < ac; i++) {
-        if (strcmp(av[i], "-p") == 0) {
-            check_av(i, ac, av);
-            handle_p(av[i + 1]);
-            flags_present |= 1 << 0;
-            continue;
-        }
-        handle_x_y(ac, &i, av, &flags_present);
-        handle_n_c_f(ac, &i, av, &flags_present);
+        if (handle_flags_bis(ac, av, i, &flags_present) == 84)
+            return 84;
     }
-    handle_fp(flags_present);
+    if (handle_fp(flags_present) == 84)
+        return 84;
     if (flags_present & (1 << 5))
         game->freq = 100;
     return 0;

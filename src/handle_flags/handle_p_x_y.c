@@ -77,16 +77,12 @@ int handle_x_y(int ac, int *i, char **av, int *fp)
         if (handle_x(av[(*i) + 1]) == 84)
             return 84;
         (*fp) |= 1 << 1;
-        if ((*i) + 1 >= ac)
-            return 84;
     }
     if (strcmp(av[(*i)], "-y") == 0) {
         check_av((*i), ac, av);
         if (handle_y(av[(*i) + 1]) == 84)
             return 84;
         (*fp) |= 1 << 2;
-        if ((*i) + 1 >= ac)
-            return 84;
     }
     return 0;
 }

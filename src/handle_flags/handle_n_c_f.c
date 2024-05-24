@@ -80,17 +80,21 @@ int handle_n_c_f(int ac, int *i, char **av, int *fp)
 {
     if (strcmp(av[(*i)], "-n") == 0) {
         check_av((*i), ac, av);
-        if (handle_n(ac, i, av, fp) || (*i) + 1 >= ac)
+        if (handle_n(ac, i, av, fp) == 84 || (*i) + 1 > ac) {
+            fprintf(stderr, "Error: flag -n TEAM1 TEAM2 TEAM3\n");
             return 84;
+        }
     }
     if (strcmp(av[(*i)], "-c") == 0) {
         check_av((*i), ac, av);
-        if ((*i) + 1 >= ac || handle_c(av[(*i) + 1], fp))
+        if (handle_c(av[(*i) + 1], fp) == 84) {
+            fprintf(stderr, "Error: flag -c GRU\n");
             return 84;
+        }
     }
     if (strcmp(av[(*i)], "-f") == 0) {
         check_av((*i), ac, av);
-        if ((*i) + 1 >= ac || handle_f(av[(*i) + 1], fp))
+        if (handle_f(av[(*i) + 1], fp) == 84)
             return 84;
     }
     return 0;

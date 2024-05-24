@@ -69,10 +69,14 @@ int handle_flags_bis(int ac, char **av, int i, int *flags_present)
         (*flags_present) |= 1 << 0;
         return 0;
     }
-    if (handle_x_y(ac, &i, av, flags_present) == 84)
+    if (handle_x_y(ac, &i, av, flags_present) == 84) {
+        fprintf(stderr, "Error: flag -x or -y has no definition\n");
         return 84;
-    if (handle_n_c_f(ac, &i, av, flags_present) == 84)
+    }
+    if (handle_n_c_f(ac, &i, av, flags_present) == 84) {
+        fprintf(stderr, "Error: flag -n, -c or -f has no definition\n");
         return 84;
+    }
     return 0;
 }
 
@@ -88,8 +92,10 @@ int handle_flags(int ac, char **av)
         if (handle_flags_bis(ac, av, i, &flags_present) == 84)
             return 84;
     }
-    if (handle_fp(flags_present) == 84)
+    if (handle_fp(flags_present) == 84) {
+        fprintf(stderr, "Error: missing required flags\n");
         return 84;
+    }
     if (flags_present & (1 << 5))
         game->freq = 100;
     return 0;

@@ -37,7 +37,8 @@ int display_help(void);
  * @param int i
  * @param int flags_present
  *
- * @details will treat the flags acording to the arguments.(it's the second part of handle_flags )
+ * @details will treat the flags acording to the arguments.
+ * (it's the second part of handle_flags )
  * @return return 0 if everything's good or 84 if an error occured.
  */
 int handle_flags_bis(int ac, char **av, int i, int *flags_present);
@@ -46,7 +47,8 @@ int handle_flags_bis(int ac, char **av, int i, int *flags_present);
  * @brief Function that handles the port
  * @param char *av represents the argument
  *
- * @details handle the port, check the validity of the given argument and initialize it in the struct.
+ * @details handle the port, check the validity of the given argument and
+ *  initialize it in the struct.
  * @return it exits because it's a int function it doesn't return anything
  */
 int handle_p(char *av);
@@ -69,8 +71,8 @@ int check_av(int i, int ac, char **av);
 * @brief Function that check the existence of a definition for x flag
 * @param char *av string that contains the argument
 *
-* @details The function gets the width of the world, check the validity of the argument
- and initialize it in the structure.
+* @details The function gets the width of the world, check the validity of the
+ argument and initialize it in the structure.
 * @return void
 */
 int handle_x(char *av);
@@ -78,8 +80,8 @@ int handle_x(char *av);
 * @brief Function that check the existence of a definition for y flag
 * @param char *av string that contains the argument
 *
-* @details The function gets the height of the world, check the validity of the argument
- and initialize it in the structure.
+* @details The function gets the height of the world, check the validity of
+ the argument and initialize it in the structure.
 * @return void
 */
 int handle_y(char *av);
@@ -112,8 +114,8 @@ int handle_n(int ac, int *i, char **av, int *fp);
 * @param char *av string that contains the argument
 * @param int *fp pointer to the flags_present variable
 *
-* @details The function gets the number of clients per team, check the validity of 
- the argument and initialize it in the structure.
+* @details The function gets the number of clients per team, check the
+ validity of the argument and initialize it in the structure.
 * @return int
 */
 int handle_c(char *av, int *fp);

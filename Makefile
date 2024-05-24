@@ -27,7 +27,7 @@ OBJS_NO_MAIN = $(SRCS_NO_MAIN:.c=.o)
 TOBJS = $(TSRCS:.c=.o)
 
 CFLAGS = -I./include -Wall -Wextra -Werror --coverage
-LDFLAGS = --coverage -lcriterion
+LDFLAGS = --coverage -lcriterion -lgcov -fprofile-arcs -ftest-coverage
 GCOVRFLAGS = -r . --exclude 'tests/*'
 
 all: $(NAME)
@@ -62,6 +62,7 @@ clean:
 	$(RM) coverage*
 	$(RM) coding-style-reports.log
 	$(RM) vgcore.*
+	$(RM) docs/
 
 fclean: clean
 	@$(ECHO) "$(RED)Cleaning executable...$(RESET)"

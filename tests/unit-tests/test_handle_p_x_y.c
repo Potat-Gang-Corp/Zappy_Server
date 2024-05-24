@@ -15,7 +15,7 @@ Test(handle_p, test_handle_x_function) {
     char *negative_value = "-1";
     char *valid_value = "8080";
     char *invalid_value = "66666";
-    char *letter_and_digits = "80a80"
+    char *letter_and_digits = "80a80";
     cr_assert_eq(handle_p(invalid_buffer), 84, "Expected exit code 84 for char value : %s", invalid_buffer);
     cr_assert_eq(handle_p(negative_value), 84, "Expected exit code 84 for negative value : %s", negative_value);
     cr_assert_eq(handle_p(valid_value), 0, "Expected exit code 0 for a value greater than 0 and less than 65535 : %s", valid_value);

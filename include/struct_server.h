@@ -19,8 +19,10 @@
 
 /**
  * @struct waiting_client_t
- * @brief define a linked list that puts users in the waiting list. To define a node 
- * we have to register the client socket and the name of the team of the player. 
+ * @brief define a linked list that puts users in the
+ *  waiting list. To define a node
+ *  we have to register the client socket and the name
+ *  of the team of the player.
  */
 typedef struct waiting_client_s {
     int socket;
@@ -30,7 +32,8 @@ typedef struct waiting_client_s {
 
 /**
 * @struct command_t
-* @brief define a linked list that puts in a node each command sent by every user.
+* @brief define a linked list that puts in a node
+*  each command sent by every user.
 */
 typedef struct command_s {
     int cli_id;

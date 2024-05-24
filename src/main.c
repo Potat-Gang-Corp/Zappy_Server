@@ -14,6 +14,9 @@
 */
 int main(int argc, char **argv)
 {
-    handle_flags(argc, argv);
+    if (handle_flags(argc, argv) == 84) {
+        fprintf(stderr, "Error: In the flags cant't launch server\n");
+        return 84;
+    }
     return 0;
 }

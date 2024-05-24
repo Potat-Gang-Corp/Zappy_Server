@@ -18,7 +18,9 @@
 
 Test(handle_n, test_handle_c_function) {
     int fp = 0;
-    char *null_array
+    char *null_array[0] = {};
+    char *valid_array[3] = {"the", "potato", "group"};
+    
 }
 
 Test(handle_c, test_handle_c_function) {

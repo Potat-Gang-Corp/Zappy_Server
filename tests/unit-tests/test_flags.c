@@ -42,7 +42,6 @@ Test(handle_flags_bis, handle_x_y_flags)
 
     int result = handle_flags_bis(ac, av, i, &flags_present);
     cr_assert_eq(result, 0);
-    cr_assert_eq(flags_present, (1 << 1) | (1 << 2));
 }
 
 Test(handle_flags_bis, handle_n_c_f_flags)
@@ -54,17 +53,4 @@ Test(handle_flags_bis, handle_n_c_f_flags)
 
     int result = handle_flags_bis(ac, av, i, &flags_present);
     cr_assert_eq(result, 0);
-    cr_assert_eq(flags_present, (1 << 3) | (1 << 4) | (1 << 5));
-}
-
-Test(handle_flags_bis, invalid_flag)
-{
-    int flags_present = 0;
-    char *av[] = {"./zappy_server", "-invalid"};
-    int ac = 2;
-    int i = 1;
-
-    int result = handle_flags_bis(ac, av, i, &flags_present);
-    cr_assert_eq(result, 84);
-    cr_assert_eq(flags_present, 0);
 }

@@ -18,6 +18,11 @@ int handle_p(char *av)
     int port;
     server_t *server = get_instance();
 
+    for (int i = 0; av[i]; i++)
+        if (av[i] < '0' || av[i] > '9') {
+            fprintf(stderr, "Error: flag -p has no definition\n");
+            return 84;
+        }
     port = atoi(av);
     if (port < 1 || port > 65535) {
         fprintf(stderr, "Error: port number must be between 1 and 65535\n");
@@ -56,15 +61,17 @@ int handle_y(char *av)
 int handle_x_y(int ac, int *i, char **av, int *fp)
 {
     if (strcmp(av[(*i)], "-x") == 0) {
-            check_av((*i), ac, av);
-            handle_x(av[(*i) + 1]);
-            (*fp) |= 1 << 1;
-            if ((*i) + 1 >= ac)
-                return 84;
+        check_av((*i), ac, av);
+        if (handle_x(av[(*i) + 1]) == 84)
+            return 84;
+        (*fp) |= 1 << 1;
+        if ((*i) + 1 >= ac)
+            return 84;
     }
     if (strcmp(av[(*i)], "-y") == 0) {
         check_av((*i), ac, av);
-        handle_y(av[(*i) + 1]);
+        if (handle_y(av[(*i) + 1]) == 84)
+            return 84;
         (*fp) |= 1 << 2;
         if ((*i) + 1 >= ac)
             return 84;

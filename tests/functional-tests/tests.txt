@@ -2,8 +2,7 @@
 NAME="Test main return 0"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=0
 [001-END]
 
@@ -11,8 +10,7 @@ EXPECTED_RETURN_CODE=0
 NAME="Test main return 84 | miss -p flag"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -x 10 -y 10 -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -x 10 -y 10 -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [002-END]
 
@@ -20,8 +18,7 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | -p flag wrong value (number with letters)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080a -x 10 -y 10 -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p 8080a -x 10 -y 10 -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [003-END]
 
@@ -29,16 +26,15 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | -p flag wrong value (letter)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p a -x 10 -y 10 -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p a -x 10 -y 10 -n name1 name2 -c 5 -f 50
+EXPECTED_RETURN_CODE=84
 [004-END]
   
 [005]
 NAME="Test main return 84 | -p flag wrong value (negative)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p -8 -x 10 -y 10 -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p -8 -x 10 -y 10 -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [005-END]
 
@@ -46,8 +42,7 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | miss -x flag"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -y 10 -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p 8080 -y 10 -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [006-END]
 
@@ -55,8 +50,7 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | -x flag wrong value (number with letters)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x 10a -y 10 -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p 8080 -x 10a -y 10 -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [007-END]
 
@@ -64,8 +58,7 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | -x flag wrong value (letter)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x a -y 10 -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p 8080 -x a -y 10 -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [008-END]
 
@@ -73,8 +66,7 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | -x flag wrong value (negative)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x -10 -y 10 -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p 8080 -x -10 -y 10 -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [009-END]
 
@@ -82,8 +74,7 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | miss -y flag"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x 10 -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p 8080 -x 10 -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [010-END]
 
@@ -91,8 +82,7 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | -y flag wrong value (number with letters)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x 10 -y 10a -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p 8080 -x 10 -y 10a -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [011-END]
 
@@ -100,8 +90,7 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | -y flag wrong value (letter)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x 10 -y a -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p 8080 -x 10 -y a -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [012-END]
 
@@ -109,17 +98,15 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | -y flag wrong value (negative)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x 10 -y -10 -n name1 name2 -c 5 -f 50
+TESTS=./zappy_server -p 8080 -x 10 -y -10 -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [013-END]
 
 [014]
-NAME="Test main return 84 | miss -f flag (Not an Error)"
+NAME="Test main return 0 | miss -f flag (Not an Error)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x 10 -y 10 -c 5 -n name1 name2
+TESTS=./zappy_server -p 8080 -x 10 -y 10 -c 5 -n name1 name2
 EXPECTED_RETURN_CODE=0
 [014-END]
 
@@ -127,8 +114,7 @@ EXPECTED_RETURN_CODE=0
 NAME="Test main return 84 | -f flag wrong value (number with letters)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 5 -f 5a0
+TESTS=./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 5 -f 5a0
 EXPECTED_RETURN_CODE=84
 [015-END]
 
@@ -136,8 +122,7 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | -f flag wrong value (letter)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 5 -f a
+TESTS=./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 5 -f a
 EXPECTED_RETURN_CODE=84
 [016-END]
 
@@ -145,15 +130,14 @@ EXPECTED_RETURN_CODE=84
 NAME="Test main return 84 | -f flag wrong value (negative)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 5 -f -50
+TESTS=./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 5 -f -50
 [017]
 
 [018]
 NAME="Test main return 84 | miss -n flag"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
-TESTS=
-  ./zappy_server -p 8080 -x 10 -y 10 -c 5 -f 50
+TESTS=./zappy_server -p 8080 -x 10 -y 10 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [018]
+./tests/functional-tests/tests.txt

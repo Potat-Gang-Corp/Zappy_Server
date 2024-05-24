@@ -35,5 +35,8 @@ jobs:
 
         cd private-repo
         git add Server/
-        git commit -m "[+] Sync Server repository with Final one"
+        git commit -m "[+] Sync Server repository with Final one
+
+        Co-authored-by: Nom de l'Auteur <noah.gibelli@epitech.eu>
+        Co-authored-by: Autre Auteur <emna.boukadida@epitech.eu>"
         git push origin main

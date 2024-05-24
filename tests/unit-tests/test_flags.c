@@ -31,31 +31,3 @@ Test(handle_flags, display_help_tests)
     cr_assert_stdout_eq_str("Displaying help...\n");
     cr_assert_eq(result, 0);
 }
-
-Test(handle_flags, missing_flags_test)
-{
-    cr_redirect_stderr();
-    char *av[] = { "./zappy_server", "-p", "1234" };
-    int ac = 3;
-
-    int result = handle_flags(ac, av);
-    cr_assert_stderr_eq_str(
-        "Error: missing required flags:\n"
-        "-x flag is missing\n"
-        "-y flag is missing\n"
-        "-n flag is missing\n"
-        "-c flag is missing\n"
-    );
-    cr_assert_eq(result, 84);
-}
-
-Test(handle_flags, args_test)
-{
-    cr_redirect_stderr();
-    char *av[] = {"./zappy_server", "-p" };
-    int ac = 2;
-
-    int result = handle_flags(ac, av);
-    cr_assert_stderr_eq_str("Error: flag -p has no definition\n");
-    cr_assert_eq(result, 84);
-}

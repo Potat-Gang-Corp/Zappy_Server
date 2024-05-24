@@ -35,7 +35,7 @@ void display_help(void);
  * @brief Function that handles the port
  * @param char *av represents the argument
  *
- * @details handle the port and initialize it in the struct
+ * @details handle the port, check the validity of the given argument and initialize it in the struct.
  * @return it exits because it's a void function it doesn't return anything
  */
 void handle_p(char *av);
@@ -58,7 +58,8 @@ void check_av(int i, int ac, char **av);
 * @brief Function that check the existence of a definition for x flag
 * @param char *av string that contains the argument
 *
-* @details The function gets the width of the world
+* @details The function gets the width of the world, check the validity of the argument
+ and initialize it in the structure.
 * @return void
 */
 void handle_x(char *av);
@@ -66,7 +67,8 @@ void handle_x(char *av);
 * @brief Function that check the existence of a definition for y flag
 * @param char *av string that contains the argument
 *
-* @details The function gets the height of the world
+* @details The function gets the height of the world, check the validity of the argument
+ and initialize it in the structure.
 * @return void
 */
 void handle_y(char *av);
@@ -99,7 +101,8 @@ void handle_n(int ac, int *i, char **av, int *fp);
 * @param char *av string that contains the argument
 * @param int *fp pointer to the flags_present variable
 *
-* @details The function gets the number of clients per team
+* @details The function gets the number of clients per team, check the validity of 
+ the argument and initialize it in the structure.
 * @return void
 */
 void handle_c(char *av, int *fp);
@@ -108,7 +111,8 @@ void handle_c(char *av, int *fp);
 * @param char *av string that contains the argument
 * @param int *fp pointer to the flags_present variable
 *
-* @details The function gets the frequency
+* @details The function gets the frequency, check the validity of the argument
+ and initialize it in the structure
 * @return void
 */
 void handle_f(char *av, int *fp);

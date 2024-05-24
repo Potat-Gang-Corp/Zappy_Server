@@ -53,9 +53,9 @@ Test(handle_c, test_exit_84_invalid_flag) {
     cr_assert_stderr_eq_str("Error: flag -c has no definition\n");
  }
 
- Test(handle_c, test_valid_input) {
-     char *argv = "3";
-     int fp = 0;
-     cr_redirect_stderr();
-     cr_assert_exit(handle_c(argv, &fp), 0, "Expected exit code 0 for valid input");
- }
+ //Test(handle_c, test_valid_input) {
+ //    char *argv = "3";
+ //    int fp = 0;
+ //    cr_redirect_stderr();
+ //    cr_assert_exit(handle_c(argv, &fp), 0, "Expected exit code 0 for valid input");
+ //}

@@ -12,6 +12,8 @@ void handle_sigint(int sig)
 {
     server_t *server = get_instance();
 
+    (void)sig;
+    //gérer le cas du ctrl + C
     if (server == NULL)
         return;
     close(server->socket);
@@ -25,11 +27,12 @@ int run_server(void)
     if (server == NULL)
         return 84;
     printf("server launched on port %d\n", server->port);
-    signal(SIGINT, handle_sigint);
+    signal(SIGINT, handle_sigint); //permet de gérer le ctrl + C
     while(1) {
-        select_loop(server);
-        accept_new_client(server);
-        handle_clients(server);
+        select_loop(server); //permet de gérer les sockets mais jusqu'à quel point pour notre serv
+        accept_new_client(server); //dépends au début du nbr max de cli par team 
+        //puis ensuite oeuf + gestion waiting list
+        handle_clients(server); //ça endroit ou on va récup cmd à rajouter dans le FIFO
     }
     return 0;
 }

@@ -9,6 +9,7 @@
 #include "../include/struct_map.h"
 #include "struct_server.h"
 #include "get_instance.h"
+#include "server.h"
 
 /**
 * @file main.c
@@ -25,6 +26,10 @@ int main(int argc, char **argv)
     exit(0);
     if (init_server() == 84) {
         fprintf(stderr, "Error: In the server can't launch server\n");
+        return 84;
+    }
+    if (run_server() == 84) {
+        fprintf(stderr, "Error: In the run_server can't launch server\n");
         return 84;
     }
     return 0;

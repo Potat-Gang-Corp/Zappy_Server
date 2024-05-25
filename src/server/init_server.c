@@ -9,7 +9,7 @@
 #include "get_instance.h"
 #include "my.h"
 
-int init_server_launch(void)
+int init_server_launch(void) //tjr bind et listen ? 
 {
     server_t *server = get_instance();
 
@@ -22,9 +22,10 @@ int init_server_launch(void)
         perror("listen");
         return 84;
     }
+    return 0;
 }
 
-int init_struct_addr(void)
+int init_struct_addr(void) //same params ?
 {
     server_t *server = get_instance();
 
@@ -34,7 +35,7 @@ int init_struct_addr(void)
     return 0;
 }
 
-int init_socket(void)
+int init_socket(void) //same flag dans socket ?
 {
     server_t *server = get_instance();
 
@@ -43,12 +44,11 @@ int init_socket(void)
         perror("socket");
         return 84;
     }
+    return 0;
 }
 
 static int init_server_bis(void)
 {
-    server_t *server = get_instance();
-
     if (init_socket() == 84) {
         fprintf(stderr, "Error: socket creation failed\n");
         return 84;
@@ -61,6 +61,7 @@ static int init_server_bis(void)
         fprintf(stderr, "Error: server launch failed\n");
         return 84;
     }
+    return 0;
 }
 
 int init_server(void)
@@ -73,9 +74,9 @@ int init_server(void)
     }
     server->maxfd = 0;
     server->nb_players = 0;
-    server->clients = NULL;
-    TAILQ_INIT(&server->waiting_list);
-    TAILQ_INIT(&server->commands);
+    server->clients = NULL; //gestion clients à un autre endroit ? 
+    TAILQ_INIT(&server->waiting_list); //bien regarder ce que c'est
+    TAILQ_INIT(&server->commands); //bien regarder ce que c'est
     if (init_server_bis() == 84) {
         fprintf(stderr, "Error: server init failed\n");
         return 84;

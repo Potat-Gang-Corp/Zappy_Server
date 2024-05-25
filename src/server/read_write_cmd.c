@@ -38,6 +38,7 @@ int process_cli_cmd(int cli_socket, int index)
     }
     printf("Received command: %s\n", cmd);
     //traiter la commande
+    return 0;
 }
 
 int handle_clients()

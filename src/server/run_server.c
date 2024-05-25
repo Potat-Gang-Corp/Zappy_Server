@@ -7,6 +7,7 @@
 
 #include "../../include/struct_server.h"
 #include "../../include/get_instance.h"
+#include "server.h"
 
 void handle_sigint(int sig)
 {
@@ -29,10 +30,10 @@ int run_server(void)
     printf("server launched on port %d\n", server->port);
     signal(SIGINT, handle_sigint); //permet de gérer le ctrl + C
     while(1) {
-        select_loop(server); //permet de gérer les sockets mais jusqu'à quel point pour notre serv
-        accept_new_client(server); //dépends au début du nbr max de cli par team 
+        select_loop(); //permet de gérer les sockets mais jusqu'à quel point pour notre serv
+        accept_new_client(); //dépends au début du nbr max de cli par team 
         //puis ensuite oeuf + gestion waiting list
-        handle_clients(server); //ça endroit ou on va récup cmd à rajouter dans le FIFO
+        handle_clients(); //ça endroit ou on va récup cmd à rajouter dans le FIFO
     }
     return 0;
 }

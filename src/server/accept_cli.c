@@ -38,4 +38,5 @@ int accept_new_client(void)
         }
         accept_loop(new_socket);
     }
+    return 0;
 }

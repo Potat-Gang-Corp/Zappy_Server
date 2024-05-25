@@ -52,7 +52,7 @@ typedef struct server_s {
     TAILQ_HEAD(, waiting_client_s) waiting_list;
     TAILQ_HEAD(, command_s) commands;
     int port;
-    struct sockaddr_in server;
+    struct sockaddr_in sockaddr;
     fd_set readfs;
     fd_set writefds;
     int nb_players;

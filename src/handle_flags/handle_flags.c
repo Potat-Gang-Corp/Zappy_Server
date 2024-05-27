@@ -96,7 +96,7 @@ int handle_flags(int ac, char **av)
         fprintf(stderr, "Error: missing required flags\n");
         return 84;
     }
-    if (flags_present & (1 << 5))
+    if (!(flags_present & (1 << 5)))
         game->freq = 100;
     return 0;
 }

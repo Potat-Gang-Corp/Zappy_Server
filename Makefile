@@ -44,6 +44,7 @@ $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
 
 tests_run: $(TESTNAME)
 	@$(ECHO) "$(GREEN)Compiling unit tests $(RESET) ..."
+	./$(TESTNAME)
 	@gcovr $(GCOVRFLAGS)
 	@gcovr $(GCOVRFLAGS) --html --html-details -o tests/coverage.html
 	@echo "Coverage report generated in coverage.html"

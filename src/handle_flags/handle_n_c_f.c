@@ -19,6 +19,10 @@ int handle_n(int ac, int *i, char **av, int *fp)
     int k;
 
     game->nb_teams = 0;
+    if (*i + 1 < ac) {
+        if (av[*i + 1][0] == '-')
+            return 84;
+    }
     (*fp) |= 1 << 3;
     while (*i + 1 < ac && av[*i + 1][0] != '-') {
         (*i)++;
@@ -46,10 +50,6 @@ int handle_c(char *av, int *fp)
         }
     }
     nb = atoi(av);
-    if (nb <= 0) {
-        fprintf(stderr, "Error: clients per team should be greater than 0\n");
-        return 84;
-    }
     for (int i = 0; i < game->nb_teams; i++)
         game->teams[i]->max_clients = nb;
     return 0;
@@ -68,23 +68,30 @@ int handle_f(char *av, int *fp)
         }
     }
     nb = atoi(av);
-    if (nb < 0) {
-        fprintf(stderr, "Error: frequency should be greater than 0\n");
-        return 84;
-    }
     game->freq = nb;
+    return 0;
+}
+
+int n_flag_detection(int ac, int *i, char **av, int *fp)
+{
+    game_t *game = get_game_instance();
+    int status = 0;
+
+    if (strcmp(av[(*i)], "-n") == 0) {
+        check_av((*i), ac, av);
+        status = handle_n(ac, i, av, fp);
+        if (game->nb_teams == 0 || (*i) + 1 > ac || status == 84) {
+            fprintf(stderr, "Error: flag -n TEAM1 TEAM2 TEAM3\n");
+            return 84;
+        }
+    }
     return 0;
 }
 
 int handle_n_c_f(int ac, int *i, char **av, int *fp)
 {
-    if (strcmp(av[(*i)], "-n") == 0) {
-        check_av((*i), ac, av);
-        if (handle_n(ac, i, av, fp) == 84 || (*i) + 1 > ac) {
-            fprintf(stderr, "Error: flag -n TEAM1 TEAM2 TEAM3\n");
-            return 84;
-        }
-    }
+    if (n_flag_detection(ac, i, av, fp) == 84)
+        return 84;
     if (strcmp(av[(*i)], "-c") == 0) {
         check_av((*i), ac, av);
         if (handle_c(av[(*i) + 1], fp) == 84) {
@@ -94,8 +101,9 @@ int handle_n_c_f(int ac, int *i, char **av, int *fp)
     }
     if (strcmp(av[(*i)], "-f") == 0) {
         check_av((*i), ac, av);
-        if (handle_f(av[(*i) + 1], fp) == 84)
+        if (handle_f(av[(*i) + 1], fp) == 84) {
             return 84;
+        }
     }
     return 0;
 }

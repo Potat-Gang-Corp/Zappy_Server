@@ -39,14 +39,10 @@ int handle_x(char *av)
     int k;
 
     for (k = 0; av[k]; k++)
-        if (av[k] < '0' || av[k] > '9') {
+        if ((av[k] < '0' || av[k] > '9')) {
             fprintf(stderr, "Error: flag -x must be a number\n");
             return 84;
         }
-    if (x <= 0) {
-        fprintf(stderr, "Error: width should be greater than 0\n");
-        return 84;
-    }
     game->width = x;
     return 0;
 }
@@ -58,14 +54,10 @@ int handle_y(char *av)
     int k;
 
     for (k = 0; av[k]; k++)
-        if (av[k] < '0' || av[k] > '9') {
+        if ((av[k] < '0' || av[k] > '9')) {
             fprintf(stderr, "Error: flag -y has no definition\n");
             return 84;
         }
-    if (y <= 0) {
-        fprintf(stderr, "Error: height should be greater than 0\n");
-        return 84;
-    }
     game->height = y;
     return 0;
 }

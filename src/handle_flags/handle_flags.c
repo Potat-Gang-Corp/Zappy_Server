@@ -86,7 +86,6 @@ int handle_flags(int ac, char **av)
     int i;
     game_t *game = get_game_instance();
 
-    game->freq = 100;
     if (ac == 2 && (strcmp(av[1], "-help") == 0 || strcmp(av[1], "-h") == 0)) {
         display_help();
         return 84;

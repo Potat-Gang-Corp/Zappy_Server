@@ -49,7 +49,7 @@ tests_run: $(TESTNAME)
 	@gcovr $(GCOVRFLAGS) --html --html-details -o tests/coverage.html
 	@echo "Coverage report generated in coverage.html"
 
-run_ftests:
+run_ftests: all
 	@./tests/functional-tests/tests.sh
 
 clean:

@@ -23,7 +23,12 @@ char *read_cli_cmd(int cli_socket)
         return NULL;
     n = read(cli_socket, cmd, 1024);
     if (n < 0 && (errno != EAGAIN || errno != EWOULDBLOCK)) {
+        free(cmd);
         perror("read");
+        return NULL;
+    }
+    if (n == 0) {
+        free(cmd);
         return NULL;
     }
     cmd[n] = '\0';
@@ -93,6 +98,7 @@ int process_cli_cmd(int cli_socket, int index)
         fprintf(stderr, "Error: can't handle command\n");
         return 84;
     }
+    free(cmd);
     return 0;
 }
 

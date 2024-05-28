@@ -7,6 +7,7 @@
 
 #include "../../include/struct_server.h"
 #include "../../include/get_instance.h"
+#include "../../include/server.h"
 
 /**
 * @file accept_cli.c
@@ -134,7 +135,9 @@ static int com_with_cli(int new_socket)
     char buffer[1024];
     int bytes_read;
 
-    if ()
+    if (set_nonblocking(new_socket) == 84) {
+        return 84;
+    }
     write(new_socket, "WELCOME\r\n", strlen("WELCOME\r\n"));
     bytes_read = read(new_socket, buffer, sizeof(buffer));
     if (bytes_read < 0 && (errno != EAGAIN || errno != EWOULDBLOCK))

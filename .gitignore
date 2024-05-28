@@ -65,3 +65,4 @@ zappy_server
 docs/
 
 ./tests/unit_tests/coverage.*
+coding-style-reports.log

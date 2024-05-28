@@ -25,6 +25,7 @@
     #include <sys/select.h>
     #include <sys/types.h>
     #include "struct_map.h"
+    #include <errno.h>
 
 int add_func(int a, int b);
 map_t *initialize_map(int width, int height);

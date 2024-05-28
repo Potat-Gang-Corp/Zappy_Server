@@ -9,15 +9,14 @@
 #include "get_instance.h"
 #include "my.h"
 
-int init_server_launch(void) //tjr bind et listen ? 
+/**
+* @file init_server.c
+* @brief init server
+*/
+static int init_server_listen(void)
 {
     server_t *server = get_instance();
 
-    if (bind(server->socket, (struct sockaddr *)&server->sockaddr,
-        sizeof(server->sockaddr)) < 0) {
-        perror("bind");
-        return 84;
-    }
     if (listen(server->socket, 3) < 0) {
         perror("listen");
         return 84;
@@ -25,7 +24,31 @@ int init_server_launch(void) //tjr bind et listen ?
     return 0;
 }
 
-int init_struct_addr(void) //same params ?
+int init_server_launch(void)
+{
+    server_t *server = get_instance();
+    int flags;
+
+    if (bind(server->socket, (struct sockaddr *)&server->sockaddr,
+        sizeof(server->sockaddr)) < 0) {
+        perror("bind");
+        return 84;
+    }
+    flags = fcntl(server->socket, F_GETFL, 0);
+    if (flags == -1) {
+        return 84;
+    }
+    flags |= O_NONBLOCK;
+    if (fcntl(server->socket, F_SETFL, flags) == -1) {
+        fprintf(stderr, "Error: fcntl failed\n");
+        return 84;
+    }
+    if (init_server_listen() == 84)
+        return 84;
+    return 0;
+}
+
+int init_struct_addr(void)
 {
     server_t *server = get_instance();
 
@@ -35,13 +58,19 @@ int init_struct_addr(void) //same params ?
     return 0;
 }
 
-int init_socket(void) //same flag dans socket ?
+int init_socket(void)
 {
     server_t *server = get_instance();
+    int opt = 1;
 
     server->socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server->socket == -1) {
         perror("socket");
+        return 84;
+    }
+    if (setsockopt(server->socket, SOL_SOCKET,
+        SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
+        perror("Setsockopt failed");
         return 84;
     }
     return 0;
@@ -74,9 +103,9 @@ int init_server(void)
     }
     server->maxfd = 0;
     server->nb_players = 0;
-    server->clients = NULL; //gestion clients à un autre endroit ? 
-    TAILQ_INIT(&server->waiting_list); //bien regarder ce que c'est
-    TAILQ_INIT(&server->commands); //bien regarder ce que c'est
+    server->clients = NULL;
+    TAILQ_INIT(&server->waiting_list);
+    TAILQ_INIT(&server->commands);
     if (init_server_bis() == 84) {
         fprintf(stderr, "Error: server init failed\n");
         return 84;

@@ -30,4 +30,7 @@ char *read_cli_cmd(int cli_socket);
 //select_cli.c
 int select_loop(void);
 
+//non_blocking_conf.c
+int set_nonblocking(int fd) 
+
 #endif /* !SERVER_H_ */

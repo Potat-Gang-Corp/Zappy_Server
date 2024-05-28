@@ -5,15 +5,16 @@
 ** init_server
 */
 
-#include "struct_server.h"
-#include "get_instance.h"
-#include "my.h"
+#include "../../include/struct_server.h"
+#include "../../include/get_instance.h"
+#include "../../include/server.h"
+#include "../../include/my.h"
 
 /**
 * @file init_server.c
 * @brief init server
 */
-static int init_server_listen(void)
+int init_server_listen(void)
 {
     server_t *server = get_instance();
 
@@ -76,7 +77,7 @@ int init_socket(void)
     return 0;
 }
 
-static int init_server_bis(void)
+int init_server_bis(void)
 {
     if (init_socket() == 84) {
         fprintf(stderr, "Error: socket creation failed\n");

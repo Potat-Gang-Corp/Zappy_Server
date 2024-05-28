@@ -7,13 +7,13 @@
 
 #include "../../include/struct_server.h"
 #include "../../include/get_instance.h"
-#include "my.h"
+#include "../../include/my.h"
 
 /**
 * @file read_write_cmd.c
 * @brief read and write command for the server
 */
-static char *read_cli_cmd(int cli_socket)
+char *read_cli_cmd(int cli_socket)
 {
     char *cmd = malloc(sizeof(char) * (1024 + 1));
     char *parse_command;
@@ -31,7 +31,7 @@ static char *read_cli_cmd(int cli_socket)
     return parse_command;
 }
 
-static int add_command_to_list(int cli_id, const char *cmd)
+int add_command_to_list(int cli_id, const char *cmd)
 {
     server_t *server = get_instance();
     command_t *new_command = malloc(sizeof(command_t));
@@ -51,7 +51,7 @@ static int add_command_to_list(int cli_id, const char *cmd)
     return 0;
 }
 
-static int find_socket(int cli_socket, struct client_s *cli, char *cmd)
+int find_socket(int cli_socket, struct client_s *cli, char *cmd)
 {
     if (cli->socket == cli_socket) {
         if (cli->nb_commands < 10) {
@@ -61,9 +61,10 @@ static int find_socket(int cli_socket, struct client_s *cli, char *cmd)
             fprintf(stderr, "Client %d has too many commands\n", cli_socket);
         }
     }
+    return 0;
 }
 
-static int handle_cmd(int cli_socket, char *cmd)
+int handle_cmd(int cli_socket, char *cmd)
 {
     server_t *server = get_instance();
     client_t *cli = NULL;
@@ -78,7 +79,7 @@ static int handle_cmd(int cli_socket, char *cmd)
 int process_cli_cmd(int cli_socket, int index)
 {
     server_t *server = get_instance();
-    client_t *cli = NULL;
+    //client_t *cli = NULL;
     char *cmd = read_cli_cmd(cli_socket);
 
     if (cmd == NULL) {
@@ -95,7 +96,7 @@ int process_cli_cmd(int cli_socket, int index)
     return 0;
 }
 
-static int cond_of_loop(int cli_socket, int index)
+int cond_of_loop(int cli_socket, int index)
 {
     server_t *server = get_instance();
 
@@ -105,6 +106,7 @@ static int cond_of_loop(int cli_socket, int index)
             return 84;
         }
     }
+    return 0;
 }
 
 int handle_clients(void)

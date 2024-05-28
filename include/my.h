@@ -28,6 +28,10 @@
     #include <errno.h>
 
 int add_func(int a, int b);
+void second_init_map(map_t *map, int x, int y, int width);
+void init_map(map_t *map, int width, int height);
 map_t *initialize_map(int width, int height);
+void display(struct map_s *map);
+void display_suite(items_t *item);
 
 #endif /* !MY_H_ */

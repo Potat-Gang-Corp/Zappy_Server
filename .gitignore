@@ -63,3 +63,5 @@ zappy_server
 *.idea/
 
 docs/
+
+./tests/unit_tests/coverage.*

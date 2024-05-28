@@ -129,6 +129,20 @@ int handle_c(char *av, int *fp);
 * @return int
 */
 int handle_f(char *av, int *fp);
+
+/**
+* @brief Function that check the existence of the definition for the n flag
+* @param int ac total number of arguments
+* @param int *i index position of the flag
+* @param char **av array that contains all of the arguments of the command line
+* @param int *fp pointer to the flags_present variable
+*
+* @details The function gets the teams names
+* @return int 0 unless the function found a problem so it return 84
+*/
+
+int n_flag_detection(int ac, int *i, char **av, int *fp);
+
 /**
 * @brief Function that check the existence of a definition for n, c and f flags
 * @param int ac total number of arguments
@@ -140,5 +154,16 @@ int handle_f(char *av, int *fp);
 * @return int unless the function found a problem so it exit 84
 */
 int handle_n_c_f(int ac, int *i, char **av, int *fp);
+
+/**
+* @brief Function that check the existence of a definition for n, c and f flags
+* @param int flags_present reference value of flags present in command line
+*
+* @details The function gets the reference value to detect what are the flags
+* present in the command line.
+* @return value 0 if all of the required flags are presents, else return 84.
+*/
+
+int handle_fp(int flags_present);
 
 #endif /* !HANDLE_FLAGS_H_ */

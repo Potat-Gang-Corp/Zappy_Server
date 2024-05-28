@@ -15,8 +15,8 @@ Test(handle_n, test_handle_n_function) {
     int fp = 0;
     int i = 7;
     game_t *game = get_game_instance();
-    char *valid_array[13] = {"./raytracer", "-p", "8080", "-x", "10", "-y", "10", "-n", "the", "potato", "group", "-c", "10"};
-    char *not_teams_bis[10] = {"./raytracer", "-p", "8080", "-x", "10", "-y", "10", "-n", "-c", "10"};
+    char *valid_array[13] = {"./zappy_server", "-p", "8080", "-x", "10", "-y", "10", "-n", "the", "potato", "group", "-c", "10"};
+    char *not_teams_bis[10] = {"./zappy_server", "-p", "8080", "-x", "10", "-y", "10", "-n", "-c", "10"};
     handle_n(12, &i, valid_array, &fp);
     cr_assert_eq(game->nb_teams, 3, "Expected 3 teams for this valid array but we have %d", game->nb_teams);
     cr_assert_str_eq(game->teams[0]->name, "the", "Expected 'the' team for this valid array but we have %s", game->teams[0]->name);
@@ -62,5 +62,40 @@ Test(handle_n, test_handle_n_function) {
      cr_assert_eq(handle_f(valid_value, &fp), 0, "Expected exit code 0 for positive value : %s", valid_value);
 }
 
+Test(handle_n_c_f, test_handle_n_c_f_function) {
+    char *no_valid_n_def[3] = {"./zappy_server", "-n", "-c"};
+    char *no_valid_c_def[13] = {"./zappy_server", "-p", "8080", "-x", "10", "-y", "a", "-n", "the", "potato", "group", "-c", "a"};
+    char *no_valid_f_def[13] = {"./zappy_server", "-p", "8080", "-x", "10", "-y", "a", "-n", "the", "potato", "group", "-f", "a"};
+    char *valid_def[15] = {"./zappy_server", "-p", "8080", "-x", "10", "-y", "10", "-n", "the", "potato", "group", "-c", "10", "-f", "10"};
+    
+    int i = 11;
+    int fp = 0;
 
+    cr_assert_eq(handle_n_c_f(12, &i, no_valid_c_def, &fp), 84, "Expected exit code 84 because no valid definition for c parameter");
 
+    i = 11;
+    fp = 0;
+
+    cr_assert_eq(handle_n_c_f(12, &i, no_valid_f_def, &fp), 84, "Expected exit code 84 because no valid definition for f parameter");
+
+    i = 1;
+    fp = 0;
+
+    cr_assert_eq(handle_n_c_f(2, &i, no_valid_n_def, &fp), 84, "Expected exit code 84 because no valid definition for n parameter");
+
+    i = 7;
+    fp = 0;
+
+    cr_assert_eq(handle_n_c_f(14, &i, valid_def, &fp), 0, "Expected exit code 0 because valid definition for n parameter");
+
+    i = 11;
+    fp = 0;
+
+    cr_assert_eq(handle_x_y(14, &i, valid_def, &fp), 0, "Expected exit code 0 because valid definition for c parameter");
+
+    i = 13;
+    fp = 0;
+
+    cr_assert_eq(handle_x_y(14, &i, valid_def, &fp), 0, "Expected exit code 0 because valid definition for c parameter");
+
+}

@@ -28,20 +28,10 @@ int init_server_listen(void)
 int init_server_launch(void)
 {
     server_t *server = get_instance();
-    int flags;
 
     if (bind(server->socket, (struct sockaddr *)&server->sockaddr,
         sizeof(server->sockaddr)) < 0) {
         perror("bind");
-        return 84;
-    }
-    flags = fcntl(server->socket, F_GETFL, 0);
-    if (flags == -1) {
-        return 84;
-    }
-    flags |= O_NONBLOCK;
-    if (fcntl(server->socket, F_SETFL, flags) == -1) {
-        fprintf(stderr, "Error: fcntl failed\n");
         return 84;
     }
     if (init_server_listen() == 84)

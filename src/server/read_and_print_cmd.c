@@ -44,7 +44,7 @@ int process_cli_cmd(int cli_socket, int index)
         fprintf(stderr, "Client disconnected\n");
         return 84;
     }
-    printf("Received command: %s\n", cmd);
+    printf("Received command: \"%s\" from Client:%d\n", cmd, cli_socket);
     if (handle_cmd(cli_socket, cmd) == 84) {
         fprintf(stderr, "Error: can't handle command\n");
         return 84;

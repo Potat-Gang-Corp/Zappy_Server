@@ -5,7 +5,7 @@
 #include <arpa/inet.h>
 
 #define SERVER_ADDRESS "127.0.0.1"  // Adresse du serveur
-#define SERVER_PORT 1234  // Port du serveur
+#define SERVER_PORT 8080  // Port du serveur
 #define BUFFER_SIZE 1024  // Taille du tampon pour les messages
 
 void error_handling(const char *message) {
@@ -39,7 +39,7 @@ int main() {
     printf("Connecté au serveur %s sur le port %d\n", SERVER_ADDRESS, SERVER_PORT);
 
     // Envoi de la commande initiale "team1\r\n"
-    char *initial_command = "team1\r\n";
+    char *initial_command = "name1\r\n";
     if (write(sock, initial_command, strlen(initial_command)) == -1) {
         error_handling("write() error");
     }

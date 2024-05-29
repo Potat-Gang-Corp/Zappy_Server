@@ -39,6 +39,9 @@ $(NAME): $(OBJS)
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
+run: all
+	./$(NAME) -p 8080 -x 10 -y 10 -n name1 name2 -c 5 -f 100
+
 $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
 	$(CC) -o $(TESTNAME) $(TOBJS) $(OBJS_NO_MAIN) $(CFLAGS) $(LDFLAGS)
 

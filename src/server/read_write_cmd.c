@@ -55,7 +55,8 @@ int handle_cmd(int cli_socket, char *cmd)
     client_t *cli = NULL;
 
     for (cli = server->clients; cli; cli = cli->next) {
-        if (cli->socket == cli_socket && find_socket(cli_socket, cli, cmd) == 84) {
+        if (cli->socket == cli_socket &&
+        find_socket(cli_socket, cli, cmd) == 84) {
             return 84;
         }
         if (cli->socket == cli_socket) {
@@ -69,13 +70,13 @@ int cond_of_loop(int cli_socket, int index)
 {
     server_t *server = get_instance();
     int val = 0;
+
     if (cli_socket > 0 && FD_ISSET(cli_socket, &server->readfs)) {
         val = process_cli_cmd(cli_socket, index);
         if (val == 84) {
             fprintf(stderr, "Error: can't process command\n");
             return 84;
         } else if (val == -84) {
-
             return 0;
         }
     }

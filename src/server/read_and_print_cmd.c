@@ -40,7 +40,7 @@ char *read_cli_cmd(int cli_socket)
 
 int process_cli_cmd(int cli_socket, int index)
 {
-    printf("Processing client command\n"); 
+    printf("Processing client command\n");
     exit(0);
     server_t *server = get_instance();
     char *cmd = read_cli_cmd(cli_socket);

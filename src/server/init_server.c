@@ -5,15 +5,16 @@
 ** init_server
 */
 
-#include "struct_server.h"
-#include "get_instance.h"
-#include "my.h"
+#include "../../include/struct_server.h"
+#include "../../include/get_instance.h"
+#include "../../include/server.h"
+#include "../../include/my.h"
 
 /**
 * @file init_server.c
 * @brief init server
 */
-static int init_server_listen(void)
+int init_server_listen(void)
 {
     server_t *server = get_instance();
 
@@ -48,16 +49,6 @@ int init_server_launch(void)
     return 0;
 }
 
-int init_struct_addr(void)
-{
-    server_t *server = get_instance();
-
-    server->sockaddr.sin_family = AF_INET;
-    server->sockaddr.sin_addr.s_addr = INADDR_ANY;
-    server->sockaddr.sin_port = htons(server->port);
-    return 0;
-}
-
 int init_socket(void)
 {
     server_t *server = get_instance();
@@ -76,16 +67,17 @@ int init_socket(void)
     return 0;
 }
 
-static int init_server_bis(void)
+int init_server_bis(void)
 {
+    server_t *server = get_instance();
+
     if (init_socket() == 84) {
         fprintf(stderr, "Error: socket creation failed\n");
         return 84;
     }
-    if (init_struct_addr() == 84) {
-        fprintf(stderr, "Error: struct addr failed\n");
-        return 84;
-    }
+    server->sockaddr.sin_family = AF_INET;
+    server->sockaddr.sin_addr.s_addr = INADDR_ANY;
+    server->sockaddr.sin_port = htons(server->port);
     if (init_server_launch() == 84) {
         fprintf(stderr, "Error: server launch failed\n");
         return 84;

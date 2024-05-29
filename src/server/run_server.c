@@ -7,14 +7,14 @@
 
 #include "../../include/struct_server.h"
 #include "../../include/get_instance.h"
-#include "server.h"
+#include "../../include/server.h"
+#include "../../include/my.h"
 
 void handle_sigint(int sig)
 {
     server_t *server = get_instance();
 
     (void)sig;
-    //gérer le cas du ctrl + C
     if (server == NULL)
         return;
     close(server->socket);

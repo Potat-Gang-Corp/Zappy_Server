@@ -31,10 +31,10 @@ int init_server(void);
  * @param void no parameters are required.
  *
  * @details will call all of the necessary functions to create and launch
- * the server.
+ * the server. Such as fill the sockeaddr structure
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int init_server_bis(void);
+ int init_server_bis(void);
 
 /**
  * @brief Function that init the socket of the server
@@ -44,15 +44,6 @@ static int init_server_bis(void);
  * @return return 0 if everything's good or 84 if an error occured.
  */
 int init_socket(void);
-
-/**
- * @brief Function that init the parameters of the server
- * @param void no parameters are required.
- *
- * @details will set the address of the server and the port.
- * @return return 0 if everything's good or 84 if an error occured.
- */
-int init_struct_addr(void);
 
 /**
  * @brief Function that init the launch of the server
@@ -71,7 +62,7 @@ int init_server_launch(void);
  * @details will listen to the server.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int init_server_listen(void);
+ int init_server_listen(void);
 
 //run_server.c
 
@@ -111,7 +102,7 @@ int accept_new_client(void);
  * @details will check the team of the client.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int com_with_cli(int new_socket);
+ int com_with_cli(int new_socket);
 
 /**
  * @brief Function that check if the client is following the right team
@@ -122,7 +113,7 @@ static int com_with_cli(int new_socket);
  * share to the client the game parameters.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int following(char *team_name, int new_socket);
+ int following(char *team_name, int new_socket);
 
 /**
  * @brief Function that check if the session is full
@@ -134,7 +125,7 @@ static int following(char *team_name, int new_socket);
  * or accept the connection and join the game.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int accept_loop(int new_socket, int nb_joueur, int index);
+ int accept_loop(int new_socket, int nb_joueur, int index);
 
 /**
  * @brief Function that add the client to the waiting list
@@ -144,7 +135,7 @@ static int accept_loop(int new_socket, int nb_joueur, int index);
  * @details will add the client to the waiting list.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int add_to_waiting_list(int new_socket, const char *team);
+ int add_to_waiting_list(int new_socket, const char *team);
 
 /**
  * @brief Function that add the client to the main linked list
@@ -155,7 +146,7 @@ static int add_to_waiting_list(int new_socket, const char *team);
  * add to linked list.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int add_to_ll(int new_socket, int index);
+ int add_to_ll(int new_socket, int index);
 
 /**
  * @brief Function that add the client to the linked list
@@ -165,7 +156,7 @@ static int add_to_ll(int new_socket, int index);
  * @details will add the client to the linked list.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int add_to_ll_bis(int new_socket, int index);
+ int add_to_ll_bis(int new_socket, int index);
 
 /**
  * @brief Function that init the linked list of the server
@@ -176,7 +167,10 @@ static int add_to_ll_bis(int new_socket, int index);
  * in the linked list.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int init_ll(int new_socket, int index);
+ int init_ll(int new_socket, int index);
+
+//accept_ll.c
+int init_ll_error_handling(int new_socket);
 
 //read_write_cmd.c
 
@@ -197,7 +191,7 @@ int handle_clients(void);
  * @details will process the client command.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int cond_of_loop(int cli_socket, int index);
+ int cond_of_loop(int cli_socket, int index);
 
 /**
  * @brief Function that process the client command
@@ -207,7 +201,7 @@ static int cond_of_loop(int cli_socket, int index);
  * @details will process the client command.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int handle_cmd(int cli_socket, char *cmd);
+ int handle_cmd(int cli_socket, char *cmd);
 
 /**
  * @brief Function that find the socket of the client
@@ -218,7 +212,7 @@ static int handle_cmd(int cli_socket, char *cmd);
  * @details will find the socket of the client.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int find_socket(int cli_socket, struct client_s *cli, char *cmd);
+ int find_socket(int cli_socket, struct client_s *cli, char *cmd);
 
 /**
  * @brief Function that add the client command to the related linked list
@@ -227,7 +221,7 @@ static int find_socket(int cli_socket, struct client_s *cli, char *cmd);
  * @details will add the client command to the related linked list.
  * @return return the command of the client.
  */
-static int add_command_to_list(int cli_id, const char *cmd);
+ int add_command_to_list(int cli_id, const char *cmd);
 
 /**
  * @brief Function that read and print the client command
@@ -247,7 +241,6 @@ int process_cli_cmd(int cli_socket, int index);
  */
 char *read_cli_cmd(int cli_socket);
 
-//select_cli.c
 
 /**
  * @brief Function that prepare the select protocol
@@ -265,7 +258,7 @@ int select_loop(void);
  * @details will launch the select protocol.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-static int select_function(void);
+int select_function(void);
 
 //non_blocking_conf.c
 

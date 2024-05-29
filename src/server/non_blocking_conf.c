@@ -5,9 +5,10 @@
 ** init_server
 */
 
-#include "struct_server.h"
-#include "get_instance.h"
-#include "my.h"
+#include "../../include/struct_server.h"
+#include "../../include/get_instance.h"
+#include "../../include/server.h"
+#include "../../include/my.h"
 
 int set_nonblocking(int fd)
 {
@@ -20,4 +21,5 @@ int set_nonblocking(int fd)
     if (fcntl(fd, F_SETFL, flags) == -1) {
         return 84;
     }
+    return 0;
 }

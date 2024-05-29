@@ -13,7 +13,7 @@
 * @brief select protocol for the server
 */
 
-static int select_function(void)
+int select_function(void)
 {
     struct server_s *server = get_instance();
 

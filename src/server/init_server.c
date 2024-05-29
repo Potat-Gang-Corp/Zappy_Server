@@ -49,7 +49,7 @@ int init_server_launch(void)
     return 0;
 }
 
-int init_struct_addr(void)
+static int init_struct_addr(void)
 {
     server_t *server = get_instance();
 

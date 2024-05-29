@@ -25,10 +25,13 @@ int accept_new_client(void);
 int com_with_cli(int new_socket);
 int following(char *team_name, int new_socket);
 int accept_loop(int new_socket, int nb_joueur, int index);
+
+//accept_ll.c
 int add_to_waiting_list(int new_socket, const char *team);
 int add_to_ll(int new_socket, int index);
 int add_to_ll_bis(int new_socket, int index);
 int init_ll(int new_socket, int index);
+int init_ll_error_handling(int new_socket);
 
 //read_write_cmd.c
 int handle_clients(void);
@@ -36,8 +39,10 @@ int cond_of_loop(int cli_socket, int index);
 int handle_cmd(int cli_socket, char *cmd);
 int find_socket(int cli_socket, struct client_s *cli, char *cmd);
 int add_command_to_list(int cli_id, const char *cmd);
-int process_cli_cmd(int cli_socket, int index);
+
+//read_and_print_cmd.c
 char *read_cli_cmd(int cli_socket);
+int process_cli_cmd(int cli_socket, int index);
 
 //select_cli.c
 int select_loop(void);

@@ -13,28 +13,6 @@
 * @file read_write_cmd.c
 * @brief read and write command for the server
 */
-char *read_cli_cmd(int cli_socket)
-{
-    char *cmd = malloc(sizeof(char) * (1024 + 1));
-    char *parse_command;
-    int n = 0;
-
-    if (cmd == NULL)
-        return NULL;
-    n = read(cli_socket, cmd, 1024);
-    if (n < 0 && (errno != EAGAIN || errno != EWOULDBLOCK)) {
-        free(cmd);
-        perror("read");
-        return NULL;
-    }
-    if (n == 0) {
-        free(cmd);
-        return NULL;
-    }
-    cmd[n] = '\0';
-    parse_command = strtok(cmd, "\r\n");
-    return parse_command;
-}
 
 int add_command_to_list(int cli_id, const char *cmd)
 {
@@ -78,27 +56,6 @@ int handle_cmd(int cli_socket, char *cmd)
         if (find_socket(cli_socket, cli, cmd) == 84)
             return 84;
     }
-    return 0;
-}
-
-int process_cli_cmd(int cli_socket, int index)
-{
-    server_t *server = get_instance();
-    //client_t *cli = NULL;
-    char *cmd = read_cli_cmd(cli_socket);
-
-    if (cmd == NULL) {
-        close(cli_socket);
-        server->clients[index].socket = 0;
-        fprintf(stderr, "Client disconnected\n");
-        return 84;
-    }
-    printf("Received command: %s\n", cmd);
-    if (handle_cmd(cli_socket, cmd) == 84) {
-        fprintf(stderr, "Error: can't handle command\n");
-        return 84;
-    }
-    free(cmd);
     return 0;
 }
 

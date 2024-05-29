@@ -43,6 +43,7 @@ int find_socket(int cli_socket, struct client_s *cli, char *cmd)
             cli->nb_commands++;
         } else {
             fprintf(stderr, "Client %d has too many commands\n", cli_socket);
+            return 84;
         }
     }
     return 0;
@@ -54,10 +55,14 @@ int handle_cmd(int cli_socket, char *cmd)
     client_t *cli = NULL;
 
     for (cli = server->clients; cli; cli = cli->next) {
-        if (find_socket(cli_socket, cli, cmd) == 84)
+        if (cli->socket == cli_socket && find_socket(cli_socket, cli, cmd) == 84) {
             return 84;
+        }
+        if (cli->socket == cli_socket) {
+            return 0;
+        }
     }
-    return 0;
+    return 84;
 }
 
 int cond_of_loop(int cli_socket, int index)

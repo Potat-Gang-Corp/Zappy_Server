@@ -25,6 +25,7 @@ Test(get_instance, test_get_instance) {
     cr_assert_eq(instance1, instance2, "Expected get_instance() to return the same pointer on multiple calls");
 
     cr_assert_eq(instance1->port, 1234);
+    
 }
 
 Test(get_map_instance, test_get_map_instance) {

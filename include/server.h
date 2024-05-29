@@ -170,6 +170,14 @@ int accept_new_client(void);
  int init_ll(int new_socket, int index);
 
 //accept_ll.c
+/**
+ * @brief Function that handles the error case of the initialisation of the ll
+ * @param int new_socket the socket of the new client.
+ *
+ * @details will return 84 if the server's instance or the game is instance is
+ *  non existant.
+ * @return return 0 if everything's good or 84 if an error occured.
+ */
 int init_ll_error_handling(int new_socket);
 
 //read_write_cmd.c

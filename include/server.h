@@ -179,19 +179,103 @@ static int add_to_ll_bis(int new_socket, int index);
 static int init_ll(int new_socket, int index);
 
 //read_write_cmd.c
+
+/**
+ * @brief Function that handle the clients
+ * @param void no parameters are required.
+ *
+ * @details will handle the clients and their commands.
+ * @return return 0 if everything's good or 84 if an error occured.
+ */
 int handle_clients(void);
+
+/**
+ * @brief Function that process the client command
+ * @param int cli_socket the socket of the client.
+ * @param int index the index of the client.
+ *
+ * @details will process the client command.
+ * @return return 0 if everything's good or 84 if an error occured.
+ */
 static int cond_of_loop(int cli_socket, int index);
+
+/**
+ * @brief Function that process the client command
+ * @param int cli_socket the socket of the client.
+ * @param int index the index of the client.
+ *
+ * @details will process the client command.
+ * @return return 0 if everything's good or 84 if an error occured.
+ */
 static int handle_cmd(int cli_socket, char *cmd);
+
+/**
+ * @brief Function that find the socket of the client
+ * @param int cli_socket the socket of the client.
+ * @param struct client_s *cli the client structure.
+ * @param char *cmd the command of the client.
+ *
+ * @details will find the socket of the client.
+ * @return return 0 if everything's good or 84 if an error occured.
+ */
 static int find_socket(int cli_socket, struct client_s *cli, char *cmd);
+
+/**
+ * @brief Function that add the client command to the related linked list
+ * @param int cli_socket the socket of the client.
+ *
+ * @details will add the client command to the related linked list.
+ * @return return the command of the client.
+ */
 static int add_command_to_list(int cli_id, const char *cmd);
+
+/**
+ * @brief Function that read and print the client command
+ * @param int cli_socket the socket of the client.
+ *
+ * @details will read and print the command.
+ * @return return the command of the client.
+ */
 int process_cli_cmd(int cli_socket, int index);
+
+/**
+ * @brief Function that read the client command
+ * @param int cli_socket the socket of the client.
+ *
+ * @details will read the client command.
+ * @return return the command of the client.
+ */
 char *read_cli_cmd(int cli_socket);
 
 //select_cli.c
+
+/**
+ * @brief Function that prepare the select protocol
+ * @param void no parameters are required.
+ *
+ * @details will clear and set the environment to receive commands.
+ * @return return 0 if everything's good or 84 if an error occured.
+ */
 int select_loop(void);
+
+/**
+ * @brief Function that launch the select protocol
+ * @param void no parameters are required.
+ *
+ * @details will launch the select protocol.
+ * @return return 0 if everything's good or 84 if an error occured.
+ */
 static int select_function(void);
 
 //non_blocking_conf.c
+
+/**
+ * @brief Function that set the socket to non blocking
+ * @param int fd the socket of the client.
+ *
+ * @details will set the socket to non blocking.
+ * @return return 0 if everything's good or 84 if an error occured.
+ */
 int set_nonblocking(int fd);
 
 #endif /* !SERVER_H_ */

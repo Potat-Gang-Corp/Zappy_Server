@@ -48,6 +48,7 @@ int write_msg_to_cli(int new_socket, int player_slots)
         perror("write");
         return 84;
     }
+    return 0;
 }
 
 int following(char *team_name, int new_socket)

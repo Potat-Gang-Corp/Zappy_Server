@@ -8,6 +8,7 @@
 #include "../../include/struct_server.h"
 #include "../../include/get_instance.h"
 #include "../../include/my.h"
+#include "../../include/server.h"
 
 /**
 * @file read_write_cmd.c

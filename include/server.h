@@ -12,7 +12,6 @@
 int init_server(void);
 int init_server_bis(void);
 int init_socket(void);
-int init_struct_addr(void);
 int init_server_launch(void);
 int init_server_listen(void);
 

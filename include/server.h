@@ -8,6 +8,8 @@
 #ifndef SERVER_H_
     #define SERVER_H_
 
+    #include "struct_client.h"
+
 /**
 * @file server.h
 * @brief Contains definitions of the server management functions
@@ -279,4 +281,5 @@ int select_function(void);
  */
 int set_nonblocking(int fd);
 
+int remove_client(int cli_socket);
 #endif /* !SERVER_H_ */

@@ -50,7 +50,7 @@ int init_socket(void)
         return 84;
     }
     if (setsockopt(server->socket, SOL_SOCKET,
-        SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
+        SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)) < 0) {
         perror("Setsockopt failed");
         return 84;
     }

@@ -63,11 +63,15 @@ int handle_cmd(int cli_socket, char *cmd)
 int cond_of_loop(int cli_socket, int index)
 {
     server_t *server = get_instance();
-
+    int val = 0;
     if (cli_socket > 0 && FD_ISSET(cli_socket, &server->readfs)) {
-        if (process_cli_cmd(cli_socket, index) == 84) {
+        val = process_cli_cmd(cli_socket, index);
+        if (val == 84) {
             fprintf(stderr, "Error: can't process command\n");
             return 84;
+        } else if (val == -84) {
+
+            return 0;
         }
     }
     return 0;

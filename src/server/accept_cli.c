@@ -80,7 +80,7 @@ int com_with_cli(int new_socket)
 
     write(new_socket, "WELCOME\r\n", strlen("WELCOME\r\n"));
     bytes_read = read(new_socket, buffer, sizeof(buffer));
-    if (bytes_read < 0 && (errno != EAGAIN || errno != EWOULDBLOCK))
+    if (bytes_read < 0)
         return 84;
     buffer[bytes_read] = '\0';
     if (buffer[0] == '\0')
@@ -97,7 +97,7 @@ int accept_new_client(void)
 
     if (FD_ISSET(server->socket, &server->readfs)) {
         new_socket = accept(server->socket, NULL, NULL);
-        if (new_socket < 0 && errno != EAGAIN && errno != EWOULDBLOCK) {
+        if (new_socket < 0) {
             perror("accept");
             return 84;
         }

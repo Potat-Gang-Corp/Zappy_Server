@@ -10,6 +10,11 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 
+/**
+* @file read_and_print_cmd.c
+* @brief read and write command for the server
+*/
+
 char *read_cli_cmd(int cli_socket)
 {
     char *cmd = malloc(sizeof(char) * (1024 + 1));
@@ -19,7 +24,7 @@ char *read_cli_cmd(int cli_socket)
     if (cmd == NULL)
         return NULL;
     n = read(cli_socket, cmd, 1024);
-    if (n < 0 && (errno != EAGAIN || errno != EWOULDBLOCK)) {
+    if (n < 0) {
         free(cmd);
         perror("read");
         return NULL;
@@ -35,14 +40,17 @@ char *read_cli_cmd(int cli_socket)
 
 int process_cli_cmd(int cli_socket, int index)
 {
+    printf("Processing client command\n"); 
+    exit(0);
     server_t *server = get_instance();
     char *cmd = read_cli_cmd(cli_socket);
 
     if (cmd == NULL) {
         close(cli_socket);
         server->clients[index].socket = 0;
+        remove_client(cli_socket);
         fprintf(stderr, "Client disconnected\n");
-        return 84;
+        return (-84);
     }
     printf("Received command: \"%s\" from Client:%d\n", cmd, cli_socket);
     if (handle_cmd(cli_socket, cmd) == 84) {

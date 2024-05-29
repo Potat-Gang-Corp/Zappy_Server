@@ -12,6 +12,44 @@ jobs:
     steps:
     - name: Checkout Server Repository
       uses: actions/checkout@v3
+      
+    - name: Install jq
+      run: sudo apt-get install -y jq
+
+    - name: Trigger Jenkins Build
+      env:
+        JENKINS_URL: ${{ secrets.JENKINS_URL }}
+        JENKINS_USER: ${{ secrets.JENKINS_USER }}
+        JENKINS_API_TOKEN: ${{ secrets.JENKINS_API_TOKEN }}
+        JENKINS_JOB_NAME: ${{ secrets.JENKINS_JOB_NAME }}
+      run: |
+        build_url="${JENKINS_URL}${JENKINS_JOB_NAME}/build"
+        job_response=$(curl -s -X POST "$build_url" --user ${JENKINS_USER}:${JENKINS_API_TOKEN})
+
+        sleep 10
+
+        last_build_number=$(curl -s "${JENKINS_URL}${JENKINS_JOB_NAME}/lastBuild/buildNumber" --user ${JENKINS_USER}:${JENKINS_API_TOKEN})
+
+        build_status=$(curl -s "${JENKINS_URL}${JENKINS_JOB_NAME}/${last_build_number}/api/json" --user ${JENKINS_USER}:${JENKINS_API_TOKEN} | jq -r '.result')
+
+        while true; do
+          if [ "$build_status" == "SUCCESS" ]; then
+            echo "Build succeeded."
+            exit 0
+          elif [ "$build_status" == "FAILURE" ]; then
+            echo "Build failed."
+            exit 1
+          elif [ "$build_status" == "ABORTED" ]; then
+            echo "Build was aborted."
+            exit 1
+          elif [ "$build_status" == "null" ]; then
+            echo "Build is still running..."
+          else
+            echo "Unknown build status: $build_status"
+            exit 1
+          fi
+          sleep 10
+        done
 
     - name: Sync with Private Repository
       env:

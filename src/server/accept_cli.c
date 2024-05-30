@@ -70,8 +70,10 @@ int following(char *team_name, int new_socket)
         return 84;
     }
     printf("Received command: \"%s\" from Client:%d\n", team_name, new_socket);
-    write_msg_to_cli(new_socket, player_slots);
-    accept_loop(new_socket, player_slots, i);
+    if (write_msg_to_cli(new_socket, player_slots) == 84)
+        return 84;
+    if (accept_loop(new_socket, player_slots, i) == 84)
+        return 84;
     return 0;
 }
 

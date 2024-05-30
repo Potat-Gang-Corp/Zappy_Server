@@ -35,10 +35,11 @@ int select_loop(void)
     FD_SET(server->socket, &server->readfs);
     server->maxfd = server->socket;
     for (cli = server->clients; cli; cli = cli->next) {
-        if (cli->socket > 0) {
-            FD_SET(cli->socket, &server->readfs);
-            FD_SET(cli->socket, &server->writefds);
+        if (cli->socket <= 0) {
+            continue;
         }
+        FD_SET(cli->socket, &server->readfs);
+        FD_SET(cli->socket, &server->writefds);
         if (cli->socket > server->maxfd)
             server->maxfd = cli->socket;
     }

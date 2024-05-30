@@ -65,8 +65,11 @@ int following(char *team_name, int new_socket)
         }
     if (player_slots == -84) {
         write(new_socket, msg, strlen(msg));
+        printf("Client:%d disconnected from the server\n", new_socket);
+        close(new_socket);
         return 84;
     }
+    printf("Received command: \"%s\" from Client:%d\n", team_name, new_socket);
     write_msg_to_cli(new_socket, player_slots);
     accept_loop(new_socket, player_slots, i);
     return 0;
@@ -86,8 +89,7 @@ int com_with_cli(int new_socket)
     if (buffer[0] == '\0')
         return 84;
     team_name = strtok(buffer, "\r\n");
-    following(team_name, new_socket);
-    return 0;
+    return following(team_name, new_socket);
 }
 
 int accept_new_client(void)

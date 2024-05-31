@@ -29,9 +29,12 @@ int run_server(void)
         return 84;
     printf("server launched on port %d\n", server->port);
     signal(SIGINT, handle_sigint);
+
     while (1) {
         select_loop();
-        accept_new_client();
+        if (FD_ISSET(server->socket, &server->readfs)) {
+            accept_new_client();
+        }
         handle_clients();
     }
     return 0;

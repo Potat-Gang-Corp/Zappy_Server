@@ -84,14 +84,15 @@ int cond_of_loop(int cli_socket, int index) {
     return 0;
 }
 
-int handle_clients(void)
+int handle_clients()
 {
-    printf("Handling clients\n");
+    //printf("Handling clients\n");
     server_t *server = get_instance();
-    int cli_socket = 0;
+    //int cli_socket = 0;
     //client_t *cli = NULL;
-    int index = 0;
-    waiting_client_t *wait_cli = NULL;
+    //int index = 0;
+    waiting_client_t *cli = NULL;
+    //int index = 0;
     //int bytes_read = 0;
     //char buffer[BUFFER_SIZE];
     
@@ -104,7 +105,7 @@ int handle_clients(void)
         index++;
     }*/
     
-    TAILQ_FOREACH(wait_cli, &server->waiting_list, entries) {
+    /*TAILQ_FOREACH(wait_cli, &server->waiting_list, entries) {
         cli_socket = wait_cli->socket;
         printf("Waiting client socket: %d, team: %s\n", cli_socket, wait_cli->team);
         
@@ -115,6 +116,13 @@ int handle_clients(void)
             return 84;
         }
         index++;
+    }*/
+
+    TAILQ_FOREACH(cli, &server->waiting_list, entries) {
+        if (cli->socket > 0 && FD_ISSET(cli->socket, &server->readfs)) {
+            // Read data from client
+            read_cli_cmd(cli->socket);
+        }
     }
     return 0;
 }

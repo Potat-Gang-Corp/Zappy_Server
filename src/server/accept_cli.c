@@ -86,6 +86,23 @@ int com_with_cli(int new_socket)
     return 0;
 }
 
+void add_client(int client_socket) {
+    server_t *server = get_instance();
+    waiting_client_t *new_client = malloc(sizeof(waiting_client_t));
+    if (!new_client) {
+        perror("malloc");
+        exit(EXIT_FAILURE);
+    }
+    new_client->socket = client_socket;
+    strcpy(new_client->team, "");
+    TAILQ_INSERT_TAIL(&server->waiting_list, new_client, entries);
+    FD_SET(client_socket, &server->readfs);
+    if (client_socket > server->maxfd) {
+        server->maxfd = client_socket;
+    }
+    printf("Added new client with socket %d\n", client_socket);
+}
+
 int accept_new_client(void)
 {
     server_t *server = get_instance();
@@ -97,10 +114,7 @@ int accept_new_client(void)
             perror("accept");
             return 84;
         }
-        if (com_with_cli(new_socket) == 84) {
-            fprintf(stderr, "Error: can't communicate with client\n");
-            return 84;
-        }
+        add_to_waiting_list(new_socket, "");
     }
     return 0;
 }

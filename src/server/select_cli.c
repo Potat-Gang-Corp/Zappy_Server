@@ -16,36 +16,42 @@
 int select_function(void)
 {
     struct server_s *server = get_instance();
+    struct timeval timeout;
 
+    timeout.tv_sec = 300;
+    timeout.tv_usec = 0;
     if (select(server->maxfd + 1, &server->readfs, &server->writefds,
-        NULL, NULL) < 0 && (errno != EINTR)) {
+        NULL, &timeout) < 0 && (errno != EINTR)) {
         perror("select");
         return 84;
     }
     return 0;
 }
 
+
+
 int select_loop(void)
 {
-    struct server_s *server = get_instance();
-    client_t *cli = NULL;
+    server_t *server = get_instance();
+    waiting_client_t *cli = NULL;
 
-    FD_ZERO(&server->readfs); //socket server + clients
-    FD_ZERO(&server->writefds); //socket client a qui on DOIT ECRIRE
-    //queue en FIFO pour les réponses pour les clients
-    FD_SET(server->socket, &server->readfs);
+    FD_ZERO(&server->readfs);
+    FD_ZERO(&server->writefds);
+    FD_SET(server->socket, &server->readfs);  // Listening socket
     server->maxfd = server->socket;
-    for (cli = server->clients; cli; cli = cli->next) {
-        if (cli->socket <= 0) {
-            continue;
+
+    TAILQ_FOREACH(cli, &server->waiting_list, entries) {
+        if (cli->socket > 0) {
+            FD_SET(cli->socket, &server->readfs);
+            FD_SET(cli->socket, &server->writefds);
+            if (cli->socket > server->maxfd) {
+                server->maxfd = cli->socket;
+            }
         }
-        FD_SET(cli->socket, &server->readfs);
-        FD_SET(cli->socket, &server->writefds);
-        if (cli->socket > server->maxfd)
-            server->maxfd = cli->socket;
     }
+
     if (select_function() == 84) {
-        fprintf(stderr, "Error: In the select can't launch server\n");
+        fprintf(stderr, "Error in select_function()\n");
         return 84;
     }
     return 0;

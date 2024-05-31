@@ -16,7 +16,7 @@
 */
 char *read_cli_cmd(int cli_socket)
 {
-    printf("Reading command from Client:%d\n", cli_socket);
+    
     char *cmd = malloc(sizeof(char) * (1024 + 1));
     char *parse_command;
     int n = 0;
@@ -35,6 +35,7 @@ char *read_cli_cmd(int cli_socket)
     }
     cmd[n] = '\0';
     parse_command = strtok(cmd, "\r\n");
+    printf("Reading command from Client %d: %s\n", cli_socket, parse_command);
     return parse_command;
 }
 

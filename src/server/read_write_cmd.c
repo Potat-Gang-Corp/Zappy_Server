@@ -10,6 +10,9 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 
+#define BUFFER_SIZE 1024
+
+
 /**
 * @file read_write_cmd.c
 * @brief read and write command for the server
@@ -48,25 +51,23 @@ int find_socket(int cli_socket, struct client_s *cli, char *cmd)
     return 0;
 }
 
-int handle_cmd(int cli_socket, char *cmd)
-{
+int handle_cmd(int cli_socket, char *cmd) {
     server_t *server = get_instance();
-    client_t *cli = NULL;
+    waiting_client_t *cli;
+    cmd[0] = '\0';
 
-    for (cli = server->clients; cli; cli = cli->next) {
-        if (cli->socket == cli_socket &&
-        find_socket(cli_socket, cli, cmd) == 84) {
-            return 84;
-        }
+    TAILQ_FOREACH(cli, &server->waiting_list, entries) {
         if (cli->socket == cli_socket) {
+            /*if (find_socket(cli_socket, cli, cmd) == 84) {
+                return 84;
+            }*/
             return 0;
         }
     }
     return 84;
 }
 
-int cond_of_loop(int cli_socket, int index)
-{
+int cond_of_loop(int cli_socket, int index) {
     server_t *server = get_instance();
     int val = 0;
     printf("Client socket: %d\n", cli_socket);
@@ -88,25 +89,32 @@ int handle_clients(void)
     printf("Handling clients\n");
     server_t *server = get_instance();
     int cli_socket = 0;
-    client_t *cli = NULL;
+    //client_t *cli = NULL;
     int index = 0;
     waiting_client_t *wait_cli = NULL;
-
-    for (cli = server->clients; cli; cli = cli->next) {
+    //int bytes_read = 0;
+    //char buffer[BUFFER_SIZE];
+    
+    /*for (cli = server->waiting_list; cli; cli = cli->next) {
         cli_socket = cli->socket;
         if (cond_of_loop(cli_socket, index) == 84) {
             fprintf(stderr, "Error: can't handle clients\n");
             return 84;
         }
         index++;
-    }
+    }*/
+    
     TAILQ_FOREACH(wait_cli, &server->waiting_list, entries) {
         cli_socket = wait_cli->socket;
         printf("Waiting client socket: %d, team: %s\n", cli_socket, wait_cli->team);
+        
+        FD_SET(cli_socket, &server->readfs);
+
         if (cond_of_loop(cli_socket, index) == 84) {
             fprintf(stderr, "Error: can't handle clients\n");
             return 84;
         }
+        index++;
     }
     return 0;
 }

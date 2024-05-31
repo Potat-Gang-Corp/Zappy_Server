@@ -14,9 +14,9 @@
 * @file read_and_print_cmd.c
 * @brief read and write command for the server
 */
-
 char *read_cli_cmd(int cli_socket)
 {
+    printf("Reading command from Client:%d\n", cli_socket);
     char *cmd = malloc(sizeof(char) * (1024 + 1));
     char *parse_command;
     int n = 0;
@@ -40,12 +40,11 @@ char *read_cli_cmd(int cli_socket)
 
 int process_cli_cmd(int cli_socket, int index)
 {
-    server_t *server = get_instance();
+    (void) index;
     char *cmd = read_cli_cmd(cli_socket);
-
+    printf("hola\n");
     if (cmd == NULL) {
         close(cli_socket);
-        server->clients[index].socket = 0;
         remove_client(cli_socket);
         fprintf(stderr, "Client disconnected\n");
         return (-84);

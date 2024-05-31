@@ -14,7 +14,6 @@
 * @file read_write_cmd.c
 * @brief read and write command for the server
 */
-
 int add_command_to_list(int cli_id, const char *cmd)
 {
     server_t *server = get_instance();
@@ -70,8 +69,9 @@ int cond_of_loop(int cli_socket, int index)
 {
     server_t *server = get_instance();
     int val = 0;
-
+    printf("Client socket: %d\n", cli_socket);
     if (cli_socket > 0 && FD_ISSET(cli_socket, &server->readfs)) {
+        printf("kisiera\n");
         val = process_cli_cmd(cli_socket, index);
         if (val == 84) {
             fprintf(stderr, "Error: can't process command\n");
@@ -85,10 +85,12 @@ int cond_of_loop(int cli_socket, int index)
 
 int handle_clients(void)
 {
+    printf("Handling clients\n");
     server_t *server = get_instance();
     int cli_socket = 0;
     client_t *cli = NULL;
     int index = 0;
+    waiting_client_t *wait_cli = NULL;
 
     for (cli = server->clients; cli; cli = cli->next) {
         cli_socket = cli->socket;
@@ -97,6 +99,14 @@ int handle_clients(void)
             return 84;
         }
         index++;
+    }
+    TAILQ_FOREACH(wait_cli, &server->waiting_list, entries) {
+        cli_socket = wait_cli->socket;
+        printf("Waiting client socket: %d, team: %s\n", cli_socket, wait_cli->team);
+        if (cond_of_loop(cli_socket, index) == 84) {
+            fprintf(stderr, "Error: can't handle clients\n");
+            return 84;
+        }
     }
     return 0;
 }

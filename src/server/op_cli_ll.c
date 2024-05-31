@@ -34,5 +34,5 @@ int remove_client(int cli_socket)
         prev = cli;
         cli = cli->next;
     }
-    return 84;
+    return 0;
 }

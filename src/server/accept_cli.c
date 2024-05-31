@@ -57,7 +57,6 @@ int following(char *team_name, int new_socket)
     int i = 0;
     char *msg = "Wrong team name: ko\r\n";
     int player_slots = -84;
-
     for (i = 0; i < game->nb_teams; i++)
         if (strcmp(game->teams[i]->name, team_name) == 0) {
             player_slots = game->teams[i]->max_clients;
@@ -79,19 +78,12 @@ int following(char *team_name, int new_socket)
 
 int com_with_cli(int new_socket)
 {
-    char *team_name;
-    char buffer[1024];
-    int bytes_read;
-
     write(new_socket, "WELCOME\r\n", strlen("WELCOME\r\n"));
-    bytes_read = read(new_socket, buffer, sizeof(buffer));
-    if (bytes_read < 0)
+    if (add_to_waiting_list(new_socket, "") == 84) {
+        fprintf(stderr, "Error: can't add to waiting list\n");
         return 84;
-    buffer[bytes_read] = '\0';
-    if (buffer[0] == '\0')
-        return 84;
-    team_name = strtok(buffer, "\r\n");
-    return following(team_name, new_socket);
+    }
+    return 0;
 }
 
 int accept_new_client(void)

@@ -30,8 +30,9 @@ int select_loop(void)
     struct server_s *server = get_instance();
     client_t *cli = NULL;
 
-    FD_ZERO(&server->readfs);
-    FD_ZERO(&server->writefds);
+    FD_ZERO(&server->readfs); //socket server + clients
+    FD_ZERO(&server->writefds); //socket client a qui on DOIT ECRIRE
+    //queue en FIFO pour les réponses pour les clients
     FD_SET(server->socket, &server->readfs);
     server->maxfd = server->socket;
     for (cli = server->clients; cli; cli = cli->next) {

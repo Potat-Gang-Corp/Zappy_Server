@@ -80,6 +80,15 @@ int handle_flags_bis(int ac, char **av, int i, int *flags_present)
     return 0;
 }
 
+static int put_c_flag(void)
+{
+    game_t *game = get_game_instance();
+
+    for (int i = 0; i < game->nb_teams; i++)
+        game->teams[i]->max_clients = game->player_slots;
+    return 0;
+}
+
 int handle_flags(int ac, char **av)
 {
     int flags_present = 0;
@@ -98,6 +107,7 @@ int handle_flags(int ac, char **av)
         fprintf(stderr, "Error: missing required flags\n");
         return 84;
     }
+    put_c_flag();
     if (!(flags_present & (1 << 5)))
         game->freq = 100;
     return 0;

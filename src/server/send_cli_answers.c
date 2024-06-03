@@ -116,6 +116,7 @@ void load_profile_and_exec(int cli_socket, char *command)
 void execute_cli_commands() {
     server_t *server = get_instance();
     command_t *cmd;
+    client_t *cli = NULL;
     double current_time = current_time_millis();
 
     TAILQ_FOREACH(cmd, &server->commands, entries) {
@@ -127,5 +128,8 @@ void execute_cli_commands() {
         TAILQ_REMOVE(&server->commands, cmd, entries);
         free(cmd->command);
         free(cmd);
+    }
+    for (cli = server->clients; cli != NULL; cli = cli->next) {
+        cli->nb_commands = 0;
     }
 }

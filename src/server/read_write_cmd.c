@@ -14,6 +14,24 @@
 * @file read_write_cmd.c
 * @brief read and write command for the server
 */
+
+int detect_max_command_capacity(int cli_id)
+{
+    server_t *server = get_instance();
+    client_t *cli = NULL;
+
+    for (cli = server->clients; cli != NULL; cli = cli->next) {
+        if (cli->socket == cli_id && cli->nb_commands < 10) {
+            cli->nb_commands++;
+            return 0;
+        }
+        if (cli->socket == cli_id && cli->nb_commands == 10) {
+            return 84;
+        }
+    }
+    return 84;
+}
+
 int add_command_to_list(int cli_id, const char *cmd, double execution_time)
 {
     server_t *server = get_instance();
@@ -21,6 +39,9 @@ int add_command_to_list(int cli_id, const char *cmd, double execution_time)
 
     if (new_command == NULL) {
         perror("malloc");
+        return 84;
+    }
+    if (detect_max_command_capacity(cli_id) == 84) {
         return 84;
     }
     new_command->cli_id = cli_id;

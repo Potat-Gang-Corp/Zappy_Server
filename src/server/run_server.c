@@ -36,6 +36,7 @@ int run_server(void)
             accept_new_client();
         }
         handle_clients();
+        execute_cli_commands();
     }
     return 0;
 }

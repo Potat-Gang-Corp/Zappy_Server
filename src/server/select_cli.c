@@ -18,7 +18,7 @@ int select_function(void)
     struct server_s *server = get_instance();
     struct timeval timeout;
 
-    timeout.tv_sec = 300;
+    timeout.tv_sec = 3;
     timeout.tv_usec = 0;
     if (select(server->maxfd + 1, &server->readfs, &server->writefds,
         NULL, &timeout) < 0 && (errno != EINTR)) {
@@ -33,14 +33,14 @@ int select_function(void)
 int select_loop(void)
 {
     server_t *server = get_instance();
-    waiting_client_t *cli = NULL;
+    client_t *cli = NULL;
 
     FD_ZERO(&server->readfs);
     FD_ZERO(&server->writefds);
-    FD_SET(server->socket, &server->readfs);  // Listening socket
+    FD_SET(server->socket, &server->readfs);
     server->maxfd = server->socket;
 
-    TAILQ_FOREACH(cli, &server->waiting_list, entries) {
+    for (cli = server->clients; cli != NULL; cli = cli->next) {
         if (cli->socket > 0) {
             FD_SET(cli->socket, &server->readfs);
             FD_SET(cli->socket, &server->writefds);

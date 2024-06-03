@@ -16,9 +16,9 @@
 */
 char *read_cli_cmd(int cli_socket)
 {
-    
     char *cmd = malloc(sizeof(char) * (1024 + 1));
     char *parse_command;
+    char *result;
     int n = 0;
 
     if (cmd == NULL)
@@ -36,10 +36,17 @@ char *read_cli_cmd(int cli_socket)
     cmd[n] = '\0';
     parse_command = strtok(cmd, "\r\n");
     printf("Reading command from Client %d: %s\n", cli_socket, parse_command);
-    return parse_command;
+    if (parse_command) {
+        result = strdup(parse_command);
+        free(cmd);
+        return result;
+    } else {
+        free(cmd);
+        return NULL;
+    }
 }
 
-int process_cli_cmd(int cli_socket, int index)
+/*int process_cli_cmd(int cli_socket, int index)
 {
     (void) index;
     char *cmd = read_cli_cmd(cli_socket);
@@ -57,4 +64,4 @@ int process_cli_cmd(int cli_socket, int index)
     }
     free(cmd);
     return 0;
-}
+}*/

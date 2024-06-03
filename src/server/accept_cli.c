@@ -86,21 +86,31 @@ int com_with_cli(int new_socket)
     return 0;
 }
 
-void add_client(int client_socket) {
+int add_client(int client_socket) {
     server_t *server = get_instance();
-    waiting_client_t *new_client = malloc(sizeof(waiting_client_t));
-    if (!new_client) {
+    client_t *new_client = malloc(sizeof(client_t));
+    if (new_client == NULL) {
         perror("malloc");
-        exit(EXIT_FAILURE);
+        close(client_socket);
+        return 84;
     }
     new_client->socket = client_socket;
-    strcpy(new_client->team, "");
-    TAILQ_INSERT_TAIL(&server->waiting_list, new_client, entries);
-    FD_SET(client_socket, &server->readfs);
-    if (client_socket > server->maxfd) {
-        server->maxfd = client_socket;
+    new_client->team = NULL;
+    new_client->status = false;
+    new_client->nb_commands = 0;
+    new_client->next = NULL;
+    if (server->clients == NULL) {
+        server->clients = new_client;
+    } else {
+        client_t *cli = server->clients;
+        while (cli->next != NULL) {
+            cli = cli->next;
+        }
+        cli->next = new_client;
     }
     printf("Added new client with socket %d\n", client_socket);
+    write(new_client->socket, "WELCOME\r\n", strlen("WELCOME\r\n"));
+    return 0;
 }
 
 int accept_new_client(void)
@@ -114,7 +124,7 @@ int accept_new_client(void)
             perror("accept");
             return 84;
         }
-        add_to_waiting_list(new_socket, "");
+        add_client(new_socket);
     }
     return 0;
 }

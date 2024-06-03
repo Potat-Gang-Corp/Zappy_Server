@@ -16,10 +16,11 @@
 int select_function(void)
 {
     struct server_s *server = get_instance();
+    game_t *game = get_game_instance();
     struct timeval timeout;
 
-    timeout.tv_sec = 3;
-    timeout.tv_usec = 0;
+    timeout.tv_sec = 0;
+    timeout.tv_usec = 1000000 / game->freq;
     if (select(server->maxfd + 1, &server->readfs, &server->writefds,
         NULL, &timeout) < 0 && (errno != EINTR)) {
         perror("select");

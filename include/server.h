@@ -231,7 +231,7 @@ int handle_clients(void);
  * @details will add the client command to the related linked list.
  * @return return the command of the client.
  */
- int add_command_to_list(int cli_id, const char *cmd);
+ int add_command_to_list(int cli_id, const char *cmd, double execution_time);
 
 /**
  * @brief Function that read and print the client command

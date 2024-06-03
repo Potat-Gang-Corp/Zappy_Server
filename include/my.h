@@ -28,6 +28,8 @@
     #include <errno.h>
     #include <stdio.h>
     #include <arpa/inet.h>
+    #include <sys/time.h>
+    #include <time.h>
 
 int add_func(int a, int b);
 void second_init_map(map_t *map, int x, int y, int width);
@@ -36,6 +38,11 @@ map_t *initialize_map(int width, int height);
 void display(struct map_s *map);
 void display_suite(items_t *item);
 
+//send_cli_answers.c
 void execute_cli_commands(void);
+
+//timer.c
+double detect_execution_time(char *command);
+double current_time_millis(void);
 
 #endif /* !MY_H_ */

@@ -78,14 +78,37 @@ void handle_client_login(client_t *cli, char *command) {
     }
 }
 
+void execute_game_commands(int cli_socket, char *command)
+{
+    cli_socket = cli_socket;
+    char *buffer = strdup(command);
+    char *command_type = strtok(buffer, " ");
+
+    if (strcmp(command_type, "Forward") == 0) {}
+    if (strcmp(command_type, "Right") == 0) {}
+    if (strcmp(command, "Left") == 0) {}
+    if (strcmp(command, "Look") == 0) {}
+    if (strcmp(command, "Broadcast") == 0) {}
+    if (strcmp(command, "Eject") == 0) {}
+    if (strcmp(command, "Take") == 0) {}
+    if (strcmp(command, "Set") == 0) {}
+    if (strcmp(command, "Inventory") == 0) {}
+    if (strcmp(command, "Fork") == 0) {}
+    if (strcmp(command, "Incantation") == 0) {}
+    if (strcmp(command, "Connect_nbr")) {}
+}
+
 void load_profile_and_exec(int cli_socket, char *command)
 {
     server_t *server = get_instance();
     client_t *cli = NULL;
 
     for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->socket == cli_socket) {
+        if (cli->socket == cli_socket && cli->status == false) {
             handle_client_login(cli, command);
+        }
+        if (cli->socket == cli_socket && cli->status == true) {
+            execute_game_commands(cli_socket, command);
         }
     }
 }
@@ -93,16 +116,16 @@ void load_profile_and_exec(int cli_socket, char *command)
 void execute_cli_commands() {
     server_t *server = get_instance();
     command_t *cmd;
+    double current_time = current_time_millis();
 
     TAILQ_FOREACH(cmd, &server->commands, entries) {
         printf("Client ID: %d, Command: %s\n", cmd->cli_id, cmd->command);
-        load_profile_and_exec(cmd->cli_id, cmd->command);
-    }
-
-    while (!TAILQ_EMPTY(&server->commands)) {
-        command_t *cmd_cli = TAILQ_FIRST(&server->commands);
-        TAILQ_REMOVE(&server->commands, cmd_cli, entries);
-        free(cmd_cli->command);
-        free(cmd_cli);
+        current_time = current_time_millis();
+        if (current_time >= cmd->execution_time) {
+            load_profile_and_exec(cmd->cli_id, cmd->command);
+        }
+        TAILQ_REMOVE(&server->commands, cmd, entries);
+        free(cmd->command);
+        free(cmd);
     }
 }

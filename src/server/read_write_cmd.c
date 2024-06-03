@@ -14,7 +14,7 @@
 * @file read_write_cmd.c
 * @brief read and write command for the server
 */
-int add_command_to_list(int cli_id, const char *cmd)
+int add_command_to_list(int cli_id, const char *cmd, double execution_time)
 {
     server_t *server = get_instance();
     command_t *new_command = malloc(sizeof(command_t));
@@ -30,6 +30,7 @@ int add_command_to_list(int cli_id, const char *cmd)
         free(new_command);
         return 84;
     }
+    new_command->execution_time = execution_time;
     TAILQ_INSERT_TAIL(&server->commands, new_command, entries);
     return 0;
 }
@@ -102,6 +103,9 @@ int handle_clients() {
     client_t *prev = NULL;
     client_t *next = NULL;
     char *buffer;
+    double exec_time;
+    char *command;
+    char *command_type;
 
     while (cli != NULL) {
         next = cli->next;
@@ -115,12 +119,14 @@ int handle_clients() {
             handle_client_disconnection(&prev, &cli, &server->clients);
             continue;
         }
-        add_command_to_list(cli->socket, buffer);
+        command = strdup(buffer);
+        command_type = strtok(command, " ");
+        exec_time = detect_execution_time(command_type);
+        add_command_to_list(cli->socket, buffer, exec_time);
         free(buffer);
         prev = cli;
         cli = next;
     }
-
     return 0;
 }
 

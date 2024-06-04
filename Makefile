@@ -12,9 +12,14 @@ CC = gcc
 RM = rm -rf
 ECHO = /bin/echo -e
 
-GREEN	= \x1b[36m
-RED		= \033[0;31m
-RESET	= \033[0m
+GREEN    = \x1b[32m
+CYAN     = \x1b[36m
+RED      = \x1b[31m
+YELLOW   = \x1b[33m
+BLUE     = \x1b[34m
+MAGENTA  = \x1b[35m
+BOLD     = \x1b[1m
+RESET    = \x1b[0m
 
 SRC_DIR = src
 SRCS = $(shell find $(SRC_DIR) -name '*.c')
@@ -33,30 +38,36 @@ GCOVRFLAGS = -r . --exclude 'tests/*'
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(ECHO) "$(GREEN)Compiling $@$(RESET) ..."
+	@$(ECHO) "$(CYAN)$(BOLD)Linking $(NAME)...$(RESET)"
 	$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
+	@$(ECHO) "$(GREEN)$(BOLD)$(NAME) compiled successfully!$(RESET)"
 
 %.o: %.c
-	$(CC) -c -o $@ $< $(CFLAGS)
+	@$(ECHO) "$(BLUE)$(BOLD)Compiling $<...$(RESET)"
+	$(CC) -c -o $@ $< $(CFLAGS) > /dev/null
 
 run: all
+	@$(ECHO) "$(MAGENTA)$(BOLD)Running $(NAME)...$(RESET)"
 	./$(NAME) -p 8080 -x 10 -y 10 -n name1 name2 -c 5 -f 100
 
 $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
-	$(CC) -o $(TESTNAME) $(TOBJS) $(OBJS_NO_MAIN) $(CFLAGS) $(LDFLAGS)
+	@$(ECHO) "$(CYAN)$(BOLD)Linking $(TESTNAME)...$(RESET)"
+	$(CC) -o $(TESTNAME) $(TOBJS) $(OBJS_NO_MAIN) $(CFLAGS) $(LDFLAGS) //add something to not display on terminal
+	@$(ECHO) "$(GREEN)$(BOLD)$(TESTNAME) compiled successfully!$(RESET)"
 
 tests_run: $(TESTNAME)
-	@$(ECHO) "$(GREEN)Compiling unit tests $(RESET) ..."
+	@$(ECHO) "$(MAGENTA)$(BOLD)Running unit tests...$(RESET)"
 	./$(TESTNAME)
 	@gcovr $(GCOVRFLAGS)
 	@gcovr $(GCOVRFLAGS) --html --html-details -o tests/coverage.html
-	@echo "Coverage report generated in coverage.html"
+	@$(ECHO) "$(YELLOW)Coverage report generated in tests/coverage.html$(RESET)"
 
 run_ftests:
+	@$(ECHO) "$(MAGENTA)$(BOLD)Running functional tests...$(RESET)"
 	@./tests/functional-tests/tests.sh
 
 clean:
-	@$(ECHO) "$(RED)Cleaning objects and temporary files ...$(RESET)"
+	@$(ECHO) "$(RED)$(BOLD)Cleaning objects and temporary files...$(RESET)"
 	$(RM) $(OBJS) $(TOBJS)
 	find src -name '*.gc*' -exec $(RM) {} +
 	$(RM) *.gc* $(TESTNAME) coverage.html
@@ -69,7 +80,7 @@ clean:
 	$(RM) docs/
 
 fclean: clean
-	@$(ECHO) "$(RED)Cleaning executable...$(RESET)"
+	@$(ECHO) "$(RED)$(BOLD)Cleaning executable...$(RESET)"
 	$(RM) $(NAME)
 
 re: fclean all

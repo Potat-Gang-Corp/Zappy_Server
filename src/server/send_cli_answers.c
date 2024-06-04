@@ -38,13 +38,16 @@ void load_profile_and_exec(int cli_socket, char *command)
     }
 }
 
-void execute_cli_commands_bis(double current_time,
+void execute_cli_commands_bis(double start,
     server_t *server, command_t *cmd)
 {
+    double now = current_time_millis();
+    double end = start + cmd->execution_time;
+
     printf("Client ID: %d, Command: %s\n", cmd->cli_id, cmd->command);
-    current_time = current_time_millis();
-    if (current_time >= cmd->execution_time) {
+    while (now < end) {
         load_profile_and_exec(cmd->cli_id, cmd->command);
+        now = current_time_millis();
     }
     TAILQ_REMOVE(&server->commands, cmd, entries);
     free(cmd->command);
@@ -56,10 +59,10 @@ void execute_cli_commands(void)
     server_t *server = get_instance();
     command_t *cmd;
     client_t *cli = NULL;
-    double current_time = current_time_millis();
+    double start = current_time_millis();
 
     TAILQ_FOREACH(cmd, &server->commands, entries) {
-        execute_cli_commands_bis(current_time, server, cmd);
+        execute_cli_commands_bis(start, server, cmd);
     }
     cli = server->clients;
     for (; cli != NULL; cli = cli->next) {

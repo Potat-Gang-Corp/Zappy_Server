@@ -36,9 +36,9 @@ double detect_execution_time(char *command)
 double current_time_millis(void)
 {
     struct timespec ts;
-
+    
     if (clock_gettime(CLOCK_MONOTONIC, &ts) == 0) {
-        return (ts.tv_sec * 1000.0) + (ts.tv_nsec / 1000000.0);
+        return ts.tv_sec + (ts.tv_nsec / 1000000000.0);
     }
     return -1;
 }

@@ -380,7 +380,7 @@ void load_profile_and_exec(int cli_socket, char *command);
  * after delete the command from the linked list.
  * @return return noting.
  */
-void execute_cli_commands_bis(double current_time,
+void execute_cli_commands_bis(double start,
     server_t *server, command_t *cmd);
 
 //timer.c

@@ -45,7 +45,7 @@ void execute_cli_commands_bis(double start,
     double end = start + cmd->execution_time;
 
     printf("Client ID: %d, Command: %s\n", cmd->cli_id, cmd->command);
-    while (now < end) {
+    if (now < end) {
         load_profile_and_exec(cmd->cli_id, cmd->command);
         now = current_time_millis();
     }

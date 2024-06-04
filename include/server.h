@@ -10,6 +10,7 @@
 
     #include "struct_client.h"
     #include "struct_game.h"
+    #include "struct_server.h"
 
 /**
 * @file server.h

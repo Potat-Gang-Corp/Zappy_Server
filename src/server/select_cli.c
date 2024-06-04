@@ -29,7 +29,12 @@ int select_function(void)
     return 0;
 }
 
-
+void insert_new_client(client_t *cli, server_t *server)
+{
+    if (cli->socket > server->maxfd) {
+        server->maxfd = cli->socket;
+    }
+}
 
 int select_loop(void)
 {
@@ -40,19 +45,14 @@ int select_loop(void)
     FD_ZERO(&server->writefds);
     FD_SET(server->socket, &server->readfs);
     server->maxfd = server->socket;
-
     for (cli = server->clients; cli != NULL; cli = cli->next) {
         if (cli->socket > 0) {
             FD_SET(cli->socket, &server->readfs);
             FD_SET(cli->socket, &server->writefds);
-            if (cli->socket > server->maxfd) {
-                server->maxfd = cli->socket;
-            }
+            insert_new_client(cli, server);
         }
     }
-
     if (select_function() == 84) {
-        fprintf(stderr, "Error in select_function()\n");
         return 84;
     }
     return 0;

@@ -41,7 +41,7 @@ int add_command_to_list(int cli_id, const char *cmd, double execution_time)
         perror("malloc");
         return 84;
     }
-    if (detect_max_command_capacity(cli_id) == 84) {
+    if (detect_max_command_capacity(cli_id) == 84 || cmd[0] == '\0') {
         return 84;
     }
     new_command->cli_id = cli_id;
@@ -56,56 +56,9 @@ int add_command_to_list(int cli_id, const char *cmd, double execution_time)
     return 0;
 }
 
-/*
-
-int find_socket(int cli_socket, struct client_s *cli, char *cmd)
+void handle_client_disconnection(client_t **prev,
+    client_t **cli, client_t **head)
 {
-    if (cli->socket == cli_socket) {
-        if (cli->nb_commands < 10) {
-            add_command_to_list(cli->socket, cmd);
-            cli->nb_commands++;
-        } else {
-            fprintf(stderr, "Client %d has too many commands\n", cli_socket);
-            return 84;
-        }
-    }
-    return 0;
-}
-
-int handle_cmd(int cli_socket, char *cmd) {
-    server_t *server = get_instance();
-    waiting_client_t *cli;
-    cmd[0] = '\0';
-
-    TAILQ_FOREACH(cli, &server->waiting_list, entries) {
-        if (cli->socket == cli_socket) {
-            //if (find_socket(cli_socket, cli, cmd) == 84) {
-              //  return 84;
-            //}
-            return 0;
-        }
-    }
-    return 84;
-}
-
-int cond_of_loop(int cli_socket, int index) {
-    server_t *server = get_instance();
-    int val = 0;
-    printf("Client socket: %d\n", cli_socket);
-    if (cli_socket > 0 && FD_ISSET(cli_socket, &server->readfs)) {
-        printf("kisiera\n");
-        val = process_cli_cmd(cli_socket, index);
-        if (val == 84) {
-            fprintf(stderr, "Error: can't process command\n");
-            return 84;
-        } else if (val == -84) {
-            return 0;
-        }
-    }
-    return 0;
-}*/
-
-void handle_client_disconnection(client_t **prev, client_t **cli, client_t **head) {
     client_t *next = (*cli)->next;
 
     if (*prev == NULL) {
@@ -118,15 +71,31 @@ void handle_client_disconnection(client_t **prev, client_t **cli, client_t **hea
     *cli = next;
 }
 
-int handle_clients() {
+void read_buffer_to_list(client_t *cli, client_t **prev, server_t *server)
+{
+    double exec_time;
+    char *buffer;
+    char *command;
+    char *command_type;
+
+    buffer = read_cli_cmd(cli->socket);
+    if (buffer == NULL) {
+        handle_client_disconnection(prev, &cli, &server->clients);
+        return;
+    }
+    command = strdup(buffer);
+    command_type = strtok(command, " ");
+    exec_time = detect_execution_time(command_type);
+    add_command_to_list(cli->socket, buffer, exec_time);
+    free(buffer);
+}
+
+int handle_clients(void)
+{
     server_t *server = get_instance();
     client_t *cli = server->clients;
     client_t *prev = NULL;
     client_t *next = NULL;
-    char *buffer;
-    double exec_time;
-    char *command;
-    char *command_type;
 
     while (cli != NULL) {
         next = cli->next;
@@ -135,19 +104,11 @@ int handle_clients() {
             cli = next;
             continue;
         }
-        buffer = read_cli_cmd(cli->socket);
-        if (buffer == NULL) {
-            handle_client_disconnection(&prev, &cli, &server->clients);
-            continue;
+        read_buffer_to_list(cli, &prev, server);
+        if (cli != next) {
+            prev = cli;
         }
-        command = strdup(buffer);
-        command_type = strtok(command, " ");
-        exec_time = detect_execution_time(command_type);
-        add_command_to_list(cli->socket, buffer, exec_time);
-        free(buffer);
-        prev = cli;
         cli = next;
     }
     return 0;
 }
-

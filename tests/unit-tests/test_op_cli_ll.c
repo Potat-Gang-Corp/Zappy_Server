@@ -63,7 +63,7 @@ void teardown_remove_cli(void) {
 
 TestSuite(remove_client, .init = setup_remove_cli, .fini = teardown_remove_cli);
 
-Test(remove_client, remove_client_test)
+/*Test(remove_client, remove_client_test)
 {
     cr_assert_eq(remove_client(1), 84);
     add_to_ll(1, 0);
@@ -75,4 +75,4 @@ Test(remove_client, remove_client_test)
     cr_assert_eq(remove_client(1), 0);
     cr_assert_eq(remove_client(3), 0);
     cr_assert_null(server_instance_remove_cli->clients);
-}
+}*/

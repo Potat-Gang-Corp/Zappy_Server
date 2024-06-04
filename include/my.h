@@ -38,11 +38,4 @@ map_t *initialize_map(int width, int height);
 void display(struct map_s *map);
 void display_suite(items_t *item);
 
-//send_cli_answers.c
-void execute_cli_commands(void);
-
-//timer.c
-double detect_execution_time(char *command);
-double current_time_millis(void);
-
 #endif /* !MY_H_ */

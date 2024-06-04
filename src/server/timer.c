@@ -13,7 +13,7 @@
 double detect_execution_time(char *command)
 {
     game_t *game = get_game_instance();
-    double result = 1000000;
+    double result = 1000000.0;
 
     if (strcmp(command, "Forward") == 0 || strcmp(command, "Right") == 0 ||
         strcmp(command, "Left") == 0 || strcmp(command, "Look") == 0 ||
@@ -30,13 +30,13 @@ double detect_execution_time(char *command)
     if (strcmp(command, "Incantation") == 0) {
         return 300.0 / game->freq;
     }
-
     return result;
 }
 
-
-double current_time_millis() {
+double current_time_millis(void)
+{
     struct timespec ts;
+
     if (clock_gettime(CLOCK_MONOTONIC, &ts) == 0) {
         return (ts.tv_sec * 1000.0) + (ts.tv_nsec / 1000000.0);
     }

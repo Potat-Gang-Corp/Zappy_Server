@@ -29,7 +29,6 @@ int run_server(void)
         return 84;
     printf("server launched on port %d\n", server->port);
     signal(SIGINT, handle_sigint);
-
     while (1) {
         select_loop();
         if (FD_ISSET(server->socket, &server->readfs)) {

@@ -14,23 +14,6 @@
 * @brief accept protocol for the server
 */
 
-int accept_loop(int new_socket, int nb_joueur, int index)
-{
-    game_t *game = get_game_instance();
-
-    if (!(nb_joueur >= 1 || game->teams[index]->cpt_egg > 0)) {
-        if (add_to_waiting_list(new_socket, game->teams[index]->name) == 84) {
-            fprintf(stderr, "Error: can't add to waiting list\n");
-            return 84;
-        }
-    } else {
-        if (add_to_ll(new_socket, index) == 84) {
-            fprintf(stderr, "Error: can't add to linked list\n");
-            return 84;
-        }
-    }
-    return 0;
-}
 
 void define_client_parameters(client_t *new_client, int client_socket)
 {

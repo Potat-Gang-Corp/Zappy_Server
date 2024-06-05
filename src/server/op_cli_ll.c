@@ -28,6 +28,7 @@ int remove_client(int cli_socket)
             } else {
                 prev->next = cli->next;
             }
+            close(cli->socket);
             free(cli);
             return 0;
         }

@@ -31,11 +31,10 @@ int run_server(void)
     signal(SIGINT, handle_sigint);
     while (1) {
         select_loop();
-        if (FD_ISSET(server->socket, &server->readfs)) {
+        if (FD_ISSET(server->socket, &server->readfs))
             accept_new_client();
-        }
         handle_clients();
-        execute_cli_commands();
+        execute_cli_cmd();
     }
     return 0;
 }

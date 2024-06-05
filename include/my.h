@@ -30,7 +30,6 @@
     #include <arpa/inet.h>
     #include <sys/time.h>
     #include <time.h>
-    #include <bits/time.h>
     #include <linux/time.h>
 
 int add_func(int a, int b);

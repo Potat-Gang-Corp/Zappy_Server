@@ -237,7 +237,7 @@ void handle_client_disconnection(client_t **prev,
  * and add it to the linked list.
  * @return return nothing.
  */
-void read_buffer_to_list(client_t *cli, client_t **prev, server_t *server);
+void read_buffer_to_list(client_t *cli);
 
 /**
  * @brief Function that detect the max command capacity of the client
@@ -294,7 +294,7 @@ int remove_client(int cli_socket);
  * and if the team is full or not.
  * @return return noting.
  */
-void handle_client_login(client_t *cli, char *command);
+void handle_cli_login(client_t *cli, char *command);
 
 /**
  * @brief Function to check if the team name is valid or not
@@ -336,7 +336,7 @@ int handle_team_full_status(client_t *cli, team_t *team, game_t *game,
  * @details will execute the game commands.
  * @return return noting.
  */
-void execute_game_commands(int cli_socket, char *command);
+void execute_game_cmd(int cli_socket, char *command);
 
 /**
  * @brief Function to compare the command type
@@ -368,7 +368,7 @@ int comp_cmd_bis(char *command_type);
  * received by all of the client.
  * @return return noting.
  */
-void execute_cli_commands(void);
+void execute_cli_cmd(void);
 
 /**
  * @brief Function to detect if the client is waiting
@@ -394,8 +394,6 @@ void load_profile_and_exec(int cli_socket, char *command);
 /**
  * @brief Function to execute the client commands
  * @param double current_time represent the current time in milliseconds.
- * @param server_t *server represent the server
- * entity that contains server informations.
  * @param command_t *cmd represent the command
  * entity that contains command informations.
  *
@@ -404,8 +402,7 @@ void load_profile_and_exec(int cli_socket, char *command);
  * after delete the command from the linked list.
  * @return return noting.
  */
-void execute_cli_commands_bis(double start,
-    server_t *server, command_t *cmd);
+void execute_cli_cmd_bis(double start, command_t *cmd);
 
 //timer.c
 

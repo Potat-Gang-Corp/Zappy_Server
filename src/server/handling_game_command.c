@@ -56,7 +56,7 @@ int comp_cmd_bis(char *command_type)
     return 1;
 }
 
-void execute_game_commands(int cli_socket, char *command)
+void execute_game_cmd(int cli_socket, char *command)
 {
     char *buffer = strdup(command);
     char *command_type = strtok(buffer, " ");

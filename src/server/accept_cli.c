@@ -15,7 +15,7 @@
 */
 
 
-void define_client_parameters(client_t *new_client, int client_socket)
+void add_cli_to_ll(client_t *new_client, int client_socket)
 {
     server_t *server = get_instance();
     client_t *cli = NULL;
@@ -45,7 +45,7 @@ int add_client(int client_socket)
         close(client_socket);
         return 84;
     }
-    define_client_parameters(new_client, client_socket);
+    add_cli_to_ll(new_client, client_socket);
     printf("Added new client with socket %d\n", client_socket);
     write(new_client->socket, "WELCOME\r\n", strlen("WELCOME\r\n"));
     return 0;

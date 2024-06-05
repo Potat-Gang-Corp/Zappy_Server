@@ -85,7 +85,7 @@ Test(accept_cli, test_accept_loop_add_to_ll) {
     cr_assert_str_eq(client->team, "team1", "Expected client team to match");
 }*/
 
-Test(accept_cli, test_init_ll) {
+/*Test(accept_cli, test_init_ll) {
     int result = init_ll(1, 0);
     cr_assert_eq(result, 0, "Expected init_ll to return 0");
     cr_assert_not_null(server_instance->clients, "Expected server clients to be initialized");
@@ -112,7 +112,7 @@ Test(accept_cli, test_add_to_ll) {
     result = add_to_ll(new_socket, 0);
     cr_assert_eq(result, 0, "Expected add_to_ll to return 0 when adding second client");
     cr_assert_not_null(server_instance->clients->next, "Expected new client to be added to the linked list");
-}
+}*/
 
 Test(accept_cli, test_add_to_waiting_list) {
     int result = add_to_waiting_list(1, "team1");

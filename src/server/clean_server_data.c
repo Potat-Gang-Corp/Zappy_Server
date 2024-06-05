@@ -20,9 +20,11 @@ void clean_waiting_list(server_t *server)
         TAILQ_REMOVE(&server->waiting_list, current_client, entries);
         if (current_client->team != NULL) {
             free(current_client->team);
+            current_client->team = NULL;
         }
         if (current_client != NULL) {
             free(current_client);
+            current_client = NULL;
         }
     }
 }
@@ -36,9 +38,11 @@ void clean_commands_queue(server_t *server)
         TAILQ_REMOVE(&server->commands, current_command, entries);
         if (current_command->command != NULL) {
             free(current_command->command);
+            current_command->command = NULL;
         }
         if (current_command != NULL) {
             free(current_command);
+            current_command = NULL;
         }
     }
 }

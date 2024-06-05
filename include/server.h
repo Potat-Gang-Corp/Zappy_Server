@@ -494,7 +494,7 @@ void checking_existence_tile_element(tile_t *tile);
  * the items linked list.
  * @return nothing.
  */
-void clean_item_linked_list(items_t *items);
+void clean_item_linked_list(items_t **items);
 
 /**
  * @brief Function to clean the client structure

@@ -22,13 +22,17 @@ void clean_client_struct(void)
         client_node = current_cli;
         if (current_cli->team != NULL) {
             free(current_cli->team);
+            current_cli->team = NULL;
         }
         if (client_node != NULL) {
             free(client_node);
+            client_node = NULL;
         }
         current_cli = next_client;
     }
     if (current_cli != NULL) {
         free(current_cli);
+        current_cli = NULL;
     }
+    server->clients = NULL;
 }

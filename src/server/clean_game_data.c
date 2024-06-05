@@ -17,13 +17,16 @@ void clean_team_struct(void)
     for (int i = 0; i < game->nb_teams; i++) {
         if (game->teams[i]->name != NULL) {
             free(game->teams[i]->name);
+            game->teams[i]->name = NULL;
         }
         if (game->teams[i] != NULL) {
             free(game->teams[i]);
+            game->teams[i] = NULL;
         }
     }
     if (game->teams != NULL) {
         free(game->teams);
+        game->teams = NULL;
     }
 }
 

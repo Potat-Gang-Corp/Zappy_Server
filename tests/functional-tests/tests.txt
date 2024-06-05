@@ -140,4 +140,3 @@ CLEAN=""
 TESTS=./zappy_server -p 8080 -x 10 -y 10 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [018]
-./tests/functional-tests/tests.txt

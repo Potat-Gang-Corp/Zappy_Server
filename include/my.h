@@ -25,6 +25,12 @@
     #include <sys/select.h>
     #include <sys/types.h>
     #include "struct_map.h"
+    #include <errno.h>
+    #include <stdio.h>
+    #include <arpa/inet.h>
+    #include <sys/time.h>
+    #include <time.h>
+    #include <linux/time.h>
 
 int add_func(int a, int b);
 void second_init_map(map_t *map, int x, int y, int width);

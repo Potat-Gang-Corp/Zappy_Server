@@ -50,6 +50,7 @@ int handle_c(char *av, int *fp)
         }
     }
     nb = atoi(av);
+    game->player_slots = nb;
     for (int i = 0; i < game->nb_teams; i++)
         game->teams[i]->max_clients = nb;
     return 0;

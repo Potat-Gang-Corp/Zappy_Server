@@ -39,6 +39,7 @@ typedef struct game_s {
     int freq;
     int cycle;
     int nb_teams;
+    int player_slots;
     team_t **teams;
 } game_t;
 

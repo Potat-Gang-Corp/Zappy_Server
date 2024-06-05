@@ -65,6 +65,11 @@ zappy_server
 docs/
 
 ./tests/unit_tests/coverage.*
+
 unit_tests
 unit_tests_coverage
 ./tests/coverage.*
+
+coding-style-reports.log
+explication
+

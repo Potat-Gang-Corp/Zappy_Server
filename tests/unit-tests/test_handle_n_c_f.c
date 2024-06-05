@@ -11,7 +11,8 @@
 #include "../../include/handle_flags.h"
 #include "../../include/get_instance.h"
 
-Test(handle_n, test_handle_n_function) {
+Test(handle_n, test_handle_n_function)
+{
     int fp = 0;
     int i = 7;
     game_t *game = get_game_instance();

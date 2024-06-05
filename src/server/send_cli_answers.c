@@ -57,12 +57,14 @@ void execute_cli_cmd_bis(double start, command_t *cmd)
 void execute_cli_cmd(void)
 {
     server_t *server = get_instance();
-    command_t *cmd;
+    command_t *cmd = NULL;
     client_t *cli = NULL;
     double start = current_time_millis();
 
-    TAILQ_FOREACH(cmd, &server->commands, entries)
+    while (!TAILQ_EMPTY(&server->commands)) {
+        cmd = TAILQ_FIRST(&server->commands);
         execute_cli_cmd_bis(start, cmd);
+    }
     cli = server->clients;
     for (; cli != NULL; cli = cli->next) {
         cli->nb_commands = 0;

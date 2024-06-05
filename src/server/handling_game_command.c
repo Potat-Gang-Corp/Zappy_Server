@@ -66,4 +66,5 @@ void execute_game_cmd(int cli_socket, char *command)
     result = comp_cmd_bis(command_type);
     if (result == 1)
         comp_cmd(command_type);
+    free(buffer);
 }

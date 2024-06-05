@@ -435,6 +435,105 @@ int remove_client(int cli_socket);
  */
 char *read_cli_cmd(int cli_socket);
 
+/**
+ * @brief Function to clean the game structure
+ * @param void no parameters are required.
+ *
+ * @details will deallocate the game structure.
+ * @return return nothing.
+ */
+void clean_game_struct(void);
+
+/**
+ * @brief Function to clean the team structure
+ * @param void no parameters are required.
+ *
+ * @details will deallocate the team structure
+ * by iterating on each element of the structure.
+ * @return return nothing.
+ */
+void clean_team_struct(void);
+
+/**
+ * @brief Function to clean the map structure
+ * @param void no parameters are required.
+ *
+ * @details will deallocate each element of
+ * the map structure.
+ * @return return nothing.
+ */
+void clean_map_struct(void);
+
+/**
+ * @brief Function to clean the tiles structure
+ * @param void no parameters are required.
+ *
+ * @details will deallocate each element of
+ * the tiles structure by iterating on
+ * each of them.
+ * @return return nothing.
+ */
+void clean_tiles_struct(void);
+
+/**
+ * @brief Function to verify the existence
+ * of the tile element
+ * @param tile_t *tile represent a portion of map
+ *
+ * @details will verify that the tile element
+ * is not empty
+ * @return nothing.
+ */
+void checking_existence_tile_element(tile_t *tile);
+
+/**
+ * @brief Function to clean the item linked list
+ * @param items_t *items represent the items linked list
+ *
+ * @details will deallocate each element of
+ * the items linked list.
+ * @return nothing.
+ */
+void clean_item_linked_list(items_t *items);
+
+/**
+ * @brief Function to clean the client structure
+ * @param void no parameters are required.
+ *
+ * @details will deallocate each element of
+ * the client structure.
+ * @return nothing.
+ */
+void clean_client_struct(void);
+
+/**
+ * @brief Function to clean the server data
+ * @param void no parameters are required.
+ *
+ * @details will deallocate the server structure.
+ * @return nothing.
+ */
+void clean_server_data(void);
+
+/**
+ * @brief Function to clean the commands list
+ * @param server_t *server represent the server structure
+ *
+ * @details will deallocate each element of
+ * the commands list.
+ * @return nothing.
+ */
+void clean_commands_queue(server_t *server);
+
+/**
+ * @brief Function to clean the waiting list
+ * @param server_t *server represent the server structure
+ *
+ * @details will deallocate each element of
+ * the waiting list.
+ * @return nothing.
+ */
+void clean_waiting_list(server_t *server);
 
 
 #endif /* !SERVER_H_ */

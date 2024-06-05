@@ -43,6 +43,9 @@ int remove_found_client(client_t *prev, client_t *cli)
         prev->next = cli->next;
     }
     close(cli->socket);
+    if (cli->team != NULL) {
+        free(cli->team);
+    }
     free(cli);
     return 0;
 }

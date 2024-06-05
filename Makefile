@@ -15,7 +15,7 @@ ECHO = /bin/echo -e
 GREEN    = \x1b[32m
 CYAN     = \x1b[36m
 RED      = \x1b[31m
-YELLOW   = \x1b[33m
+JAUNE   = \x1b[33m
 BLUE     = \x1b[34m
 MAGENTA  = \x1b[35m
 BOLD     = \x1b[1m
@@ -52,7 +52,7 @@ run: all
 
 $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
 	@$(ECHO) "$(CYAN)$(BOLD)Linking $(TESTNAME)...$(RESET)"
-	$(CC) -o $(TESTNAME) $(TOBJS) $(OBJS_NO_MAIN) $(CFLAGS) $(LDFLAGS) 
+	$(CC) -o $(TESTNAME) $(TOBJS) $(OBJS_NO_MAIN) $(CFLAGS) $(LDFLAGS)
 	@$(ECHO) "$(GREEN)$(BOLD)$(TESTNAME) compiled successfully!$(RESET)"
 
 ##add something to not display on terminal
@@ -62,7 +62,7 @@ tests_run: $(TESTNAME)
 	./$(TESTNAME)
 	@gcovr $(GCOVRFLAGS)
 	@gcovr $(GCOVRFLAGS) --html --html-details -o tests/coverage.html
-	@$(ECHO) "$(YELLOW)Coverage report generated in tests/coverage.html$(RESET)"
+	@$(ECHO) "$(JAUNE)Coverage report generated in tests/coverage.html$(RESET)"
 
 run_ftests:
 	@$(ECHO) "$(MAGENTA)$(BOLD)Running functional tests...$(RESET)"

@@ -269,19 +269,6 @@ int select_loop(void);
  */
 int select_function(void);
 
-//non_blocking_conf.c
-
-/**
- * @brief Function that set the socket to non blocking
- * @param int fd the socket of the client.
- *
- * @details will set the socket to non blocking.
- * @return return 0 if everything's good or 84 if an error occured.
- */
-int set_nonblocking(int fd);
-
-int remove_client(int cli_socket);
-
 //handling_login_phase.c
 
 /**

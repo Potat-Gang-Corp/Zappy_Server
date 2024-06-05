@@ -72,6 +72,7 @@ void read_buffer_to_list(client_t *cli)
     exec_time = detect_execution_time(command_type);
     add_cmd_to_ll(cli->socket, buffer, exec_time);
     free(buffer);
+    free(command);
 }
 
 int handle_clients(void)

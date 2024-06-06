@@ -5,10 +5,10 @@
 ** init_server
 */
 
-#include "../../include/struct_server.h"
-#include "../../include/get_instance.h"
-#include "../../include/server.h"
-#include "../../include/my.h"
+#include "../../../include/struct_server.h"
+#include "../../../include/get_instance.h"
+#include "../../../include/server.h"
+#include "../../../include/my.h"
 
 /**
 * @file init_server.c

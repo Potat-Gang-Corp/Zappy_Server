@@ -5,10 +5,10 @@
 ** read_write_cmd
 */
 
-#include "../../include/struct_server.h"
-#include "../../include/get_instance.h"
-#include "../../include/my.h"
-#include "../../include/server.h"
+#include "../../../include/struct_server.h"
+#include "../../../include/get_instance.h"
+#include "../../../include/my.h"
+#include "../../../include/server.h"
 
 /**
 * @file read_and_print_cmd.c

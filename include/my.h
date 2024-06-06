@@ -30,6 +30,7 @@
     #include <arpa/inet.h>
     #include <sys/time.h>
     #include <time.h>
+    #include <asm-generic/socket.h>
 
 int add_func(int a, int b);
 void second_init_map(map_t *map, int x, int y, int width);

@@ -10,7 +10,8 @@
 #include "../../include/server.h"
 #include "../../include/get_instance.h"
 
-void clean_item_linked_list(items_t **items) {
+void clean_item_linked_list(items_t **items)
+{
     items_t *current_node = NULL;
 
     while (*items != NULL) {

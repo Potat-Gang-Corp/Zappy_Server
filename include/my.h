@@ -38,8 +38,4 @@ map_t *initialize_map(int width, int height);
 void display(struct map_s *map);
 void display_suite(items_t *item);
 
-
-void clean_client_struct(void);
-
-void clean_server_data(void);
 #endif /* !MY_H_ */

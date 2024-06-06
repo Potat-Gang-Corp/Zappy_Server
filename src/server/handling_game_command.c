@@ -47,7 +47,7 @@ int comp_cmd_bis(char *command_type)
     if (strcmp(command_type, "Incantation") == 0) {
         return 0;
     }
-    if (strcmp(command_type, "Connect_nbr")) {
+    if (strcmp(command_type, "Connect_nbr") == 0) {
         return 0;
     }
     if (strcmp(command_type, "Inventory") == 0) {

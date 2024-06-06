@@ -536,4 +536,49 @@ void clean_commands_queue(server_t *server);
 void clean_waiting_list(server_t *server);
 
 
+/**
+ * @brief Function to find the client and the previous client
+ * @param int cli_socket represent the client socket.
+ * @param client_t **prev_out represent the previous client.
+ *
+ * @details will find the client and the previous client.
+ * @return return the client.
+ */
+client_t *find_client_and_prev(int cli_socket, client_t **prev_out);
+
+/**
+ * @brief Parses the initial line of a command.
+ * @param char *cmd A pointer to the command string to be parsed.
+ *
+ * @details This function parses the command string
+ * to extract the command without newline characters
+ * and returns a pointer to the newly allocated.
+ * @return char* Returns a pointer to the newly
+ * allocated string containing the parsed command
+ * or NULL if no command is found.
+ */
+char *parse_command(char *cmd);
+
+/**
+ * @brief Function to detect the maximum command capacity of the client
+ * @param int cli_socket represent the client socket.
+ * @param client_t **prev_out represent the previous client.
+ *
+ * @details will detect if a client has sent too many commands and
+ * if it's ok increment the number of commands of the client.
+ * @return return 0 if it's ok, or 84 if an error occured.
+ */
+int max_cmd_cli(int cli_id);
+
+/**
+ * @brief Function to add a command to the linked list
+ * @param int cli_id represent the client id.
+ * @param const char *cmd represent the command sent by the client.
+ * @param double execution_time represent the execution time of the command.
+ *
+ * @details will add the command to the linked list.
+ * @return return 0 if everything's good or 84 if an error occured.
+ */
+int add_cmd_to_ll(int cli_id, const char *cmd, double execution_time);
+
 #endif /* !SERVER_H_ */

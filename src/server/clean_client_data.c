@@ -30,9 +30,5 @@ void clean_client_struct(void)
         }
         current_cli = next_client;
     }
-    if (current_cli != NULL) {
-        free(current_cli);
-        current_cli = NULL;
-    }
     server->clients = NULL;
 }

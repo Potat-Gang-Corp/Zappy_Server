@@ -1,3 +1,10 @@
+"./tests/functional-tests/tests_netcat.txt"
+
+
+
+
+
+
 [001]
 NAME="Test main return 0"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
@@ -141,3 +148,12 @@ CLEAN=""
 TESTS=./zappy_server -p 8080 -x 10 -y 10 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [018-END]
+
+
+[019]
+NAME="Test main interaction with server"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+TESTS=echo 'team' | nc localhost 8080
+EXPECTED_OUTPUT=Wrong team name, please try agai
+[019-END]

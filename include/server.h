@@ -581,4 +581,81 @@ int max_cmd_cli(int cli_id);
  */
 int add_cmd_to_ll(int cli_id, const char *cmd, double execution_time);
 
+/**
+ * @brief Function to add a client to the linked list
+ * @param client_t *new_client represent the new client.
+ * @param int client_socket represent the client socket.
+ *
+ * @details will add the client to the linked list.
+ * @return return 0 if everything's good or 84 if an error occured.
+ */
+void add_cli_to_ll(client_t *new_client, int client_socket);
+
+/**
+ * @brief Function to handle the team full status
+ * @param client_t *cli represent the client entity
+ * that contains client informations.
+ * @param team_t *team represent the team entity
+ * that contains team informations.
+ * @param char *team_name represent the team name sent by the client.
+ *
+ * @details will check if the team is full
+ * or not and so change the status for the client.
+ * @return return 0 always.
+ */
+int handle_team_full(client_t *cli, team_t *team, char *team_name);
+
+/**
+ * @brief Function to remove the found client
+ * @param client_t *prev represent the previous client.
+ * @param client_t *cli represent the client entity
+ * that contains client informations.
+ *
+ * @details will remove the found client from the linked list.
+ * @return return 0 if everything's good or 84 if an error occured.
+ */
+int remove_found_client(client_t *prev, client_t *cli);
+
+/**
+ * @brief Function to find the client and the previous client
+ * @param int cli_socket represent the client socket.
+ * @param client_t **prev_out represent the previous client.
+ *
+ * @details will find the client and the previous client.
+ * @return return the client.
+ */
+client_t *find_client_and_prev(int cli_socket, client_t **prev_out);
+
+
+char *read_from_socket(int cli_socket, int *bytes_read);
+
+/**
+ * @brief Function to insert a new client
+ * @param client_t *cli represent the client entity
+ * that contains client informations.
+ * @param server_t *server represent the server entity
+ * that contains server informations.
+ *
+ * @details This function checks if the socket descriptor
+ * of the new client is greater than the current
+ * maximum file descriptor stored in the server structure.
+ * If it is, it updates the maximum file descriptor.
+ */
+void insert_new_client(client_t *cli, server_t *server);
+
+/**
+ * @brief Function to load the command line
+ * interface and execute the command
+ * @param int cli_socket represent the client
+ * socket.
+ * @param char *command represent the command
+ * sent by the client.
+ *
+ * @details will load the command line interface
+ * and redirect to the good process to execute command.
+ * @return nothing.
+ */
+void load_cli_and_exec(int cli_socket, char *command);
+
+
 #endif /* !SERVER_H_ */

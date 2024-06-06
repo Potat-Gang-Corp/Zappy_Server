@@ -29,7 +29,7 @@ CLEAN=""
 TESTS=./zappy_server -p a -x 10 -y 10 -n name1 name2 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
 [004-END]
-  
+
 [005]
 NAME="Test main return 84 | -p flag wrong value (negative)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
@@ -131,7 +131,8 @@ NAME="Test main return 84 | -f flag wrong value (negative)"
 SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 5 -f -50
-[017]
+EXPECTED_RETURN_CODE=84
+[017-END]
 
 [018]
 NAME="Test main return 84 | miss -n flag"
@@ -139,4 +140,4 @@ SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
 CLEAN=""
 TESTS=./zappy_server -p 8080 -x 10 -y 10 -c 5 -f 50
 EXPECTED_RETURN_CODE=84
-[018]
+[018-END]

@@ -8,27 +8,27 @@
 #include "my.h"
 #include "struct_map.h"
 
-const char* get_food()
+const char *get_food(void)
 {
     return "FOOD";
 }
 
-const char* get_linemate()
+const char *get_linemate(void)
 {
     return "LINEMATE";
 }
 
-const char* get_deraumere()
+const char *get_deraumere(void)
 {
     return "DERAUMERE";
 }
 
-const char* get_sibur()
+const char *get_sibur(void)
 {
     return "SIBUR";
 }
 
-const char* get_mendiane()
+const char *get_mendiane(void)
 {
     return "MENDIANE";
 }

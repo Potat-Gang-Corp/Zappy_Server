@@ -17,7 +17,7 @@
 
 const char *get_items(item_type_t item)
 {
-    const char* (*functions[MAX_ITEMS + 1])() = {
+    const char *(*functions[MAX_ITEMS + 1])() = {
             get_food,
             get_linemate,
             get_deraumere,

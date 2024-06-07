@@ -49,17 +49,17 @@ void place_randomly_items(map_t *map);
 void add_item_to_tiles(tile_t *tile, item_type_t type);
 
 //items
-const char* get_food();
-const char* get_linemate();
-const char* get_deraumere();
-const char* get_sibur();
-const char* get_mendiane();
+const char *get_food(void);
+const char *get_linemate(void);
+const char *get_deraumere(void);
+const char *get_sibur(void);
+const char *get_mendiane(void);
 
 //items_bis
-const char* get_phiras();
-const char* get_thystame();
-const char* get_egg();
-const char* get_player();
-const char* get_unknown();
+const char *get_phiras(void);
+const char *get_thystame(void);
+const char *get_egg(void);
+const char *get_player(void);
+const char *get_unknown(void);
 
 #endif /* !MY_H_ */

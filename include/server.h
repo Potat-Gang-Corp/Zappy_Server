@@ -117,74 +117,6 @@ int accept_new_client(void);
 int add_client(int client_socket);
 
 /**
- * @brief Function that define the client parameters
- * @param client_t *new_client the new client.
- * @param int client_socket the socket of the client.
- *
- * @details will define the client parameters and insert
- * the client in the linked list.
- * @return return 0 if everything's good or 84 if an error occured.
- */
-void define_client_parameters(client_t *new_client, int client_socket);
-
-/**
- * @brief Function that check if the session is full
- * @param int new_socket the socket of the new client.
- * @param int nb_joueur the number of players.
- * @param int index the index of the team.
- *
- * @details will check if the session is full
- * and add the client to the waiting list
- * or accept the connection and join the game.
- * @return return 0 if everything's good or 84 if an error occured.
- */
-int accept_loop(int new_socket, int nb_joueur, int index);
-
-//accept_ll.c
-/**
- * @brief Function that handles the error case of the initialisation of the ll
- * @param int new_socket the socket of the new client.
- *
- * @details will return 84 if the server's instance or the game is instance is
- *  non existant.
- * @return return 0 if everything's good or 84 if an error occured.
- */
-int init_ll_error_handling(int new_socket);
-
-/**
- * @brief Function that init the linked list of the server
- * @param int new_socket the socket of the new client.
- * @param int index the index of the team.
- *
- * @details will init the linked list of the server and add the first element
- * in the linked list.
- * @return return 0 if everything's good or 84 if an error occured.
- */
-int init_ll(int new_socket, int index);
-
-/**
- * @brief Function that add the client to the linked list
- * @param int new_socket the socket of the new client.
- * @param int index the index of the team.
- *
- * @details will add the client to the linked list.
- * @return return 0 if everything's good or 84 if an error occured.
- */
-int add_to_ll_bis(int new_socket, int index);
-
-/**
- * @brief Function that add the client to the main linked list
- * @param int new_socket the socket of the new client.
- * @param int index the index of the team.
- *
- * @details will check if the linked list is empty
- * and redirect to the best process to
- * add to linked list.
- * @return return 0 if everything's good or 84 if an error occured.
- */
-int add_to_ll(int new_socket, int index);
-
-/**
  * @brief Function that add the client to the waiting list
  * @param int new_socket the socket of the new client.
  * @param int index the index of the team.
@@ -213,19 +145,7 @@ int handle_clients(void);
  * @details will add the client command to the related linked list.
  * @return return the command of the client.
  */
-int add_command_to_list(int cli_id, const char *cmd, double execution_time);
-
-/**
- * @brief Function that delete the client from the linked list
- * @param client_t **prev the previous client entity.
- * @param client_t **cli the client entity that contains client informations.
- * @param client_t **head the head of the linked list.
- *
- * @details will delete the client from the linked list.
- * @return return nothing.
- */
-void handle_client_disconnection(client_t **prev,
-    client_t **cli, client_t **head);
+int add_cmd_to_ll(int cli_id, const char *cmd);
 
 /**
  * @brief Function that detect command of the
@@ -248,7 +168,7 @@ void read_buffer_to_list(client_t *cli);
  * and if not increment the number of commands to authorize a new one.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-int detect_max_command_capacity(int cli_id);
+int detect_max_cmd_capacity(int cli_id);
 
 //select.c
 
@@ -302,8 +222,6 @@ int detect_team_validity(char *team_name, client_t *cli);
  * that contains client informations.
  * @param team_t *team represent the team
  * entity that contains team informations.
- * @param game_t *game represent the game
- * entity that contains game informations.
  * @param char *team_name represent the team name sent by the client.
  *
  * @details will check if the team is full
@@ -311,8 +229,7 @@ int detect_team_validity(char *team_name, client_t *cli);
  * It Will put the client in the waiting list if the team is full.
  * @return return 0 always.
  */
-int handle_team_full_status(client_t *cli, team_t *team, game_t *game,
-    char *team_name);
+int handle_team_full(client_t *cli, team_t *team, char *team_name);
 
 //handling_game_phase.c
 
@@ -325,26 +242,6 @@ int handle_team_full_status(client_t *cli, team_t *team, game_t *game,
  * @return return noting.
  */
 void execute_game_cmd(int cli_socket, char *command);
-
-/**
- * @brief Function to compare the command type
- * @param char *command_type represent the command type sent by the client.
- *
- * @details will compare the command type.
- * @return return 0 if the command type match,
- * and 1 if the command type doesn't match.
- */
-int comp_cmd(char *command_type, int cli_socket);
-
-/**
- * @brief Function to compare the command type
- * @param char *command_type represent the command type sent by the client.
- *
- * @details will compare the command type.
- * @return return 0 if the command type match,
- * and 1 if the command type doesn't match.
- */
-int comp_cmd_bis(char *command_type, int cli_socket);
 
 //send_cli_answers.c
 
@@ -536,7 +433,6 @@ void clean_commands_queue(server_t *server);
  */
 void clean_waiting_list(server_t *server);
 
-
 /**
  * @brief Function to find the client and the previous client
  * @param int cli_socket represent the client socket.
@@ -627,7 +523,12 @@ int remove_found_client(client_t *prev, client_t *cli);
  */
 client_t *find_client_and_prev(int cli_socket, client_t **prev_out);
 
-
+/**
+ * @brief Function to read the command sent by the client
+ * @param int cli_socket represent the client socket.
+ * @param int *bytes_read represent the number of bytes read.
+ * @return char* Returns a pointer to the newly
+*/
 char *read_from_socket(int cli_socket, int *bytes_read);
 
 /**
@@ -656,7 +557,7 @@ void insert_new_client(client_t *cli, server_t *server);
  * and redirect to the good process to execute command.
  * @return nothing.
  */
-void load_cli_and_exec(int cli_socket, char *command);
+void found_cli_and_exec(int cli_socket, char *command);
 
 
 #endif /* !SERVER_H_ */

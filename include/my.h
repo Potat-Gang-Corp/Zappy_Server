@@ -43,7 +43,7 @@ void display(struct map_s *map);
 void display_suite(items_t *item);
 
 //add_item_to_map.c
-char *get_items(item_type_t item);
+const char *get_items(item_type_t item);
 void display_item(items_t *item);
 void place_randomly_items(map_t *map);
 void add_item_to_tiles(tile_t *tile, item_type_t type);

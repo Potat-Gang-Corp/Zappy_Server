@@ -70,7 +70,6 @@ map_t *initialize_map(int width, int height)
         return NULL;
     }
     init_map(map, width, height);
-    setting_map();
     map->display = &display;
     return map;
 }

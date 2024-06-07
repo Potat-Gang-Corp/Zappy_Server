@@ -15,22 +15,23 @@
 */
 
 
-void item_function(item_type_t item)
+const char *get_items(item_type_t item)
 {
-    static char *items[MAX_ITEMS] = {"food", "linemate", "deraumere",
-    "sibur", "mendiane", "phiras", "thystame"};
-    struct server_s *server = get_instance();
-    void (*functions[MAX_ITEMS])(int) = { &get_food, &get_linemate, &get_deraumere,
-    &get_sibur, &get_mendiane, &get_phiras, &get_thystame};
+    const char* (*functions[MAX_ITEMS + 1])() = {
+            get_food,
+            get_linemate,
+            get_deraumere,
+            get_sibur,
+            get_mendiane,
+            get_phiras,
+            get_thystame,
+            get_egg,
+            get_player,
+            get_unknown
+    };
+    const char *item_name = functions[item]();
 
-    for (int i = 0; i < (int)(sizeof(items) / sizeof(items[0])); i++) {
-        if (strncmp(str, items[i], strlen(items[i])) == 0) {
-            // free(server->clients[index].cmd);
-            // server->clients[index].cmd = strdup(str);
-            // functions[i](index);
-            // break;
-        }
-    }
+    return item_name;
 }
 
 void display_item(items_t *item)

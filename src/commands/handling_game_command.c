@@ -9,50 +9,14 @@
 #include "../../include/get_instance.h"
 #include "../../include/my.h"
 #include "../../include/server.h"
+#include "../../include/commands.h"
 
-int comp_cmd(char *command_type, int cli_socket)
+int parse_cmd_table(char *command_type, int cli_socket)
 {
-    (void)cli_socket;
-    if (strcmp(command_type, "Left") == 0) {
-        return 0;
-    }
-    if (strcmp(command_type, "Look") == 0) {
-        return 0;
-    }
-    if (strcmp(command_type, "Broadcast") == 0) {
-        return 0;
-    }
-    if (strcmp(command_type, "Eject") == 0) {
-        return 0;
-    }
-    if (strcmp(command_type, "Take") == 0) {
-        return 0;
-    }
-    if (strcmp(command_type, "Set") == 0) {
-        return 0;
-    }
-    return 1;
-}
-
-int comp_cmd_bis(char *command_type, int cli_socket)
-{
-    if (strcmp(command_type, "Forward") == 0) {
-        return 0;
-    }
-    if (strcmp(command_type, "Right") == 0) {
-        return 0;
-    }
-    if (strcmp(command_type, "Fork") == 0) {
-        return 0;
-    }
-    if (strcmp(command_type, "Incantation") == 0) {
-        return 0;
-    }
-    if (strcmp(command_type, "Connect_nbr")) {
-        return 0;
-    }
-    if (strcmp(command_type, "Inventory") == 0) {
-        return 0;
+    for (int i = 0; command_table[i].command_name != NULL; ++i) {
+        if (strcmp(command_type, command_table[i].command_name) == 0) {
+            return command_table[i].command_func(command_type, cli_socket);
+        }
     }
     return 1;
 }
@@ -62,9 +26,14 @@ void execute_game_cmd(int cli_socket, char *command)
     char *buffer = strdup(command);
     char *command_type = strtok(buffer, " ");
     int result = -1;
+
     printf("command_type: %s\n", command_type);
     cli_socket = cli_socket;
-    result = comp_cmd_bis(command_type, cli_socket);
-    if (result == 1)
-        comp_cmd(command_type, cli_socket);
+    if (command_type != NULL) {
+        result = parse_cmd_table(command_type, cli_socket);
+    }
+    if (result == 1) {
+        printf("Unknown command: %s\n", command_type);
+    }
+    free(buffer);
 }

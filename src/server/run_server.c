@@ -17,16 +17,21 @@ void handle_sigint(int sig)
     (void)sig;
     if (server == NULL)
         return;
+    clean_game_struct();
+    clean_map_struct();
+    clean_client_struct();
+    clean_server_data();
     close(server->socket);
     exit(0);
 }
 
-void need_to_sleep(struct timespec start, struct timespec end, struct timespec req)
+void need_to_sleep(timespec_t start, timespec_t end, timespec_t req)
 {
     game_t *game = get_game_instance();
-
-    long elapsed_ns = (end.tv_sec - start.tv_sec) * 1e9 + (end.tv_nsec - start.tv_nsec);
+    long calc = (end.tv_nsec - start.tv_nsec);
+    long elapsed_ns = calc * 1e9 + calc;
     long sleep_ns = (1e9 / game->freq) - elapsed_ns;
+
     if (sleep_ns > 0) {
         req.tv_sec = sleep_ns / 1e9;
         req.tv_nsec = sleep_ns % (long)1e9;
@@ -51,7 +56,7 @@ int run_server(void)
         if (FD_ISSET(server->socket, &server->readfs))
             accept_new_client();
         handle_clients();
-        execute_cli_cmd(); //la dedans quand tu vas boucler sur tes commandes, celles deja en cours vont avoir leur cd réduit de 1
+        execute_cli_cmd();
         clock_gettime(CLOCK_MONOTONIC, &end);
         need_to_sleep(start, end, req);
     }

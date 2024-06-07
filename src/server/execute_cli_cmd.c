@@ -52,7 +52,7 @@ void execute_cli_cmd_bis(command_t *cmd)
 void execute_cli_cmd(void)
 {
     server_t *server = get_instance();
-    command_t *cmd;
+    command_t *cmd = NULL;
     client_t *cli = NULL;
 
     TAILQ_FOREACH(cmd, &server->commands, entries)

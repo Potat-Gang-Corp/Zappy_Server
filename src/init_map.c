@@ -7,6 +7,8 @@
 
 #include "my.h"
 #include "struct_map.h"
+#include "server.h"
+
 /**
 * @file init_map.c
 * @brief Initializes the map structure

@@ -59,7 +59,7 @@ $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
 
 tests_run: $(TESTNAME)
 	@$(ECHO) "$(MAGENTA)$(BOLD)Running unit tests...$(RESET)"
-	@./$(TESTNAME) > /dev/null 2>&1
+	@./$(TESTNAME)
 	@gcovr $(GCOVRFLAGS)
 	@gcovr $(GCOVRFLAGS) --html --html-details -o tests/coverage.html
 	@$(ECHO) "$(JAUNE)Coverage report generated in tests/coverage.html$(RESET)"

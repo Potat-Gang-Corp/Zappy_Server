@@ -8,7 +8,7 @@
 #include "my.h"
 #include "struct_map.h"
 #include "get_instance.h"
-
+#include "server.h"
 /**
 * @file add_item_to_map.c
 * @brief add item to map

@@ -40,21 +40,5 @@ void second_init_map(map_t *map, int x, int y, int width);
 void init_map(map_t *map, int width, int height);
 map_t *initialize_map(int width, int height);
 void display(struct map_s *map);
-void display_suite(items_t *item);
-
-
-//items
-const char *get_food(void);
-const char *get_linemate(void);
-const char *get_deraumere(void);
-const char *get_sibur(void);
-const char *get_mendiane(void);
-
-//items_bis
-const char *get_phiras(void);
-const char *get_thystame(void);
-const char *get_egg(void);
-const char *get_player(void);
-const char *get_unknown(void);
 
 #endif /* !MY_H_ */

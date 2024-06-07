@@ -64,13 +64,12 @@ void place_randomly_items(map_t *map)
 {
     srand(time(NULL));
     int total_tiles = map->width * map->height;
-    int total_items = total_tiles * 0.5;
+    int total_items = total_tiles * 3 / 2;
 
-    for(int i = 0; i < total_items; i++) {
-        int x = rand() % map->width;
-        int y = rand() % map->height;
-        int item = rand() % 7;
-        add_item_to_tiles(&map->tiles[x][y], item);
+    for (int i = 0; i < total_items; i++) {
+        int tile_index = rand() % total_tiles;
+        item_type_t type = rand() % (PLAYER + 1);
+        add_item_to_tile(map->tiles[tile_index], type);
     }
 }
 

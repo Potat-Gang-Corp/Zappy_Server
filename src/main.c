@@ -27,7 +27,6 @@ int main(int argc, char **argv)
     }
     game_t *game = get_game_instance();
     map_t *map = initialize_map(game->width, game->height);
-    setting_map();
     if (!map) {
         fprintf(stderr, "Error: In the map can't launch server\n");
         return 84;

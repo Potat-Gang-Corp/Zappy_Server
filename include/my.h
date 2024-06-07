@@ -30,6 +30,10 @@
     #include <arpa/inet.h>
     #include <sys/time.h>
     #include <time.h>
+    #include "struct_game.h"
+    #include "struct_client.h"
+    #include "struct_server.h"
+    #include "struct_map.h"
 
 int add_func(int a, int b);
 void second_init_map(map_t *map, int x, int y, int width);
@@ -40,5 +44,6 @@ void display_suite(items_t *item);
 
 void setting_map(void);
 void display_item(items_t *item);
+void place_random_items(map_t *map);
 
 #endif /* !MY_H_ */

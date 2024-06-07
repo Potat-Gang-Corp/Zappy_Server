@@ -58,6 +58,7 @@ void init_map(map_t *map, int width, int height)
             map->tiles[x + y * width]->x = x;
             map->tiles[x + y * width]->y = y;
             map->tiles[x + y * width]->items = NULL;
+            place_random_items(map->tiles[x + y * width]);
             display_item(map->tiles[x + y * width]->items);
         }
     }

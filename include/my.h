@@ -42,8 +42,24 @@ map_t *initialize_map(int width, int height);
 void display(struct map_s *map);
 void display_suite(items_t *item);
 
-void setting_map(void);
+//add_item_to_map.c
+char *get_items(item_type_t item);
 void display_item(items_t *item);
 void place_randomly_items(map_t *map);
+void add_item_to_tiles(tile_t *tile, item_type_t type);
+
+//items
+const char* get_food();
+const char* get_linemate();
+const char* get_deraumere();
+const char* get_sibur();
+const char* get_mendiane();
+
+//items_bis
+const char* get_phiras();
+const char* get_thystame();
+const char* get_egg();
+const char* get_player();
+const char* get_unknown();
 
 #endif /* !MY_H_ */

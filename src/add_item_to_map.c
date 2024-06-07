@@ -14,29 +14,22 @@
 * @brief add item to map
 */
 
-char *get_items(item_type_t item)
+
+void item_function(item_type_t item)
 {
-    switch (item) {
-        case FOOD:
-            return "FOOD";
-        case LINEMATE:
-            return "LINEMATE";
-        case DERAUMERE:
-            return "DERAUMERE";
-        case SIBUR:
-            return "SIBUR";
-        case MENDIANE:
-            return "MENDIANE";
-        case PHIRAS:
-            return "PHIRAS";
-        case THYSTAME:
-            return "THYSTAME";
-        case EGG:
-            return "EGG";
-        case PLAYER:
-            return "PLAYER";
-        default:
-            return "UNKNOWN";
+    static char *items[MAX_ITEMS] = {"food", "linemate", "deraumere",
+    "sibur", "mendiane", "phiras", "thystame"};
+    struct server_s *server = get_instance();
+    void (*functions[MAX_ITEMS])(int) = { &get_food, &get_linemate, &get_deraumere,
+    &get_sibur, &get_mendiane, &get_phiras, &get_thystame};
+
+    for (int i = 0; i < (int)(sizeof(items) / sizeof(items[0])); i++) {
+        if (strncmp(str, items[i], strlen(items[i])) == 0) {
+            // free(server->clients[index].cmd);
+            // server->clients[index].cmd = strdup(str);
+            // functions[i](index);
+            // break;
+        }
     }
 }
 

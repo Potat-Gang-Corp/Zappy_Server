@@ -10,8 +10,9 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 
-int comp_cmd(char *command_type)
+int comp_cmd(char *command_type, int cli_socket)
 {
+    (void)cli_socket;
     if (strcmp(command_type, "Left") == 0) {
         return 0;
     }
@@ -33,7 +34,7 @@ int comp_cmd(char *command_type)
     return 1;
 }
 
-int comp_cmd_bis(char *command_type)
+int comp_cmd_bis(char *command_type, int cli_socket)
 {
     if (strcmp(command_type, "Forward") == 0) {
         return 0;
@@ -63,7 +64,7 @@ void execute_game_cmd(int cli_socket, char *command)
     int result = -1;
     printf("command_type: %s\n", command_type);
     cli_socket = cli_socket;
-    result = comp_cmd_bis(command_type);
+    result = comp_cmd_bis(command_type, cli_socket);
     if (result == 1)
-        comp_cmd(command_type);
+        comp_cmd(command_type, cli_socket);
 }

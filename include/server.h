@@ -333,7 +333,7 @@ void execute_game_cmd(int cli_socket, char *command);
  * @return return 0 if the command type match,
  * and 1 if the command type doesn't match.
  */
-int comp_cmd(char *command_type);
+int comp_cmd(char *command_type, int cli_socket);
 
 /**
  * @brief Function to compare the command type
@@ -343,7 +343,7 @@ int comp_cmd(char *command_type);
  * @return return 0 if the command type match,
  * and 1 if the command type doesn't match.
  */
-int comp_cmd_bis(char *command_type);
+int comp_cmd_bis(char *command_type, int cli_socket);
 
 //send_cli_answers.c
 

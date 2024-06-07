@@ -43,10 +43,9 @@ int detect_team_validity(char *team_name, client_t *cli)
             cli->team = strdup(team_name);
             return handle_team_full(cli, game->teams[i], team_name);
         }
-        if (strcmp(team_name, "graphic") == 0 && game->graphical == false) {
+        if (strcmp(team_name, "graphic") == 0) {
             cli->status = true;
             cli->is_graphical = true;
-            game->graphical = true;
             write(cli->socket, "WELCOME GRAPHIC\r\n",
                 strlen("WELCOME GRAPHIC\r\n"));
             return 0;

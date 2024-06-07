@@ -57,7 +57,7 @@ typedef struct client_s {
     position_t pos;
     char *team;
     bool evolving;
-    unsigned int cool_down;
+    unsigned int cd;
     inventory_t inventory;
     unsigned int level;
     int time_to_live;

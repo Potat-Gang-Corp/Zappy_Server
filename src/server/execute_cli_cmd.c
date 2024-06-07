@@ -23,32 +23,27 @@ int detect_client_waiting(int cli_socket)
     return 0;
 }
 
-void load_cli_and_exec(int cli_socket, char *command)
+void found_cli_and_exec(int cli_s, char *command)
 {
     server_t *server = get_instance();
     client_t *cli = NULL;
 
     for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->socket == cli_socket && cli->status == false) {
+        if (cli->socket == cli_s && cli->status == false) {
             handle_cli_login(cli, command);
         }
-        if (cli->socket == cli_socket && cli->status == true) {
-            execute_game_cmd(cli_socket, command);
+        if (cli->socket == cli_s && cli->status == true && cli->cd == 0) {
+            execute_game_cmd(cli_s, command);
         }
     }
 }
 
-void execute_cli_cmd_bis(double start, command_t *cmd)
+void execute_cli_cmd_bis(command_t *cmd)
 {
     server_t *server = get_instance();
-    double now = current_time_millis();
-    double end = start + cmd->execution_time;
 
     printf("Client ID: %d, Command: %s\n", cmd->cli_id, cmd->command);
-    if (now < end) {
-        load_cli_and_exec(cmd->cli_id, cmd->command);
-        now = current_time_millis();
-    }
+    found_cli_and_exec(cmd->cli_id, cmd->command);
     TAILQ_REMOVE(&server->commands, cmd, entries);
     free(cmd->command);
     free(cmd);
@@ -59,10 +54,9 @@ void execute_cli_cmd(void)
     server_t *server = get_instance();
     command_t *cmd;
     client_t *cli = NULL;
-    double start = current_time_millis();
 
     TAILQ_FOREACH(cmd, &server->commands, entries)
-        execute_cli_cmd_bis(start, cmd);
+        execute_cli_cmd_bis(cmd);
     cli = server->clients;
     for (; cli != NULL; cli = cli->next) {
         cli->nb_commands = 0;

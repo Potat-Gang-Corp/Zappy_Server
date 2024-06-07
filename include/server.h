@@ -389,7 +389,7 @@ void load_profile_and_exec(int cli_socket, char *command);
  * after delete the command from the linked list.
  * @return return noting.
  */
-void execute_cli_cmd_bis(double start, command_t *cmd);
+void execute_cli_cmd_bis(command_t *cmd);
 
 //timer.c
 

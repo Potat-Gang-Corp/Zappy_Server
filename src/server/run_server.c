@@ -21,28 +21,39 @@ void handle_sigint(int sig)
     exit(0);
 }
 
+void need_to_sleep(struct timespec start, struct timespec end, struct timespec req)
+{
+    game_t *game = get_game_instance();
+
+    long elapsed_ns = (end.tv_sec - start.tv_sec) * 1e9 + (end.tv_nsec - start.tv_nsec);
+    long sleep_ns = (1e9 / game->freq) - elapsed_ns;
+    if (sleep_ns > 0) {
+        req.tv_sec = sleep_ns / 1e9;
+        req.tv_nsec = sleep_ns % (long)1e9;
+        nanosleep(&req, NULL);
+    }
+}
+
 int run_server(void)
 {
     server_t *server = get_instance();
-    clock_t time_req;
-    game_t *game = get_instance();
+    struct timespec start;
+    struct timespec end;
+    struct timespec req;
 
     if (server == NULL)
         return 84;
     printf("server launched on port %d\n", server->port);
     signal(SIGINT, handle_sigint);
-    //time_req = clock();
     while (1) {
+        clock_gettime(CLOCK_MONOTONIC, &start);
         select_loop();
         if (FD_ISSET(server->socket, &server->readfs))
             accept_new_client();
-        handle_clients(); //la jrecup les commandes
-        execute_cli_cmd();
-        if (clock() - time_req != 1 / game->freq)
-            wait(); // la dedans quand tu vas boucler sur tes commandes, celles deja en cours vont avoir leur cd réduit de 1
-    } // ici tu regardes si ta clock moins la clock atm est >= a 1/f sinon boucle jusqu'a l'atteindre
-    //okay donc au finale ma vraie question c'était ça, je fais des tours de durée 1/f // c'était ma pièce de puzzle manquante
-    //merci je me sent mieux
+        handle_clients();
+        execute_cli_cmd(); //la dedans quand tu vas boucler sur tes commandes, celles deja en cours vont avoir leur cd réduit de 1
+        clock_gettime(CLOCK_MONOTONIC, &end);
+        need_to_sleep(start, end, req);
+    }
     return 0;
 }
-//np

@@ -61,7 +61,7 @@ void execute_game_cmd(int cli_socket, char *command)
     char *buffer = strdup(command);
     char *command_type = strtok(buffer, " ");
     int result = -1;
-
+    printf("command_type: %s\n", command_type);
     cli_socket = cli_socket;
     result = comp_cmd_bis(command_type);
     if (result == 1)

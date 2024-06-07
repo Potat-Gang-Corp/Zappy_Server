@@ -28,7 +28,8 @@ void display(struct map_s *map)
         for (int y = 0; y < map->height; y++) {
             printf("Tile at (%d, %d):\n", x, y);
             item = map->tiles[x + y * map->width]->items;
-            display_suite(item);
+           // display_suite(item);
+           display_item(item);
         }
     }
 }

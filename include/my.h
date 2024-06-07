@@ -44,6 +44,6 @@ void display_suite(items_t *item);
 
 void setting_map(void);
 void display_item(items_t *item);
-void place_random_items(map_t *map);
+void place_randomly_items(map_t *map);
 
 #endif /* !MY_H_ */

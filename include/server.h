@@ -435,6 +435,107 @@ int remove_client(int cli_socket);
  */
 char *read_cli_cmd(int cli_socket);
 
+//add_item_to_map.c
+/**
+ * @brief Function that get the items
+ * @param item_type_t item represent the item type.
+ *
+ * @details will get the items.
+ * @return return the items.
+ */
+const char *get_items(item_type_t item);
+/**
+ * @brief Function to display the items
+ * @param items_t *item represent the item entity
+ *
+ * @details will display the items.
+ */
+void display_item(items_t *item);
 
+/**
+ * @brief Function to place items randomly
+ * on the map
+ * @param map_t *map represent the map where
+ * items will be placed.
+ *
+ * @details This function takes a map as input
+ * and places items randomly on it.
+ * @return void.
+ */
+void place_randomly_items(map_t *map);
+
+/**
+ * @brief Function to add an item to a tile
+ * @param tile_t *tile represent the tile where
+ * the item will be added.
+ * @param item_type_t type represent the type
+ * of the item to be added.
+ *
+ * @details This function takes a tile and an
+ * item type as input, creates an item of the
+ * given type, and adds it to the tile.
+ * @return void.
+ */
+void add_item_to_tiles(tile_t *tile, item_type_t type);
+
+/**
+ * @brief Function to get the name of the food item
+ * @return return the name of the food item as a string.
+ */
+const char *get_food(void);
+
+/**
+ * @brief Function to get the name of the linemate item
+ * @return return the name of the linemate item as a string.
+ */
+const char *get_linemate(void);
+
+/**
+ * @brief Function to get the name of the deraumere item
+ * @return return the name of the deraumere item as a string.
+ */
+const char *get_deraumere(void);
+
+/**
+ * @brief Function to get the name of the sibur item
+ * @return return the name of the sibur item as a string.
+ */
+const char *get_sibur(void);
+
+/**
+ * @brief Function to get the name of the mendiane item
+ * @return return the name of the mendiane item as a string.
+ */
+const char *get_mendiane(void);
+
+/**
+ * @brief Function to get the name of the phiras item
+ * @return return the name of the phiras item as a string.
+ */
+const char *get_phiras(void);
+
+/**
+ * @brief Function to get the name of the thystame item
+ * @return return the name of the thystame item as a string.
+ */
+const char *get_thystame(void);
+
+/**
+ * @brief Function to get the name of the egg item
+ * @return return the name of the egg item as a string.
+ */
+const char *get_egg(void);
+
+/**
+ * @brief Function to get the name of the player item
+ * @return return the name of the player item as a string.
+ */
+const char *get_player(void);
+
+/**
+ * @brief Function to get the name of the unknown item
+ * @return return the name of the unknown item as a string.
+ */
+const char *get_unknown(void);
 
 #endif /* !SERVER_H_ */

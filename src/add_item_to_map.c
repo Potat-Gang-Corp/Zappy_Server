@@ -14,7 +14,6 @@
 * @brief add item to map
 */
 
-
 const char *get_items(item_type_t item)
 {
     const char *(*functions[MAX_ITEMS + 1])() = {
@@ -75,10 +74,3 @@ void setting_map(void)
 
     place_randomly_items(map);
 }
-
-
-//il faut creer une autre function pour display les items randomly sur la map
-
-//the function should place randomly the item to the map
-// tu pourrais essayer de tester ce qu 'il s'affiche ?
-// test l'affichage dans le main stp

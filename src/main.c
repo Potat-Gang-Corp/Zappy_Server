@@ -25,9 +25,13 @@ int main(int argc, char **argv)
         fprintf(stderr, "Error: In the server can't launch server\n");
         return 84;
     }
-    if (run_server() == 84) {
-        fprintf(stderr, "Error: In the run_server can't launch server\n");
+    game_t *game = get_game_instance();
+    map_t *map = initialize_map(game->width, game->height);
+    setting_map();
+    if (!map) {
+        fprintf(stderr, "Error: In the map can't launch server\n");
         return 84;
     }
+    map->display(map);
     return 0;
 }

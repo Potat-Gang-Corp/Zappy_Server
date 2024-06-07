@@ -7,12 +7,14 @@
 
 #include "my.h"
 #include "struct_map.h"
+#include "get_instance.h"
+
 /**
 * @file add_item_to_map.c
 * @brief add item to map
 */
 
-char *get_items(item_type_e *item)
+char *get_items(item_type_t item)
 {
     switch (item) {
         case FOOD:
@@ -46,7 +48,7 @@ void display_item(items_t *item)
     }
 }
 
-void add_item_to_tiles(tile_t *tile, item_type_e type)
+void add_item_to_tiles(tile_t *tile, item_type_t type)
 {
     items_t *new_item = malloc(sizeof(items_t));
 
@@ -57,3 +59,31 @@ void add_item_to_tiles(tile_t *tile, item_type_e type)
     new_item->next = tile->items;
     tile->items = new_item;
 }
+
+void place_randomly_items(map_t *map)
+{
+    srand(time(NULL));
+    int total_tiles = map->width * map->height;
+    int total_items = total_tiles * 0.5;
+
+    for(int i = 0; i < total_items; i++) {
+        int x = rand() % map->width;
+        int y = rand() % map->height;
+        int item = rand() % 7;
+        add_item_to_tiles(&map->tiles[x][y], item);
+    }
+}
+
+void setting_map(void)
+{
+    map_t *map = get_map_instance();
+
+    place_randomly_items(map);
+}
+
+
+//il faut creer une autre function pour display les items randomly sur la map
+
+//the function should place randomly the item to the map
+// tu pourrais essayer de tester ce qu 'il s'affiche ?
+// test l'affichage dans le main stp 

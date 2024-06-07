@@ -58,6 +58,7 @@ void init_map(map_t *map, int width, int height)
             map->tiles[x + y * width]->x = x;
             map->tiles[x + y * width]->y = y;
             map->tiles[x + y * width]->items = NULL;
+            display_item(map->tiles[x + y * width]->items);
         }
     }
 }
@@ -76,6 +77,7 @@ map_t *initialize_map(int width, int height)
         return NULL;
     }
     init_map(map, width, height);
+    setting_map();
     map->display = &display;
     return map;
 }

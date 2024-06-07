@@ -69,7 +69,7 @@ void place_randomly_items(map_t *map)
     for (int i = 0; i < total_items; i++) {
         int tile_index = rand() % total_tiles;
         item_type_t type = rand() % (PLAYER + 1);
-        add_item_to_tile(map->tiles[tile_index], type);
+        add_item_to_tiles(map->tiles[tile_index], type);
     }
 }
 
@@ -85,4 +85,4 @@ void setting_map(void)
 
 //the function should place randomly the item to the map
 // tu pourrais essayer de tester ce qu 'il s'affiche ?
-// test l'affichage dans le main stp 
+// test l'affichage dans le main stp

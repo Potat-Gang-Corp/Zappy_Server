@@ -55,54 +55,13 @@ void add_item_to_tiles(tile_t *tile, item_type_t type)
 
 void place_randomly_items(map_t *map)
 {
-    int total_tiles = map->width * map->height;
-    int total_food = map->width * map->height * 0.5;
-    int total_linemate = map->width * map->height * 0.3;
-    int total_deraumere = map->width * map->height * 0.15;
-    int total_sibur = map->width * map->height * 0.1;
-    int total_mendiane = map->width * map->height * 0.1;
-    int total_phiras = map->width * map->height * 0.08;
-    int total_thystame = map->width * map->height * 0.05;
-    int tile_index = 0;
-    item_type_t type;
-
-    srand(time(NULL));
-
-    for (int i = 0; i < total_food; i++) {
-        tile_index = rand() % total_tiles;
-        type = FOOD;
-        add_item_to_tiles(map->tiles[tile_index], type);
-    }
-    for (int i = 0; i < total_linemate; i++) {
-        tile_index = rand() % total_tiles;
-        type = LINEMATE;
-        add_item_to_tiles(map->tiles[tile_index], type);
-    }
-    for (int i = 0; i < total_deraumere; i++) {
-        tile_index = rand() % total_tiles;
-        type = DERAUMERE;
-        add_item_to_tiles(map->tiles[tile_index], type);
-    }
-    for (int i = 0; i < total_sibur; i++) {
-        tile_index = rand() % total_tiles;
-        type = SIBUR;
-        add_item_to_tiles(map->tiles[tile_index], type);
-    }
-    for (int i = 0; i < total_mendiane; i++) {
-        tile_index = rand() % total_tiles;
-        type = MENDIANE;
-        add_item_to_tiles(map->tiles[tile_index], type);
-    }
-    for (int i = 0; i < total_phiras; i++) {
-        tile_index = rand() % total_tiles;
-        type = PHIRAS;
-        add_item_to_tiles(map->tiles[tile_index], type);
-    }
-    for (int i = 0; i < total_thystame; i++) {
-        tile_index = rand() % total_tiles;
-        type = THYSTAME;
-        add_item_to_tiles(map->tiles[tile_index], type);
-    }
+    place_food_on_map(map);
+    place_linemate_on_map(map);
+    place_deraumere_on_map(map);
+    place_mendiane_on_map(map);
+    place_sibur_on_map(map);
+    place_phiras_on_map(map);
+    place_thystame_on_map(map);
 }
 
 void setting_map(void)

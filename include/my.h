@@ -41,4 +41,13 @@ void init_map(map_t *map, int width, int height);
 map_t *initialize_map(int width, int height);
 void display(struct map_s *map);
 
+int place_mendiane_on_map(map_t *map);
+int place_sibur_on_map(map_t *map);
+int place_deraumere_on_map(map_t *map);
+int place_linemate_on_map(map_t *map);
+int place_food_on_map(map_t *map);
+
+int place_phiras_on_map(map_t *map);
+int place_thystame_on_map(map_t *map);
+
 #endif /* !MY_H_ */

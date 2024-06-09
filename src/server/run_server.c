@@ -29,7 +29,7 @@ void need_to_sleep(timespec_t start, timespec_t end, timespec_t req)
 {
     game_t *game = get_game_instance();
     long calc = (end.tv_nsec - start.tv_nsec);
-    long elapsed_ns = calc * 1e9 + calc;
+    long elapsed_ns = calc < 0 ? 1e9 + calc : calc;
     long sleep_ns = (1e9 / game->freq) - elapsed_ns;
 
     if (sleep_ns > 0) {

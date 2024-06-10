@@ -38,7 +38,6 @@ typedef struct waiting_client_s {
 typedef struct command_s {
     int cli_id;
     char *command;
-    double execution_time;
     TAILQ_ENTRY(command_s) entries;
 } command_t;
 

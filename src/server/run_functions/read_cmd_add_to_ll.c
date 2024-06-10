@@ -5,10 +5,10 @@
 ** read_write_cmd
 */
 
-#include "../../include/struct_server.h"
-#include "../../include/get_instance.h"
-#include "../../include/my.h"
-#include "../../include/server.h"
+#include "../../../include/struct_server.h"
+#include "../../../include/get_instance.h"
+#include "../../../include/my.h"
+#include "../../../include/server.h"
 
 /**
 * @file read_write_cmd.c
@@ -32,7 +32,7 @@ int max_cmd_cli(int cli_id)
     return 84;
 }
 
-int add_cmd_to_ll(int cli_id, const char *cmd, double execution_time)
+int add_cmd_to_ll(int cli_id, const char *cmd)
 {
     server_t *server = get_instance();
     command_t *new_command = malloc(sizeof(command_t));
@@ -50,14 +50,12 @@ int add_cmd_to_ll(int cli_id, const char *cmd, double execution_time)
         free(new_command);
         return 84;
     }
-    new_command->execution_time = execution_time;
     TAILQ_INSERT_TAIL(&server->commands, new_command, entries);
     return 0;
 }
 
 void read_buffer_to_list(client_t *cli)
 {
-    double exec_time;
     char *buffer;
     char *command;
     char *command_type;
@@ -69,10 +67,17 @@ void read_buffer_to_list(client_t *cli)
     }
     command = strdup(buffer);
     command_type = strtok(command, " ");
-    exec_time = detect_execution_time(command_type);
-    add_cmd_to_ll(cli->socket, buffer, exec_time);
+    printf("command_type: %s\n", command_type);
+    add_cmd_to_ll(cli->socket, buffer);
     free(buffer);
     free(command);
+}
+
+int lower_cli_cd(client_t *cli)
+{
+    if (cli->cd > 0)
+        cli->cd--;
+    return 0;
 }
 
 int handle_clients(void)
@@ -88,6 +93,7 @@ int handle_clients(void)
             continue;
         }
         read_buffer_to_list(cli);
+        lower_cli_cd(cli);
         cli = next;
     }
     return 0;

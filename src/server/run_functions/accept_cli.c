@@ -5,9 +5,9 @@
 ** accept_cli
 */
 
-#include "../../include/struct_server.h"
-#include "../../include/get_instance.h"
-#include "../../include/server.h"
+#include "../../../include/struct_server.h"
+#include "../../../include/get_instance.h"
+#include "../../../include/server.h"
 
 /**
 * @file accept_cli.c

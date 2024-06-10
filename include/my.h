@@ -28,7 +28,7 @@
     #include <errno.h>
     #include <stdio.h>
     #include <arpa/inet.h>
-    #include <sys/time.h>
+    #include <asm-generic/socket.h>
     #include <time.h>
 
 int add_func(int a, int b);

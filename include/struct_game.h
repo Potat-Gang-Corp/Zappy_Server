@@ -41,6 +41,7 @@ typedef struct game_s {
     int cycle;
     int nb_teams;
     int player_slots;
+    bool graphical;
     team_t **teams;
 } game_t;
 

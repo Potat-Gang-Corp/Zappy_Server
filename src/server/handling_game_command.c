@@ -12,56 +12,36 @@
 
 void handle_left_command(client_t *cli)
 {
-    int validity = 0;
-
     if (cli->pos.orientation == NORTH) {
         cli->pos.orientation = WEST;
-        validity = 1;
     }
     if (cli->pos.orientation == WEST) {
         cli->pos.orientation = SOUTH;
-        validity = 1;
     }
     if (cli->pos.orientation == SOUTH) {
         cli->pos.orientation = EAST;
-        validity = 1;
     }
     if (cli->pos.orientation == EAST) {
         cli->pos.orientation = NORTH;
-        validity = 1;
     }
-    if (validity == 1) {
-        dprintf(cli->socket, "ok\n");
-    } else {
-        dprintf(cli->socket, "ko\n");
-    }
+    dprintf(cli->socket, "ok\r\n");
 }
 
 void handle_right_command(client_t *cli)
 {
-    int validity = 0;
-
     if (cli->pos.orientation == NORTH) {
         cli->pos.orientation = EAST;
-        validity = 1;
     }
     if (cli->pos.orientation == EAST) {
         cli->pos.orientation = SOUTH;
-        validity = 1;
     }
     if (cli->pos.orientation == SOUTH) {
         cli->pos.orientation = WEST;
-        validity = 1;
     }
     if (cli->pos.orientation == WEST) {
         cli->pos.orientation = NORTH;
-        validity = 1;
     }
-    if (validity == 1) {
-        dprintf(cli->socket, "ok\n");
-    } else {
-        dprintf(cli->socket, "ko\n");
-    }
+    dprintf(cli->socket, "ok\n");
 }
 
 int comp_cmd(char *command_type, client_t *cli, char *command)

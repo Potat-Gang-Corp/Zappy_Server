@@ -10,7 +10,7 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 
-void notice_graphic_client(client_t *cli)
+void notice_graphic_client(client_t *cli, char *team_name)
 {
     server_t *server = get_instance();
 
@@ -18,7 +18,7 @@ void notice_graphic_client(client_t *cli)
         if (cli->is_graphical == true) {
             dprintf(cli->socket, "pnw #%d %d %d %d %d %s\n", cli->socket,
                 cli->pos.x, cli->pos.y, (cli->pos.orientation + 1), cli->level,
-                cli->team);
+                team_name);
         }
     }
 }
@@ -42,6 +42,7 @@ int handle_team_full(client_t *cli, int team_index, char *team_name)
         length = snprintf(coordinates, sizeof(coordinates),
             "%d %d\r\n", game->width, game->height);
         write(cli->socket, coordinates, length);
+        notice_graphic_client(cli, team_name);
         return 0;
     }
 }

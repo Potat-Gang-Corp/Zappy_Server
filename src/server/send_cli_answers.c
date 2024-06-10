@@ -32,7 +32,7 @@ void load_cli_and_exec(int cli_socket, char *command)
         if (cli->socket == cli_socket && cli->status == false) {
             handle_cli_login(cli, command);
         }
-        if (cli->socket == cli_socket && cli->status == true) {
+        else if (cli->socket == cli_socket && cli->status == true) {
             execute_game_cmd(cli, command);
         }
     }

@@ -80,6 +80,22 @@ void handle_ppo_command(client_t *cli, char *command)
     }
 }
 
+void handle_plv_command(client_t *cli, char *command)
+{
+    server_t *server = get_instance();
+    char *player_nb = strtok(command, " ");
+    int socket_nb;
+    
+    player_nb = strtok(NULL, " #");
+    socket_nb = atoi(player_nb);
+    for (cli = server->clients; cli != NULL; cli = cli->next) {
+        if (socket_nb == cli->socket) {
+            dprintf(cli->socket, "plv #%d %d\n", cli->socket, cli->level);
+            return;
+        }
+    }
+}
+
 int comp_cmd(char *command_type, client_t *cli, char *command)
 {
     command = command;
@@ -140,6 +156,10 @@ int handle_gui_command(char *command_type, client_t *cli, char *command)
     }
     if (strcmp(command_type, "ppo") == 0 && cli->is_graphical == true) {
         handle_ppo_command(cli, command);
+        return 0;
+    }
+    if (strcmp(command_type, "plv") == 0 && cli->is_graphical == true) {
+        handle_plv_command(cli, command);
         return 0;
     }
     return 1;

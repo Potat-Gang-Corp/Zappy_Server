@@ -1,0 +1,58 @@
+[001]
+NAME="Test netcat response | Bad team name"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+SERVER_CMD="./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 1 &"
+CLIENT_COMMAND="name"
+CLIENT_EXPECTED_RESPONSE="WELCOME"
+CLIENT_EXPECTED_RESPONSE="Wrong team name, please try again"
+PORT=8080
+TIMEOUT=10
+[001-END]
+
+[002]
+NAME="Test netcat response | Multiple clients in the same team"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+SERVER_CMD="./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 1 &"
+CLIENT_COMMAND="name1"
+CLIENT_EXPECTED_RESPONSE="WELCOME"
+CLIENT_EXPECTED_RESPONSE="0"
+CLIENT_EXPECTED_RESPONSE="10 10"
+CLIENT_COMMAND="name1"
+CLIENT_EXPECTED_RESPONSE="WELCOME"
+CLIENT_EXPECTED_RESPONSE="This team is full, please wait"
+PORT=8080
+TIMEOUT=10
+[002-END]
+
+
+[003]
+NAME="Test netcat response | Multiple teams"
+SETUP="export TERM=xterm ; PATH='/bin:/usr/bin'"
+CLEAN=""
+SERVER_CMD="./zappy_server -p 8080 -x 10 -y 10 -n name1 name2 -c 3 &"
+CLIENT_COMMAND="name1"
+CLIENT_EXPECTED_RESPONSE="WELCOME"
+CLIENT_EXPECTED_RESPONSE="2"
+CLIENT_EXPECTED_RESPONSE="10 10"
+CLIENT_COMMAND="name2"
+CLIENT_EXPECTED_RESPONSE="WELCOME"
+CLIENT_EXPECTED_RESPONSE="2"
+CLIENT_EXPECTED_RESPONSE="10 10"
+CLIENT_COMMAND="name1"
+CLIENT_EXPECTED_RESPONSE="WELCOME"
+CLIENT_EXPECTED_RESPONSE="1"
+CLIENT_EXPECTED_RESPONSE="10 10"
+PORT=8080
+TIMEOUT=10
+[003-END]
+
+
+
+
+
+
+
+
+

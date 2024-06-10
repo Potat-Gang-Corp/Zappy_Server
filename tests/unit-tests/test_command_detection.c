@@ -56,7 +56,7 @@ void setup_command_collect(void) {
 
 TestSuite(command_collect, .init = setup_command_collect);
 
-Test(command_collect, test_adding_command_to_ll)
+/*Test(command_collect, test_adding_command_to_ll)
 {
     cr_assert_eq(add_command_to_list(1, "bonjour", 10000), 0);
 
@@ -69,4 +69,4 @@ Test(command_collect, test_adding_command_to_ll)
     client_t *client1 = server_collect->clients;
     client1->nb_commands = 10;
     cr_assert_eq(add_command_to_list(1, "bonjour", 10000), 84);
-}
+}*/

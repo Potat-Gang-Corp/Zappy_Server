@@ -138,5 +138,6 @@ void execute_game_cmd(client_t *cli, char *command)
         result = comp_cmd(command_type, cli, command);
     if (result == 1)
         result = handle_gui_command(command_type, cli, command);
-    
+        comp_cmd(command_type);
+    free(buffer);
 }

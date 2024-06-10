@@ -59,15 +59,15 @@ $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
 
 tests_run: $(TESTNAME)
 	@$(ECHO) "$(MAGENTA)$(BOLD)Running unit tests...$(RESET)"
-	@./$(TESTNAME) > /dev/null 2>&1
+	@./$(TESTNAME)
 	@gcovr $(GCOVRFLAGS)
 	@gcovr $(GCOVRFLAGS) --html --html-details -o tests/coverage.html
 	@$(ECHO) "$(JAUNE)Coverage report generated in tests/coverage.html$(RESET)"
 
-
 run_ftests: all
 	@$(ECHO) "$(MAGENTA)$(BOLD)Running functional tests...$(RESET)"
 	@./tests/functional-tests/tests.sh
+	@./tests/functional-tests/tests_netcat.sh
 
 clean:
 	@$(ECHO) "$(RED)$(BOLD)Cleaning objects and temporary files...$(RESET)"

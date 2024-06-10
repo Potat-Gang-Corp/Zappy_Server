@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** Zappy_Server
 ** File description:
-** test_accept_cli_ll
+** test_op_cli_ll
 */
 
 #include <criterion/criterion.h>
@@ -15,64 +15,56 @@
 #include "../../include/struct_client.h"
 #include <time.h>
 
-server_t *server_instance_remove_cli;
-game_t *game_instance_remove_cli;
-team_t *team1_remove_cli;
-
 void setup_remove_cli(void) {
-    server_instance_remove_cli = get_instance();
-    game_instance_remove_cli = get_game_instance();
+    server_t *server = get_instance();
+    client_t *client1 = malloc(sizeof(client_t));
+    client1->socket = 101;
+    client1->team = strdup("Team1");
+    client1->next = NULL;
 
-    team1_remove_cli = malloc(sizeof(team_t));
-    team1_remove_cli->name = strdup("team1");
-    team1_remove_cli->max_clients = 5;
-    team1_remove_cli->cpt_egg = 1;
+    client_t *client2 = malloc(sizeof(client_t));
+    client2->socket = 102;
+    client2->team = strdup("Team2");
+    client2->next = NULL;
 
-    game_instance_remove_cli->nb_teams = 1;
-    game_instance_remove_cli->teams = malloc(sizeof(team_t *));
-    game_instance_remove_cli->teams[0] = team1_remove_cli;
+    client_t *client3 = malloc(sizeof(client_t));
+    client3->socket = 103;
+    client3->team = strdup("Team3");
+    client3->next = NULL;
 
-    game_instance_remove_cli->width = 100;
-    game_instance_remove_cli->height = 100;
-    
-    server_instance_remove_cli->socket = 0;
-    server_instance_remove_cli->clients = NULL;
-    TAILQ_INIT(&server_instance_remove_cli->waiting_list);
-    FD_ZERO(&server_instance_remove_cli->readfs);
+    client1->next = client2;
+    client2->next = client3;
+    server->clients = client1;
 }
 
-void teardown_remove_cli(void) {
-    client_t *current = server_instance_remove_cli->clients;
-    while (current) {
-        client_t *tmp = current;
-        current = current->next;
-        free(tmp);
-    }
-    server_instance_remove_cli->clients = NULL;
-    while (!TAILQ_EMPTY(&server_instance_remove_cli->waiting_list)) {
-        waiting_client_t *wclient = TAILQ_FIRST(&server_instance_remove_cli->waiting_list);
-        TAILQ_REMOVE(&server_instance_remove_cli->waiting_list, wclient, entries);
-        free(wclient->team);
-        free(wclient);
-    }
-    free(team1_remove_cli->name);
-    free(team1_remove_cli);
-    free(game_instance_remove_cli->teams);
-    game_instance_remove_cli->teams = NULL;
+Test(client_management, find_client, .init = setup_remove_cli) {
+    client_t *prev = NULL;
+    client_t *found = find_client_and_prev(101, &prev);
+
+    cr_assert_not_null(found, "Client should be found.");
+    cr_assert_null(prev, "Prev should be NULL for the first client.");
+    cr_assert(found->socket == 101, "Found client socket should be 101.");
 }
 
-TestSuite(remove_client, .init = setup_remove_cli, .fini = teardown_remove_cli);
+Test(client_management, remove_client, .init = setup_remove_cli) {
+    server_t *server = get_instance();
+    int result = remove_client(101);
 
-/*Test(remove_client, remove_client_test)
-{
-    cr_assert_eq(remove_client(1), 84);
-    add_to_ll(1, 0);
-    add_to_ll(2, 0);
-    add_to_ll(3, 0);
+    cr_assert_eq(result, 0, "Remove client should return 0 on success.");
+    cr_assert_not_null(server->clients, "Clients list should not be empty.");
+    cr_assert_eq(server->clients->socket, 102, "Next client should now be the first client.");
 
-    cr_assert_eq(remove_client(2), 0);
-    cr_assert_eq(remove_client(2), 84);
-    cr_assert_eq(remove_client(1), 0);
-    cr_assert_eq(remove_client(3), 0);
-    cr_assert_null(server_instance_remove_cli->clients);
-}*/
+    result = remove_client(103);
+    cr_assert_eq(result, 0, "Remove client should return 0 on success.");
+    cr_assert_not_null(server->clients, "Clients list should still not be empty after removing the last client.");
+    cr_assert_eq(server->clients->socket, 102, "Remaining client should be 102 after removing 103.");
+}
+
+Test(client_management, remove_last_client, .init = setup_remove_cli) {
+    clean_client_struct();
+    int result = remove_client(103);
+
+    cr_assert_eq(result, 0, "Remove client should return 0 on success.");
+}
+
+

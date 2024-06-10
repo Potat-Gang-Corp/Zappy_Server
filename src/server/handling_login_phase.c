@@ -10,6 +10,19 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 
+void notice_graphic_client(client_t *cli)
+{
+    server_t *server = get_instance();
+
+    for (cli = server->clients; cli != NULL; cli = cli->next) {
+        if (cli->is_graphical == true) {
+            dprintf(cli->socket, "pnw #%d %d %d %d %d %s\n", cli->socket,
+                cli->pos.x, cli->pos.y, (cli->pos.orientation + 1), cli->level,
+                cli->team);
+        }
+    }
+}
+
 int handle_team_full(client_t *cli, int team_index, char *team_name)
 {
     game_t *game = get_game_instance();
@@ -46,8 +59,6 @@ int detect_team_validity(char *team_name, client_t *cli)
         if (strcmp(team_name, "graphic") == 0) {
             cli->status = true;
             cli->is_graphical = true;
-            write(cli->socket, "WELCOME GRAPHIC\r\n",
-                strlen("WELCOME GRAPHIC\r\n"));
             return 0;
         }
     }

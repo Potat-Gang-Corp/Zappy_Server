@@ -607,7 +607,7 @@ void add_cli_to_ll(client_t *new_client, int client_socket);
  * or not and so change the status for the client.
  * @return return 0 always.
  */
-int handle_team_full(client_t *cli, team_t *team, char *team_name);
+int handle_team_full(client_t *cli, int team_index, char *team_name);
 
 /**
  * @brief Function to remove the found client

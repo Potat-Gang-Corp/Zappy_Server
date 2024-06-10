@@ -120,7 +120,7 @@ int handle_gui_command(char *command_type, client_t *cli, char *command)
     command = command;
     cli = cli;
 
-    if (strcmp(command_type, "msz") == 0) {
+    if (strcmp(command_type, "msz") == 0 && cli->is_graphical == true) {
         handle_msz_command(cli);
         return 0;
     }

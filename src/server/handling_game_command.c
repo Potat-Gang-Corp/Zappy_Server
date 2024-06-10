@@ -10,6 +10,13 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 
+void handle_msz_command(client_t *cli)
+{
+    game_t *game = get_game_instance();
+
+    dprintf(cli->socket, "%d %d\n", game->width, game->height);
+}
+
 void handle_left_command(client_t *cli)
 {
     if (cli->pos.orientation == NORTH) {
@@ -108,6 +115,18 @@ int comp_cmd_bis(char *command_type, client_t *cli, char *command)
     return 1;
 }
 
+int handle_gui_command(char *command_type, client_t *cli, char *command)
+{
+    command = command;
+    cli = cli;
+
+    if (strcmp(command_type, "msz") == 0) {
+        handle_msz_command(cli);
+        return 0;
+    }
+    return 1;
+}
+
 void execute_game_cmd(client_t *cli, char *command)
 {
     char *buffer = strdup(command);
@@ -116,5 +135,8 @@ void execute_game_cmd(client_t *cli, char *command)
 
     result = comp_cmd_bis(command_type, cli, command);
     if (result == 1)
-        comp_cmd(command_type, cli, command);
+        result = comp_cmd(command_type, cli, command);
+    if (result == 1)
+        result = handle_gui_command(command_type, cli, command);
+    
 }

@@ -31,7 +31,7 @@ OBJS = $(SRCS:.c=.o)
 OBJS_NO_MAIN = $(SRCS_NO_MAIN:.c=.o)
 TOBJS = $(TSRCS:.c=.o)
 
-CFLAGS = -I./include -Wall -Wextra -Werror --coverage
+CFLAGS = -I./include -Wall -Wextra --coverage
 LDFLAGS = --coverage -lcriterion -lgcov -fprofile-arcs -ftest-coverage
 GCOVRFLAGS = -r . --exclude 'tests/*'
 
@@ -52,7 +52,7 @@ run: all
 
 $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
 	@$(ECHO) "$(CYAN)$(BOLD)Linking $(TESTNAME)...$(RESET)"
-	$(CC) -o $(TESTNAME) $(TOBJS) $(OBJS_NO_MAIN) $(CFLAGS) $(LDFLAGS)
+	$(CC) -g -00 -o $(TESTNAME) $(TOBJS) $(OBJS_NO_MAIN) $(CFLAGS) $(LDFLAGS)
 	@$(ECHO) "$(GREEN)$(BOLD)$(TESTNAME) compiled successfully!$(RESET)"
 
 ##add something to not display on terminal

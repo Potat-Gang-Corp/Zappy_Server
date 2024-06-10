@@ -38,7 +38,7 @@
 int add_func(int a, int b);
 void second_init_map(map_t *map, int x, int y, int width);
 void init_map(map_t *map, int width, int height);
-map_t *initialize_map(int width, int height);
+int initialize_map(int width, int height);
 void display(struct map_s *map);
 
 int place_mendiane_on_map(map_t *map);
@@ -49,5 +49,11 @@ int place_food_on_map(map_t *map);
 
 int place_phiras_on_map(map_t *map);
 int place_thystame_on_map(map_t *map);
+
+const char *get_north_pos(void);
+const char *get_east_pos(void);
+const char *get_south_pos(void);
+const char *get_south_pos(void);
+void player_spawn(client_t *cli);
 
 #endif /* !MY_H_ */

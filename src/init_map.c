@@ -8,7 +8,7 @@
 #include "my.h"
 #include "struct_map.h"
 #include "server.h"
-
+#include "get_instance.h"
 /**
 * @file init_map.c
 * @brief Initializes the map structure
@@ -58,20 +58,20 @@ void init_map(map_t *map, int width, int height)
     place_randomly_items(map);
 }
 
-map_t *initialize_map(int width, int height)
+int initialize_map(int width, int height)
 {
-    map_t *map = malloc(sizeof(map_t));
+    map_t *map = get_map_instance();
 
     if (!map)
-        return NULL;
+        return 84;
     map->width = width;
     map->height = height;
     map->tiles = malloc(width * height * sizeof(tile_t *));
     if (!map->tiles) {
         free(map);
-        return NULL;
+        return 84;
     }
     init_map(map, width, height);
     map->display = &display;
-    return map;
+    return 0;
 }

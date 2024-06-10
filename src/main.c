@@ -18,7 +18,7 @@
 int main(int argc, char **argv)
 {
     game_t *game = get_game_instance();
-    map_t *map;
+    map_t *map = get_map_instance();
 
     if (handle_flags(argc, argv) == 84) {
         fprintf(stderr, "Error: In the flags can't launch server\n");
@@ -28,7 +28,15 @@ int main(int argc, char **argv)
         fprintf(stderr, "Error: In the server can't launch server\n");
         return 84;
     }
-    map = initialize_map(game->width, game->height);
+    initialize_map(game->width, game->height);
+    if (!map) {
+        fprintf(stderr, "Error: Failed to initialize map\n");
+        return 84;
+    }
+    if (!map->tiles) {
+        fprintf(stderr, "Error: Failed to initialize tiles\n");
+        return 84;
+    }
     map->display(map);
     if (run_server() == 84) {
         fprintf(stderr, "Error: In the run_server can't launch server\n");

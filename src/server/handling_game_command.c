@@ -96,6 +96,55 @@ void handle_plv_command(client_t *cli, char *command)
     }
 }
 
+void delete_item_from_tiles(tile_t *tile, item_type_t type)
+{
+    items_t *item = tile->items;
+    items_t *prev = NULL;
+
+    while (item != NULL) {
+        if (item->type == type) {
+            if (prev == NULL) {
+                tile->items = item->next;
+            } else {
+                prev->next = item->next;
+            }
+            free(item);
+            return;
+        }
+        prev = item;
+        item = item->next;
+    }
+}
+
+void move_player(client_t *cli, game_t *game)
+{
+    int dx = 0, dy = 0;
+
+    switch (cli->pos.orientation) {
+        case NORTH: dy = -1; break;
+        case SOUTH: dy = 1; break;
+        case EAST:  dx = 1; break;
+        case WEST:  dx = -1; break;
+    }
+    cli->pos.x = (cli->pos.x + dx + game->width) % game->width;
+    cli->pos.y = (cli->pos.y + dy + game->height) % game->height;
+}
+
+void handle_forward_command(client_t *cli)
+{
+    game_t *game = get_game_instance();
+    map_t *map = get_map_instance();
+    item_type_t type = PLAYER;
+    int current_index = cli->pos.x + cli->pos.y * game->width;
+    int new_index = cli->pos.x + cli->pos.y * game->width;
+
+    delete_item_from_tiles(map->tiles[current_index], type);
+    move_player(cli, game);
+    add_item_to_tiles(map->tiles[new_index], type);
+    dprintf(cli->socket, "ok\n");
+}
+
+
 int comp_cmd(char *command_type, client_t *cli, char *command)
 {
     command = command;
@@ -126,6 +175,7 @@ int comp_cmd_bis(char *command_type, client_t *cli, char *command)
     command = command;
     cli = cli;
     if (strcmp(command_type, "Forward") == 0) {
+        handle_forward_command(cli);
         return 0;
     }
     if (strcmp(command_type, "Right") == 0) {

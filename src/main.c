@@ -37,7 +37,6 @@ int main(int argc, char **argv)
         fprintf(stderr, "Error: Failed to initialize tiles\n");
         return 84;
     }
-    map->display(map);
     if (run_server() == 84) {
         fprintf(stderr, "Error: In the run_server can't launch server\n");
         return 84;

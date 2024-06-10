@@ -661,5 +661,4 @@ void insert_new_client(client_t *cli, server_t *server);
  */
 void load_cli_and_exec(int cli_socket, char *command);
 
-
 #endif /* !SERVER_H_ */

@@ -27,7 +27,6 @@ void player_spawn(client_t *cli)
     cli->pos.x = map->tiles[x + y * game->width]->x;
     cli->pos.y = map->tiles[x + y * game->width]->y;
     cli->pos.orientation = rand() % 4;
-    map->display(map);
 }
 
 void notice_graphic_client(client_t *cli, char *team_name)

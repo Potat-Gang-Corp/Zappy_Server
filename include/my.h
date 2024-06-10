@@ -56,4 +56,19 @@ const char *get_south_pos(void);
 const char *get_south_pos(void);
 void player_spawn(client_t *cli);
 
+const char *get_food(void);
+const char *get_linemate(void);
+const char *get_deraumere(void);
+const char *get_sibur(void);
+const char *get_mendiane(void);
+const char *get_phiras(void);
+const char *get_thystame(void);
+const char *get_egg(void);
+const char *get_player(void);
+const char *get_unknown(void);
+
+void add_item_to_tiles(tile_t *tile, item_type_t type);
+void place_randomly_items(map_t *map);
+void display_item(items_t *item);
+
 #endif /* !MY_H_ */

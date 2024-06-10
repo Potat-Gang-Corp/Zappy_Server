@@ -28,7 +28,7 @@ void handle_sigint(int sig)
 int run_server(void)
 {
     server_t *server = get_instance();
-
+    
     if (server == NULL)
         return 84;
     printf("server launched on port %d\n", server->port);

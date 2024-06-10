@@ -9,6 +9,26 @@
 #include "../../include/get_instance.h"
 #include "../../include/my.h"
 #include "../../include/server.h"
+#include "../../include/struct_client.h"
+
+void player_spawn(client_t *cli)
+{
+    srand(time(NULL));
+    map_t *map = get_map_instance();
+    game_t *game = get_game_instance();
+    int x = rand() % game->width;
+    int y = rand() % game->height;
+    item_type_t type = PLAYER;
+    if (!map->tiles) {
+        fprintf(stderr, "Error: map->tiles is not allocated\n");
+        return;
+    }
+    add_item_to_tiles(map->tiles[x + y * game->width], type);
+    cli->pos.x = map->tiles[x + y * game->width]->x;
+    cli->pos.y = map->tiles[x + y * game->width]->y;
+    cli->pos.orientation = rand() % 4;
+    map->display(map);
+}
 
 void notice_graphic_client(client_t *cli, char *team_name)
 {
@@ -43,6 +63,7 @@ int handle_team_full(client_t *cli, int team_index, char *team_name)
             "%d %d\r\n", game->width, game->height);
         write(cli->socket, coordinates, length);
         notice_graphic_client(cli, team_name);
+        player_spawn(cli);
         return 0;
     }
 }

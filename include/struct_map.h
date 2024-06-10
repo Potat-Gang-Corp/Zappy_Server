@@ -24,7 +24,8 @@ typedef enum item_type_e {
     PHIRAS,
     THYSTAME,
     EGG,
-    PLAYER
+    PLAYER,
+    MAX_ITEMS
 } item_type_t;
 
 /**

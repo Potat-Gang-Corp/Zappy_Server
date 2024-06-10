@@ -215,7 +215,7 @@ int handle_gui_command(char *command_type, client_t *cli, char *command)
     return 1;
 }
 
-void execute_game_cmd(client_t *cli, char *command)
+void execute_cli_cmd_g(client_t *cli, char *command)
 {
     char *buffer = strdup(command);
     char *command_type = strtok(buffer, " \r\n");

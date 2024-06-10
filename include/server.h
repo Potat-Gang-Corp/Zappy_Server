@@ -216,21 +216,6 @@ void handle_cli_login(client_t *cli, char *command);
  */
 int detect_team_validity(char *team_name, client_t *cli);
 
-/**
- * @brief Function to handle the team full status
- * @param client_t *cli represent the client entity
- * that contains client informations.
- * @param team_t *team represent the team
- * entity that contains team informations.
- * @param char *team_name represent the team name sent by the client.
- *
- * @details will check if the team is full
- * or not and so change the team status.
- * It Will put the client in the waiting list if the team is full.
- * @return return 0 always.
- */
-int handle_team_full(client_t *cli, team_t *team, char *team_name);
-
 //handling_game_phase.c
 
 /**
@@ -241,10 +226,8 @@ int handle_team_full(client_t *cli, team_t *team, char *team_name);
  * @details will execute the game commands.
  * @return return noting.
  */
-void execute_game_cmd(client_t *cli, char *command);
+void execute_game_cmd(int index_cli, char *command);
 
-<<<<<<< HEAD
-=======
 /**
  * @brief Function to compare the command type
  * @param char *command_type represent the command type sent by the client.
@@ -269,7 +252,6 @@ int comp_cmd(char *command_type, client_t *cli, char *command);
  */
 int comp_cmd_bis(char *command_type, client_t *cli, char *command);
 
->>>>>>> origin/64-handle-commands-to-move
 //send_cli_answers.c
 
 /**
@@ -585,5 +567,7 @@ void insert_new_client(client_t *cli, server_t *server);
  * @return nothing.
  */
 void found_cli_and_exec(int cli_socket, char *command);
+
+void execute_cli_cmd_g(client_t *cli, char *command);
 
 #endif /* !SERVER_H_ */

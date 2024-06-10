@@ -23,22 +23,17 @@ int detect_client_waiting(int cli_socket)
     return 0;
 }
 
-void found_cli_and_exec(int cli_s, char *command)
+void found_cli_and_exec(int cli_socket, char *command)
 {
     server_t *server = get_instance();
     client_t *cli = NULL;
 
     for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->socket == cli_s && cli->status == false) {
+        if (cli->socket == cli_socket && cli->status == false) {
             handle_cli_login(cli, command);
         }
-<<<<<<< HEAD:src/server/execute_cli_cmd.c
-        if (cli->socket == cli_s && cli->status == true && cli->cd == 0) {
-            execute_game_cmd(cli_s, command);
-=======
-        else if (cli->socket == cli_socket && cli->status == true) {
-            execute_game_cmd(cli, command);
->>>>>>> origin/64-handle-commands-to-move:src/server/send_cli_answers.c
+        if (cli->socket == cli_socket && cli->status == true && cli->cd == 0) {
+            execute_game_cmd(cli_socket, command);
         }
     }
 }

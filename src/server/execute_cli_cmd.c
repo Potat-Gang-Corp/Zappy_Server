@@ -32,8 +32,13 @@ void found_cli_and_exec(int cli_s, char *command)
         if (cli->socket == cli_s && cli->status == false) {
             handle_cli_login(cli, command);
         }
+<<<<<<< HEAD:src/server/execute_cli_cmd.c
         if (cli->socket == cli_s && cli->status == true && cli->cd == 0) {
             execute_game_cmd(cli_s, command);
+=======
+        else if (cli->socket == cli_socket && cli->status == true) {
+            execute_game_cmd(cli, command);
+>>>>>>> origin/64-handle-commands-to-move:src/server/send_cli_answers.c
         }
     }
 }

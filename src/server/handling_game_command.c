@@ -63,6 +63,23 @@ void handle_connect_nbr_command(client_t *cli)
     }
 }
 
+void handle_ppo_command(client_t *cli, char *command)
+{
+    server_t *server = get_instance();
+    char *player_nb = strtok(command, " ");
+    int socket_nb;
+    
+    player_nb = strtok(NULL, " #");
+    socket_nb = atoi(player_nb);
+    for (cli = server->clients; cli != NULL; cli = cli->next) {
+        if (socket_nb == cli->socket) {
+            dprintf(cli->socket, "ppo #%d %d %d %d\n", cli->socket, cli->pos.x,
+                cli->pos.y, (cli->pos.orientation + 1));
+            return;
+        }
+    }
+}
+
 int comp_cmd(char *command_type, client_t *cli, char *command)
 {
     command = command;
@@ -117,11 +134,12 @@ int comp_cmd_bis(char *command_type, client_t *cli, char *command)
 
 int handle_gui_command(char *command_type, client_t *cli, char *command)
 {
-    command = command;
-    cli = cli;
-
     if (strcmp(command_type, "msz") == 0 && cli->is_graphical == true) {
         handle_msz_command(cli);
+        return 0;
+    }
+    if (strcmp(command_type, "ppo") == 0 && cli->is_graphical == true) {
+        handle_ppo_command(cli, command);
         return 0;
     }
     return 1;
@@ -142,3 +160,4 @@ void execute_game_cmd(client_t *cli, char *command)
         dprintf(cli->socket, "suc\n");
     free(buffer);
 }
+//beurky

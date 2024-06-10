@@ -317,33 +317,37 @@ int handle_team_full_status(client_t *cli, team_t *team, game_t *game,
 
 /**
  * @brief Function to execute the game commands
- * @param int cli_socket represent the client socket.
+ * @param client_t *cli represent the client entity
  * @param char *command represent the command sent by the client.
  *
  * @details will execute the game commands.
  * @return return noting.
  */
-void execute_game_cmd(int cli_socket, char *command);
+void execute_game_cmd(client_t *cli, char *command);
 
 /**
  * @brief Function to compare the command type
  * @param char *command_type represent the command type sent by the client.
+ * @param client_t *cli represent the client entity
+ * @param char *command represent the command sent by the client.
  *
  * @details will compare the command type.
  * @return return 0 if the command type match,
  * and 1 if the command type doesn't match.
  */
-int comp_cmd(char *command_type);
+int comp_cmd(char *command_type, client_t *cli, char *command);
 
 /**
  * @brief Function to compare the command type
  * @param char *command_type represent the command type sent by the client.
+ * @param client_t *cli represent the client entity
+ * @param char *command represent the command sent by the client.
  *
  * @details will compare the command type.
  * @return return 0 if the command type match,
  * and 1 if the command type doesn't match.
  */
-int comp_cmd_bis(char *command_type);
+int comp_cmd_bis(char *command_type, client_t *cli, char *command);
 
 //send_cli_answers.c
 

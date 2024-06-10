@@ -10,9 +10,65 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 
-int comp_cmd(char *command_type)
+void handle_left_command(client_t *cli)
 {
+    int validity = 0;
+
+    if (cli->pos.orientation == NORTH) {
+        cli->pos.orientation = WEST;
+        validity = 1;
+    }
+    if (cli->pos.orientation == WEST) {
+        cli->pos.orientation = SOUTH;
+        validity = 1;
+    }
+    if (cli->pos.orientation == SOUTH) {
+        cli->pos.orientation = EAST;
+        validity = 1;
+    }
+    if (cli->pos.orientation == EAST) {
+        cli->pos.orientation = NORTH;
+        validity = 1;
+    }
+    if (validity == 1) {
+        dprintf(cli->socket, "ok\n");
+    } else {
+        dprintf(cli->socket, "ko\n");
+    }
+}
+
+void handle_right_command(client_t *cli)
+{
+    int validity = 0;
+
+    if (cli->pos.orientation == NORTH) {
+        cli->pos.orientation = EAST;
+        validity = 1;
+    }
+    if (cli->pos.orientation == EAST) {
+        cli->pos.orientation = SOUTH;
+        validity = 1;
+    }
+    if (cli->pos.orientation == SOUTH) {
+        cli->pos.orientation = WEST;
+        validity = 1;
+    }
+    if (cli->pos.orientation == WEST) {
+        cli->pos.orientation = NORTH;
+        validity = 1;
+    }
+    if (validity == 1) {
+        dprintf(cli->socket, "ok\n");
+    } else {
+        dprintf(cli->socket, "ko\n");
+    }
+}
+
+int comp_cmd(char *command_type, client_t *cli, char *command)
+{
+    command = command;
     if (strcmp(command_type, "Left") == 0) {
+        handle_left_command(cli);
         return 0;
     }
     if (strcmp(command_type, "Look") == 0) {
@@ -33,12 +89,15 @@ int comp_cmd(char *command_type)
     return 1;
 }
 
-int comp_cmd_bis(char *command_type)
+int comp_cmd_bis(char *command_type, client_t *cli, char *command)
 {
+    command = command;
+    cli = cli;
     if (strcmp(command_type, "Forward") == 0) {
         return 0;
     }
     if (strcmp(command_type, "Right") == 0) {
+        handle_right_command(cli);
         return 0;
     }
     if (strcmp(command_type, "Fork") == 0) {
@@ -47,7 +106,7 @@ int comp_cmd_bis(char *command_type)
     if (strcmp(command_type, "Incantation") == 0) {
         return 0;
     }
-    if (strcmp(command_type, "Connect_nbr")) {
+    if (strcmp(command_type, "Connect_nbr") == 0) {
         return 0;
     }
     if (strcmp(command_type, "Inventory") == 0) {
@@ -56,14 +115,13 @@ int comp_cmd_bis(char *command_type)
     return 1;
 }
 
-void execute_game_cmd(int cli_socket, char *command)
+void execute_game_cmd(client_t *cli, char *command)
 {
     char *buffer = strdup(command);
-    char *command_type = strtok(buffer, " ");
+    char *command_type = strtok(buffer, " \r\n");
     int result = -1;
 
-    cli_socket = cli_socket;
-    result = comp_cmd_bis(command_type);
+    result = comp_cmd_bis(command_type, cli, command);
     if (result == 1)
-        comp_cmd(command_type);
+        comp_cmd(command_type, cli, command);
 }

@@ -70,5 +70,6 @@ const char *get_unknown(void);
 void add_item_to_tiles(tile_t *tile, item_type_t type);
 void place_randomly_items(map_t *map);
 void display_item(items_t *item);
+const char *get_items(item_type_t item);
 
 #endif /* !MY_H_ */

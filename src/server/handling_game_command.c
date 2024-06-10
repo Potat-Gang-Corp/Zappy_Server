@@ -144,7 +144,27 @@ void handle_forward_command(client_t *cli)
     dprintf(cli->socket, "ok\n");
 }
 
+void handle_tna_command(client_t *cli)
+{
+    int char_count = 0;
+    game_t *game = get_game_instance();
+    char *buffer;
 
+    for (int i = 0; i < game->nb_teams; i++) {
+        char_count += strlen(game->teams[i]->name);
+        char_count += strlen("tna \n");
+    }
+    
+    buffer = malloc(sizeof(char) * char_count + 1);
+    buffer[0] = '\0';
+    for (int i = 0; i < game->nb_teams; i++) {
+        strcat(buffer, "tna ");
+        strcat(buffer, game->teams[i]->name);
+        strcat(buffer, "\n");
+    }
+    dprintf(cli->socket, "%s", buffer);
+    
+}
 int comp_cmd(char *command_type, client_t *cli, char *command)
 {
     command = command;
@@ -210,6 +230,10 @@ int handle_gui_command(char *command_type, client_t *cli, char *command)
     }
     if (strcmp(command_type, "plv") == 0 && cli->is_graphical == true) {
         handle_plv_command(cli, command);
+        return 0;
+    }
+    if (strcmp(command_type, "tna") == 0 && cli->is_graphical == true) {
+        handle_tna_command(cli);
         return 0;
     }
     return 1;

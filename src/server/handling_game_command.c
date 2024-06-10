@@ -44,6 +44,18 @@ void handle_right_command(client_t *cli)
     dprintf(cli->socket, "ok\n");
 }
 
+void handle_connect_nbr_command(client_t *cli)
+{
+    game_t *game = get_game_instance();
+
+    for (int i = 0; i < game->nb_teams; i++) {
+        if (strcmp(game->teams[i]->name, cli->team) == 0) {
+            dprintf(cli->socket, "%d\n", game->teams[i]->max_clients);
+            return;
+        }
+    }
+}
+
 int comp_cmd(char *command_type, client_t *cli, char *command)
 {
     command = command;
@@ -87,6 +99,7 @@ int comp_cmd_bis(char *command_type, client_t *cli, char *command)
         return 0;
     }
     if (strcmp(command_type, "Connect_nbr") == 0) {
+        handle_connect_nbr_command(cli);
         return 0;
     }
     if (strcmp(command_type, "Inventory") == 0) {

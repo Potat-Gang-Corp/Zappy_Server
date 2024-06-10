@@ -10,21 +10,21 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 
-int handle_team_full(client_t *cli, team_t *team, char *team_name)
+int handle_team_full(client_t *cli, int team_index, char *team_name)
 {
     game_t *game = get_game_instance();
     char slots[1024];
     char coordinates[1024];
     int length;
 
-    if (team->max_clients < 1) {
+    if (game->teams[team_index]->max_clients < 1) {
         add_to_waiting_list(cli->socket, team_name);
         write(cli->socket, "This team is full, please wait\r\n",
             strlen("This team is full, please wait\r\n"));
         return 0;
     } else {
-        team->max_clients -= 1;
-        length = snprintf(slots, sizeof(slots), "%d\r\n", team->max_clients);
+        game->teams[team_index]->max_clients -= 1;
+        length = snprintf(slots, sizeof(slots), "%d\r\n", game->teams[team_index]->max_clients);
         write(cli->socket, slots, length);
         length = snprintf(coordinates, sizeof(coordinates),
             "%d %d\r\n", game->width, game->height);
@@ -41,7 +41,7 @@ int detect_team_validity(char *team_name, client_t *cli)
         if (strcmp(game->teams[i]->name, team_name) == 0) {
             cli->status = true;
             cli->team = strdup(team_name);
-            return handle_team_full(cli, game->teams[i], team_name);
+            return handle_team_full(cli, i, team_name);
         }
     }
     return 84;

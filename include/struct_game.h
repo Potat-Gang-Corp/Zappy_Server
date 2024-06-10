@@ -27,6 +27,7 @@ typedef struct team_s {
     char *name;
     int max_clients;
     int cpt_egg;
+    int slots_available;
 } team_t;
 
 /**

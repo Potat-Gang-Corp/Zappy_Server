@@ -235,7 +235,6 @@ void handle_pin_command(client_t *cli, char *command)
     int socket_nb = atoi(player_nb);
 
     command_type = command_type;
-
     for (player = server->clients; player != NULL; player = player->next) {
         if (socket_nb == player->socket) {
             dprintf(cli->socket, "pin %d %d %d %d %d %d %d %d %d %d\n",
@@ -247,6 +246,136 @@ void handle_pin_command(client_t *cli, char *command)
             return;
         }
     }
+}
+
+void add_item_to_inventory(client_t *cli, item_type_t type)
+{
+    if (type == FOOD) {
+        cli->inventory.food += 1;
+    }
+    if (type == LINEMATE) {
+        cli->inventory.linemate += 1;
+    }
+    if (type == DERAUMERE) {
+        cli->inventory.deraumere += 1;
+    }
+    if (type == SIBUR) {
+        cli->inventory.sibur += 1;
+    }
+    if (type == MENDIANE) {
+        cli->inventory.mendiane += 1;
+    }
+    if (type == PHIRAS) {
+        cli->inventory.phiras += 1;
+    }
+    if (type == THYSTAME) {
+        cli->inventory.thystame += 1;
+    }
+}
+
+int checking_item_existence(items_t *item, item_type_t type)
+{
+    while (item) {
+        if (item->type == type) {
+            return 0;
+        }
+        item = item->next;
+    }
+    return 1;
+}
+
+void notice_player_take_object(client_t *cli, item_type_t type)
+{
+    server_t *server = get_instance();
+    client_t *graphic = NULL;
+
+    for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
+        if (graphic->is_graphical == true) {
+            dprintf(graphic->socket, "pgt %d %d\n", cli->socket, type);
+        }
+    }
+}
+
+void handle_take_command(client_t *cli, char *command)
+{
+    map_t *map = get_map_instance();
+    char *command_type = strtok(command, " ");
+    char *item_type = strtok(NULL, " ");
+    int current_index = cli->pos.x + cli->pos.y * map->width;
+    item_type_t type = get_item_type(item_type);
+
+    command_type = command_type;
+    if (checking_item_existence(map->tiles[current_index]->items, type) == 1) {
+        dprintf(cli->socket, "ko\n");
+        return;
+    }
+    add_item_to_inventory(cli, type);
+    delete_item_from_tiles(map->tiles[current_index], type);
+    notice_player_take_object(cli, type);
+    dprintf(cli->socket, "ok\n");
+}
+
+int delete_item_inventory(client_t *cli, item_type_t type)
+{
+    if (type == FOOD && cli->inventory.food > 0) {
+        cli->inventory.food -= 1;
+        return 0;
+    }
+    if (type == LINEMATE && cli->inventory.linemate > 0) {
+        cli->inventory.linemate -= 1;
+        return 0;
+    }
+    if (type == DERAUMERE && cli->inventory.deraumere > 0) {
+        cli->inventory.deraumere -= 1;
+        return 0;
+    }
+    if (type == SIBUR && cli->inventory.sibur > 0) {
+        cli->inventory.sibur -= 1;
+        return 0;
+    }
+    if (type == MENDIANE && cli->inventory.mendiane > 0) {
+        cli->inventory.mendiane -= 1;
+        return 0;
+    }
+    if (type == PHIRAS && cli->inventory.phiras > 0) {
+        cli->inventory.phiras -= 1;
+        return 0;
+    }
+    if (type == THYSTAME && cli->inventory.thystame > 0) {
+        cli->inventory.thystame -= 1;
+        return 0;
+    }
+    return 1;
+}
+
+void notice_player_set_object(client_t *cli, item_type_t type)
+{
+    server_t *server = get_instance();
+    client_t *graphic = NULL;
+
+    for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
+        if (graphic->is_graphical == true) {
+            dprintf(graphic->socket, "pdr %d %d\n", cli->socket, type);
+        }
+    }
+}
+
+void handle_set_command(client_t *cli, char *command)
+{
+    map_t *map = get_map_instance();
+    char *command_type = strtok(command, " ");
+    const char *item_type = strtok(NULL, " ");
+    int current_index = cli->pos.x + cli->pos.y * map->width;
+    item_type_t type = get_item_type(item_type);
+
+    command_type = command_type;
+    if (delete_item_inventory(cli, type) == 1) {
+        dprintf(cli->socket, "ko\n");
+        return;
+    }
+    add_item_to_tiles(map->tiles[current_index], type);
+    notice_player_set_object(cli, type);
+
 }
 
 int comp_cmd(char *command_type, client_t *cli, char *command)
@@ -266,9 +395,11 @@ int comp_cmd(char *command_type, client_t *cli, char *command)
         return 0;
     }
     if (strcmp(command_type, "Take") == 0) {
+        handle_take_command(cli, command);
         return 0;
     }
     if (strcmp(command_type, "Set") == 0) {
+        handle_set_command(cli, command);
         return 0;
     }
     return 1;

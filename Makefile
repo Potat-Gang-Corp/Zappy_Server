@@ -81,6 +81,7 @@ clean:
 	$(RM) coding-style-reports.log
 	$(RM) vgcore.*
 	$(RM) docs/
+	$(RM) *.txt
 
 fclean: clean
 	@$(ECHO) "$(RED)$(BOLD)Cleaning executable...$(RESET)"

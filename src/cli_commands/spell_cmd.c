@@ -2,34 +2,35 @@
 ** EPITECH PROJECT, 2024
 ** Zappy_Server
 ** File description:
-** move_cmd
+** spell_cmd
 */
 
 #include "../../include/struct_server.h"
 #include "../../include/get_instance.h"
 #include "../../include/my.h"
 #include "../../include/server.h"
+#include "../../include/commands.h"
 
-int cmd_left(char *command_type, int cli_socket)
+int cmd_broadcast(char *command_type, int cli_socket)
 {
     (void)command_type;
     (void)cli_socket;
-    printf("Executing Left command\n");
+    printf("Executing Broadcast command\n");
     return 0;
 }
 
-int cmd_right(char *command_type, int cli_socket)
+int cmd_fork(char *command_type, int cli_socket)
 {
     (void)command_type;
     (void)cli_socket;
-    printf("Executing Right command\n");
+    printf("Executing Fork command\n");
     return 0;
 }
 
-int cmd_forward(char *command_type, int cli_socket)
+int cmd_incantation(char *command_type, int cli_socket)
 {
     (void)command_type;
     (void)cli_socket;
-    printf("Executing Forward command\n");
+    printf("Executing Incantation command\n");
     return 0;
 }

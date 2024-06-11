@@ -73,4 +73,6 @@ void display_item(items_t *item);
 const char *get_items(item_type_t item);
 item_type_t get_item_type(const char *item_name);
 
+void handle_player_death(void);
+
 #endif /* !MY_H_ */

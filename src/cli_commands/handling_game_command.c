@@ -10,6 +10,7 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 #include "../../include/commands.h"
+#include "../../include/commands_entry_t.h"
 
 int parse_cmd_table(char *command_type, int cli_socket)
 {

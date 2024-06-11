@@ -34,6 +34,7 @@ void insert_new_client(client_t *cli, server_t *server)
 
 int select_loop(void)
 {
+    printf("Select loop\n");
     server_t *server = get_instance();
     client_t *cli = NULL;
 

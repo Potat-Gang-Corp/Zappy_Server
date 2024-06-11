@@ -89,6 +89,7 @@ int detect_team_validity(char *team_name, client_t *cli)
 
 void handle_cli_login(client_t *cli, char *command)
 {
+    printf("inside handle_cli_login\n");
     char *msg = "Wrong team name, please try again\r\n";
 
     if (cli->status == false && detect_team_validity(command, cli) == 0)

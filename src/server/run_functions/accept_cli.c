@@ -53,6 +53,7 @@ int add_client(int client_socket)
 
 int accept_new_client(void)
 {
+    printf("Accepting new client\n");
     server_t *server = get_instance();
     int new_socket = 0;
 

@@ -216,6 +216,16 @@ void handle_bct_command(client_t *cli, char *command)
     free(message);
 }
 
+void handle_inventory_command(client_t *cli)
+{
+    dprintf(cli->socket, "[food %d, linemate %d, deraumere %d,"
+        " sibur %d, mendiane %d, phiras %d, thystame %d]\n",
+        cli->inventory.food, cli->inventory.linemate,
+        cli->inventory.deraumere, cli->inventory.sibur,
+        cli->inventory.mendiane, cli->inventory.phiras,
+        cli->inventory.thystame);
+}
+
 int comp_cmd(char *command_type, client_t *cli, char *command)
 {
     command = command;
@@ -264,6 +274,7 @@ int comp_cmd_bis(char *command_type, client_t *cli, char *command)
         return 0;
     }
     if (strcmp(command_type, "Inventory") == 0) {
+        handle_inventory_command(cli);
         return 0;
     }
     return 1;

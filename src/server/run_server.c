@@ -51,6 +51,7 @@ int run_server(void)
     printf("server launched on port %d\n", server->port);
     signal(SIGINT, handle_sigint);
     while (1) {
+        //gui cmd //baisser cd de la vie et cd cmd
         clock_gettime(CLOCK_MONOTONIC, &start);
         select_loop();
         if (FD_ISSET(server->socket, &server->readfs))

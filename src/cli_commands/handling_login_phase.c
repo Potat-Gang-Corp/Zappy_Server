@@ -36,7 +36,7 @@ void notice_graphic_client(client_t *cli, char *team_name)
     client_t *graphic = NULL;
 
     for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
-        if (graphic->is_graphical == true) {
+        if (graphic->graphic == true) {
             dprintf(graphic->socket, "pnw #%d %d %d %d %d %s\n", cli->socket,
                 cli->pos.x, cli->pos.y, (cli->pos.orientation + 1), cli->level,
                 team_name);
@@ -80,7 +80,7 @@ int detect_team_validity(char *team_name, client_t *cli)
         }
         if (strcmp(team_name, "graphic") == 0) {
             cli->logged = true;
-            cli->is_graphical = true;
+            cli->graphic = true;
             return 0;
         }
     }

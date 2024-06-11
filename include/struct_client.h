@@ -65,7 +65,7 @@ typedef struct client_s {
     int time_to_live;
     bool logged;
     int nb_commands;
-    bool is_graphical;
+    bool graphic;
     struct client_s *next;
 } client_t;
 

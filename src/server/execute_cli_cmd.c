@@ -75,7 +75,7 @@ void execute_cli_cmd(void)
     command_t *cmd = NULL;
     client_t *cli = NULL;
 
-    TAILQ_FOREACH(cmd, &server->commands, entries)
+    TAILQ_FOREACH(cmd, &server->commands, entries)//changer la logique
         execute_cli_cmd_bis(cmd);
     cli = server->clients;
     for (; cli != NULL; cli = cli->next) {

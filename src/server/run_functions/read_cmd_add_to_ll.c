@@ -50,6 +50,7 @@ int add_cmd_to_ll(int cli_id, const char *cmd)
         free(new_command);
         return 84;
     }
+    //if cli = graphic autre ll
     TAILQ_INSERT_TAIL(&server->commands, new_command, entries);
     return 0;
 }
@@ -57,20 +58,19 @@ int add_cmd_to_ll(int cli_id, const char *cmd)
 void read_buffer_to_list(client_t *cli)
 {
     char *buffer;
-    char *command;
-    char *command_type;
+    char *cmd;
 
     buffer = read_cli_cmd(cli->socket);
     if (buffer == NULL) {
         remove_client(cli->socket);
         return;
     }
-    command = strdup(buffer);
-    command_type = strtok(command, " ");
-    printf("command_type: %s\n", command_type);
-    add_cmd_to_ll(cli->socket, buffer);
+    cmd = strtok(buffer, "\n");
+    if (cmd == NULL)
+        return;
+    add_cmd_to_ll(cli->socket, cmd);
     free(buffer);
-    free(command);
+    free(cmd);
 }
 
 int lower_cli_cd(client_t *cli)

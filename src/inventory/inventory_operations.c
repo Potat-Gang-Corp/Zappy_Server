@@ -27,7 +27,7 @@ void add_item_to_inventory(client_t *cli, item_type_t type)
 
 int delete_item_inventory(client_t *cli, item_type_t type)
 {
-    int *invent_items[] = {
+    unsigned int *invent_items[] = {
         &cli->inventory.food,
         &cli->inventory.linemate,
         &cli->inventory.deraumere,

@@ -29,7 +29,7 @@ void execute_gui_cmd(int gui_socket, char *command)
         result = parse_gui_cmd_table(command_type, gui_socket);
     }
     if (result == 1) {
-        printf("suc\n", command_type);
+        printf("suc\n");
     }
     free(buffer);
 }

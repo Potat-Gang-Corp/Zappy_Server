@@ -35,18 +35,27 @@ client_t *get_client_by_socket(int cli_socket)
     return NULL;
 }
 
-void found_cli_and_exec(int cli_socket, char *command)
+static int exec_func(int cli_socket, char *command, client_t *cli)
+{
+    if (cli->socket == cli_socket && cli->logged == false)
+        handle_cli_login(cli, command);
+    else if (cli->socket == cli_socket && cli->logged == true && cli->cd == 0) {
+        execute_game_cmd(cli_socket, command);
+    }
+    return 0;
+}
+
+int found_cli_and_exec(int cli_socket, char *command)
 {
     server_t *server = get_instance();
     client_t *cli = NULL;
 
+    (void)cli_socket;
     for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->socket == cli_socket && cli->logged == false)
-            handle_cli_login(cli, command);
-        if (cli->socket == cli_socket && cli->logged == true && cli->cd == 0) {
-            execute_game_cmd(cli_socket, command);
-        }
+        if (exec_func(cli->socket, command, cli) == 84)
+            return 84;
     }
+    return 0;
 }
 
 void execute_cli_cmd_bis(command_t *cmd)

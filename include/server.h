@@ -564,9 +564,9 @@ void insert_new_client(client_t *cli, server_t *server);
  *
  * @details will load the command line interface
  * and redirect to the good process to execute command.
- * @return nothing.
+ * @return int.
  */
-void found_cli_and_exec(int cli_socket, char *command);
+int found_cli_and_exec(int cli_socket, char *command);
 
 void execute_cli_cmd_g(client_t *cli, char *command);
 int add_func(int a, int b);

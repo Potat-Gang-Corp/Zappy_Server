@@ -226,6 +226,29 @@ void handle_inventory_command(client_t *cli)
         cli->inventory.thystame);
 }
 
+void handle_pin_command(client_t *cli, char *command)
+{
+    server_t *server = get_instance();
+    client_t *player = NULL;
+    char *command_type = strtok(command, " ");
+    char *player_nb = strtok(NULL, " #");
+    int socket_nb = atoi(player_nb);
+
+    command_type = command_type;
+
+    for (player = server->clients; player != NULL; player = player->next) {
+        if (socket_nb == player->socket) {
+            dprintf(cli->socket, "pin %d %d %d %d %d %d %d %d %d %d\n",
+                player->socket, player->pos.x, player->pos.y,
+                player->inventory.food, player->inventory.linemate,
+                player->inventory.deraumere, player->inventory.sibur,
+                player->inventory.mendiane, player->inventory.phiras,
+                player->inventory.thystame);
+            return;
+        }
+    }
+}
+
 int comp_cmd(char *command_type, client_t *cli, char *command)
 {
     command = command;
@@ -300,6 +323,10 @@ int handle_gui_command(char *command_type, client_t *cli, char *command)
     }
     if (strcmp(command_type, "bct") == 0 && cli->is_graphical == true) {
         handle_bct_command(cli, command);
+        return 0;
+    }
+    if (strcmp(command_type, "pin") == 0 && cli->is_graphical == true) {
+        handle_pin_command(cli, command);
         return 0;
     }
     return 1;

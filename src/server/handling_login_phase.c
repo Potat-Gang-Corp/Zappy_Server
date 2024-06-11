@@ -32,10 +32,11 @@ void player_spawn(client_t *cli)
 void notice_graphic_client(client_t *cli, char *team_name)
 {
     server_t *server = get_instance();
+    client_t *graphic = NULL;
 
-    for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->is_graphical == true) {
-            dprintf(cli->socket, "pnw #%d %d %d %d %d %s\n", cli->socket,
+    for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
+        if (graphic->is_graphical == true) {
+            dprintf(graphic->socket, "pnw #%d %d %d %d %d %s\n", cli->socket,
                 cli->pos.x, cli->pos.y, (cli->pos.orientation + 1), cli->level,
                 team_name);
         }

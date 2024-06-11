@@ -10,42 +10,40 @@
 #include "../../include/server.h"
 #include "../../include/get_instance.h"
 
-void clean_item_linked_list(items_t **items)
-{
-    items_t *current_node = NULL;
-
+void clean_item_linked_list(items_t **items) {
+    items_t *current_node;
     while (*items != NULL) {
         current_node = *items;
         *items = (*items)->next;
         free(current_node);
     }
-    *items = NULL;
 }
+
 
 void checking_existence_tile_element(tile_t *tile)
 {
     if (tile != NULL) {
         clean_item_linked_list(&tile->items);
+        free(tile);
     }
 }
 
-void clean_tiles_struct(void)
-{
+void clean_tiles_struct_bis(void) {
     map_t *map = get_map_instance();
-    tile_t *tile = NULL;
 
     for (int i = 0; i < map->height; i++) {
         for (int j = 0; j < map->width; j++) {
-            tile = &map->tiles[i][j];
+            tile_t *tile = map->tiles[i * map->width + j];
             checking_existence_tile_element(tile);
-            tile = NULL;
-        }
-        if (map->tiles[i] != NULL) {
-            free(map->tiles[i]);
-            map->tiles[i] = NULL;
         }
     }
-    if (map->tiles != NULL) {
+}
+
+void clean_tiles_struct(void) {
+    map_t *map = get_map_instance();
+
+    if (map != NULL && map->tiles != NULL) {
+        clean_tiles_struct_bis();
         free(map->tiles);
         map->tiles = NULL;
     }
@@ -55,7 +53,7 @@ void clean_map_struct(void)
 {
     map_t *map = get_map_instance();
 
-    if (map->tiles != NULL) {
+    if (map != NULL && map->tiles != NULL) {
         clean_tiles_struct();
     }
 }

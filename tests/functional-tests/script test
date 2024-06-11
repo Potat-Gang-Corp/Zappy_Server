@@ -1,0 +1,10 @@
+#!/bin/sh
+
+count=0
+max_processes=1000
+
+while [ $count -lt $max_processes ]; do
+    ./test.sh &
+    count=$((count + 1))
+    sleep 1  # Ajout d'une pause pour éviter de lancer trop d'instances en trop peu de temps
+done

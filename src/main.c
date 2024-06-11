@@ -28,13 +28,8 @@ int main(int argc, char **argv)
         fprintf(stderr, "Error: In the server can't launch server\n");
         return 84;
     }
-    initialize_map(game->width, game->height);
-    if (!map) {
-        fprintf(stderr, "Error: Failed to initialize map\n");
-        return 84;
-    }
-    if (!map->tiles) {
-        fprintf(stderr, "Error: Failed to initialize tiles\n");
+    if (initialize_map(game->width, game->height) == 84) {
+        fprintf(stderr, "Error: In the initialize_map can't launch server\n");
         return 84;
     }
     if (run_server() == 84) {

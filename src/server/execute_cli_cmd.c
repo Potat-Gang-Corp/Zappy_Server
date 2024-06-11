@@ -41,9 +41,9 @@ void found_cli_and_exec(int cli_socket, char *command)
     client_t *cli = NULL;
 
     for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->socket == cli_socket && cli->status == false)
+        if (cli->socket == cli_socket && cli->logged == false)
             handle_cli_login(cli, command);
-        if (cli->socket == cli_socket && cli->status == true && cli->cd == 0) {
+        if (cli->socket == cli_socket && cli->logged == true && cli->cd == 0) {
             execute_game_cmd(cli_socket, command);
         }
     }
@@ -66,7 +66,7 @@ void execute_cli_cmd(void)
     command_t *cmd = NULL;
     client_t *cli = NULL;
 
-    TAILQ_FOREACH(cmd, &server->commands, entries)//surement devoir changer
+    TAILQ_FOREACH(cmd, &server->commands, entries)
         execute_cli_cmd_bis(cmd);
     cli = server->clients;
     for (; cli != NULL; cli = cli->next) {

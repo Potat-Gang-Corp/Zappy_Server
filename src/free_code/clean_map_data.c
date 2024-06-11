@@ -10,15 +10,16 @@
 #include "../../include/server.h"
 #include "../../include/get_instance.h"
 
-void clean_item_linked_list(items_t **items) {
+void clean_item_linked_list(items_t **items)
+{
     items_t *current_node;
+
     while (*items != NULL) {
         current_node = *items;
         *items = (*items)->next;
         free(current_node);
     }
 }
-
 
 void checking_existence_tile_element(tile_t *tile)
 {
@@ -28,18 +29,21 @@ void checking_existence_tile_element(tile_t *tile)
     }
 }
 
-void clean_tiles_struct_bis(void) {
+void clean_tiles_struct_bis(void)
+{
     map_t *map = get_map_instance();
+    tile_t *tile;
 
     for (int i = 0; i < map->height; i++) {
         for (int j = 0; j < map->width; j++) {
-            tile_t *tile = map->tiles[i * map->width + j];
+            tile = map->tiles[i * map->width + j];
             checking_existence_tile_element(tile);
         }
     }
 }
 
-void clean_tiles_struct(void) {
+void clean_tiles_struct(void)
+{
     map_t *map = get_map_instance();
 
     if (map != NULL && map->tiles != NULL) {

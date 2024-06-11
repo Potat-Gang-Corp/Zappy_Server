@@ -10,16 +10,16 @@
 
 int cmd_tna(char *command_type, int gui_socket)
 {
-    (void)command_type;
     int char_count = 0;
-    game_t *game = get_game_instance();
     char *buffer;
+    game_t *game = get_game_instance();
     client_t *cli = get_client_by_socket(gui_socket);
+
+    (void)command_type;
     for (int i = 0; i < game->nb_teams; i++) {
         char_count += strlen(game->teams[i]->name);
         char_count += strlen("tna \n");
     }
-    
     buffer = malloc(sizeof(char) * char_count + 1);
     buffer[0] = '\0';
     for (int i = 0; i < game->nb_teams; i++) {
@@ -37,6 +37,7 @@ int cmd_ppo(char *command, int gui_socket)
     char *player_nb = strtok(command, " ");
     int socket_nb;
     client_t *cli = get_client_by_socket(gui_socket);
+
     player_nb = strtok(NULL, " #");
     socket_nb = atoi(player_nb);
     for (cli = server->clients; cli != NULL; cli = cli->next) {
@@ -55,6 +56,7 @@ int cmd_plv(char *command, int gui_socket)
     char *player_nb = strtok(command, " ");
     int socket_nb;
     client_t *cli = get_client_by_socket(gui_socket);
+
     player_nb = strtok(NULL, " #");
     socket_nb = atoi(player_nb);
     for (cli = server->clients; cli != NULL; cli = cli->next) {

@@ -58,6 +58,15 @@ void init_map(map_t *map, int width, int height)
     place_randomly_items(map);
 }
 
+int check_map(map_t *map)
+{
+    if (!map)
+        return 84;
+    if (!map->tiles)
+        return 84;
+    return 0;
+}
+
 int initialize_map(int width, int height)
 {
     map_t *map = get_map_instance();
@@ -72,6 +81,8 @@ int initialize_map(int width, int height)
         return 84;
     }
     init_map(map, width, height);
+    if (check_map(map) == 84)
+        return 84;
     map->display = &display;
     return 0;
 }

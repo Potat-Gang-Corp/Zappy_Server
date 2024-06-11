@@ -76,12 +76,12 @@ int handle_f(char *av, int *fp)
 int n_flag_detection(int ac, int *i, char **av, int *fp)
 {
     game_t *game = get_game_instance();
-    int status = 0;
+    int logged = 0;
 
     if (strcmp(av[(*i)], "-n") == 0) {
         check_av((*i), ac, av);
-        status = handle_n(ac, i, av, fp);
-        if (game->nb_teams == 0 || (*i) + 1 > ac || status == 84) {
+        logged = handle_n(ac, i, av, fp);
+        if (game->nb_teams == 0 || (*i) + 1 > ac || logged == 84) {
             fprintf(stderr, "Error: flag -n TEAM1 TEAM2 TEAM3\n");
             return 84;
         }

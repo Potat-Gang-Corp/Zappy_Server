@@ -56,7 +56,6 @@ int run_server(void)
         if (FD_ISSET(server->socket, &server->readfs))
             accept_new_client();
         handle_clients();
-        //handle_player_death();
         execute_cli_cmd();
         clock_gettime(CLOCK_MONOTONIC, &end);
         need_to_sleep(start, end, req);

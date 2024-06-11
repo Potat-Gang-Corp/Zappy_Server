@@ -211,7 +211,7 @@ void handle_cli_login(client_t *cli, char *command);
  * that contains client informations.
  *
  * @details will check if the team name exists or
- * not and so change connected status of the client.
+ * not and so change connected logged of the client.
  * @return return 0 if there is no error, and 84 if there is an error.
  */
 int detect_team_validity(char *team_name, client_t *cli);
@@ -498,7 +498,7 @@ int add_cmd_to_ll(int cli_id, const char *cmd);
 void add_cli_to_ll(client_t *new_client, int client_socket);
 
 /**
- * @brief Function to handle the team full status
+ * @brief Function to handle the team full logged
  * @param client_t *cli represent the client entity
  * that contains client informations.
  * @param team_t *team represent the team entity
@@ -506,7 +506,7 @@ void add_cli_to_ll(client_t *new_client, int client_socket);
  * @param char *team_name represent the team name sent by the client.
  *
  * @details will check if the team is full
- * or not and so change the status for the client.
+ * or not and so change the logged for the client.
  * @return return 0 always.
  */
 int handle_team_full(client_t *cli, int team_index, char *team_name);

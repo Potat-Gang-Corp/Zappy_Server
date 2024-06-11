@@ -13,19 +13,15 @@
 void delete_item_from_tiles(tile_t *tile, item_type_t type)
 {
     items_t *item = tile->items;
-    items_t *prev = NULL;
+    items_t **link = &tile->items;
 
     while (item != NULL) {
         if (item->type == type) {
-            if (prev == NULL) {
-                tile->items = item->next;
-            } else {
-                prev->next = item->next;
-            }
+            *link = item->next;
             free(item);
             return;
         }
-        prev = item;
+        link = &item->next;
         item = item->next;
     }
 }

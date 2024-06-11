@@ -6,9 +6,9 @@
 */
 
 #ifndef INVENTORY_H_
-#define INVENTORY_H_
+    #define INVENTORY_H_
 
-#include "server.h"
+    #include "server.h"
 
 void add_item_to_inventory(client_t *cli, item_type_t type);
 int delete_item_inventory(client_t *cli, item_type_t type);

@@ -22,7 +22,7 @@ void add_cli_to_ll(client_t *new_client, int client_socket)
 
     new_client->socket = client_socket;
     new_client->team = NULL;
-    new_client->status = false;
+    new_client->logged = false;
     new_client->nb_commands = 0;
     new_client->next = NULL;
     if (server->clients == NULL) {
@@ -53,10 +53,10 @@ int add_client(int client_socket)
 
 int accept_new_client(void)
 {
-    printf("Accepting new client\n");
     server_t *server = get_instance();
     int new_socket = 0;
 
+    printf("Accepting new client\n");
     if (FD_ISSET(server->socket, &server->readfs)) {
         new_socket = accept(server->socket, NULL, NULL);
         if (new_socket < 0) {

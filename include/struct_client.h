@@ -63,7 +63,7 @@ typedef struct client_s {
     inventory_t inventory;
     unsigned int level;
     int time_to_live;
-    bool status;
+    bool logged;
     int nb_commands;
     bool is_graphical;
     struct client_s *next;

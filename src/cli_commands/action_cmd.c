@@ -32,7 +32,6 @@ int cmd_eject(char *command_type, int cli_socket)
 
 int cmd_take(char *command_type, int cli_socket)
 {
-    printf("Executing Take command\n");
     client_t *cli = get_client_by_socket(cli_socket);
     map_t *map = get_map_instance();
     char *command_t = strtok(command_type, " ");
@@ -40,6 +39,7 @@ int cmd_take(char *command_type, int cli_socket)
     int current_index = cli->pos.x + cli->pos.y * map->width;
     item_type_t type = get_item_type(item_type);
 
+    printf("Executing Take command\n");
     command_t = command_t;
     if (checking_item_existence(map->tiles[current_index]->items, type) == 1) {
         dprintf(cli->socket, "ko\n");
@@ -54,7 +54,6 @@ int cmd_take(char *command_type, int cli_socket)
 
 int cmd_set(char *command, int cli_socket)
 {
-    printf("Executing Set command\n");
     client_t *cli = get_client_by_socket(cli_socket);
     map_t *map = get_map_instance();
     char *command_type = strtok(command, " ");
@@ -62,6 +61,7 @@ int cmd_set(char *command, int cli_socket)
     int current_index = cli->pos.x + cli->pos.y * map->width;
     item_type_t type = get_item_type(item_type);
 
+    printf("Executing Set command\n");
     command_type = command_type;
     if (delete_item_inventory(cli, type) == 1) {
         dprintf(cli->socket, "ko\n");

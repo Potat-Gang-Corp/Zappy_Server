@@ -6,22 +6,24 @@
 */
 #include "my.h"
 #include "get_instance.h"
-#include  "server.h"
+#include "server.h"
 
 int cmd_msz(char *command_type, int gui_socket)
 {
-    (void)command_type;
     game_t *game = get_game_instance();
     client_t *cli = get_client_by_socket(gui_socket);
 
+    (void)command_type;
     dprintf(cli->socket, "%d %d\n", game->width, game->height);
     return 0;
 }
 
-char *construct_message(char *x, char *y, items_t *item_start) {
+char *construct_message(char *x, char *y, items_t *item_start)
+{
     items_t *item = item_start;
-    char *message = malloc(sizeof(char) * (strlen("bct \n") + strlen(x) + strlen(y) + strlen("   ") + 1));
-    
+    char *message = malloc(sizeof(char) * (strlen("bct \n")
+    + strlen(x) + strlen(y) + strlen("   ") + 1));
+
     message[0] = '\0';
     strcat(message, "bct ");
     strcat(message, x);
@@ -37,7 +39,8 @@ char *construct_message(char *x, char *y, items_t *item_start) {
     return message;
 }
 
-int calculate_char_count(char *x, char *y, items_t *item_start) {
+int calculate_char_count(char *x, char *y, items_t *item_start)
+{
     int char_count = strlen("bct \n") + strlen(x) + strlen(y) + strlen("   ");
     items_t *item = item_start;
 
@@ -53,7 +56,6 @@ int cmd_bct(char *command, int gui_socket)
 {
     map_t *map = get_map_instance();
     client_t *cli = get_client_by_socket(gui_socket);
-
     char *command_type = strtok(command, " ");
     char *x = strtok(NULL, " ");
     char *y = strtok(NULL, " ");
@@ -63,7 +65,7 @@ int cmd_bct(char *command, int gui_socket)
     items_t *item_start = item;
     int char_count = calculate_char_count(x, y, item_start);
     char *message = construct_message(x, y, item_start);
-    
+
     char_count = char_count;
     command_type = command_type;
     dprintf(cli->socket, "%s", message);

@@ -30,22 +30,22 @@ jobs:
 
         last_build_number=$(curl -s "${JENKINS_URL}${JENKINS_JOB_NAME}/lastBuild/buildNumber" --user ${JENKINS_USER}:${JENKINS_API_TOKEN})
 
-        build_status=$(curl -s "${JENKINS_URL}${JENKINS_JOB_NAME}/${last_build_number}/api/json" --user ${JENKINS_USER}:${JENKINS_API_TOKEN} | jq -r '.result')
+        build_logged=$(curl -s "${JENKINS_URL}${JENKINS_JOB_NAME}/${last_build_number}/api/json" --user ${JENKINS_USER}:${JENKINS_API_TOKEN} | jq -r '.result')
 
         while true; do
-          if [ "$build_status" == "SUCCESS" ]; then
+          if [ "$build_logged" == "SUCCESS" ]; then
             echo "Build succeeded."
             exit 0
-          elif [ "$build_status" == "FAILURE" ]; then
+          elif [ "$build_logged" == "FAILURE" ]; then
             echo "Build failed."
             exit 1
-          elif [ "$build_status" == "ABORTED" ]; then
+          elif [ "$build_logged" == "ABORTED" ]; then
             echo "Build was aborted."
             exit 1
-          elif [ "$build_status" == "null" ]; then
+          elif [ "$build_logged" == "null" ]; then
             echo "Build is still running..."
           else
-            echo "Unknown build status: $build_status"
+            echo "Unknown build logged: $build_logged"
             exit 1
           fi
           sleep 10

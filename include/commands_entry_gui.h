@@ -6,9 +6,9 @@
 */
 
 #ifndef COMMANDS_ENTRY_GUI_H_
-#define COMMANDS_ENTRY_GUI_H_
+    #define COMMANDS_ENTRY_GUI_H_
 
-#include "my.h"
+    #include "my.h"
 
 int cmd_msz(char *command_type, int gui_socket);
 

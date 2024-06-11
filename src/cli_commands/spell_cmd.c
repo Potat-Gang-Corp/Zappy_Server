@@ -15,7 +15,6 @@ int cmd_broadcast(char *command_type, int cli_socket)
 {
     (void)command_type;
     (void)cli_socket;
-    printf("Executing Broadcast command\n");
     return 0;
 }
 
@@ -23,7 +22,6 @@ int cmd_fork(char *command_type, int cli_socket)
 {
     (void)command_type;
     (void)cli_socket;
-    printf("Executing Fork command\n");
     return 0;
 }
 
@@ -31,6 +29,5 @@ int cmd_incantation(char *command_type, int cli_socket)
 {
     (void)command_type;
     (void)cli_socket;
-    printf("Executing Incantation command\n");
     return 0;
 }

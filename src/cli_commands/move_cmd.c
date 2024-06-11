@@ -17,7 +17,6 @@ int cmd_left(char *command_type, int cli_socket)
     client_t *cli = get_client_by_socket(cli_socket);
 
     (void)command_type;
-    printf("Executing Left command\n");
     if (cli->pos.orientation == NORTH) {
         cli->pos.orientation = WEST;
     }
@@ -38,7 +37,6 @@ int cmd_right(char *command_type, int cli_socket)
 {
     client_t *cli = get_client_by_socket(cli_socket);
 
-    printf("Executing Right command\n");
     (void)command_type;
     if (cli->pos.orientation == NORTH) {
         cli->pos.orientation = EAST;
@@ -88,7 +86,6 @@ int cmd_forward(char *command_type, int cli_socket)
     int current_index = cli->pos.x + cli->pos.y * game->width;
     int new_index = cli->pos.x + cli->pos.y * game->width;
 
-    printf("Executing Forward command\n");
     (void)command_type;
     delete_item_from_tiles(map->tiles[current_index], type);
     move_player(cli, game);

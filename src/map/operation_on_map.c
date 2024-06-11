@@ -28,6 +28,7 @@ void delete_item_from_tiles(tile_t *tile, item_type_t type)
 
 int checking_item_existence(items_t *item, item_type_t type)
 {
+    printf("type = %d\n", type);
     while (item) {
         if (item->type == type) {
             return 0;

@@ -12,11 +12,11 @@
 #include "../../include/commands.h"
 #include "../../include/commands_entry_cli.h"
 
-int parse_cmd_table(char *command_type, int cli_socket)
+int parse_cmd_table(char *cmd, int cli_socket, char *full_cmd)
 {
     for (int i = 0; command_table_cli[i].command_name != NULL; ++i) {
-        if (strcmp(command_type, command_table_cli[i].command_name) == 0) {
-            return command_table_cli[i].command_func(command_type, cli_socket);
+        if (strcmp(cmd, command_table_cli[i].command_name) == 0) {
+            return command_table_cli[i].command_func(full_cmd, cli_socket);
         }
     }
     return 1;
@@ -24,17 +24,15 @@ int parse_cmd_table(char *command_type, int cli_socket)
 
 void execute_game_cmd(int cli_socket, char *command)
 {
-    char *buffer = strdup(command);
-    char *command_type = strtok(buffer, " ");
+    char *cmd = strdup(command);
+    char *cmd_type = strtok(command, " ");
     int result = -1;
 
-    printf("command_type: %s\n", command_type);
     cli_socket = cli_socket;
-    if (command_type != NULL) {
-        result = parse_cmd_table(command_type, cli_socket);
+    if (cmd != NULL) {
+        result = parse_cmd_table(cmd_type, cli_socket, cmd);
     }
-    if (result == 1) {
-        printf("Unknown command: %s\n", command_type);
-    }
-    free(buffer);
+    if (result == 1)
+        printf("Unknown command: %s\n", cmd);
+    free(cmd);
 }

@@ -6,9 +6,11 @@
 */
 #include "my.h"
 #include "get_instance.h"
+#include  "server.h"
 
 int cmd_msz(char *command_type, int gui_socket)
 {
+    (void)command_type;
     game_t *game = get_game_instance();
     client_t *cli = get_client_by_socket(gui_socket);
 

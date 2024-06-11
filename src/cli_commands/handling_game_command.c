@@ -10,13 +10,13 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 #include "../../include/commands.h"
-#include "../../include/commands_entry_t.h"
+#include "../../include/commands_entry_cli.h"
 
 int parse_cmd_table(char *command_type, int cli_socket)
 {
-    for (int i = 0; command_table[i].command_name != NULL; ++i) {
-        if (strcmp(command_type, command_table[i].command_name) == 0) {
-            return command_table[i].command_func(command_type, cli_socket);
+    for (int i = 0; command_table_cli[i].command_name != NULL; ++i) {
+        if (strcmp(command_type, command_table_cli[i].command_name) == 0) {
+            return command_table_cli[i].command_func(command_type, cli_socket);
         }
     }
     return 1;

@@ -43,4 +43,6 @@ map_t *get_map_instance(void);
  */
 game_t *get_game_instance(void);
 
+client_t *get_client_by_socket(int cli_socket);
+
 #endif /* !GET_INSTANCE_H_ */

@@ -41,7 +41,7 @@ typedef struct {
     cmd_func_t command_func;
 } command_entry_t;
 
-command_entry_t command_table[] = {
+command_entry_t command_table_cli[] = {
     {"Left", cmd_left},
     {"Look", cmd_look},
     {"Broadcast", cmd_broadcast},

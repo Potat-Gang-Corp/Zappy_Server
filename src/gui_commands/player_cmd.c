@@ -10,6 +10,7 @@
 
 int cmd_tna(char *command_type, int gui_socket)
 {
+    (void)command_type;
     int char_count = 0;
     game_t *game = get_game_instance();
     char *buffer;
@@ -27,6 +28,7 @@ int cmd_tna(char *command_type, int gui_socket)
         strcat(buffer, "\n");
     }
     dprintf(cli->socket, "%s", buffer);
+    return 0;
 }
 
 int cmd_ppo(char *command, int gui_socket)
@@ -41,9 +43,10 @@ int cmd_ppo(char *command, int gui_socket)
         if (socket_nb == cli->socket) {
             dprintf(cli->socket, "ppo #%d %d %d %d\n", cli->socket, cli->pos.x,
                 cli->pos.y, (cli->pos.orientation + 1));
-            return;
+            return 0;
         }
     }
+    return 0;
 }
 
 int cmd_plv(char *command, int gui_socket)
@@ -57,9 +60,10 @@ int cmd_plv(char *command, int gui_socket)
     for (cli = server->clients; cli != NULL; cli = cli->next) {
         if (socket_nb == cli->socket) {
             dprintf(cli->socket, "plv #%d %d\n", cli->socket, cli->level);
-            return;
+            return 0;
         }
     }
+    return 0;
 }
 
 int cmd_pin(char *command, int gui_socket)
@@ -80,7 +84,8 @@ int cmd_pin(char *command, int gui_socket)
                 player->inventory.deraumere, player->inventory.sibur,
                 player->inventory.mendiane, player->inventory.phiras,
                 player->inventory.thystame);
-            return;
+            return 0;
         }
     }
+    return 0;
 }

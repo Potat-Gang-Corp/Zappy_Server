@@ -18,6 +18,5 @@ void handle_forward_command(client_t *cli);
 void handle_inventory_command(client_t *cli);
 void handle_take_command(client_t *cli, char *command);
 void handle_set_command(client_t *cli, char *command);
-client_t *get_client_by_socket(int cli_socket);
 
 #endif /* !COMMANDS_H_ */

@@ -35,7 +35,7 @@ typedef struct {
     cmd_func_t command_func;
 } command_gui_t;
 
-command_gui_t command_table[] = {
+command_gui_t command_table_gui[] = {
     {"msz", cmd_msz},
     {"bct", cmd_bct},
     {"mct", cmd_mct},

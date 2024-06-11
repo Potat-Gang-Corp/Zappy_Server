@@ -7,6 +7,8 @@
 
 #ifndef STRUCT_GAME_H_
     #define STRUCT_GAME_H_
+
+    #include "my.h"
 /**
 * @file struct_game.h
 * @brief defines data structures used in the project for the game

@@ -7,6 +7,8 @@
 
 #ifndef STRUCT_H_
     #define STRUCT_H_
+
+    #include "my.h"
 /**
 * @file my.h
 * @brief defines the data structures used in the project for the

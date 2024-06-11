@@ -29,3 +29,14 @@ void delete_item_from_tiles(tile_t *tile, item_type_t type)
         item = item->next;
     }
 }
+
+int checking_item_existence(items_t *item, item_type_t type)
+{
+    while (item) {
+        if (item->type == type) {
+            return 0;
+        }
+        item = item->next;
+    }
+    return 1;
+}

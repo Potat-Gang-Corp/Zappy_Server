@@ -10,6 +10,7 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 #include "../../include/commands.h"
+#include "../../include/map.h"
 
 int cmd_left(char *command_type, int cli_socket)
 {

@@ -38,6 +38,7 @@ int cmd_take(char *command_type, int cli_socket)
     char *item_type = strtok(NULL, " ");
     int current_index = cli->pos.x + cli->pos.y * map->width;
     item_type_t type = get_item_type(item_type);
+
     command_t = command_t;
     if (checking_item_existence(map->tiles[current_index]->items, type) == 1) {
         dprintf(cli->socket, "ko\n");

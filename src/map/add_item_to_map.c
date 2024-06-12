@@ -62,6 +62,7 @@ void place_randomly_items(map_t *map)
     place_sibur_on_map(map);
     place_phiras_on_map(map);
     place_thystame_on_map(map);
+    place_egg_on_map(map);
 }
 
 void setting_map(void)

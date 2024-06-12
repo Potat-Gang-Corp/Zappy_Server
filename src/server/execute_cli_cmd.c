@@ -39,7 +39,8 @@ static int exec_func(int cli_socket, char *command, client_t *cli)
 {
     if (cli->socket == cli_socket && cli->logged == false) {
         handle_cli_login(cli, command);
-    } else if (cli->socket == cli_socket && cli->logged == true && cli->cd == 0) {
+    } else if (cli->socket == cli_socket &&
+        cli->logged == true && cli->cd == 0) {
         execute_game_cmd(cli_socket, command);
     }
     return 0;

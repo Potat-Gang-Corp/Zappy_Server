@@ -31,5 +31,8 @@
     #include <asm-generic/socket.h>
     #include <time.h>
 
+int place_egg_on_map(map_t *map);
+void display_egg_ll_for_each_team(void);
+
 
 #endif /* !MY_H_ */

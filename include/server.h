@@ -588,7 +588,7 @@ const char *get_north_pos(void);
 const char *get_east_pos(void);
 const char *get_south_pos(void);
 const char *get_south_pos(void);
-void player_spawn(client_t *cli);
+void player_spawn(client_t *cli, int team_index);
 
 const char *get_food(void);
 const char *get_linemate(void);
@@ -606,6 +606,7 @@ void place_randomly_items(map_t *map);
 void display_item(items_t *item);
 const char *get_items(item_type_t item);
 item_type_t get_item_type(const char *item_name);
+void delete_item_from_tiles(tile_t *tile, item_type_t type);
 
 void handle_player_death(void);
 

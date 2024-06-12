@@ -79,6 +79,8 @@ int detect_team_validity(char *team_name, client_t *cli)
             return handle_team_full(cli, i, team_name);
         }
         if (strcmp(team_name, "graphic") == 0) {
+            write(cli->socket, "Graphic User Interface\r\n",
+                strlen("Graphic User Interface\r\n"));
             cli->logged = true;
             cli->graphic = true;
             return 0;
@@ -91,7 +93,6 @@ void handle_cli_login(client_t *cli, char *command)
 {
     char *msg = "Wrong team name, please try again\r\n";
 
-    printf("inside handle_cli_login\n");
     if (cli->logged == false && detect_team_validity(command, cli) == 0)
         return;
     if (cli->logged == false && detect_team_validity(command, cli) == 84) {

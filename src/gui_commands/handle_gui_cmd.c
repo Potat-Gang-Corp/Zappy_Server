@@ -41,12 +41,13 @@ void handle_gui_cmd(void)
 {
     server_t *s = get_instance();
     char *command = NULL;
+    command_t *cmd = NULL;
     int gui_socket = 0;
 
     if (s == NULL)
         return;
     while (!TAILQ_EMPTY(&s->commands_gui)) {
-        command_t *cmd = TAILQ_FIRST(&s->commands_gui);
+        cmd = TAILQ_FIRST(&s->commands_gui);
         command = cmd->command;
         gui_socket = cmd->cli_id;
         execute_gui_cmd(gui_socket, command);

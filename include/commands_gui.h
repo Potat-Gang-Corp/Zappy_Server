@@ -6,7 +6,7 @@
 */
 
 #ifndef COMMANDS_GUI_H_
-#define COMMANDS_GUI_H_
+    #define COMMANDS_GUI_H_
 
 /**
 * @file commands_gui.h

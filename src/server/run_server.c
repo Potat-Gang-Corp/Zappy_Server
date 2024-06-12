@@ -40,6 +40,20 @@ void need_to_sleep(timespec_t start, timespec_t end, timespec_t req)
     }
 }
 
+int server_loop(server_t *server, timespec_t st, timespec_t end, timespec_t r)
+{
+    select_loop();
+    clock_gettime(CLOCK_MONOTONIC, &st);
+    handle_gui_cmd();
+    if (FD_ISSET(server->socket, &server->readfs))
+        accept_new_client();
+    handle_clients();
+    execute_cli_cmd();
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    need_to_sleep(st, end, r);
+    return 0;
+}
+
 int run_server(void)
 {
     server_t *server = get_instance();
@@ -52,16 +66,7 @@ int run_server(void)
     printf("server launched on _cmdport %d\n", server->port);
     signal(SIGINT, handle_sigint);
     while (1) {
-        //gui cmd //baisser cd de la vie et cd cmd
-        select_loop();
-        clock_gettime(CLOCK_MONOTONIC, &start);
-        handle_gui_cmd();
-        if (FD_ISSET(server->socket, &server->readfs))
-            accept_new_client();
-        handle_clients();
-        execute_cli_cmd();
-        clock_gettime(CLOCK_MONOTONIC, &end);
-        need_to_sleep(start, end, req);
+        server_loop(server, start, end, req);
     }
     return 0;
 }

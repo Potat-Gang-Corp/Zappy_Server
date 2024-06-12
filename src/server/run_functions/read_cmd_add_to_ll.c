@@ -32,9 +32,19 @@ int max_cmd_cli(int cli_id)
     return 84;
 }
 
-int add_cmd_to_ll(int cli_id, const char *cmd)
+static int separate_function(int cli_id, command_t *new_command)
 {
     server_t *server = get_instance();
+
+    if (is_gui(cli_id) == true)
+        TAILQ_INSERT_TAIL(&server->commands_gui, new_command, entries);
+    else
+        TAILQ_INSERT_TAIL(&server->commands, new_command, entries);
+    return 0;
+}
+
+int add_cmd_to_ll(int cli_id, const char *cmd)
+{
     command_t *new_command = malloc(sizeof(command_t));
 
     if (new_command == NULL) {
@@ -50,10 +60,7 @@ int add_cmd_to_ll(int cli_id, const char *cmd)
         free(new_command);
         return 84;
     }
-    if (is_gui(cli_id) == true)
-        TAILQ_INSERT_TAIL(&server->commands_gui, new_command, entries);
-    else
-        TAILQ_INSERT_TAIL(&server->commands, new_command, entries);
+    separate_function(cli_id, new_command);
     return 0;
 }
 

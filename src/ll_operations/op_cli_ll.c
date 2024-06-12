@@ -85,7 +85,7 @@ static void setup_cli(client_t **new_client, int client_socket)
     (*new_client)->evolving = false;
     (*new_client)->time_to_live = 126 / game->freq;
     (*new_client)->next = NULL;
-    setup_inventory_cli(&new_client);
+    setup_inventory_cli(new_client);
 }
 
 void add_cli_to_ll(client_t *new_client, int client_socket)

@@ -78,9 +78,8 @@ int detect_team_validity(char *team_name, client_t *cli)
             cli->team = strdup(team_name);
             return handle_team_full(cli, i, team_name);
         }
-        if (strcmp(team_name, "graphic") == 0) {
-            write(cli->socket, "Graphic User Interface\n",
-                strlen("Graphic User Interface\n"));
+        if (strcmp(team_name, "GRAPHIC") == 0) {
+            write(cli->socket, "Connected\n", strlen("Connected\n"));
             cli->logged = true;
             cli->graphic = true;
             return 0;

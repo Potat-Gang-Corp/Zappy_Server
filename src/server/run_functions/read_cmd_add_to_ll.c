@@ -70,7 +70,6 @@ void read_buffer_to_list(client_t *cli)
         return;
     add_cmd_to_ll(cli->socket, cmd);
     free(buffer);
-    free(cmd);
 }
 
 int lower_cli_cd(client_t *cli)

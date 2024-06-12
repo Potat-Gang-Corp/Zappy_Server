@@ -60,6 +60,17 @@ int remove_client(int cli_socket)
     return 0;
 }
 
+static void setup_inventory_cli(client_t **cli)
+{
+    (*cli)->inventory.food = 0;
+    (*cli)->inventory.linemate = 0;
+    (*cli)->inventory.deraumere = 0;
+    (*cli)->inventory.sibur = 0;
+    (*cli)->inventory.mendiane = 0;
+    (*cli)->inventory.phiras = 0;
+    (*cli)->inventory.thystame = 0;
+}
+
 static void setup_cli(client_t **new_client, int client_socket)
 {
     game_t *game = get_game_instance();
@@ -74,6 +85,7 @@ static void setup_cli(client_t **new_client, int client_socket)
     (*new_client)->evolving = false;
     (*new_client)->time_to_live = 126 / game->freq;
     (*new_client)->next = NULL;
+    setup_inventory_cli(&new_client);
 }
 
 void add_cli_to_ll(client_t *new_client, int client_socket)

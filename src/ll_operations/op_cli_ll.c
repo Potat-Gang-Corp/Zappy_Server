@@ -116,6 +116,6 @@ int add_client(int client_socket)
     }
     add_cli_to_ll(new_client, client_socket);
     printf("Added new client with socket %d\n", client_socket);
-    write(new_client->socket, "WELCOME\r\n", strlen("WELCOME\r\n"));
+    write(new_client->socket, "WELCOME\n", strlen("WELCOME\n"));
     return 0;
 }

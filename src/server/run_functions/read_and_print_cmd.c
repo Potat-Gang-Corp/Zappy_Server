@@ -16,7 +16,7 @@
 */
 char *parse_command(char *cmd)
 {
-    char *parse_command = strtok(cmd, "\r\n");
+    char *parse_command = strtok(cmd, "\n");
 
     if (parse_command)
         return strdup(parse_command);

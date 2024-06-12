@@ -53,14 +53,14 @@ int handle_team_full(client_t *cli, int i, char *team_name)
 
     if (game->teams[i]->max_clients < 1) {
         add_to_waiting_list(cli->socket, team_name);
-        write(cli->socket, "This team is full, please wait\r\n",
-            strlen("This team is full, please wait\r\n"));
+        write(cli->socket, "This team is full, please wait\n",
+            strlen("This team is full, please wait\n"));
     } else {
         game->teams[i]->max_clients -= 1;
-        len = snprintf(s, sizeof(s), "%d\r\n", game->teams[i]->max_clients);
+        len = snprintf(s, sizeof(s), "%d\n", game->teams[i]->max_clients);
         write(cli->socket, s, len);
         len = snprintf(coordinates, sizeof(coordinates),
-            "%d %d\r\n", game->width, game->height);
+            "%d %d\n", game->width, game->height);
         write(cli->socket, coordinates, len);
         notice_graphic_client(cli, team_name);
         player_spawn(cli);
@@ -79,8 +79,8 @@ int detect_team_validity(char *team_name, client_t *cli)
             return handle_team_full(cli, i, team_name);
         }
         if (strcmp(team_name, "graphic") == 0) {
-            write(cli->socket, "Graphic User Interface\r\n",
-                strlen("Graphic User Interface\r\n"));
+            write(cli->socket, "Graphic User Interface\n",
+                strlen("Graphic User Interface\n"));
             cli->logged = true;
             cli->graphic = true;
             return 0;
@@ -91,7 +91,7 @@ int detect_team_validity(char *team_name, client_t *cli)
 
 void handle_cli_login(client_t *cli, char *command)
 {
-    char *msg = "Wrong team name, please try again\r\n";
+    char *msg = "Wrong team name, please try again\n";
 
     if (cli->logged == false && detect_team_validity(command, cli) == 0)
         return;

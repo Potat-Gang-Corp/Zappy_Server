@@ -31,7 +31,7 @@ run_client_test() {
     local expected_responses=$2
 
     # Use netcat to send the command and capture the response
-    local response=$(echo -e "$command" | timeout 10 nc localhost 8080 | tr -d '\r')
+    local response=$(echo -e "$command" | timeout 10 nc localhost 8080 | tr -d '')
 
     echo "COMMAND: $command"
     echo -e "EXPECTED_RESPONSES: \n$expected_responses"
@@ -46,7 +46,7 @@ run_client_test() {
             echo -e "${RED}KO${NC} (expected \"$clean_line\" not found in actual response)"
             break
         fi
-    done <<< "$(echo "$expected_responses" | tr -d '\r')"
+    done <<< "$(echo "$expected_responses" | tr -d '')"
 
     if $passed; then
         echo -e "${GREEN}Test OK${NC}"

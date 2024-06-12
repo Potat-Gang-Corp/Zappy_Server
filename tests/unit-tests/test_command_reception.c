@@ -17,7 +17,7 @@
 
 Test(parse_command_tests, normal_command)
 {
-    char input[] = "Forward 12 \r\n";
+    char input[] = "Forward 12 \n";
     char *expected = "Forward 12 ";
     char *result = parse_command(input);
     cr_assert_str_eq(result, expected, "Expected '%s' but got '%s'", expected, result);
@@ -25,7 +25,7 @@ Test(parse_command_tests, normal_command)
 
 Test(parse_command_tests, empty_command)
 {
-    char input[] = "\r\n";
+    char input[] = "\n";
     char *result = parse_command(input);
     cr_assert_null(result);
 }

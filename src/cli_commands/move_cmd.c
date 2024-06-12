@@ -29,7 +29,7 @@ int cmd_left(char *command_type, int cli_socket)
     if (cli->pos.orientation == EAST) {
         cli->pos.orientation = NORTH;
     }
-    dprintf(cli->socket, "ok\r\n");
+    dprintf(cli->socket, "ok\n");
     return 0;
 }
 

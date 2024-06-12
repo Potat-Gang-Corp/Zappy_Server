@@ -88,6 +88,7 @@ int init_server(void)
     server->clients = NULL;
     TAILQ_INIT(&server->waiting_list);
     TAILQ_INIT(&server->commands);
+    TAILQ_INIT(&server->commands_gui);
     if (init_server_bis() == 84) {
         fprintf(stderr, "Error: server init failed\n");
         return 84;

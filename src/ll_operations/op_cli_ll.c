@@ -62,7 +62,7 @@ int remove_client(int cli_socket)
 
 static void setup_inventory_cli(client_t **cli)
 {
-    (*cli)->inventory.food = 0;
+    (*cli)->inventory.food = 10;
     (*cli)->inventory.linemate = 0;
     (*cli)->inventory.deraumere = 0;
     (*cli)->inventory.sibur = 0;

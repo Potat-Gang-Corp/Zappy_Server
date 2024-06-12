@@ -50,8 +50,10 @@ int add_cmd_to_ll(int cli_id, const char *cmd)
         free(new_command);
         return 84;
     }
-    //if cli = graphic autre ll
-    TAILQ_INSERT_TAIL(&server->commands, new_command, entries);
+    if (is_gui(cli_id) == true)
+        TAILQ_INSERT_TAIL(&server->commands_gui, new_command, entries);
+    else
+        TAILQ_INSERT_TAIL(&server->commands, new_command, entries);
     return 0;
 }
 

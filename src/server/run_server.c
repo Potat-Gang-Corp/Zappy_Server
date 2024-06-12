@@ -9,6 +9,7 @@
 #include "../../include/get_instance.h"
 #include "../../include/server.h"
 #include "../../include/my.h"
+#include "commands_gui.h"
 
 void handle_sigint(int sig)
 {
@@ -48,12 +49,13 @@ int run_server(void)
 
     if (server == NULL)
         return 84;
-    printf("server launched on port %d\n", server->port);
+    printf("server launched on _cmdport %d\n", server->port);
     signal(SIGINT, handle_sigint);
     while (1) {
         //gui cmd //baisser cd de la vie et cd cmd
-        clock_gettime(CLOCK_MONOTONIC, &start);
         select_loop();
+        clock_gettime(CLOCK_MONOTONIC, &start);
+        handle_gui_cmd();
         if (FD_ISSET(server->socket, &server->readfs))
             accept_new_client();
         handle_clients();

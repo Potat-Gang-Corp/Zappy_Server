@@ -35,12 +35,12 @@ client_t *get_client_by_socket(int cli_socket)
     return NULL;
 }
 
-static int exec_func(int cli_socket, char *command, client_t *cli)
+static int exec_func(int cli_s, char *command, client_t *cli)
 {
-    if (cli->socket == cli_socket && cli->logged == false) {
+    if (cli->socket == cli_s && cli->logged == false) {
         handle_cli_login(cli, command);
-    } else if (cli->socket == cli_socket && cli->logged == true && cli->cd == 0) {
-        execute_game_cmd(cli_socket, command);
+    } else if (cli->socket == cli_s && cli->logged == true && cli->cd == 0) {
+        execute_game_cmd(cli_s, command);
     }
     return 0;
 }

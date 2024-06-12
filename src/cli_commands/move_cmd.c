@@ -30,6 +30,7 @@ int cmd_left(char *command_type, int cli_socket)
         cli->pos.orientation = NORTH;
     }
     dprintf(cli->socket, "ok\n");
+    cli->cd = 7 / get_game_instance()->freq;
     return 0;
 }
 
@@ -51,6 +52,7 @@ int cmd_right(char *command_type, int cli_socket)
         cli->pos.orientation = NORTH;
     }
     dprintf(cli->socket, "ok\n");
+    cli->cd = 7 / get_game_instance()->freq;
     return 0;
 }
 
@@ -91,5 +93,6 @@ int cmd_forward(char *command_type, int cli_socket)
     move_player(cli, game);
     add_item_to_tiles(map->tiles[new_index], type);
     dprintf(cli->socket, "ok\n");
+    cli->cd = 7 / game->freq;
     return 0;
 }

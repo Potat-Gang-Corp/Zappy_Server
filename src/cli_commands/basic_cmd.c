@@ -22,6 +22,7 @@ int cmd_inventory(char *command_type, int cli_socket)
         cli->inventory.deraumere, cli->inventory.sibur,
         cli->inventory.mendiane, cli->inventory.phiras,
         cli->inventory.thystame);
+    cli->cd = 1 / get_game_instance()->freq;
     return 0;
 }
 

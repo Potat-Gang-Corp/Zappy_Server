@@ -29,8 +29,6 @@ int handle_p(char *av)
         return 84;
     }
     server->port = port;
-    printf("port: %d\n", server->port);
-    printf("port: %d\n", port);
     return 0;
 }
 

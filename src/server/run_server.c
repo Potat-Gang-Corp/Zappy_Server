@@ -28,6 +28,7 @@ void handle_sigint(int sig)
 
 void need_to_sleep(timespec_t start, timespec_t end, timespec_t req)
 {
+    //CHECK IF IT WORKS
     game_t *game = get_game_instance();
     long calc = (end.tv_nsec - start.tv_nsec);
     long elapsed_ns = calc < 0 ? 1e9 + calc : calc;
@@ -42,9 +43,10 @@ void need_to_sleep(timespec_t start, timespec_t end, timespec_t req)
 
 int server_loop(server_t *server, timespec_t st, timespec_t end, timespec_t r)
 {
+    //CHECK IF IT WORKS
     select_loop();
-    clock_gettime(CLOCK_MONOTONIC, &st);
     handle_gui_cmd();
+    clock_gettime(CLOCK_MONOTONIC, &st);
     if (FD_ISSET(server->socket, &server->readfs))
         accept_new_client();
     handle_clients();

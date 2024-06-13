@@ -62,7 +62,7 @@ int remove_client(int cli_socket)
 
 static void setup_inventory_cli(client_t **cli)
 {
-    (*cli)->inventory.food = 50;
+    (*cli)->inventory.food = 10;
     (*cli)->inventory.linemate = 0;
     (*cli)->inventory.deraumere = 0;
     (*cli)->inventory.sibur = 0;
@@ -81,7 +81,7 @@ static void setup_cli(client_t **new_client, int client_socket)
     (*new_client)->level = 1;
     (*new_client)->graphic = false;
     (*new_client)->evolving = false;
-    (*new_client)->time_to_live = 1260;
+    (*new_client)->time_to_live = 0;
     (*new_client)->next = NULL;
     setup_inventory_cli(new_client);
 }

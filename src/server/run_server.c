@@ -43,6 +43,7 @@ void need_to_sleep(timespec_t start, timespec_t end, timespec_t req)
 int server_loop(server_t *server, timespec_t st, timespec_t end, timespec_t r)
 {
     select_loop();
+    handle_player_death();
     clock_gettime(CLOCK_MONOTONIC, &st);
     handle_gui_cmd();
     if (FD_ISSET(server->socket, &server->readfs))

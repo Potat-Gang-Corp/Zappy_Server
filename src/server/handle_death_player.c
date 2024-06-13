@@ -32,9 +32,8 @@ void handle_player_death(void)
     for (cli = server->clients; cli != NULL; cli = cli->next) {
         if (cli->graphic == true || cli->logged == false)
             continue;
-        if (cli->time_to_live > 0) {
+        if (cli->time_to_live > 0)
             cli->time_to_live--;
-        }
         if (cli->time_to_live == 0 && cli->inventory.food == 0) {
             notice_player_death_event(cli);
             remove_client(cli->socket);

@@ -13,4 +13,5 @@
 void add_item_to_inventory(client_t *cli, item_type_t type);
 int delete_item_inventory(client_t *cli, item_type_t type);
 
+
 #endif /* !INVENTORY_H_ */

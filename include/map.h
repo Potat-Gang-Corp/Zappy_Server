@@ -12,5 +12,6 @@
 
 void delete_item_from_tiles(tile_t *tile, item_type_t type);
 int checking_item_existence(items_t *item, item_type_t type);
+void add_egg_to_team_ll(team_t *team, int x, int y);
 
 #endif /* !MAP_H_ */

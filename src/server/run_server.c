@@ -44,6 +44,7 @@ int server_loop(server_t *server, timespec_t st, timespec_t end, timespec_t r)
 {
     select_loop();
     handle_player_death();
+    handle_egg_laying();
     clock_gettime(CLOCK_MONOTONIC, &st);
     handle_gui_cmd();
     if (FD_ISSET(server->socket, &server->readfs))

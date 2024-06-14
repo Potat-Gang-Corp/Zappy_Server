@@ -14,7 +14,7 @@ int cmd_msz(char *command_type, int gui_socket)
     client_t *cli = get_client_by_socket(gui_socket);
 
     (void)command_type;
-    dprintf(cli->socket, "%d %d\n", game->width, game->height);
+    dprintf(cli->socket, "msz %d %d\n", game->width, game->height);
     return 0;
 }
 

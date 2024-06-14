@@ -41,7 +41,7 @@ int place_thystame_on_map(map_t *map)
     return 0;
 }
 
-void add_egg_to_team_ll(team_t *team, int x, int y)
+void add_egg_to_team_ll(team_t *team, int x, int y, int egg_id)
 {
     egg_t *new_item = malloc(sizeof(egg_t));
 
@@ -50,6 +50,7 @@ void add_egg_to_team_ll(team_t *team, int x, int y)
     }
     new_item->x_pos = x;
     new_item->y_pos = y;
+    new_item->egg_id = egg_id;
     new_item->next = team->egg;
     team->egg = new_item;
 }
@@ -71,7 +72,7 @@ void place_egg_on_map_bis(int team_index, map_t *map)
         }
         type = EGG;
         add_item_to_tiles(map->tiles[tile_index], type);
-        add_egg_to_team_ll(game->teams[team_index], x, y);
+        add_egg_to_team_ll(game->teams[team_index], x, y, 0);
     }
 }
 

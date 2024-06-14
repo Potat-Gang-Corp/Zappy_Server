@@ -21,6 +21,7 @@ void notice_player_death_event(client_t *cli)
             dprintf(graphic->socket, "pdi #%d\n", cli->socket);
         }
     }
+    dprintf(cli->socket, "dead\n");
 }
 
 void handle_player_death(void)

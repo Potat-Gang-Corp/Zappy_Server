@@ -24,6 +24,7 @@
 typedef struct egg_s {
     int x_pos;
     int y_pos;
+    int egg_id;
     struct egg_s *next;
 } egg_t;
 
@@ -52,6 +53,7 @@ typedef struct game_s {
     int player_slots;
     bool graphical;
     team_t **teams;
+    int nb_eggs_layed;
 } game_t;
 
 #endif /* !STRUCT_GAME_H_ */

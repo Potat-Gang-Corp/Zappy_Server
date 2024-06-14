@@ -613,5 +613,5 @@ void handle_player_death(void);
 bool is_gui(int cli_id);
 
 void handle_egg_laying(void);
-
+void client_fork_end(client_t *cli);
 #endif /* !SERVER_H_ */

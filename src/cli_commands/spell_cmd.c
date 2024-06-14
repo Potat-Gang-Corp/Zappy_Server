@@ -19,23 +19,33 @@ int cmd_broadcast(char *command_type, int cli_socket)
     return 0;
 }
 
+void notice_graphic_client_fork_begin(client_t *cli)
+{
+    server_t *server = get_instance();
+    client_t *graphic = NULL;
+
+    for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
+        if (graphic->graphic == true) {
+            dprintf(graphic->socket, "pfk #%d\n", cli->socket);
+        }
+    }
+}
+
 int cmd_fork(char *command_type, int cli_socket)
 {
     client_t *cli = get_client_by_socket(cli_socket);
-    map_t *map = get_map_instance();
     game_t *game = get_game_instance();
-    item_type_t type = EGG;
-    int tile_index = cli->pos.x + cli->pos.y * map->width;
 
     (void)command_type;
-    for (int j = 0; j < game->player_slots; j++) {
+    for (int j = 0; j < game->nb_teams; j++) {
         if (strcmp(game->teams[j]->name, cli->team) == 0) {
-            add_item_to_tiles(map->tiles[tile_index], type);
-            add_egg_to_team_ll(game->teams[j], cli->pos.x, cli->pos.y);
-            game->teams[j]->max_clients++;
+            cli->egg_id_laying = game->nb_eggs_layed;
+            game->nb_eggs_layed++;
+            cli->is_laying = true;
         }
     }
     cli->cd = 42 / game->freq;
+    notice_graphic_client_fork_begin(cli);
     dprintf(cli_socket, "ok\n");
     return 0;
 }

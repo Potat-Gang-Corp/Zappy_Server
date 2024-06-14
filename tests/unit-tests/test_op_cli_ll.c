@@ -65,6 +65,57 @@ Test(client_management, remove_last_client, .init = setup_remove_cli) {
     int result = remove_client(103);
 
     cr_assert_eq(result, 0, "Remove client should return 0 on success.");
+
 }
 
+Test(client_management, add_cli_to_ll_test) {
+    int test_socket = 123;
+    client_t *new_client = malloc(sizeof(client_t));
+    new_client->next = NULL;
+
+    add_cli_to_ll(new_client, test_socket);
+
+    server_t *server = get_instance();
+    cr_assert_not_null(server->clients, "Client list should not be empty after adding a client");
+    cr_assert_eq(server->clients->socket, test_socket, "Socket should match the test socket");
+    cr_assert_null(server->clients->next, "Next client should be NULL for a single entry list");
+
+    int test_socket2 = 456;
+    client_t *new_client2 = malloc(sizeof(client_t));
+    new_client2->next = NULL;
+
+    add_cli_to_ll(new_client2, test_socket2);
+
+    cr_assert_not_null(server->clients->next, "Next client should not be NULL after adding a second client");
+    cr_assert_eq(server->clients->next->socket, test_socket2, "Socket should match the test socket for the second client");
+
+    int test_socket3 = 789;
+
+    client_t *new_client3 = malloc(sizeof(client_t));
+
+    add_cli_to_ll(new_client3, test_socket3);
+
+    cr_assert_not_null(server->clients->next->next, "Next client should not be NULL after adding a third client");
+
+    free(new_client);
+}
+
+Test(client_management, find_client_and_prev_test) {
+    int test_socket = 123;
+    client_t *new_client = malloc(sizeof(client_t));
+    new_client->socket = test_socket;
+    new_client->next = NULL;
+
+    server_t *server = get_instance();
+    server->clients = new_client;
+
+    client_t *prev = NULL;
+    client_t *found = find_client_and_prev(test_socket, &prev);
+
+    cr_assert_not_null(found, "Should find the client");
+    cr_assert_null(prev, "Predecessor should be NULL for the first client in the list");
+    cr_assert_eq(found->socket, test_socket, "Found client socket should match test socket");
+
+    free(new_client);
+}
 

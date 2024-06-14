@@ -85,9 +85,7 @@ int lower_cli_cd(client_t *cli)
 {
     if (cli->cd > 0)
         cli->cd--;
-    printf("cli->cd = %d %d\n", cli->cd, cli->is_laying);
     if (cli->cd == 0 && cli->is_laying == true) {
-        printf("Player %d has laid an egg\n", cli->socket);
         cli->is_laying = false;
         client_fork_end(cli);
     }

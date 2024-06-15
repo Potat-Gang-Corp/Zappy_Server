@@ -67,8 +67,8 @@ int handle_team_full(client_t *cli, int i, char *team_name)
         len = snprintf(coordinates, sizeof(coordinates),
             "%d %d\n", game->width, game->height);
         write(cli->socket, coordinates, len);
-        notice_graphic_client(cli, team_name);
         player_spawn(cli, i);
+        notice_graphic_client(cli, team_name);
     }
     return 0;
 }

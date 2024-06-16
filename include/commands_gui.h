@@ -14,5 +14,7 @@
 */
 
 void handle_gui_cmd(void);
+char *compute_tile_stock(items_t *item_start, int x, int y);
+int *construct_message(items_t *item_start, int *items_counter);
 
 #endif /* !COMMANDS_GUI_H_ */

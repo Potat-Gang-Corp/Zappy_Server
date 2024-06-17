@@ -18,5 +18,6 @@ void handle_forward_command(client_t *cli);
 void handle_inventory_command(client_t *cli);
 void handle_take_command(client_t *cli, char *command);
 void handle_set_command(client_t *cli, char *command);
+void sending_message(client_t curr_cli, char *message);
 
 #endif /* !COMMANDS_H_ */

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** Zappy_Server
 ** File description:
-** action_cmd
+** fork_cmd
 */
 
 #include "../../include/struct_server.h"

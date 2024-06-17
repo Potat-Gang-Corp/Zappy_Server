@@ -41,6 +41,8 @@ static int exec_func(int cli_s, char *command, client_t *cli)
         handle_cli_login(cli, command);
     } else if (cli->socket == cli_s && cli->logged == true && cli->cd == 0) {
         execute_game_cmd(cli_s, command);
+        if (cli->nb_commands > 0)
+            cli->nb_commands--;
     }
     return 0;
 }
@@ -72,14 +74,9 @@ void execute_cli_cmd(void)
 {
     server_t *server = get_instance();
     command_t *cmd = NULL;
-    client_t *cli = NULL;
 
     while (!TAILQ_EMPTY(&server->commands)) {
         cmd = TAILQ_FIRST(&server->commands);
         execute_cli_cmd_bis(cmd);
-    }
-    cli = server->clients;
-    for (; cli != NULL; cli = cli->next) {
-        cli->nb_commands = 0;
     }
 }

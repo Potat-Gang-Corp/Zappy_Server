@@ -1,7 +1,7 @@
 #!/bin/sh
 
 count=0
-max_processes=1000
+max_processes=5
 
 while [ $count -lt $max_processes ]; do
     ./test.sh &

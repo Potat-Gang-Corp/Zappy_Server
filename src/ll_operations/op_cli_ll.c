@@ -107,6 +107,7 @@ void add_cli_to_ll(client_t *new_client, int client_socket)
 
 int add_client(int client_socket)
 {
+    server_t *server = get_instance();
     client_t *new_client = malloc(sizeof(client_t));
 
     if (new_client == NULL) {
@@ -117,5 +118,6 @@ int add_client(int client_socket)
     add_cli_to_ll(new_client, client_socket);
     printf("Added new client with socket %d\n", client_socket);
     write(new_client->socket, "WELCOME\n", strlen("WELCOME\n"));
+    server->nb_connected_players++;
     return 0;
 }

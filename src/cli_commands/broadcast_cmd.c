@@ -61,11 +61,11 @@ static int calculate_direction_bis(int distance_x, int distance_y)
 {
     if (distance_y < 0) {
         return compute_north_direction(distance_x, distance_y);
-    }
-    if (distance_y > 0) {
+    } else if (distance_y > 0) {
         return compute_south_direction(distance_x, distance_y);
+    } else {
+        return compute_east_west_direction(distance_x);
     }
-    return compute_east_west_direction(distance_x);
 }
 
 int calculate_direction(int distance_x, int distance_y)
@@ -78,6 +78,7 @@ int calculate_direction(int distance_x, int distance_y)
     if (abs(distance_y) > map->height / 2) {
         distance_y = coord_out_of_bounds(distance_y, map->height);
     }
+    map->display(map);
     return calculate_direction_bis(distance_x, distance_y);
 }
 

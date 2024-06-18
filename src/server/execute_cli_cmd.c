@@ -35,14 +35,19 @@ client_t *get_client_by_socket(int cli_socket)
     return NULL;
 }
 
+static void lower_nb_cmd(client_t *cli)
+{
+    if (cli->nb_commands > 0)
+        cli->nb_commands--;
+}
+
 static int exec_func(int cli_s, char *command, client_t *cli)
 {
     if (cli->socket == cli_s && cli->logged == false) {
         handle_cli_login(cli, command);
     } else if (cli->socket == cli_s && cli->logged == true && cli->cd == 0) {
         execute_game_cmd(cli_s, command);
-        if (cli->nb_commands > 0)
-            cli->nb_commands--;
+        lower_nb_cmd(cli);
     }
     return 0;
 }

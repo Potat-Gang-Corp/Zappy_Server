@@ -26,34 +26,29 @@ void handle_sigint(int sig)
     exit(0);
 }
 
-void execute_chrono_tasks()
+void execute_chrono_tasks(void)
 {
-    lower_cd();
-    lower_life();
-    
+    lower_cli_cd();
 }
 
-void need_to_sleep(timespec_t *start, timespec_t *end, timespec_t *req)
+void need_to_sleep(timespec_t *s, timespec_t *end)
 {
-    //CHECK IF IT WORKS
     game_t *game = get_game_instance();
-    server_t *server = get_instance();
+    long elapsed_ns;
+    long interval_ns;
 
     clock_gettime(CLOCK_MONOTONIC, end);
-    long elapsed_ns = (end->tv_sec - start->tv_sec) * 1e9 + (end->tv_nsec - start->tv_nsec);
-
-    // 1/f en nanosecondes
-    long interval_ns = 1e9 / game->freq;
-
+    elapsed_ns = (end->tv_sec - s->tv_sec) * 1e9 + (end->tv_nsec - s->tv_nsec);
+    interval_ns = 1e9 / game->freq;
+    printf("interval_ns: %ld\n", interval_ns);
     if (elapsed_ns >= interval_ns) {
-        execute_chrono_tasks(server);
-        clock_gettime(CLOCK_MONOTONIC, start);  // Reset the clock
+        execute_chrono_tasks();
+        clock_gettime(CLOCK_MONOTONIC, s);
     }
 }
 
-int server_loop(server_t *server, timespec_t st, timespec_t end, timespec_t r)
+int server_loop(server_t *server)
 {
-    //CHECK IF IT WORKS
     select_loop();
     handle_gui_cmd();
     if (FD_ISSET(server->socket, &server->readfs))
@@ -68,7 +63,6 @@ int run_server(void)
     server_t *server = get_instance();
     struct timespec start;
     struct timespec end;
-    struct timespec req;
 
     if (server == NULL)
         return 84;
@@ -76,8 +70,8 @@ int run_server(void)
     signal(SIGINT, handle_sigint);
     clock_gettime(CLOCK_MONOTONIC, &start);
     while (1) {
-        server_loop(server, start, end, req);
-        need_to_sleep(&start, &end, &req);
+        server_loop(server);
+        need_to_sleep(&start, &end);
     }
     return 0;
 }

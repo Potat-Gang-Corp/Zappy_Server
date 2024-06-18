@@ -81,13 +81,6 @@ void read_buffer_to_list(client_t *cli)
     free(buffer);
 }
 
-int lower_cli_cd(client_t *cli)
-{
-    if (cli->cd > 0)
-        cli->cd--;
-    return 0;
-}
-
 int handle_clients(void)
 {
     server_t *server = get_instance();
@@ -101,7 +94,6 @@ int handle_clients(void)
             continue;
         }
         read_buffer_to_list(cli);
-        lower_cli_cd(cli);
         cli = next;
     }
     return 0;

@@ -610,5 +610,5 @@ item_type_t get_item_type(const char *item_name);
 void handle_player_death(void);
 
 bool is_gui(int cli_id);
-
+int lower_cli_cd(void);
 #endif /* !SERVER_H_ */

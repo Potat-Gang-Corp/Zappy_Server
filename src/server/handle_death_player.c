@@ -21,17 +21,27 @@ void notice_player_death_event(client_t *cli)
             dprintf(graphic->socket, "pdi #%d\n", cli->socket);
         }
     }
+    dprintf(cli->socket, "dead\n");
 }
 
 void handle_player_death(void)
 {
     client_t *cli = NULL;
     server_t *server = get_instance();
+    game_t *game = get_game_instance();
 
     for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->time_to_live == 0) {
+        if (cli->graphic == true || cli->logged == false)
+            continue;
+        if (cli->time_to_live > 0)
+            cli->time_to_live--;
+        if (cli->time_to_live == 0 && cli->inventory.food == 0) {
             notice_player_death_event(cli);
             remove_client(cli->socket);
+        }
+        if (cli->time_to_live == 0 && cli->inventory.food > 0) {
+            cli->time_to_live += 126 / game->freq;
+            cli->inventory.food--;
         }
     }
 }

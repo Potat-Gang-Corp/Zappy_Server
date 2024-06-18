@@ -99,12 +99,11 @@ Test(add_cmd_to_ll_tests, normal_test)
     client1->next = client2;
 
     char *cmd_test = "Forward 12";
-    int result = add_cmd_to_ll(1, cmd_test, 0.0);
+    int result = add_cmd_to_ll(1, cmd_test);
     cr_assert_eq(result, 0, "The command should be added successfully.");
     command_t *cmd = TAILQ_FIRST(&server->commands);
     cr_assert_str_eq(cmd->command, "Forward 12");
     cr_assert_eq(cmd->cli_id, 1);
-    cr_assert_eq(cmd->execution_time, 0.0);
 }
 
 Test(add_cmd_to_ll_tests_empty_command, empty_command)
@@ -148,7 +147,7 @@ Test(add_cmd_to_ll_tests_empty_command, empty_command)
     client1->next = client2;
 
     char *cmd_test = "";
-    int result = add_cmd_to_ll(1, cmd_test, 0.0);
+    int result = add_cmd_to_ll(1, cmd_test);
     cr_assert_eq(result, 84, "The command should return an error.");
 }
 
@@ -193,6 +192,6 @@ Test(add_cmd_to_ll_tests_too_much_cmd, too_much_cmd)
     client1->next = client2;
 
     char *cmd_test = "Forward 12";
-    int result = add_cmd_to_ll(1, cmd_test, 0.0);
+    int result = add_cmd_to_ll(1, cmd_test);
     cr_assert_eq(result, 84, "The command should be added successfully.");
 }

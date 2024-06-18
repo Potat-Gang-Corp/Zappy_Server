@@ -42,7 +42,7 @@ int cmd_ppo(char *command, int gui_socket)
     socket_nb = atoi(player_nb);
     for (cli = server->clients; cli != NULL; cli = cli->next) {
         if (socket_nb == cli->socket) {
-            dprintf(cli->socket, "ppo #%d %d %d %d\n", cli->socket, cli->pos.x,
+            dprintf(gui_socket, "ppo #%d %d %d %d\n", cli->socket, cli->pos.x,
                 cli->pos.y, (cli->pos.orientation + 1));
             return 0;
         }
@@ -61,7 +61,7 @@ int cmd_plv(char *command, int gui_socket)
     socket_nb = atoi(player_nb);
     for (cli = server->clients; cli != NULL; cli = cli->next) {
         if (socket_nb == cli->socket) {
-            dprintf(cli->socket, "plv #%d %d\n", cli->socket, cli->level);
+            dprintf(gui_socket, "plv #%d %d\n", cli->socket, cli->level);
             return 0;
         }
     }
@@ -80,7 +80,7 @@ int cmd_pin(char *command, int gui_socket)
     command_type = command_type;
     for (player = server->clients; player != NULL; player = player->next) {
         if (socket_nb == player->socket) {
-            dprintf(cli->socket, "pin %d %d %d %d %d %d %d %d %d %d\n",
+            dprintf(cli->socket, "pin #%d %d %d %d %d %d %d %d %d %d\n",
                 player->socket, player->pos.x, player->pos.y,
                 player->inventory.food, player->inventory.linemate,
                 player->inventory.deraumere, player->inventory.sibur,

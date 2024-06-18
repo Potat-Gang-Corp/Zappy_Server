@@ -33,7 +33,6 @@ void setup_server_clean(void) {
         command_t *command = malloc(sizeof(command_t));
         command->cli_id = i;
         command->command = strdup("Sample Command");
-        command->execution_time = i * 0.1;
         TAILQ_INSERT_TAIL(&server_clean->commands, command, entries);
     }
 }

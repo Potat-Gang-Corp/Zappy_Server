@@ -73,8 +73,6 @@ static void setup_inventory_cli(client_t **cli)
 
 static void setup_cli(client_t **new_client, int client_socket)
 {
-    game_t *game = get_game_instance();
-
     (*new_client)->socket = client_socket;
     (*new_client)->team = NULL;
     (*new_client)->logged = false;
@@ -83,7 +81,7 @@ static void setup_cli(client_t **new_client, int client_socket)
     (*new_client)->level = 1;
     (*new_client)->graphic = false;
     (*new_client)->evolving = false;
-    (*new_client)->time_to_live = 126 / game->freq;
+    (*new_client)->time_to_live = 0;
     (*new_client)->next = NULL;
     setup_inventory_cli(new_client);
 }

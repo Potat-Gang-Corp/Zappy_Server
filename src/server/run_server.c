@@ -50,6 +50,8 @@ void need_to_sleep(timespec_t *s, timespec_t *end)
 int server_loop(server_t *server)
 {
     select_loop();
+    handle_player_death();
+    handle_egg_laying();
     handle_gui_cmd();
     if (FD_ISSET(server->socket, &server->readfs))
         accept_new_client();

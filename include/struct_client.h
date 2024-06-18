@@ -66,6 +66,8 @@ typedef struct client_s {
     bool logged;
     int nb_commands;
     bool graphic;
+    bool is_laying;
+    int egg_id_laying;
     struct client_s *next;
 } client_t;
 

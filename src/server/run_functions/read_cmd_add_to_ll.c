@@ -93,6 +93,10 @@ int handle_clients(void)
             cli = next;
             continue;
         }
+        if (cli->cd == 0 && cli->is_laying == true) {
+            cli->is_laying = false;
+            client_fork_end(cli);
+        }
         read_buffer_to_list(cli);
         cli = next;
     }

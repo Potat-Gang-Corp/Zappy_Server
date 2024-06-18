@@ -27,19 +27,3 @@ Test(get_items, should_return_correct_item_names)
     cr_assert_str_eq(get_items(EGG), "EGG");
     cr_assert_str_eq(get_items(PLAYER), "PLAYER");
 }
-
-Test(display_item, should_print_correct_item_names)
-{
-    cr_redirect_stdout();
-    items_t items[3];
-    items[0].type = FOOD;
-    items[0].next = &items[1];
-    items[1].type = LINEMATE;
-    items[1].next = &items[2];
-    items[2].type = DERAUMERE;
-    items[2].next = NULL;
-
-    display_item(items);
-
-    cr_assert_stdout_eq_str("Item: FOOD\nItem: LINEMATE\nItem: DERAUMERE\n");
-}

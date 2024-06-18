@@ -11,23 +11,28 @@
 #include "../../include/server.h"
 #include "../../include/struct_client.h"
 
-void player_spawn(client_t *cli)
+void player_spawn(client_t *cli, int team_index)
 {
     map_t *map = get_map_instance();
     game_t *game = get_game_instance();
-    int x = rand() % game->width;
-    int y = rand() % game->height;
-    item_type_t type = PLAYER;
+    egg_t *egg_head = game->teams[team_index]->egg;
 
     srand(time(NULL));
     if (!map->tiles) {
-        fprintf(stderr, "Error: map->tiles is not allocated\n");
         return;
     }
-    add_item_to_tiles(map->tiles[x + y * game->width], type);
-    cli->pos.x = map->tiles[x + y * game->width]->x;
-    cli->pos.y = map->tiles[x + y * game->width]->y;
+    add_item_to_tiles(map->tiles[egg_head->x_pos +
+        egg_head->y_pos * game->width], PLAYER);
+    delete_item_from_tiles(map->tiles[egg_head->x_pos +
+        egg_head->y_pos * game->width], EGG);
+    cli->pos.x = map->tiles[egg_head->x_pos +
+        egg_head->y_pos * game->width]->x;
+    cli->pos.y = map->tiles[egg_head->x_pos +
+        egg_head->y_pos * game->width]->y;
     cli->pos.orientation = rand() % 4;
+    game->teams[team_index]->egg = egg_head->next;
+    free(egg_head);
+    egg_head = NULL;
 }
 
 void notice_graphic_client(client_t *cli, char *team_name)
@@ -51,7 +56,7 @@ int handle_team_full(client_t *cli, int i, char *team_name)
     char coordinates[1024];
     int len;
 
-    if (game->teams[i]->max_clients < 1) {
+    if (game->teams[i]->max_clients < 1 && game->teams[i]->egg == NULL) {
         add_to_waiting_list(cli->socket, team_name);
         write(cli->socket, "This team is full, please wait\n",
             strlen("This team is full, please wait\n"));
@@ -62,8 +67,8 @@ int handle_team_full(client_t *cli, int i, char *team_name)
         len = snprintf(coordinates, sizeof(coordinates),
             "%d %d\n", game->width, game->height);
         write(cli->socket, coordinates, len);
+        player_spawn(cli, i);
         notice_graphic_client(cli, team_name);
-        player_spawn(cli);
     }
     return 0;
 }

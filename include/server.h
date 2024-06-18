@@ -580,6 +580,8 @@ int place_sibur_on_map(map_t *map);
 int place_deraumere_on_map(map_t *map);
 int place_linemate_on_map(map_t *map);
 int place_food_on_map(map_t *map);
+void place_egg_on_map_bis(int team_index, map_t *map);
+void add_egg_to_team_ll(team_t *team, int x, int y, int egg_id);
 
 int place_phiras_on_map(map_t *map);
 int place_thystame_on_map(map_t *map);
@@ -588,7 +590,7 @@ const char *get_north_pos(void);
 const char *get_east_pos(void);
 const char *get_south_pos(void);
 const char *get_south_pos(void);
-void player_spawn(client_t *cli);
+void player_spawn(client_t *cli, int team_index);
 
 const char *get_food(void);
 const char *get_linemate(void);
@@ -606,9 +608,21 @@ void place_randomly_items(map_t *map);
 void display_item(items_t *item);
 const char *get_items(item_type_t item);
 item_type_t get_item_type(const char *item_name);
+void delete_item_from_tiles(tile_t *tile, item_type_t type);
+int checking_item_existence(items_t *item, item_type_t type);
 
 void handle_player_death(void);
 
 bool is_gui(int cli_id);
 int lower_cli_cd(void);
+
+void handle_egg_laying(void);
+void client_fork_end(client_t *cli);
+
+void move_player(client_t *cli, game_t *game);
+
+int parse_cmd_table(char *cmd, int cli_socket, char *full_cmd);
+
+waiting_client_t *get_waiting_client(server_t *server, char *team_name);
+
 #endif /* !SERVER_H_ */

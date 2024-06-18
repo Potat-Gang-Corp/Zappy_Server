@@ -55,8 +55,6 @@ $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
 	$(CC) -o $(TESTNAME) $(TOBJS) $(OBJS_NO_MAIN) $(CFLAGS) $(LDFLAGS)
 	@$(ECHO) "$(GREEN)$(BOLD)$(TESTNAME) compiled successfully!$(RESET)"
 
-##add something to not display on terminal
-
 tests_run: $(TESTNAME)
 	@$(ECHO) "$(MAGENTA)$(BOLD)Running unit tests...$(RESET)"
 	@./$(TESTNAME)

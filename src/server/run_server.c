@@ -28,7 +28,15 @@ void handle_sigint(int sig)
 
 void execute_chrono_tasks(void)
 {
-    lower_cli_cd();
+    server_t *server = get_instance();
+    client_t *cli = NULL;
+
+    for (cli = server->clients; cli != NULL; cli = cli->next) {
+        if (cli->logged == false || cli->graphic == true)
+            continue;
+        lower_cli_cd(cli);
+        handle_player_death(cli);
+    }
 }
 
 void need_to_sleep(timespec_t *s, timespec_t *end)
@@ -40,7 +48,6 @@ void need_to_sleep(timespec_t *s, timespec_t *end)
     clock_gettime(CLOCK_MONOTONIC, end);
     elapsed_ns = (end->tv_sec - s->tv_sec) * 1e9 + (end->tv_nsec - s->tv_nsec);
     interval_ns = 1e9 / game->freq;
-    printf("interval_ns: %ld\n", interval_ns);
     if (elapsed_ns >= interval_ns) {
         execute_chrono_tasks();
         clock_gettime(CLOCK_MONOTONIC, s);
@@ -50,7 +57,6 @@ void need_to_sleep(timespec_t *s, timespec_t *end)
 int server_loop(server_t *server)
 {
     select_loop();
-    handle_player_death();
     handle_egg_laying();
     handle_gui_cmd();
     if (FD_ISSET(server->socket, &server->readfs))

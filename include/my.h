@@ -30,9 +30,10 @@
     #include <arpa/inet.h>
     #include <asm-generic/socket.h>
     #include <time.h>
+    #include <ctype.h>
 
 int place_egg_on_map(map_t *map);
 void display_egg_ll_for_each_team(void);
-
+int append_to_msg(char **msg, size_t *current_size, const char *new_content);
 
 #endif /* !MY_H_ */

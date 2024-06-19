@@ -14,50 +14,58 @@
 #include "../../include/inventory.h"
 #include "../../include/notifications.h"    
 
+void look_orientation(int *x, int *y, position_t pos, int i)
+{
+    map_t *map = get_map_instance();
+    switch (pos.orientation) {
+        case 0:
+            *x = (pos.x + i + map->width) % map->width;
+            *y = (pos.y - i + map->height) % map->height;
+            break;
+        case 1:
+            *x = (pos.x + i + map->width) % map->width;
+            *y = (pos.y + i + map->height) % map->height;
+            break;
+        case 2:
+            *x = (pos.x - i + map->width) % map->width;
+            *y = (pos.y + i + map->height) % map->height;
+            break;
+        case 3:
+            *x = (pos.x - i + map->width) % map->width;
+            *y = (pos.y - i + map->height) % map->height;
+            break;
+    }
+}
+
+int cross_items_ll(items_t *item, char **msg, size_t msg_size)
+{
+    while (item) {
+        if (append_to_msg(msg, &msg_size, " ") == -1 && item->next != NULL) {
+            return 84;
+        }
+        if (append_to_msg(msg, &msg_size, get_items(item->type)) == -1) {
+            return 84;
+        }
+        item = item->next;
+    }
+    return 0;
+}
+
 int cmd_one(char **msg, map_t *map, position_t pos)
 {
-    printf("cocou\n");
     items_t *item;
-    //case 0 en prendre en compte pos joueur
-    item = map->tiles[pos.x + pos.y]->items;
-    while (item) {
-        strcat((*msg), get_items(item->type));
-        item = item->next;
+    size_t msg_size = strlen(*msg);
+
+    append_to_msg(msg, &msg_size, ",");
+    for (int i = 1; i <= 3; i++) {
+        int x = pos.x;
+        int y = pos.y;
+        look_orientation(&x, &y, pos, i);
+        item = map->tiles[y * map->width + x]->items;
+        cross_items_ll(item, msg, msg_size);
+        if (i != 3)
+            append_to_msg(msg, &msg_size, ",");
     }
-    //case1
-    int x;
-    if (pos.orientation == NORTH) {
-        x = pos.x - 1;
-    }
-        if (x < 0)
-            x = map->width - 1;
-        int y = pos.y - 1;
-        if (y < 0)
-            y = map->height - 1;
-    item = map->tiles[x + y * map->width]->items;
-    while (item) {
-        strcat((*msg), get_items(item->type));
-        item = item->next;
-    }
-    //case 2
-    y = y + 1;
-    if (y >= map->height)
-        y = 0;
-    item = map->tiles[x + y * map->width]->items;  
-    while (item) {
-        strcat((*msg), get_items(item->type));
-        item = item->next;
-    }
-    //case 3
-    y = y + 1;
-    if (y >= map->height)
-        y = 0;
-    item = map->tiles[x + y * map->width]->items;
-    while (item) {
-        strcat((*msg), get_items(item->type));
-        item = item->next;
-    }
-    printf("MSG : %s\n", (*msg));
     return 0;
 }
 

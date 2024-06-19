@@ -125,7 +125,7 @@ int cmd_mct(char *command_type, int gui_socket)
     char **bct_dict = build_bct_dict(map, &message_len);
     char *message = build_message(bct_dict, map, message_len);
 
-    dprintf(cli->socket, "mct %s", message);
+    dprintf(cli->socket, "%s", message);
     free(message);
     free(bct_dict);
     (void)command_type;

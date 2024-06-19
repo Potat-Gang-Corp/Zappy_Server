@@ -45,6 +45,7 @@ void execute_chrono_tasks(void)
         }
     }
     handle_egg_laying();
+    handle_renew_items();
 }
 
 void need_to_sleep(timespec_t *s, timespec_t *end)

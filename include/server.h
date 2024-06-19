@@ -625,4 +625,6 @@ int parse_cmd_table(char *cmd, int cli_socket, char *full_cmd);
 
 waiting_client_t *get_waiting_client(server_t *server, char *team_name);
 
+void handle_renew_items(void);
+
 #endif /* !SERVER_H_ */

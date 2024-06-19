@@ -8,6 +8,8 @@
 #ifndef LOOK_H_
     #define LOOK_H_
 
+int lvl_zero(char **msg, size_t *msg_size, position_t pos);
+
 int cmd_one(char **msg, map_t *map, position_t pos);
 
 int cmd_two(char **msg, map_t *map, position_t pos);

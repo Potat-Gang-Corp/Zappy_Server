@@ -15,48 +15,13 @@
 #include "../../include/notifications.h"
 #include "look.h"
 
-int append_to_msg(char **msg, size_t *current_size, const char *new_content)
-{
-    size_t new_content_length = strlen(new_content);
-    size_t current_length = strlen(*msg);
-    size_t new_size = current_length + new_content_length + 1;
-
-    if (new_size > *current_size) {
-        *msg = realloc(*msg, new_size);
-        if (*msg == NULL) {
-            perror("realloc");
-            return -1;
-        }
-        *current_size = new_size;
-    }
-    strcat(*msg, new_content);
-    return 0;
-}
-
-int lvl_zero(char **msg, size_t *msg_size, position_t pos)
-{
-    items_t *item;
-    map_t *map = get_map_instance();
-
-    item = map->tiles[pos.y * map->width + pos.x]->items;
-    while (item) {
-        if (append_to_msg(msg, msg_size, get_items(item->type)) == -1) {
-            return -1;
-        }
-        if (item->next != NULL)
-            append_to_msg(msg, msg_size, " ");
-        item = item->next;
-    }
-    return 0;
-}
-
 int follow(client_t *cli, char *msg, size_t msg_size, int index)
 {
     map_t *map = get_map_instance();
     size_t i = 0;
     unsigned int x = 0;
 
-    for (; x < cli->level ; x++) {
+    for (; x < cli->level; x++) {
         if (table_level[index].command_func(&msg, map, cli->pos) == 84) {
             free(msg);
             return 84;

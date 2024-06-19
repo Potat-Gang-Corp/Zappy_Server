@@ -111,8 +111,8 @@ static char *build_message(char **bct_dict, map_t *map, int message_len)
     int x = 0;
     int y = 0;
     char *current_str;
-    //CHECK VALGRIND LA
-    if (message == NULL) {
+
+    if (message == NULL){
         return NULL;
     }
     message[0] = '\0';

@@ -36,6 +36,8 @@ int follow(client_t *cli, char *msg, size_t msg_size, int index)
         msg[i] = tolower(msg[i]);
     write(cli->socket, msg, strlen(msg));
     map->display(map);
+    printf("pos.x = %d, pos.y = %d\n", cli->pos.x, cli->pos.y);
+    printf("orientation = %d\n", cli->pos.orientation);
     return 0;
 }
 

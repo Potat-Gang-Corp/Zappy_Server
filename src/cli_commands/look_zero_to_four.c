@@ -44,6 +44,7 @@ int cmd_one(char **msg, map_t *map, position_t pos)
             stock[0] = i;
             stock[1] = offset;
             look_orientation(&x, &y, pos, stock);
+            printf("\nx = %d, y = %d\n", x, y);
             item = map->tiles[y * map->width + x]->items;
             cross_items_ll(item, msg, msg_size);
             check_to_append(offset, msg, msg_size);
@@ -54,9 +55,21 @@ int cmd_one(char **msg, map_t *map, position_t pos)
 
 int cmd_two(char **msg, map_t *map, position_t pos)
 {
-    (void) msg;
-    (void) map;
-    (void) pos;
+    items_t *item;
+    int x, y;
+    int st[2];
+    size_t msg_size = strlen(*msg);
+    // Niveau 2 : deux lignes de vision devant le joueur
+    for (int i = 1; i <= 1; i++) {
+        for (int offset = -i; offset <= i; offset++) {
+            st[0] = i;
+            st[1] = offset;
+            look_orientation(&x, &y, pos, st);
+            item = map->tiles[y * map->width + x]->items;
+            cross_items_ll(item, msg, msg_size);
+            check_to_append(offset, msg, msg_size);
+        }
+    }
     return 0;
 }
 

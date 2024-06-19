@@ -18,11 +18,14 @@ void handle_sigint(int sig)
     (void)sig;
     if (server == NULL)
         return;
+    printf("Server shutting down..\n");
+    printf("Cleaning server data..\n");
     clean_game_struct();
     clean_map_struct();
     clean_client_struct();
     clean_server_data();
     close(server->socket);
+    printf("Server closed.\n");
     exit(0);
 }
 

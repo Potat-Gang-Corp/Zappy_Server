@@ -82,7 +82,7 @@ int calculate_direction(int distance_x, int distance_y)
     return calculate_direction_bis(distance_x, distance_y);
 }
 
-void sending_message(client_t curr_cli, char *message)
+void sending_message(client_t *c_cli, char *message)
 {
     int x;
     int y;
@@ -91,16 +91,15 @@ void sending_message(client_t curr_cli, char *message)
     server_t *server = get_instance();
 
     for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->graphic == false && cli->socket != curr_cli.socket) {
-            x = cli->pos.x - curr_cli.pos.x;
-            y = cli->pos.y - curr_cli.pos.y;
+        if (cli->graphic == false && cli->socket != c_cli->socket) {
+            x = cli->pos.x - c_cli->pos.x;
+            y = cli->pos.y - c_cli->pos.y;
             k = calculate_direction(x, y);
             dprintf(cli->socket, "message %d, %s\n", k, message);
         }
         if (cli->graphic == true)
-            dprintf(cli->socket, "pbc #%d %s\n",
-            curr_cli.socket, message);
-        if (cli->socket == curr_cli.socket)
+            dprintf(cli->socket, "pbc #%d %s\n", c_cli->socket, message);
+        if (cli->socket == c_cli->socket)
             dprintf(cli->socket, "ok\n");
     }
 }

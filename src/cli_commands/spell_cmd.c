@@ -18,7 +18,7 @@ int cmd_broadcast(char *command_type, int cli_socket)
     client_t *cli = get_client_by_socket(cli_socket);
 
     msg_without_prefix += strlen("Broadcast ");
-    sending_message(*cli, msg_without_prefix);
+    sending_message(cli, msg_without_prefix);
     cli->cd = 7 / get_game_instance()->freq;
     return 0;
 }

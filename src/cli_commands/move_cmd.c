@@ -86,13 +86,15 @@ int cmd_forward(char *command_type, int cli_socket)
     map_t *map = get_map_instance();
     item_type_t type = PLAYER;
     int current_index = cli->pos.x + cli->pos.y * game->width;
-    int new_index = cli->pos.x + cli->pos.y * game->width;
+    int new_index;
 
     (void)command_type;
     delete_item_from_tiles(map->tiles[current_index], type);
     move_player(cli, game);
+    new_index = cli->pos.x + cli->pos.y * game->width;
     add_item_to_tiles(map->tiles[new_index], type);
     dprintf(cli->socket, "ok\n");
     cli->cd = 7 / game->freq;
+    map->display(map);
     return 0;
 }

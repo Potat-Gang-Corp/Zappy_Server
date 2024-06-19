@@ -112,7 +112,7 @@ static char *build_message(char **bct_dict, map_t *map, int message_len)
     int y = 0;
     char *current_str;
 
-    if (message == NULL){
+    if (message == NULL) {
         return NULL;
     }
     message[0] = '\0';

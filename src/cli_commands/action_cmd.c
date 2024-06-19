@@ -28,7 +28,7 @@ int cmd_look(char *command_type, int cli_socket)
     }
     msg[0] = '\0';
     for (unsigned int i = 0; i < cli->level ; i++) {
-        if (table_level[index].command_func(&msg, map, pos.orientation) == 84) {
+        if (table_level[index].command_func(&msg, map, cli->pos) == 84) {
             free(msg);
             return 84;
         }

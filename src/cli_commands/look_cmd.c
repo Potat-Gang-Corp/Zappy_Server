@@ -17,7 +17,6 @@
 int cmd_one(char **msg, map_t *map, position_t pos)
 {
     printf("cocou\n");
-    int current_index = 0;
     items_t *item;
     //case 0 en prendre en compte pos joueur
     item = map->tiles[pos.x + pos.y]->items;
@@ -26,8 +25,10 @@ int cmd_one(char **msg, map_t *map, position_t pos)
         item = item->next;
     }
     //case1
-    if (pos.orientation == NORTH)
-        int x = pos.x - 1;
+    int x;
+    if (pos.orientation == NORTH) {
+        x = pos.x - 1;
+    }
         if (x < 0)
             x = map->width - 1;
         int y = pos.y - 1;
@@ -65,6 +66,7 @@ int cmd_two(char **msg, map_t *map, position_t pos)
     (void) msg;
     (void) map;
     (void) pos;
+    return 0;
 }
 
 int cmd_three(char **msg, map_t *map, position_t pos)
@@ -72,6 +74,7 @@ int cmd_three(char **msg, map_t *map, position_t pos)
     (void) msg;
     (void) map;
     (void) pos;
+    return 0;
 }
 
 int cmd_four(char **msg, map_t *map, position_t pos)
@@ -79,6 +82,7 @@ int cmd_four(char **msg, map_t *map, position_t pos)
     (void) msg;
     (void) map;
     (void) pos;
+    return 0;
 }
 
 int cmd_five(char **msg, map_t *map, position_t pos)
@@ -86,6 +90,7 @@ int cmd_five(char **msg, map_t *map, position_t pos)
     (void) msg;
     (void) map;
     (void) pos;
+    return 0;
 }
 
 int cmd_six(char **msg, map_t *map, position_t pos)
@@ -93,6 +98,7 @@ int cmd_six(char **msg, map_t *map, position_t pos)
     (void) msg;
     (void) map;
     (void) pos;
+    return 0;
 }
 
 int cmd_seven(char **msg, map_t *map, position_t pos)
@@ -100,6 +106,7 @@ int cmd_seven(char **msg, map_t *map, position_t pos)
     (void) msg;
     (void) map;
     (void) pos;
+    return 0;
 }
 
 int cmd_eight(char **msg, map_t *map, position_t pos)
@@ -107,5 +114,6 @@ int cmd_eight(char **msg, map_t *map, position_t pos)
     (void) msg;
     (void) map;
     (void) pos;
+    return 0;
 }
 

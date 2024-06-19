@@ -35,6 +35,7 @@ int follow(client_t *cli, char *msg, size_t msg_size, int index)
     for (; i < strlen(msg); i++)
         msg[i] = tolower(msg[i]);
     write(cli->socket, msg, strlen(msg));
+    map->display(map);
     return 0;
 }
 
@@ -58,18 +59,6 @@ int cmd_look(char *command_type, int cli_socket)
     }
     follow(cli, msg, msg_size, index);
     return 0;
-}
-
-void notice_graphic_egg_destruction(int egg_id)
-{
-    server_t *server = get_instance();
-    client_t *graphic = NULL;
-
-    for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
-        if (graphic->graphic == true) {
-            dprintf(graphic->socket, "edi #%d\n", egg_id);
-        }
-    }
 }
 
 static void delete_egg(egg_t **egg, egg_t **prev_egg, egg_t **curr_egg)

@@ -36,16 +36,18 @@ int cmd_one(char **msg, map_t *map, position_t pos)
     int i;
     int x;
     int y;
+    int stock[2];
 
     append_to_msg(msg, &msg_size, ",");
-    for (i = 1; i <= 3; i++) {
-        x = pos.x;
-        y = pos.y;
-        look_orientation(&x, &y, pos, i);
-        item = map->tiles[y * map->width + x]->items;
-        cross_items_ll(item, msg, msg_size);
-        if (i != 3)
-            append_to_msg(msg, &msg_size, ",");
+    for (i = 1; i <= 1; i++) {
+        for (int offset = -1; offset <= 1; offset++) {
+            stock[0] = i;
+            stock[1] = offset;
+            look_orientation(&x, &y, pos, stock);
+            item = map->tiles[y * map->width + x]->items;
+            cross_items_ll(item, msg, msg_size);
+            check_to_append(offset, msg, msg_size);
+        }
     }
     return 0;
 }

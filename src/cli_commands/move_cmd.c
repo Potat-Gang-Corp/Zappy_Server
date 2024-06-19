@@ -95,6 +95,5 @@ int cmd_forward(char *command_type, int cli_socket)
     add_item_to_tiles(map->tiles[new_index], type);
     dprintf(cli->socket, "ok\n");
     cli->cd = 7 / game->freq;
-    map->display(map);
     return 0;
 }

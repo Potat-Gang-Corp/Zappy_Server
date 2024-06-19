@@ -81,7 +81,7 @@ void read_buffer_to_list(client_t *cli)
     free(buffer);
 }
 
- int handle_clients(void)
+int handle_clients(void)
 {
     server_t *server = get_instance();
     client_t *cli = server->clients;

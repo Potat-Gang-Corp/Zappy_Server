@@ -108,23 +108,23 @@ static char **build_bct_dict(map_t *map, int *message_len)
 static char *build_message(char **bct_dict, map_t *map, int message_len)
 {
     char *message = malloc(sizeof(char) * (message_len + 1));
+    int x = 0;
+    int y = 0;
+    char *current_str;
 
     if (message == NULL) {
         return NULL;
     }
     message[0] = '\0';
-    for (int x = 0; x < map->width; x++) {
-        for (int y = 0; y < map->height; y++) {
-            char *current_str = bct_dict[x + y * map->width];
-            if (current_str != NULL) {
-                strcat(message, current_str);
-                free(current_str);
-            }
+    for (x = 0; x < map->width; x++) {
+        for (y = 0; y < map->height; y++) {
+            current_str = bct_dict[x + y * map->width];
+            strcat(message, current_str ? current_str : "");
+            free(current_str);
         }
     }
     return message;
 }
-
 
 int cmd_mct(char *command_type, int gui_socket)
 {

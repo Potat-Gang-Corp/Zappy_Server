@@ -36,8 +36,10 @@ void execute_chrono_tasks(void)
             continue;
         if (cli->graphic == true)
             cmd_mct("mct", cli->socket);
-        lower_cli_cd(cli);
-        handle_player_death(cli);
+        if (!(cli->graphic == true)) {
+            lower_cli_cd(cli);
+            handle_player_death(cli);
+        }
     }
     handle_egg_laying();
 }

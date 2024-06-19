@@ -15,11 +15,11 @@
 int cmd_broadcast(char *command_type, int cli_socket)
 {
     char *msg_without_prefix = strstr(command_type, "Broadcast ");
-    client_t curr_cli = *get_client_by_socket(cli_socket);
+    client_t *cli = get_client_by_socket(cli_socket);
 
     msg_without_prefix += strlen("Broadcast ");
-    sending_message(curr_cli, msg_without_prefix);
-    curr_cli.cd = 7 / get_game_instance()->freq;
+    sending_message(*cli, msg_without_prefix);
+    cli->cd = 7 / get_game_instance()->freq;
     return 0;
 }
 

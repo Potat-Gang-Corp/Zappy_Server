@@ -18,8 +18,8 @@ void handle_sigint(int sig)
     (void)sig;
     if (server == NULL)
         return;
-    printf("Server shutting down..\n");
-    printf("Cleaning server data..\n");
+    printf("\nServer shutting down..\n");
+    printf(". . .\nCleaning server data..\n. . .\n");
     clean_game_struct();
     clean_map_struct();
     clean_client_struct();

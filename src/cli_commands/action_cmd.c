@@ -13,12 +13,29 @@
 #include "../../include/map.h"
 #include "../../include/inventory.h"
 #include "../../include/notifications.h"
+#include "look.h"
 
 int cmd_look(char *command_type, int cli_socket)
 {
+    client_t *cli = get_client_by_socket(cli_socket);
+    map_t *map = get_map_instance();
+    char *msg = malloc(sizeof(char) * 1000);
+    int index = 0;
+    
+    if (!msg) {
+        perror("malloc");
+        return 84;
+    }
+    msg[0] = '\0';
+    for (unsigned int i = 0; i < cli->level ; i++) {
+        if (table_level[index].command_func(&msg, map, pos.orientation) == 84) {
+            free(msg);
+            return 84;
+        }
+        index++;
+    }
+    write(cli->socket, msg, strlen(msg));
     (void)command_type;
-    (void)cli_socket;
-    printf("Executing Look command\n");
     return 0;
 }
 

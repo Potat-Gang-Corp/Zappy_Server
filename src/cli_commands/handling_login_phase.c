@@ -84,7 +84,7 @@ int detect_team_validity(char *team_name, client_t *cli)
             return handle_team_full(cli, i, team_name);
         }
         if (strcmp(team_name, "GRAPHIC") == 0) {
-            write(cli->socket, "Connected\n", strlen("Connected\n"));
+            dprintf(cli->socket, "msz %d %d\n", game->width, game->height);
             cli->logged = true;
             cli->graphic = true;
             return 0;

@@ -32,8 +32,10 @@ void execute_chrono_tasks(void)
     client_t *cli = NULL;
 
     for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->logged == false || cli->graphic == true)
+        if (cli->logged == false)
             continue;
+        if (cli->graphic == true)
+            cmd_mct("mct", cli->socket);
         lower_cli_cd(cli);
         handle_player_death(cli);
     }

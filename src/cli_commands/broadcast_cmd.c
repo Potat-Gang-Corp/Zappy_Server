@@ -27,18 +27,26 @@ static int coord_out_of_bounds(int coord, int axis)
 static int compute_north_direction(int distance_x, int distance_y)
 {
     if (distance_x == 0) {
-        if (distance_y < 0) return 1;
-        if (distance_y > 0) return 5;
+        if (distance_y < 0)
+            return 1;
+        if (distance_y > 0)
+            return 5;
     }
     if (distance_x < 0) {
-        if (distance_y < 0) return 2;
-        if (distance_y == 0) return 3;
-        if (distance_y > 0) return 4;
+        if (distance_y < 0)
+            return 2;
+        if (distance_y == 0)
+            return 3;
+        if (distance_y > 0)
+            return 4;
     }
     if (distance_x > 0) {
-        if (distance_y < 0) return 8;
-        if (distance_y == 0) return 7;
-        if (distance_y > 0) return 6;
+        if (distance_y < 0)
+            return 8;
+        if (distance_y == 0)
+            return 7;
+        if (distance_y > 0)
+            return 6;
     }
     return 0;
 }
@@ -46,18 +54,26 @@ static int compute_north_direction(int distance_x, int distance_y)
 static int compute_south_direction(int distance_x, int distance_y)
 {
     if (distance_x == 0) {
-        if (distance_y < 0) return 5;
-        if (distance_y > 0) return 1;
+        if (distance_y < 0)
+            return 5;
+        if (distance_y > 0)
+            return 1;
     }
     if (distance_x < 0) {
-        if (distance_y < 0) return 6;
-        if (distance_y == 0) return 7;
-        if (distance_y > 0) return 8;
+        if (distance_y < 0)
+            return 6;
+        if (distance_y == 0)
+            return 7;
+        if (distance_y > 0)
+            return 8;
     }
     if (distance_x > 0) {
-        if (distance_y < 0) return 4;
-        if (distance_y == 0) return 3;
-        if (distance_y > 0) return 2;
+        if (distance_y < 0)
+            return 4;
+        if (distance_y == 0)
+            return 3;
+        if (distance_y > 0)
+            return 2;
     }
     return 0;
 }
@@ -65,18 +81,26 @@ static int compute_south_direction(int distance_x, int distance_y)
 static int compute_east_direction(int distance_x, int distance_y)
 {
     if (distance_x == 0) {
-        if (distance_y > 0) return 7;
-        if (distance_y < 0) return 3;
+        if (distance_y > 0)
+            return 7;
+        if (distance_y < 0)
+            return 3;
     }
     if (distance_x < 0) {
-        if (distance_y < 0) return 4;
-        if (distance_y == 0) return 5;
-        if (distance_y > 0) return 6;
+        if (distance_y < 0)
+            return 4;
+        if (distance_y == 0)
+            return 5;
+        if (distance_y > 0)
+            return 6;
     }
     if (distance_x > 0) {
-        if (distance_y < 0) return 2;
-        if (distance_y == 0) return 1;
-        if (distance_y > 0) return 8;
+        if (distance_y < 0)
+            return 2;
+        if (distance_y == 0)
+            return 1;
+        if (distance_y > 0)
+            return 8;
     }
     return 0;
 }
@@ -84,33 +108,41 @@ static int compute_east_direction(int distance_x, int distance_y)
 static int compute_west_direction(int distance_x, int distance_y)
 {
     if (distance_x == 0) {
-        if (distance_y > 0) return 3;
-        if (distance_y < 0) return 7;
+        if (distance_y > 0)
+            return 3;
+        if (distance_y < 0)
+            return 7;
     }
     if (distance_x < 0) {
-        if (distance_y < 0) return 8;
-        if (distance_y == 0) return 1;
-        if (distance_y > 0) return 2;
+        if (distance_y < 0)
+            return 8;
+        if (distance_y == 0)
+            return 1;
+        if (distance_y > 0)
+            return 2;
     }
     if (distance_x > 0) {
-        if (distance_y < 0) return 6;
-        if (distance_y == 0) return 5;
-        if (distance_y > 0) return 4;
+        if (distance_y < 0)
+            return 6;
+        if (distance_y == 0)
+            return 5;
+        if (distance_y > 0)
+            return 4;
     }
     return 0;
 }
 
-static int calculate_direction_bis(int distance_x, int distance_y, int orientation)
+static int calculate_direction_bis(int dist_x, int dist_y, int orientation)
 {
     switch (orientation) {
-        case 0: // NORTH
-            return compute_north_direction(distance_x, distance_y);
-        case 1: // EAST
-            return compute_east_direction(distance_x, distance_y);
-        case 2: // SOUTH
-            return compute_south_direction(distance_x, distance_y);
-        case 3: // WEST
-            return compute_west_direction(distance_x, distance_y);
+        case 0:
+            return compute_north_direction(dist_x, dist_y);
+        case 1:
+            return compute_east_direction(dist_x, dist_y);
+        case 2:
+            return compute_south_direction(dist_x, dist_y);
+        case 3:
+            return compute_west_direction(dist_x, dist_y);
     }
     return 0;
 }
@@ -126,7 +158,9 @@ int calculate_direction(int distance_x, int distance_y, int orientation)
 
 void sending_message(client_t *c_cli, char *message)
 {
-    int x, y, k;
+    int x;
+    int y;
+    int k;
     client_t *cli;
     server_t *server = get_instance();
 

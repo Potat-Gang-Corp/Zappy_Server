@@ -78,7 +78,7 @@ static void setup_cli(client_t **new_client, int client_socket)
     (*new_client)->logged = false;
     (*new_client)->nb_commands = 0;
     (*new_client)->cd = 0;
-    (*new_client)->level = 2;
+    (*new_client)->level = 3;
     (*new_client)->graphic = false;
     (*new_client)->evolving = false;
     (*new_client)->time_to_live = 0;

@@ -19,10 +19,10 @@ int follow(client_t *cli, char *msg, size_t msg_size, int index)
 {
     map_t *map = get_map_instance();
     size_t i = 0;
-    unsigned int x = 0;
+    unsigned int x = 1;
 
-    for (; x < cli->level; x++) {
-        if (table_level[index].command_func(&msg, map, cli->pos) == 84) {
+    for (; x <= cli->level; x++) {
+        if (cmd_lvl(&msg, map, cli->pos, x) == 84) {
             free(msg);
             return 84;
         }
@@ -180,6 +180,7 @@ int cmd_set(char *command, int cli_socket)
     }
     add_item_to_tiles(map->tiles[current_index], type);
     notice_player_set_object(cli, type);
+    dprintf(cli->socket, "ok\n");
     cli->cd = 7 / get_game_instance()->freq;
     return 0;
 }

@@ -10,25 +10,25 @@
 
 const char *get_food(void)
 {
-    return "FOOD";
+    return "food";
 }
 
 const char *get_linemate(void)
 {
-    return "LINEMATE";
+    return "linemate";
 }
 
 const char *get_deraumere(void)
 {
-    return "DERAUMERE";
+    return "deraumere";
 }
 
 const char *get_sibur(void)
 {
-    return "SIBUR";
+    return "sibur";
 }
 
 const char *get_mendiane(void)
 {
-    return "MENDIANE";
+    return "mendiane";
 }

@@ -15,20 +15,9 @@
 int cmd_left(char *command_type, int cli_socket)
 {
     client_t *cli = get_client_by_socket(cli_socket);
-
+    
     (void)command_type;
-    if (cli->pos.orientation == NORTH) {
-        cli->pos.orientation = WEST;
-    }
-    if (cli->pos.orientation == WEST) {
-        cli->pos.orientation = SOUTH;
-    }
-    if (cli->pos.orientation == SOUTH) {
-        cli->pos.orientation = EAST;
-    }
-    if (cli->pos.orientation == EAST) {
-        cli->pos.orientation = NORTH;
-    }
+    cli->pos.orientation = (cli->pos.orientation - 1) % 4;
     dprintf(cli->socket, "ok\n");
     cli->cd = 7 / get_game_instance()->freq;
     return 0;
@@ -39,18 +28,10 @@ int cmd_right(char *command_type, int cli_socket)
     client_t *cli = get_client_by_socket(cli_socket);
 
     (void)command_type;
-    if (cli->pos.orientation == NORTH) {
-        cli->pos.orientation = EAST;
+    if (cli == NULL) {
+        return -1;
     }
-    if (cli->pos.orientation == EAST) {
-        cli->pos.orientation = SOUTH;
-    }
-    if (cli->pos.orientation == SOUTH) {
-        cli->pos.orientation = WEST;
-    }
-    if (cli->pos.orientation == WEST) {
-        cli->pos.orientation = NORTH;
-    }
+    cli->pos.orientation = (cli->pos.orientation + 1) % 4;
     dprintf(cli->socket, "ok\n");
     cli->cd = 7 / get_game_instance()->freq;
     return 0;

@@ -17,13 +17,13 @@
 
 Test(get_items, should_return_correct_item_names)
 {
-    cr_assert_str_eq(get_items(FOOD), "FOOD");
-    cr_assert_str_eq(get_items(LINEMATE), "LINEMATE");
-    cr_assert_str_eq(get_items(DERAUMERE), "DERAUMERE");
-    cr_assert_str_eq(get_items(SIBUR), "SIBUR");
-    cr_assert_str_eq(get_items(MENDIANE), "MENDIANE");
-    cr_assert_str_eq(get_items(PHIRAS), "PHIRAS");
-    cr_assert_str_eq(get_items(THYSTAME), "THYSTAME");
-    cr_assert_str_eq(get_items(EGG), "EGG");
-    cr_assert_str_eq(get_items(PLAYER), "PLAYER");
+    cr_assert_str_eq(get_items(FOOD), "food");
+    cr_assert_str_eq(get_items(LINEMATE), "linemate");
+    cr_assert_str_eq(get_items(DERAUMERE), "deraumere");
+    cr_assert_str_eq(get_items(SIBUR), "sibur");
+    cr_assert_str_eq(get_items(MENDIANE), "mendiane");
+    cr_assert_str_eq(get_items(PHIRAS), "phiras");
+    cr_assert_str_eq(get_items(THYSTAME), "thystame");
+    cr_assert_str_eq(get_items(EGG), "egg");
+    cr_assert_str_eq(get_items(PLAYER), "player");
 }

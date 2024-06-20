@@ -5,14 +5,17 @@ on:
     branches:
       - main
 
+env:
+  BUILD_STATUS: null
+
 jobs:
-  sync_server:
+  sync_Server:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Server Repository
       uses: actions/checkout@v3
-      
+
     - name: Install jq
       run: sudo apt-get install -y jq
 
@@ -26,37 +29,41 @@ jobs:
         build_url="${JENKINS_URL}${JENKINS_JOB_NAME}/build"
         job_response=$(curl -s -X POST "$build_url" --user ${JENKINS_USER}:${JENKINS_API_TOKEN})
 
-        sleep 10
+        sleep 7
 
         last_build_number=$(curl -s "${JENKINS_URL}${JENKINS_JOB_NAME}/lastBuild/buildNumber" --user ${JENKINS_USER}:${JENKINS_API_TOKEN})
 
-        build_logged=$(curl -s "${JENKINS_URL}${JENKINS_JOB_NAME}/${last_build_number}/api/json" --user ${JENKINS_USER}:${JENKINS_API_TOKEN} | jq -r '.result')
-
         while true; do
-          if [ "$build_logged" == "SUCCESS" ]; then
+          BUILD_STATUS=$(curl -s "${JENKINS_URL}${JENKINS_JOB_NAME}/${last_build_number}/api/json" --user ${JENKINS_USER}:${JENKINS_API_TOKEN} | jq -r '.result')
+          if [ "$BUILD_STATUS" == "SUCCESS" ]; then
             echo "Build succeeded."
+            echo "BUILD_STATUS=SUCCESS" >> $GITHUB_ENV
             exit 0
-          elif [ "$build_logged" == "FAILURE" ]; then
+          elif [ "$BUILD_STATUS" == "FAILURE" ]; then
             echo "Build failed."
+            echo "BUILD_STATUS=FAILURE" >> $GITHUB_ENV
             exit 1
-          elif [ "$build_logged" == "ABORTED" ]; then
+          elif [ "$BUILD_STATUS" == "ABORTED" ]; then
             echo "Build was aborted."
+            echo "BUILD_STATUS=ABORTED" >> $GITHUB_ENV
             exit 1
-          elif [ "$build_logged" == "null" ]; then
+          elif [ "$BUILD_STATUS" == "null" ]; then
             echo "Build is still running..."
           else
-            echo "Unknown build logged: $build_logged"
+            echo "Unknown build status: $BUILD_STATUS"
+            echo "BUILD_STATUS=UNKNOWN" >> $GITHUB_ENV
             exit 1
           fi
-          sleep 10
+          sleep 5
         done
 
     - name: Sync with Private Repository
+      #if: env.BUILD_STATUS == 'SUCCESS'
       env:
         SSH_PRIVATE_KEY: ${{ secrets.POTAT_KEY }}
       run: |
         git config --global user.email "camille.ricardon@epitech.eu"
-        git config --global user.name "camille-ricardon"
+        git config --global user.name "CamilleRicardon"
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
@@ -75,6 +82,6 @@ jobs:
         git add Server/
         git commit -m "[+] Sync Server repository with Final one
 
-        Co-authored-by: Nom de l'Auteur <noah.gibelli@epitech.eu>
-        Co-authored-by: Autre Auteur <emna.boukadida@epitech.eu>"
+        Co-authored-by: Noah <noah.gibelli@epitech.eu>
+        Co-authored-by: Emna <emna.boukadida@epitech.eu>"
         git push origin main

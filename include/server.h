@@ -630,4 +630,6 @@ int check_to_append(int offset, char **msg, size_t msg_size, int cond);
 
 void handle_renew_items(void);
 
+void handle_end_game(void);
+
 #endif /* !SERVER_H_ */

@@ -61,6 +61,7 @@ void execute_chrono_tasks(void)
             handle_player_death(cli);
         }
     }
+    handle_end_game();
     handle_egg_laying();
     handle_renew_items();
 }

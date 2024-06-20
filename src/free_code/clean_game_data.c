@@ -10,6 +10,19 @@
 #include "../../include/server.h"
 #include "../../include/get_instance.h"
 
+void free_team_eggs(team_t *team)
+{
+    egg_t *current = team->egg;
+    egg_t *next;
+
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+    team->egg = NULL;
+}
+
 void clean_team_struct(void)
 {
     game_t *game = get_game_instance();
@@ -18,6 +31,9 @@ void clean_team_struct(void)
         if (game->teams[i]->name != NULL) {
             free(game->teams[i]->name);
             game->teams[i]->name = NULL;
+        }
+        if (game->teams[i]->egg) {
+            free_team_eggs(game->teams[i]);
         }
         if (game->teams[i] != NULL) {
             free(game->teams[i]);

@@ -35,7 +35,6 @@ int follow(client_t *cli, char *msg, size_t msg_size, int index)
     for (; i < strlen(msg); i++)
         msg[i] = tolower(msg[i]);
     write(cli->socket, msg, strlen(msg));
-    map->display(map);
     return 0;
 }
 
@@ -58,6 +57,7 @@ int cmd_look(char *command_type, int cli_socket)
         return 84;
     }
     follow(cli, msg, msg_size, index);
+    cli->cd = 7 / get_game_instance()->freq;
     return 0;
 }
 

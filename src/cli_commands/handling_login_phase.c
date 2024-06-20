@@ -17,7 +17,6 @@ void player_spawn(client_t *cli, int team_index)
     game_t *game = get_game_instance();
     egg_t *egg_head = game->teams[team_index]->egg;
 
-    srand(time(NULL));
     if (!map->tiles) {
         return;
     }

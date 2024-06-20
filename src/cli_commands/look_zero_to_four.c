@@ -47,7 +47,7 @@ int cmd_one(char **msg, map_t *map, position_t pos)
             printf("\nx = %d, y = %d\n", x, y);
             item = map->tiles[y * map->width + x]->items;
             cross_items_ll(item, msg, msg_size);
-            check_to_append(offset, msg, msg_size);
+            check_to_append(offset, msg, msg_size, 1);
         }
     }
     return 0;
@@ -56,18 +56,22 @@ int cmd_one(char **msg, map_t *map, position_t pos)
 int cmd_two(char **msg, map_t *map, position_t pos)
 {
     items_t *item;
-    int x, y;
+    int x;
+    int y;
     int st[2];
     size_t msg_size = strlen(*msg);
-    // Niveau 2 : deux lignes de vision devant le joueur
-    for (int i = 1; i <= 1; i++) {
-        for (int offset = -i; offset <= i; offset++) {
+    int offset;
+    int i;
+
+    append_to_msg(msg, &msg_size, ",");
+    for (i = 2; i <= 2; i++) {
+        for (offset = -i; offset <= i; offset++) {
             st[0] = i;
             st[1] = offset;
             look_orientation(&x, &y, pos, st);
             item = map->tiles[y * map->width + x]->items;
             cross_items_ll(item, msg, msg_size);
-            check_to_append(offset, msg, msg_size);
+            check_to_append(offset, msg, msg_size, 2);
         }
     }
     return 0;
@@ -75,16 +79,48 @@ int cmd_two(char **msg, map_t *map, position_t pos)
 
 int cmd_three(char **msg, map_t *map, position_t pos)
 {
-    (void) msg;
-    (void) map;
-    (void) pos;
+    items_t *item;
+    int x;
+    int y;
+    int st[2];
+    size_t msg_size = strlen(*msg);
+    int offset;
+    int i;
+
+    append_to_msg(msg, &msg_size, ",");
+    for (i = 3; i <= 3; i++) {
+        for (offset = -i; offset <= i; offset++) {
+            st[0] = i;
+            st[1] = offset;
+            look_orientation(&x, &y, pos, st);
+            item = map->tiles[y * map->width + x]->items;
+            cross_items_ll(item, msg, msg_size);
+            check_to_append(offset, msg, msg_size, 3);
+        }
+    }
     return 0;
 }
 
 int cmd_four(char **msg, map_t *map, position_t pos)
 {
-    (void) msg;
-    (void) map;
-    (void) pos;
+    items_t *item;
+    int x;
+    int y;
+    int st[2];
+    size_t msg_size = strlen(*msg);
+    int offset;
+    int i;
+
+    append_to_msg(msg, &msg_size, ",");
+    for (i = 4; i <= 4; i++) {
+        for (offset = -i; offset <= i; offset++) {
+            st[0] = i;
+            st[1] = offset;
+            look_orientation(&x, &y, pos, st);
+            item = map->tiles[y * map->width + x]->items;
+            cross_items_ll(item, msg, msg_size);
+            check_to_append(offset, msg, msg_size, 4);
+        }
+    }
     return 0;
 }

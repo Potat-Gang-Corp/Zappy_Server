@@ -52,9 +52,9 @@ int cross_items_ll(items_t *item, char **msg, size_t msg_size)
     return 0;
 }
 
-int check_to_append(int offset, char **msg, size_t msg_size)
+int check_to_append(int offset, char **msg, size_t msg_size, int cond)
 {
-    if (offset < 1) {
+    if (offset < cond) {
         append_to_msg(msg, &msg_size, ",");
     }
     return 0;

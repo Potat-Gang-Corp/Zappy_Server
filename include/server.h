@@ -626,6 +626,6 @@ int parse_cmd_table(char *cmd, int cli_socket, char *full_cmd);
 waiting_client_t *get_waiting_client(server_t *server, char *team_name);
 void look_orientation(int *x, int *y, position_t pos, int *stock);
 int cross_items_ll(items_t *item, char **msg, size_t msg_size);
-int check_to_append(int offset, char **msg, size_t msg_size);
+int check_to_append(int offset, char **msg, size_t msg_size, int cond);
 
 #endif /* !SERVER_H_ */

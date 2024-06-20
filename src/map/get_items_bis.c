@@ -10,25 +10,25 @@
 
 const char *get_phiras(void)
 {
-    return "PHIRAS";
+    return "phiras";
 }
 
 const char *get_thystame(void)
 {
-    return "THYSTAME";
+    return "thystame";
 }
 
 const char *get_egg(void)
 {
-    return "EGG";
+    return "egg";
 }
 
 const char *get_player(void)
 {
-    return "PLAYER";
+    return "player";
 }
 
 const char *get_unknown(void)
 {
-    return "UNKNOWN";
+    return "unknown";
 }

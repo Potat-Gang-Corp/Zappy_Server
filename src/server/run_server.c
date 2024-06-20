@@ -18,11 +18,14 @@ void handle_sigint(int sig)
     (void)sig;
     if (server == NULL)
         return;
+    printf("\nServer shutting down..\n");
+    printf(". . .\nCleaning server data..\n. . .\n");
     clean_game_struct();
     clean_map_struct();
     clean_client_struct();
     clean_server_data();
     close(server->socket);
+    printf("Server closed.\n");
     exit(0);
 }
 
@@ -42,6 +45,7 @@ void execute_chrono_tasks(void)
         }
     }
     handle_egg_laying();
+    handle_renew_items();
 }
 
 void need_to_sleep(timespec_t *s, timespec_t *end)

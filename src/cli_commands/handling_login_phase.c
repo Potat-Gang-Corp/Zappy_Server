@@ -72,41 +72,6 @@ int handle_team_full(client_t *cli, int i, char *team_name)
     return 0;
 }
 
-static void notice_graphic_client_player_connected(client_t *cli)
-{
-    server_t *server = get_instance();
-    client_t *players = NULL;
-
-    for (players = server->clients; players != NULL; players = players->next) {
-        if (players->graphic == false) {
-            dprintf(cli->socket, "pnw #%d %d %d %d %d %s\n", players->socket,
-                players->pos.x, players->pos.y,
-                (players->pos.orientation + 1), players->level,
-                players->team);
-        }
-    }
-}
-
-static void egg_on_map_localisation(egg_t *egg, client_t *cli)
-{
-    while (egg != NULL) {
-        dprintf(cli->socket, "smg egg #%d %d %d\n", egg->egg_id,
-            egg->x_pos, egg->y_pos);
-            egg = egg->next;
-    }
-}
-
-static void notice_graphic_client_egg_layed(client_t *cli)
-{
-    game_t *game = get_game_instance();
-    egg_t *egg = NULL;
-
-    for (int i = 0; i < game->nb_teams; i++) {
-        egg = game->teams[i]->egg;
-        egg_on_map_localisation(egg, cli);
-    }
-}
-
 int detect_team_validity(char *team_name, client_t *cli)
 {
     game_t *game = get_game_instance();
@@ -121,8 +86,6 @@ int detect_team_validity(char *team_name, client_t *cli)
             dprintf(cli->socket, "msz %d %d\n", game->width, game->height);
             cli->logged = true;
             cli->graphic = true;
-            notice_graphic_client_player_connected(cli);
-            notice_graphic_client_egg_layed(cli);
             return 0;
         }
     }

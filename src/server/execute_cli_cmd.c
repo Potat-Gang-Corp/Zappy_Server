@@ -70,6 +70,7 @@ void execute_cli_cmd_bis(command_t *cmd)
 
     printf("Client ID: %d, Command: %s\n", cmd->cli_id, cmd->command);
     found_cli_and_exec(cmd->cli_id, cmd->command);
+    //gérer that cas
     TAILQ_REMOVE(&server->commands, cmd, entries);
     free(cmd->command);
     free(cmd);

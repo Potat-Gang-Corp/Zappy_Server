@@ -16,21 +16,21 @@
 #include <time.h>
 
 Test(resource_tests, get_phiras_returns_correct_string) {
-    cr_assert_str_eq(get_phiras(), "PHIRAS", "get_phiras should return the string 'PHIRAS'");
+    cr_assert_str_eq(get_phiras(), "phiras", "get_phiras should return the string 'PHIRAS'");
 }
 
 Test(resource_tests, get_thystame_returns_correct_string) {
-    cr_assert_str_eq(get_thystame(), "THYSTAME", "get_thystame should return the string 'THYSTAME'");
+    cr_assert_str_eq(get_thystame(), "thystame", "get_thystame should return the string 'THYSTAME'");
 }
 
 Test(resource_tests, get_egg_returns_correct_string) {
-    cr_assert_str_eq(get_egg(), "EGG", "get_egg should return the string 'EGG'");
+    cr_assert_str_eq(get_egg(), "egg", "get_egg should return the string 'EGG'");
 }
 
 Test(resource_tests, get_player_returns_correct_string) {
-    cr_assert_str_eq(get_player(), "PLAYER", "get_player should return the string 'PLAYER'");
+    cr_assert_str_eq(get_player(), "player", "get_player should return the string 'PLAYER'");
 }
 
 Test(resource_tests, get_unknown_returns_correct_string) {
-    cr_assert_str_eq(get_unknown(), "UNKNOWN", "get_unknown should return the string 'UNKNOWN'");
+    cr_assert_str_eq(get_unknown(), "unknown", "get_unknown should return the string 'UNKNOWN'");
 }

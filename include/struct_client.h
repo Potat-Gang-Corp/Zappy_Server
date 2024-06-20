@@ -70,6 +70,7 @@ typedef struct client_s {
     bool is_incanting;
     int egg_id_laying;
     struct client_s *next;
+    int cycle;
 } client_t;
 
 #endif /* !STRUCT_H_ */

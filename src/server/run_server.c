@@ -11,6 +11,22 @@
 #include "../../include/my.h"
 #include "commands_gui.h"
 
+static void notice_client_closing(void)
+{
+    server_t *server = get_instance();
+    client_t *cli = NULL;
+
+    for (cli = server->clients; cli != NULL; cli = cli->next) {
+        if (cli->graphic == false) {
+            dprintf(cli->socket, "Server closed.\n");
+            close(cli->socket);
+        } else {
+            dprintf(cli->socket, "smg Server closed.\n");
+            close(cli->socket);
+        }
+    }
+}
+
 void handle_sigint(int sig)
 {
     server_t *server = get_instance();
@@ -18,11 +34,15 @@ void handle_sigint(int sig)
     (void)sig;
     if (server == NULL)
         return;
+    printf("\nServer shutting down..\n");
+    printf(". . .\nCleaning server data..\n. . .\n");
+    notice_client_closing();
     clean_game_struct();
     clean_map_struct();
     clean_client_struct();
     clean_server_data();
     close(server->socket);
+    printf("Server closed.\n");
     exit(0);
 }
 
@@ -32,11 +52,19 @@ void execute_chrono_tasks(void)
     client_t *cli = NULL;
 
     for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->logged == false || cli->graphic == true)
+        if (cli->logged == false)
             continue;
-        lower_cli_cd(cli);
-        handle_player_death(cli);
+        if (cli->graphic == true)
+            cmd_mct("mct", cli->socket);
+        if (!(cli->graphic == true)) {
+            lower_cli_cd(cli);
+            handle_player_death(cli);
+        }
     }
+    handle_end_game();
+    handle_timeout_login();
+    handle_egg_laying();
+    handle_renew_items();
 }
 
 void need_to_sleep(timespec_t *s, timespec_t *end)
@@ -57,7 +85,6 @@ void need_to_sleep(timespec_t *s, timespec_t *end)
 int server_loop(server_t *server)
 {
     select_loop();
-    handle_egg_laying();
     handle_gui_cmd();
     if (FD_ISSET(server->socket, &server->readfs))
         accept_new_client();

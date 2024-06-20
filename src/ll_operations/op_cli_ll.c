@@ -106,7 +106,7 @@ void add_cli_to_ll(client_t *new_client, int client_socket)
 int add_client(int client_socket)
 {
     server_t *server = get_instance();
-    client_t *new_client = malloc(sizeof(client_t));
+    client_t *new_client = calloc(1, sizeof(client_t));
 
     if (new_client == NULL) {
         perror("malloc");

@@ -32,3 +32,15 @@ void notice_player_set_object(client_t *cli, item_type_t type)
         }
     }
 }
+
+void notice_graphic_egg_destruction(int egg_id)
+{
+    server_t *server = get_instance();
+    client_t *graphic = NULL;
+
+    for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
+        if (graphic->graphic == true) {
+            dprintf(graphic->socket, "edi #%d\n", egg_id);
+        }
+    }
+}

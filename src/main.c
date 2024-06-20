@@ -19,6 +19,7 @@ int main(int argc, char **argv)
 {
     game_t *game = get_game_instance();
 
+    srand(time(NULL));
     if (handle_flags(argc, argv) == 84) {
         fprintf(stderr, "Error: In the flags can't launch server\n");
         return 84;

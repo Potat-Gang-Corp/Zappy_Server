@@ -62,6 +62,7 @@ void execute_chrono_tasks(void)
         }
     }
     handle_end_game();
+    handle_timeout_login();
     handle_egg_laying();
     handle_renew_items();
 }

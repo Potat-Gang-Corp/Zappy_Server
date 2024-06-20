@@ -632,4 +632,6 @@ void handle_renew_items(void);
 
 void handle_end_game(void);
 
+void handle_timeout_login(void);
+
 #endif /* !SERVER_H_ */

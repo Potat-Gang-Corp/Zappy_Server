@@ -19,7 +19,6 @@ void handle_timeout_login(void)
     while (cli != NULL) {
         next_cli = cli->next;
         cli->cycle++;
-        printf("cycle = %d\n", cli->cycle);
         if (cli->logged == false && cli->cycle == (5 * game->freq)) {
             dprintf(cli->socket, "Connexion Timeout\n");
             remove_client(cli->socket);

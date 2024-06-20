@@ -633,5 +633,7 @@ void handle_renew_items(void);
 void handle_end_game(void);
 
 void handle_timeout_login(void);
+void execute_chrono_tasks(void);
+void handle_incantation(void);
 
 #endif /* !SERVER_H_ */

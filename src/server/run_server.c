@@ -46,27 +46,6 @@ void handle_sigint(int sig)
     exit(0);
 }
 
-void execute_chrono_tasks(void)
-{
-    server_t *server = get_instance();
-    client_t *cli = NULL;
-
-    for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->logged == false)
-            continue;
-        if (cli->graphic == true)
-            cmd_mct("mct", cli->socket);
-        if (!(cli->graphic == true)) {
-            lower_cli_cd(cli);
-            handle_player_death(cli);
-        }
-    }
-    handle_end_game();
-    handle_timeout_login();
-    handle_egg_laying();
-    handle_renew_items();
-}
-
 void need_to_sleep(timespec_t *s, timespec_t *end)
 {
     game_t *game = get_game_instance();

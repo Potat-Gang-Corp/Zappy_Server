@@ -11,28 +11,17 @@
 #include "../../include/server.h"
 #include "../../include/commands.h"
 #include "../../include/map.h"
+#include "elevation.h"
 
-//this neither
-
-// static const uint32_t elevation_table[EGG][7] = {
-//     { 0, 1, 0, 0, 0, 0, 0 },
-//     { 0, 1, 1, 1, 0, 0, 0 },
-//     { 0, 2, 0, 1, 0, 2, 0 },
-//     { 0, 1, 1, 2, 0, 1, 0 },
-//     { 0, 1, 2, 1, 3, 0, 0 },
-//     { 0, 1, 2, 3, 0, 1, 0 },
-//     { 0, 2, 2, 2, 2, 2, 1 }
-// };
-
-// static const int new_player_elevation_table[7] = {
-//     0,
-//     1,
-//     0,
-//     1,
-//     0,
-//     1,
-//     0,
-// };
+static const elevation_requirements_t elevation_table[] = {
+    {1, 1, 0, 0, 0, 0, 0},
+    {2, 1, 1, 1, 0, 0, 0},
+    {2, 2, 0, 1, 0, 2, 0},
+    {4, 1, 1, 2, 0, 1, 0},
+    {4, 1, 2, 1, 3, 0, 0},
+    {6, 1, 2, 3, 0, 1, 0},
+    {6, 2, 2, 2, 2, 2, 1}
+};
 
 int cmd_broadcast(char *command_type, int cli_socket)
 {
@@ -80,114 +69,103 @@ int cmd_fork(char *command_type, int cli_socket)
     return 0;
 }
 
-void get_nb_players_in_tile(client_t *cli, int *nb_players)
+bool check_level_players(int x, int y, int level, int nb)
 {
     server_t *server = get_instance();
-    client_t *tmp = NULL;
+    client_t *cli = server->clients;
+    int cpt = 0;
 
-    for (tmp = server->clients; tmp != NULL; tmp = tmp->next) {
-        if (tmp->pos.x == cli->pos.x && tmp->pos.y == cli->pos.y && tmp->level >= cli->level)
-            nb_players[0]++;
+    for (; cli != NULL; cli = cli->next) {
+        if (cli->pos.x == x && cli->pos.y == y
+            && cli->level == (unsigned int)level) {
+            cpt++;
+        }
+    }
+    if (cpt == nb) {
+        return true;
+    }
+    return false;
+}
+
+bool compare_structs(elevation_requirements_t *elevation_tab, int level)
+{
+    int items_present = 0;
+    const int *requirements = &elevation_table[level - 1].linemate;
+    int *current_items = &elevation_tab->linemate;
+
+    for (int i = 0; i < 6; i++) {
+        if (current_items[i] == requirements[i]) {
+            items_present |= 1 << i;
+        }
+    }
+    return (items_present == 0x3F);
+}
+
+
+void get_items_on_tile(int x, int y, elevation_requirements_t **elevation_tab)
+{
+    map_t *map = get_map_instance();
+    int index = x + y * map->width;
+    items_t *items = map->tiles[index]->items;
+
+    while(items) {
+        if (items->type == LINEMATE) {
+            (*elevation_tab)->linemate++;
+        } else if (items->type == DERAUMERE) {
+            (*elevation_tab)->deraumere++;
+        } else if (items->type == SIBUR) {
+            (*elevation_tab)->sibur++;
+        } else if (items->type == MENDIANE) {
+            (*elevation_tab)->mendiane++;
+        } else if (items->type == PHIRAS) {
+            (*elevation_tab)->phiras++;
+        } else if (items->type == THYSTAME) {
+            (*elevation_tab)->thystame++;
+        }
+        items = items->next;
     }
 }
 
-void get_char_counter_username(client_t *cli, int *char_count)
+int check_condition_incantation(client_t *cli)
 {
-    server_t *server = get_instance();
-    client_t *tmp = NULL;
-    int user_counter = 0;
+    elevation_requirements_t *elevation_tab = NULL;
 
-    char_count[0] += snprintf(NULL, 0, "#%d ", cli->socket);
-    for (tmp = server->clients; tmp != NULL && user_counter  < new_player_elevation_table[cli->level - 1] - 1; tmp = tmp->next) {
-        if (tmp->pos.x == cli->pos.x && tmp->pos.y == cli->pos.y && tmp->level >= cli->level && tmp->socket != cli->socket) {
-            char_count[0] += snprintf(NULL, 0, "#%d ", tmp->socket);
-            user_counter++;
-        }
+    get_items_on_tile(cli->pos.x, cli->pos.y, &elevation_tab);
+    if (compare_structs(elevation_tab, cli->level) == false) {
+        return 0;
     }
-    return char_count[0];
+    if (check_level_players(cli->pos.x, cli->pos.y, cli->level,
+        elevation_table[cli->level - 1].nb_players) == false) {
+        return 0;
+    }
+    return 1;
 }
 
-char *build_username_message(client_t *cli, char *username)
+void set_bool_incantation(int level, int x, int y)
 {
     server_t *server = get_instance();
-    client_t *tmp = NULL;
+    client_t *cli = server->clients;
 
-    strcat(username, "#");
-    strcat(username, my_itoa(cli->socket));
-
-    for (tmp = server->clients; tmp != NULL; tmp = tmp->next) {
-        if (tmp->pos.x == cli->pos.x && tmp->pos.y == cli->pos.y && tmp->level >= cli->level && tmp->socket != cli->socket) {
-            strcat(username, " #");
-            strcat(username, my_itoa(tmp->socket));
+    for (; cli != NULL; cli = cli->next) {
+        if (cli->pos.x == x && cli->pos.y == y
+            && cli->level == (unsigned int)level) {
+            cli->is_incanting = true;
         }
     }
-    return username;
-}
-
-static void evolve_level_two(client_t *cli)
-{
-    server_t *server = get_instance();
-    client_t *graphic = NULL;
-    client_t *tmp = NULL;
-    char *msg = NULL;
-    int char_count = 0;
-    //j'aime pas
-    // int inventory_items[] = {
-    //     cli->inventory.food,
-    //     cli->inventory.linemate,
-    //     cli->inventory.deraumere,
-    //     cli->inventory.sibur,
-    //     cli->inventory.mendiane,
-    //     cli->inventory.phiras,
-    //     cli->inventory.thystame
-    // };
-
-    for (int i = 0; i < EGG; i++) {
-        if (inventory_items[i] < elevation_table[cli->level - 1][i]) {
-            dprintf(cli->socket, "ko\n");
-            return;
-        }
-    }
-
-    int nb_players = 0;
-    get_nb_players_in_tile(cli, &nb_players);
-    if (nb_players < new_player_elevation_table[cli->level - 1]) {
-        dprintf(cli->socket, "ko\n");
-        return;
-    }
-
-    char_count += snprintf(NULL, 0, "pic %d %d %d \n", cli->pos.x, cli->pos.y, cli->level + 1, cli->socket);
-    char_count += char_count_username(cli, &char_count);
-
-    msg = malloc(sizeof(char) * (char_count + 1));
-    msg = build_username_message(cli, msg);
-
-    cli->inventory.food -= elevation_table[cli->level - 1][0];
-    cli->inventory.linemate -= elevation_table[cli->level - 1][1];
-    cli->inventory.deraumere -= elevation_table[cli->level - 1][2];
-    cli->inventory.sibur -= elevation_table[cli->level - 1][3];
-    cli->inventory.mendiane -= elevation_table[cli->level - 1][4];
-    cli->inventory.phiras -= elevation_table[cli->level - 1][5];
-    cli->inventory.thystame -= elevation_table[cli->level - 1][6];
-
-    cli->level++;
-    dprintf(cli->socket, "Elevation underway\nCurrent Level:%d\n", cli->level);
-    cli->cd = 300 / get_game_instance()->freq;
-    cli->is_incanting = true;
-
-    for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
-        if (graphic->graphic == true) {
-            dprintf(graphic->socket, "pic %d %d %d %s\n", cli->pos.x, cli->pos.y, cli->level, msg);
-        }
-    }
-
 }
 
 int cmd_incantation(char *command_type, int cli_socket)
 {
     (void)command_type;
     client_t *cli = get_client_by_socket(cli_socket);
-    if (cli->level == 1)
-        evolve_level_two(cli);
+    
+    if (check_condition_incantation(cli) == 0) {
+        dprintf(cli_socket, "ko\n");
+        return 84;
+    }
+    dprintf(cli_socket, "Elevation underway\n");
+    set_bool_incantation(cli->pos.x, cli->pos.y, cli->level);
+    cli->cd = 300 / get_game_instance()->freq;
+    cli->evolving = true;
     return 0;
 }

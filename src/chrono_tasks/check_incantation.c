@@ -15,11 +15,20 @@ void set_level(int x, int y, int lvl)
     client_t *cli = server->clients;
 
     for (; cli != NULL; cli = cli->next) {
-        if (cli->pos.x == x && cli->pos.y == y 
+        if (cli->pos.x == x && cli->pos.y == y
             && cli->level == (unsigned int)lvl && cli->is_incanting == true) {
             cli->level++;
             cli->is_incanting = false;
         }
+    }
+}
+
+static void check_evolve(client_t *cli)
+{
+    if (cli->evolving == true) {
+        set_level(cli->pos.x, cli->pos.y, cli->level);
+        cli->is_incanting = false;
+        cli->level++;
     }
 }
 
@@ -28,12 +37,8 @@ void check_conditions(client_t *cli)
     if (cli->is_incanting == true && cli->cd > 0) {
         return;
     } else if (cli->is_incanting == true && cli->cd == 0) {
-        if (cli->evolving == true) {
-            set_level(cli->pos.x, cli->pos.y, cli->level);
-            cli->is_incanting = false;
-            cli->level++;
-        }
-    }    
+        check_evolve(cli);
+    }
 }
 
 void handle_incantation(void)

@@ -87,7 +87,7 @@ void sending_message(client_t *c_cli, char *message)
         if (cli->graphic == false && cli->socket != c_cli->socket) {
             x = cli->pos.x - c_cli->pos.x;
             y = cli->pos.y - c_cli->pos.y;
-            k = calculate_direction(x, y, cli->orientation);
+            k = calculate_direction(x, y, cli->pos.orientation);
             dprintf(cli->socket, "message %d, %s\n", k, message);
         }
         if (cli->graphic == true)

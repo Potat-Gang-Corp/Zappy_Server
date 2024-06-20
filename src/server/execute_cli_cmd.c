@@ -48,7 +48,7 @@ static int exec_func(int cli_s, char *command, client_t *cli)
     } else if (cli->socket == cli_s && cli->logged == true && cli->cd == 0) {
         execute_game_cmd(cli_s, command);
         lower_nb_cmd(cli);
-    }
+    } 
     return 0;
 }
 
@@ -70,7 +70,6 @@ void execute_cli_cmd_bis(command_t *cmd)
 
     printf("Client ID: %d, Command: %s\n", cmd->cli_id, cmd->command);
     found_cli_and_exec(cmd->cli_id, cmd->command);
-    //gérer that cas
     TAILQ_REMOVE(&server->commands, cmd, entries);
     free(cmd->command);
     free(cmd);

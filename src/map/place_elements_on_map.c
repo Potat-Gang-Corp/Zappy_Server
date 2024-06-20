@@ -43,7 +43,7 @@ int place_linemate_on_map(map_t *map)
 int place_deraumere_on_map(map_t *map)
 {
     int total_tiles = map->width * map->height;
-    int total_deraumere = map->width * map->height * 0.2;
+    int total_deraumere = map->width * map->height * 0.15;
     int tile_index = 0;
     item_type_t type;
 
@@ -58,7 +58,7 @@ int place_deraumere_on_map(map_t *map)
 int place_sibur_on_map(map_t *map)
 {
     int total_tiles = map->width * map->height;
-    int total_sibur = map->width * map->height * 0.2;
+    int total_sibur = map->width * map->height * 0.1;
     int tile_index = 0;
     item_type_t type;
 
@@ -73,7 +73,7 @@ int place_sibur_on_map(map_t *map)
 int place_mendiane_on_map(map_t *map)
 {
     int total_tiles = map->width * map->height;
-    int total_mendiane = map->width * map->height * 0.15;
+    int total_mendiane = map->width * map->height * 0.1;
     int tile_index = 0;
     item_type_t type;
 

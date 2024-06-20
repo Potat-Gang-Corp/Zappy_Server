@@ -628,4 +628,6 @@ void look_orientation(int *x, int *y, position_t pos, int *stock);
 int cross_items_ll(items_t *item, char **msg, size_t msg_size);
 int check_to_append(int offset, char **msg, size_t msg_size, int cond);
 
+void handle_renew_items(void);
+
 #endif /* !SERVER_H_ */

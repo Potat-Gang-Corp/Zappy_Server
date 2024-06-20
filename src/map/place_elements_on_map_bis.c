@@ -14,7 +14,7 @@
 int place_phiras_on_map(map_t *map)
 {
     int total_tiles = map->width * map->height;
-    int total_phiras = map->width * map->height * 0.2;
+    int total_phiras = map->width * map->height * 0.08;
     int tile_index = 0;
     item_type_t type;
 
@@ -29,7 +29,7 @@ int place_phiras_on_map(map_t *map)
 int place_thystame_on_map(map_t *map)
 {
     int total_tiles = map->width * map->height;
-    int total_thystame = map->width * map->height * 0.1;
+    int total_thystame = map->width * map->height * 0.05;
     int tile_index = 0;
     item_type_t type;
 

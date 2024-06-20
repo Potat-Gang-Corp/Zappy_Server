@@ -34,7 +34,7 @@ void execute_game_cmd(int cli_socket, char *command)
     }
     if (result == 1){
         printf("Unknown command: %s\n", cmd);
-        dprintf(cli_socket, "ko\n");
+        dprintf(cli_socket, "ko: Unknown command\n");
     }
     free(cmd);
 }

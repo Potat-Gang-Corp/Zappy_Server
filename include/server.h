@@ -296,7 +296,7 @@ void load_profile_and_exec(int cli_socket, char *command);
  * after delete the command from the linked list.
  * @return return noting.
  */
-void execute_cli_cmd_bis(command_t *cmd);
+int execute_cli_cmd_bis(command_t *cmd);
 
 //timer.c
 
@@ -629,5 +629,9 @@ int cross_items_ll(items_t *item, char **msg, size_t msg_size);
 int check_to_append(int offset, char **msg, size_t msg_size, int cond);
 
 void handle_renew_items(void);
+
+void handle_end_game(void);
+
+void handle_timeout_login(void);
 
 #endif /* !SERVER_H_ */

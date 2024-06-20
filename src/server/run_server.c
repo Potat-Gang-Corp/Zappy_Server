@@ -11,6 +11,22 @@
 #include "../../include/my.h"
 #include "commands_gui.h"
 
+static void notice_client_closing(void)
+{
+    server_t *server = get_instance();
+    client_t *cli = NULL;
+
+    for (cli = server->clients; cli != NULL; cli = cli->next) {
+        if (cli->graphic == false) {
+            dprintf(cli->socket, "Server closed.\n");
+            close(cli->socket);
+        } else {
+            dprintf(cli->socket, "smg Server closed.\n");
+            close(cli->socket);
+        }
+    }
+}
+
 void handle_sigint(int sig)
 {
     server_t *server = get_instance();
@@ -20,6 +36,7 @@ void handle_sigint(int sig)
         return;
     printf("\nServer shutting down..\n");
     printf(". . .\nCleaning server data..\n. . .\n");
+    notice_client_closing();
     clean_game_struct();
     clean_map_struct();
     clean_client_struct();
@@ -44,6 +61,8 @@ void execute_chrono_tasks(void)
             handle_player_death(cli);
         }
     }
+    handle_end_game();
+    handle_timeout_login();
     handle_egg_laying();
     handle_renew_items();
 }

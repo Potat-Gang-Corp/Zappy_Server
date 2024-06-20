@@ -58,7 +58,7 @@ jobs:
         done
 
     - name: Sync with Private Repository
-      if: env.BUILD_STATUS == 'SUCCESS'
+      #if: env.BUILD_STATUS == 'SUCCESS'
       env:
         SSH_PRIVATE_KEY: ${{ secrets.POTAT_KEY }}
       run: |

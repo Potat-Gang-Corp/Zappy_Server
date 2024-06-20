@@ -133,14 +133,14 @@ void handle_renew_items(void)
 {
     map_t *map = get_map_instance();
     game_t *game = get_game_instance();
-    int *counter_items = malloc(sizeof(int) * EGG);
+    int *counter_items = malloc(sizeof(int) * MAX_ITEMS);
 
     game->cycle++;
     if (game->cycle < 20) {
         free(counter_items);
         return;
     }
-    for (int i = 0; i < EGG; i++)
+    for (int i = 0; i < MAX_ITEMS; i++)
         counter_items[i] = 0;
     for (int i = 0; i < map->width; i++) {
         for (int j = 0; j < map->height; j++) {

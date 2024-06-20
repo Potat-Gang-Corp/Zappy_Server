@@ -22,7 +22,7 @@ int *construct_message(items_t *item_start, int *items_counter)
 {
     items_t *item = item_start;
 
-    for (int i = 0; i < EGG; i++) {
+    for (int i = 0; i < MAX_ITEMS; i++) {
         items_counter[i] = 0;
     }
     while (item) {
@@ -43,7 +43,7 @@ int cmd_bct(char *command, int gui_socket)
     int y_int = atoi(y);
     items_t *item = map->tiles[x_int + y_int * map->width]->items;
     items_t *item_start = item;
-    int item_counter[EGG];
+    int item_counter[MAX_ITEMS];
 
     construct_message(item_start, item_counter);
     command_type = command_type;
@@ -67,12 +67,12 @@ static int compute_stock_buffer_size(int item_counter[EGG], int x, int y)
 
 char *compute_tile_stock(items_t *item_start, int x, int y)
 {
-    int item_counter[EGG];
+    int item_counter[MAX_ITEMS];
     items_t *item = item_start;
     char *message;
     int size;
 
-    for (int i = 0; i < EGG; i++)
+    for (int i = 0; i < MAX_ITEMS; i++)
         item_counter[i] = 0;
     while (item) {
         item_counter[item->type] += 1;
@@ -80,6 +80,9 @@ char *compute_tile_stock(items_t *item_start, int x, int y)
     }
     size = compute_stock_buffer_size(item_counter, x, y);
     message = malloc(sizeof(char) * size + 1);
+    if (message == NULL) {
+        return NULL;
+    }
     snprintf(message, size + 1,
         "bct %d %d %d %d %d %d %d %d %d\n",
         x, y, item_counter[0], item_counter[1],
@@ -92,14 +95,18 @@ static char **build_bct_dict(map_t *map, int *message_len)
 {
     int total_tiles = map->width * map->height;
     char **bct_dict = malloc(sizeof(char *) * total_tiles + 1);
+    char *message;
     items_t *item;
 
     for (int x = 0; x < map->width; x++) {
         for (int y = 0; y < map->height; y++) {
             item = map->tiles[x + y * map->width]->items;
+            message = compute_tile_stock(item, x, y);
             bct_dict[x + y * map->width] = strdup(
-                compute_tile_stock(item, x, y));
+                message ? message : "");
             *message_len += strlen(bct_dict[x + y * map->width]);
+            if (message)
+                free(message);
         }
     }
     return bct_dict;

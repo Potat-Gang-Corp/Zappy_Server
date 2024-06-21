@@ -47,6 +47,7 @@ char *read_cli_cmd(int cli_socket)
 
     if (cmd == NULL) {
         fprintf(stderr, "Error reading command from Client %d\n", cli_socket);
+        remove_client(cli_socket);
         return NULL;
     }
     printf("Reading command from Client %d: %s", cli_socket, cmd);

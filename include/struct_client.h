@@ -68,6 +68,7 @@ typedef struct client_s {
     int nb_commands;
     bool graphic;
     bool is_laying;
+    bool is_incanting;
     int egg_id_laying;
     struct client_s *next;
     int cycle;

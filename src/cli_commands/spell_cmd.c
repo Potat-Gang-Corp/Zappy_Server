@@ -11,6 +11,7 @@
 #include "../../include/server.h"
 #include "../../include/commands.h"
 #include "../../include/map.h"
+#include "elevation.h"
 
 int cmd_broadcast(char *command_type, int cli_socket)
 {
@@ -60,7 +61,17 @@ int cmd_fork(char *command_type, int cli_socket)
 
 int cmd_incantation(char *command_type, int cli_socket)
 {
+    client_t *cli = get_client_by_socket(cli_socket);
+
     (void)command_type;
-    (void)cli_socket;
+    if (check_condition_incantation(cli) == 0) {
+        dprintf(cli_socket, "ko\n");
+        return 84;
+    }
+    dprintf(cli_socket, "Elevation underway\n");
+    set_bool_incantation(cli->pos.x, cli->pos.y, cli->level);
+    cli->cd = 300;
+    cli->evolving = true;
+    cli->is_incanting = true;
     return 0;
 }

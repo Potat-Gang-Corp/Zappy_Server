@@ -8,7 +8,7 @@
 NAME = zappy_server
 TESTNAME = unit_tests
 
-CC = gcc
+CC = gcc -g3
 RM = rm -rf
 ECHO = /bin/echo -e
 

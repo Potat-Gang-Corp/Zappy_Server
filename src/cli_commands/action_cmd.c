@@ -57,7 +57,7 @@ int cmd_look(char *command_type, int cli_socket)
         return 84;
     }
     follow(cli, msg, msg_size, index);
-    cli->cd = 7 / get_game_instance()->freq;
+    cli->cd = 7;
     return 0;
 }
 
@@ -137,7 +137,7 @@ int cmd_eject(char *command_type, int cli_socket)
     }
     push_players_to_tile(cli, cli->pos.x, cli->pos.y);
     dprintf(cli->socket, "ok\n");
-    cli->cd = 7 / get_game_instance()->freq;
+    cli->cd = 7;
     (void)command_type;
     return 0;
 }
@@ -160,7 +160,7 @@ int cmd_take(char *command_type, int cli_socket)
     delete_item_from_tiles(map->tiles[current_index], type);
     notice_player_take_object(cli, type);
     dprintf(cli->socket, "ok\n");
-    cli->cd = 7 / get_game_instance()->freq;
+    cli->cd = 7;
     return 0;
 }
 
@@ -181,6 +181,6 @@ int cmd_set(char *command, int cli_socket)
     add_item_to_tiles(map->tiles[current_index], type);
     notice_player_set_object(cli, type);
     dprintf(cli->socket, "ok\n");
-    cli->cd = 7 / get_game_instance()->freq;
+    cli->cd = 7;
     return 0;
 }

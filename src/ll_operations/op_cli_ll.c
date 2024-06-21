@@ -73,6 +73,8 @@ static void setup_inventory_cli(client_t **cli)
 
 static void setup_cli(client_t **new_client, int client_socket)
 {
+    server_t *server = get_instance();
+
     (*new_client)->socket = client_socket;
     (*new_client)->team = NULL;
     (*new_client)->logged = false;
@@ -82,6 +84,8 @@ static void setup_cli(client_t **new_client, int client_socket)
     (*new_client)->graphic = false;
     (*new_client)->evolving = false;
     (*new_client)->time_to_live = 0;
+    (*new_client)->id = server->client_id;
+    server->client_id++;
     (*new_client)->next = NULL;
     setup_inventory_cli(new_client);
 }
@@ -109,12 +113,13 @@ int add_client(int client_socket)
     client_t *new_client = calloc(1, sizeof(client_t));
 
     if (new_client == NULL) {
-        perror("malloc");
+        perror("calloc");
         close(client_socket);
         return 84;
     }
     add_cli_to_ll(new_client, client_socket);
-    printf("Added new client with socket %d\n", client_socket);
+    printf("Added new client with socket %d and ID %d\n",
+        client_socket, new_client->id);
     write(new_client->socket, "WELCOME\n", strlen("WELCOME\n"));
     server->nb_connected_players++;
     return 0;

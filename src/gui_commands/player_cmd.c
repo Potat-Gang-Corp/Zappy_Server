@@ -39,6 +39,10 @@ int cmd_ppo(char *command, int gui_socket)
     client_t *cli = get_client_by_socket(gui_socket);
 
     player_nb = strtok(NULL, " #");
+    if (player_nb == NULL) {
+        dprintf(gui_socket, "Error: Invalid command format.\n");
+        return 0;
+    }
     socket_nb = atoi(player_nb);
     for (cli = server->clients; cli != NULL; cli = cli->next) {
         if (socket_nb == cli->socket) {

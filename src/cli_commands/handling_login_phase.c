@@ -84,8 +84,9 @@ void handle_cli_login(client_t *cli, char *command)
 {
     char *msg = "Wrong team name, please try again\n";
 
-    if (cli->logged == false && detect_team_validity(command, cli) == 0)
+    if (cli->logged == false && detect_team_validity(command, cli) == 0) {
         return;
+    }
     if (cli->logged == false && detect_team_validity(command, cli) == 84) {
         write(cli->socket, msg, strlen(msg));
         return;

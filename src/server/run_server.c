@@ -54,8 +54,6 @@ void execute_chrono_tasks(void)
     for (cli = server->clients; cli != NULL; cli = cli->next) {
         if (cli->logged == false)
             continue;
-        if (cli->graphic == true)
-            //cmd_mct("mct", cli->socket);
         if (!(cli->graphic == true)) {
             lower_cli_cd(cli);
             handle_player_death(cli);
@@ -77,6 +75,7 @@ void need_to_sleep(timespec_t *s, timespec_t *end)
     elapsed_ns = (end->tv_sec - s->tv_sec) * 1e9 + (end->tv_nsec - s->tv_nsec);
     interval_ns = 1e9 / game->freq;
     if (elapsed_ns >= interval_ns) {
+        printf("un tour\n");
         execute_chrono_tasks();
         clock_gettime(CLOCK_MONOTONIC, s);
     }

@@ -27,18 +27,45 @@ int coord_out_of_bounds(int coord, int axis)
 
 int compute_direction(int dist_x, int dist_y, orientation_t orientation)
 {
-    switch (orientation) {
-        case NORTH:
-            return compute_direction_north(dist_x, dist_y);
-        case EAST:
-            return compute_direction_east(dist_x, dist_y);
-        case SOUTH:
-            return compute_direction_south(dist_x, dist_y);
-        case WEST:
-            return compute_direction_west(dist_x, dist_y);
-        default:
-            return 0;
-    }
+    // switch (orientation) {
+    //     case NORTH:
+    //         return compute_direction_north(dist_x, dist_y);
+    //     case EAST:
+    //         return compute_direction_east(dist_x, dist_y);
+    //     case SOUTH:
+    //         return compute_direction_south(dist_x, dist_y);
+    //     case WEST:
+    //         return compute_direction_west(dist_x, dist_y);
+    //     default:
+    //         return 0;
+    // }
+    // Direction matrix for each orientation
+    const int direction_matrix[4][3][3] = {
+        { // NORTH
+            {2, 1, 8},
+            {3, 0, 7},
+            {4, 5, 6}
+        },
+        { // EAST
+            {4, 3, 2},
+            {5, 0, 1},
+            {6, 7, 8}
+        },
+        { // SOUTH
+            {6, 5, 4},
+            {7, 0, 3},
+            {8, 1, 2}
+        },
+        { // WEST
+            {8, 7, 6},
+            {1, 0, 5},
+            {2, 3, 4}
+        }
+    };
+
+    int x = (dist_x == 0) ? 1 : (dist_x > 0) ? 2 : 0;
+    int y = (dist_y == 0) ? 1 : (dist_y > 0) ? 2 : 0;
+    return direction_matrix[orientation][y][x];
 }
 
 int calculate_direction(int dist_x, int dist_y, orientation_t orientation)

@@ -11,6 +11,7 @@
 #include "../../include/server.h"
 #include "../../include/commands.h"
 #include "../../include/map.h"
+#include "../../include/notifications.h"
 
 int cmd_left(char *command_type, int cli_socket)
 {
@@ -20,6 +21,7 @@ int cmd_left(char *command_type, int cli_socket)
     cli->pos.orientation = (cli->pos.orientation + 4) % 4;
     cli->cd = 7;
     dprintf(cli->socket, "ok\n");
+    notice_graphic_move_cmd(cli);
     return 0;
 }
 
@@ -34,6 +36,7 @@ int cmd_right(char *command_type, int cli_socket)
     cli->pos.orientation = (cli->pos.orientation + 1) % 4;
     cli->cd = 7;
     dprintf(cli->socket, "ok\n");
+    notice_graphic_move_cmd(cli);
     return 0;
 }
 
@@ -76,5 +79,6 @@ int cmd_forward(char *command_type, int cli_socket)
     add_item_to_tiles(map->tiles[new_index], type);
     dprintf(cli->socket, "ok\n");
     cli->cd = 7;
+    notice_graphic_move_cmd(cli);
     return 0;
 }

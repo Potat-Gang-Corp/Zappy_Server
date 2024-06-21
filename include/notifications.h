@@ -15,5 +15,6 @@ void notice_player_set_object(client_t *cli, item_type_t type);
 void notice_graphic_egg_destruction(int egg_id);
 void notice_graphic_client(client_t *cli, char *team_name);
 void notice_graphic_init(client_t *cli);
+void notice_graphic_move_cmd(client_t *cli);
 
 #endif /* !NOTIFICATIONS_H_ */

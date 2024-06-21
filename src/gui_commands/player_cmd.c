@@ -40,7 +40,7 @@ int cmd_ppo(char *command, int gui_socket)
 
     player_nb = strtok(NULL, " #");
     if (player_nb == NULL) {
-        dprintf(gui_socket, "Error: Invalid command format.\n");
+        dprintf(gui_socket, "sbp\n");
         return 0;
     }
     socket_nb = atoi(player_nb);

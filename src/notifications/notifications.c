@@ -16,7 +16,7 @@ void notice_player_take_object(client_t *cli, item_type_t type)
 
     for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
         if (graphic->graphic == true) {
-            dprintf(graphic->socket, "pgt %d %d\n", cli->socket, type);
+            dprintf(graphic->socket, "pgt #%d %d\n", cli->socket, type);
         }
     }
 }
@@ -28,7 +28,7 @@ void notice_player_set_object(client_t *cli, item_type_t type)
 
     for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
         if (graphic->graphic == true) {
-            dprintf(graphic->socket, "pdr %d %d\n", cli->socket, type);
+            dprintf(graphic->socket, "pdr #%d %d\n", cli->socket, type);
         }
     }
 }

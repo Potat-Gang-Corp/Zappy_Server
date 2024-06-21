@@ -21,3 +21,15 @@ void notice_graphic_move_cmd(client_t *cli)
         }
     }
 }
+
+void notice_graphic_player_ejection(client_t *cli)
+{
+    server_t *server = get_instance();
+    client_t *cli_ll = NULL;
+
+    for (cli_ll = server->clients; cli_ll != NULL; cli_ll = cli_ll->next) {
+        if (cli_ll->graphic == true) {
+            dprintf(cli_ll->socket, "pex #%d\n", cli->socket);
+        }
+    }
+}

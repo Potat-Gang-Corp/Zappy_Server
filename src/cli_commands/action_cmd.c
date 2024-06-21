@@ -120,6 +120,7 @@ static void push_players_to_tile(client_t *cli, int x, int y)
             move_and_restore_orientation(tmp, game, cli->pos.orientation);
             new_index = tmp->pos.x + tmp->pos.y * game->width;
             add_item_to_tiles(map->tiles[new_index], PLAYER);
+            notice_graphic_player_ejection(tmp);
         }
         tmp = tmp->next;
     }

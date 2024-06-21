@@ -68,16 +68,22 @@ void read_buffer_to_list(client_t *cli)
 {
     char *buffer;
     char *cmd;
+    char *saveptr = NULL;
 
     buffer = read_cli_cmd(cli->socket);
     if (buffer == NULL) {
-        remove_client(cli->socket);
         return;
     }
-    cmd = strtok(buffer, "\n");
-    if (cmd == NULL)
+    if (buffer[0] == '\0' || buffer[0] == '\n') {
+        free(buffer);
         return;
-    add_cmd_to_ll(cli->socket, cmd);
+    }
+    for (cmd = strtok_r(buffer, "\n", &saveptr);
+        cmd != NULL; cmd = strtok_r(NULL, "\n", &saveptr)) {
+        if (*cmd == '\0')
+            continue;
+        add_cmd_to_ll(cli->socket, cmd);
+    }
     free(buffer);
 }
 

@@ -18,7 +18,7 @@ int cmd_left(char *command_type, int cli_socket)
     client_t *cli = get_client_by_socket(cli_socket);
 
     (void)command_type;
-    cli->pos.orientation = (cli->pos.orientation + 4) % 4;
+    cli->pos.orientation = (cli->pos.orientation + 3) % 4;
     cli->cd = 7;
     dprintf(cli->socket, "ok\n");
     notice_graphic_move_cmd(cli);

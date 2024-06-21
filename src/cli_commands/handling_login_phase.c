@@ -85,6 +85,8 @@ void handle_cli_login(client_t *cli, char *command)
     char *msg = "Wrong team name, please try again\n";
 
     if (cli->logged == false && detect_team_validity(command, cli) == 0) {
+        cli->id = get_instance()->client_id;
+        get_instance()->client_id++;
         return;
     }
     if (cli->logged == false && detect_team_validity(command, cli) == 84) {

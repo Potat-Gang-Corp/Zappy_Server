@@ -56,6 +56,7 @@ typedef struct inventory_s {
 */
 typedef struct client_s {
     int socket;
+    int id;
     position_t pos;
     char *team;
     bool evolving;

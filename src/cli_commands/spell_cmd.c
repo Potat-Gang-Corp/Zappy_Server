@@ -24,7 +24,7 @@ int cmd_broadcast(char *command_type, int cli_socket)
     }
     msg_without_prefix += strlen("Broadcast ");
     sending_message(cli, msg_without_prefix);
-    cli->cd = 7 / get_game_instance()->freq;
+    cli->cd = 7;
     return 0;
 }
 
@@ -53,7 +53,7 @@ int cmd_fork(char *command_type, int cli_socket)
             cli->is_laying = true;
         }
     }
-    cli->cd = 42 / game->freq;
+    cli->cd = 42;
     notice_graphic_client_fork_begin(cli);
     dprintf(cli_socket, "ok\n");
     return 0;
@@ -70,7 +70,7 @@ int cmd_incantation(char *command_type, int cli_socket)
     }
     dprintf(cli_socket, "Elevation underway\n");
     set_bool_incantation(cli->pos.x, cli->pos.y, cli->level);
-    cli->cd = 300 / get_game_instance()->freq;
+    cli->cd = 300;
     cli->evolving = true;
     return 0;
 }

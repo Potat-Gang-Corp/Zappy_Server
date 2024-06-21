@@ -48,6 +48,7 @@ typedef struct command_s {
 typedef struct server_s {
     int maxfd;
     int socket;
+    int client_id;
     client_t *clients;
     TAILQ_HEAD(, waiting_client_s) waiting_list;
     TAILQ_HEAD(, command_s) commands;

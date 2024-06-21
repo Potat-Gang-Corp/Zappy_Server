@@ -75,7 +75,6 @@ void need_to_sleep(timespec_t *s, timespec_t *end)
     elapsed_ns = (end->tv_sec - s->tv_sec) * 1e9 + (end->tv_nsec - s->tv_nsec);
     interval_ns = 1e9 / game->freq;
     if (elapsed_ns >= interval_ns) {
-        printf("un tour\n");
         execute_chrono_tasks();
         clock_gettime(CLOCK_MONOTONIC, s);
     }

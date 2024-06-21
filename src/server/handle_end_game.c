@@ -27,7 +27,7 @@ void notice_client_end_game(char *team_name)
 static void get_count_players(int *count_players, game_t *game, client_t *cli)
 {
     for (int i = 0; i < game->nb_teams; i++) {
-        if (strcmp(cli->team, game->teams[i]->name) == 0)
+        if (strcmp(cli->team, game->teams[i]->name) == 0 && cli->level == 8)
             count_players[i]++;
     }
 }

@@ -77,7 +77,6 @@ int execute_cli_cmd_bis(command_t *cmd)
 {
     server_t *server = get_instance();
 
-    printf("Client ID: %d, Command: %s\n", cmd->cli_id, cmd->command);
     if (found_cli_and_exec(cmd->cli_id, cmd->command) == 0) {
         TAILQ_REMOVE(&server->commands, cmd, entries);
         free(cmd->command);

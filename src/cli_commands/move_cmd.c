@@ -18,8 +18,8 @@ int cmd_left(char *command_type, int cli_socket)
 
     (void)command_type;
     cli->pos.orientation = (cli->pos.orientation + 4) % 4;
-    dprintf(cli->socket, "ok\n");
     cli->cd = 7 / get_game_instance()->freq;
+    dprintf(cli->socket, "ok\n");
     return 0;
 }
 
@@ -32,8 +32,8 @@ int cmd_right(char *command_type, int cli_socket)
         return -1;
     }
     cli->pos.orientation = (cli->pos.orientation + 1) % 4;
-    dprintf(cli->socket, "ok\n");
     cli->cd = 7 / get_game_instance()->freq;
+    dprintf(cli->socket, "ok\n");
     return 0;
 }
 

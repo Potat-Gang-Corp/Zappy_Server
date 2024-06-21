@@ -70,7 +70,7 @@ int cmd_incantation(char *command_type, int cli_socket)
     }
     dprintf(cli_socket, "Elevation underway\n");
     set_bool_incantation(cli->pos.x, cli->pos.y, cli->level);
-    cli->cd = 30;
+    cli->cd = 300;
     cli->evolving = true;
     cli->is_incanting = true;
     return 0;

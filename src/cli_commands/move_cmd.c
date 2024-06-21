@@ -28,7 +28,7 @@ int cmd_left(char *command_type, int cli_socket)
 int cmd_right(char *command_type, int cli_socket)
 {
     client_t *cli = get_client_by_socket(cli_socket);
-    
+
     (void)command_type;
     if (cli == NULL) {
         return -1;

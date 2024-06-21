@@ -72,24 +72,24 @@ static void increment_item(elevation_requirements_t *lvl_tab, item_type_t type)
     }
 }
 
-void get_items_on_tile(int x, int y, elevation_requirements_t **elevation_tab)
+void get_items_on_tile(int x, int y, elevation_requirements_t *elevation_tab)
 {
     map_t *map = get_map_instance();
     int index = x + y * map->width;
     items_t *items = map->tiles[index]->items;
 
     while (items) {
-        increment_item(*elevation_tab, items->type);
+        increment_item(elevation_tab, items->type);
         items = items->next;
     }
 }
 
 int check_condition_incantation(client_t *cli)
 {
-    elevation_requirements_t *elevation_tab = NULL;
+    elevation_requirements_t elevation_tab = {0};
 
     get_items_on_tile(cli->pos.x, cli->pos.y, &elevation_tab);
-    if (compare_structs(elevation_tab, cli->level) == false) {
+    if (compare_structs(&elevation_tab, cli->level) == false) {
         return 0;
     }
     if (check_level_players(cli->pos.x, cli->pos.y, cli->level,

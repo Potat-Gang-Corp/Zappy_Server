@@ -22,7 +22,7 @@ typedef struct elevation_requirements_s {
 
 int check_condition_incantation(client_t *cli);
 void set_bool_incantation(int level, int x, int y);
-void get_items_on_tile(int x, int y, elevation_requirements_t **elevation_tab);
+void get_items_on_tile(int x, int y, elevation_requirements_t *elevation_tab);
 bool compare_structs(elevation_requirements_t *elevation_tab, int level);
 bool check_level_players(int x, int y, int level, int nb);
 

@@ -55,7 +55,7 @@ void execute_chrono_tasks(void)
         if (cli->logged == false)
             continue;
         if (cli->graphic == true)
-            //cmd_mct("mct", cli->socket);
+            cmd_mct("mct", cli->socket);
         if (!(cli->graphic == true)) {
             lower_cli_cd(cli);
             handle_player_death(cli);

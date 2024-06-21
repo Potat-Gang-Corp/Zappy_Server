@@ -39,11 +39,12 @@ void notice_graphic_client(client_t *cli, char *team_name)
     server_t *server = get_instance();
     client_t *graphic = NULL;
 
+    (void)team_name;
     for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
-        if (graphic->graphic == true) {
-            dprintf(graphic->socket, "pnw #%d %d %d %d %d %s\n", cli->socket,
-                cli->pos.x, cli->pos.y, (cli->pos.orientation + 1), cli->level,
-                team_name);
+        if (graphic->graphic == false) {
+            dprintf(cli->socket, "pnw #%d %d %d %d %d %s\n", graphic->socket,
+                graphic->pos.x, graphic->pos.y, (graphic->pos.orientation + 1), graphic->level,
+                graphic->team);
         }
     }
 }

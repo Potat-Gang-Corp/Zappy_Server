@@ -47,14 +47,9 @@ bool compare_structs(elevation_requirements_t *elevation_tab, int level)
     int items_present = 0;
     const int *requirements = &elevation_table[level - 1].linemate;
     int *current_items = &elevation_tab->linemate;
-    printf("elevation tab: %d %d %d %d %d %d %d\n", elevation_tab->nb_players, elevation_tab->linemate,
-        elevation_tab->deraumere, elevation_tab->sibur, elevation_tab->mendiane,
-        elevation_tab->phiras, elevation_tab->thystame);
+
     for (int i = 0; i < 6; i++) {
-        printf("current item %d: %d\n", i, current_items[i]);
-        printf("required item %d: %d\n", i, requirements[i]);
         if (current_items[i] >= requirements[i]) {
-            printf("valid item %d\n", i);
             items_present |= 1 << i;
         }
     }
@@ -94,26 +89,6 @@ int check_condition_incantation(client_t *cli)
     elevation_requirements_t elevation_tab = {0};
 
     get_items_on_tile(cli->pos.x, cli->pos.y, &elevation_tab);
-    items_t *item = get_map_instance()->tiles[cli->pos.x + cli->pos.y *
-        get_map_instance()->width]->items;
-    while(item) {
-        if(item->type == LINEMATE)
-            dprintf(1, "linemate\n");
-        if(item->type == DERAUMERE)
-            dprintf(1, "deraumere\n");
-        if(item->type == SIBUR)
-            dprintf(1, "sibur\n");
-        if(item->type == MENDIANE)
-            dprintf(1, "mendiane\n");
-        if(item->type == PHIRAS)
-            dprintf(1, "phiras\n");
-        if(item->type == THYSTAME)
-            dprintf(1, "thystame\n");
-        item = item->next;
-    }
-    printf("elevation tab: %d %d %d %d %d %d %d\n", elevation_tab.nb_players, elevation_tab.linemate,
-        elevation_tab.deraumere, elevation_tab.sibur, elevation_tab.mendiane,
-        elevation_tab.phiras, elevation_tab.thystame);
     if (compare_structs(&elevation_tab, cli->level) == false) {
         return 0;
     }

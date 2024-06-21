@@ -50,9 +50,23 @@ int coord_out_of_bounds(int coord, int axis)
 
 int compute_direction(int dist_x, int dist_y, orientation_t orientation)
 {
-    int x = (dist_x == 0) ? 1 : (dist_x > 0) ? 2 : 0;
-    int y = (dist_y == 0) ? 1 : (dist_y > 0) ? 2 : 0;
+    int x;
+    int y;
 
+    if (dist_x == 0) {
+        x = 1;
+    } else if (dist_x > 0) {
+        x = 2;
+    } else {
+        x = 0;
+    }
+    if (dist_y == 0) {
+        y = 1;
+    } else if (dist_y > 0) {
+        y = 2;
+    } else {
+        y = 0;
+    }
     return direction_matrix[orientation][y][x];
 }
 

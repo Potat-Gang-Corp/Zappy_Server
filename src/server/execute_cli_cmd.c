@@ -68,7 +68,7 @@ int found_cli_and_exec(int cli_socket, char *command)
         if (ret_val == 0)
             return 0;
         if (ret_val == 2)
-            return 2;
+            continue;
     }
     return 1;
 }

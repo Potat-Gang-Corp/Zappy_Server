@@ -21,6 +21,7 @@ int cmd_left(char *command_type, int cli_socket)
     cli->pos.orientation = (cli->pos.orientation + 4) % 4;
     cli->cd = 7 / get_game_instance()->freq;
     dprintf(cli->socket, "ok\n");
+    notice_graphic_move_cmd(cli);
     return 0;
 }
 
@@ -35,6 +36,7 @@ int cmd_right(char *command_type, int cli_socket)
     cli->pos.orientation = (cli->pos.orientation + 1) % 4;
     cli->cd = 7 / get_game_instance()->freq;
     dprintf(cli->socket, "ok\n");
+    notice_graphic_move_cmd(cli);
     return 0;
 }
 

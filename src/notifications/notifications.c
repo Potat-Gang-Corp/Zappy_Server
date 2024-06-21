@@ -44,3 +44,31 @@ void notice_graphic_egg_destruction(int egg_id)
         }
     }
 }
+
+void notice_graphic_init(client_t *cli)
+{
+    server_t *server = get_instance();
+    client_t *cli_ll = NULL;
+
+    for (cli_ll = server->clients; cli_ll != NULL; cli_ll = cli_ll->next) {
+        if (cli_ll->graphic == false) {
+            dprintf(cli->socket, "pnw #%d %d %d %d %d %s\n", cli_ll->socket,
+                cli_ll->pos.x, cli_ll->pos.y, (cli_ll->pos.orientation + 1),
+                cli_ll->level, cli_ll->team);
+        }
+    }
+}
+
+void notice_graphic_client(client_t *cli, char *team_name)
+{
+    server_t *server = get_instance();
+    client_t *cli_ll = NULL;
+
+    for (cli_ll = server->clients; cli_ll != NULL; cli_ll = cli_ll->next) {
+        if (cli_ll->graphic == true) {
+            dprintf(cli_ll->socket, "pnw #%d %d %d %d %d %s\n", cli->socket,
+                cli->pos.x, cli->pos.y, (cli->pos.orientation + 1), cli->level,
+                team_name);
+        }
+    }
+}

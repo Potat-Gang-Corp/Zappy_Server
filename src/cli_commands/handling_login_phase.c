@@ -10,6 +10,7 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 #include "../../include/struct_client.h"
+#include "notifications.h"
 
 void player_spawn(client_t *cli, int team_index)
 {
@@ -32,21 +33,6 @@ void player_spawn(client_t *cli, int team_index)
     game->teams[team_index]->egg = egg_head->next;
     free(egg_head);
     egg_head = NULL;
-}
-
-void notice_graphic_client(client_t *cli, char *team_name)
-{
-    server_t *server = get_instance();
-    client_t *graphic = NULL;
-
-    (void)team_name;
-    for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
-        if (graphic->graphic == false) {
-            dprintf(cli->socket, "pnw #%d %d %d %d %d %s\n", graphic->socket,
-                graphic->pos.x, graphic->pos.y, (graphic->pos.orientation + 1), graphic->level,
-                graphic->team);
-        }
-    }
 }
 
 int handle_team_full(client_t *cli, int i, char *team_name)
@@ -87,6 +73,7 @@ int detect_team_validity(char *team_name, client_t *cli)
             dprintf(cli->socket, "msz %d %d\n", game->width, game->height);
             cli->logged = true;
             cli->graphic = true;
+            notice_graphic_init(cli);
             return 0;
         }
     }

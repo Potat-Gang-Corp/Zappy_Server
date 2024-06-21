@@ -44,14 +44,11 @@ char *read_cli_cmd(int cli_socket)
 {
     int bytes_read;
     char *cmd = read_from_socket(cli_socket, &bytes_read);
-    char *result = NULL;
 
     if (cmd == NULL) {
         fprintf(stderr, "Error reading command from Client %d\n", cli_socket);
         return NULL;
     }
     printf("Reading command from Client %d: %s", cli_socket, cmd);
-    result = parse_command(cmd);
-    free(cmd);
-    return result;
+    return cmd;
 }

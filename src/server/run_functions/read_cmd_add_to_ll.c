@@ -80,6 +80,7 @@ void read_buffer_to_list(client_t *cli)
     }
     for (cmd = strtok_r(buffer, "\n", &saveptr);
         cmd != NULL; cmd = strtok_r(NULL, "\n", &saveptr)) {
+        printf("cmd: %s\n", cmd);
         if (*cmd == '\0')
             continue;
         add_cmd_to_ll(cli->socket, cmd);

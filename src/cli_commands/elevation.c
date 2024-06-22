@@ -13,17 +13,6 @@
 #include "../../include/map.h"
 #include "elevation.h"
 
-static const elevation_requirements_t elevation_table[] = {
-    {1, 1, 0, 0, 0, 0, 0},
-    {2, 1, 1, 1, 0, 0, 0},
-    {2, 2, 0, 1, 0, 2, 0},
-    {4, 1, 1, 2, 0, 1, 0},
-    {4, 1, 2, 1, 3, 0, 0},
-    {6, 1, 2, 3, 0, 1, 0},
-    {6, 2, 2, 2, 2, 2, 1}
-};
-
-
 bool check_level_players(int x, int y, int level, int nb)
 {
     server_t *server = get_instance();
@@ -54,22 +43,6 @@ bool compare_structs(elevation_requirements_t *elevation_tab, int level)
         }
     }
     return (items_present == 0x3F);
-}
-
-static void increment_item(elevation_requirements_t *lvl_tab, item_type_t type)
-{
-    int *item_pointers[] = {
-        &lvl_tab->linemate,
-        &lvl_tab->deraumere,
-        &lvl_tab->sibur,
-        &lvl_tab->mendiane,
-        &lvl_tab->phiras,
-        &lvl_tab->thystame
-    };
-
-    if (type >= LINEMATE && type <= THYSTAME) {
-        (*item_pointers[type - LINEMATE])++;
-    }
 }
 
 void get_items_on_tile(int x, int y, elevation_requirements_t *elevation_tab)

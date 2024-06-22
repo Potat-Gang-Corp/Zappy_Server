@@ -25,5 +25,8 @@ void set_bool_incantation(int level, int x, int y);
 void get_items_on_tile(int x, int y, elevation_requirements_t *elevation_tab);
 bool compare_structs(elevation_requirements_t *elevation_tab, int level);
 bool check_level_players(int x, int y, int level, int nb);
+void increment_item(elevation_requirements_t *lvl_tab, item_type_t type);
+
+extern const elevation_requirements_t elevation_table[];
 
 #endif /* !ELEVATION_H_ */

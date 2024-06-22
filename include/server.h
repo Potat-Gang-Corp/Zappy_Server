@@ -627,13 +627,38 @@ waiting_client_t *get_waiting_client(server_t *server, char *team_name);
 void look_orientation(int *x, int *y, position_t pos, int *stock);
 int cross_items_ll(items_t *item, char **msg, size_t msg_size);
 int check_to_append(int offset, char **msg, size_t msg_size, int cond);
+int lvl_zero(char **msg, size_t *msg_size, position_t pos);
+int cmd_lvl(char **msg, map_t *map, position_t pos, int lvl);
+int get_team_index_by_name(game_t *game, char *team_name);
 
 void handle_renew_items(void);
+void refill_deraumere(map_t *map, int *counter_items);
+void refill_linemate(map_t *map, int *counter_items);
+void refill_food(map_t *map, int *counter_items);
+void count_items_on_map(int *counter_items, tile_t *tile);
+void refill_mendiane(map_t *map, int *counter_items);
+void refill_phiras(map_t *map, int *counter_items);
+void refill_thystame(map_t *map, int *counter_items);
+void handle_renew_items_bis(map_t *map, int *counter_items);
+void refill_sibur(map_t *map, int *counter_items);
 
 void handle_end_game(void);
 
 void handle_timeout_login(void);
 void execute_chrono_tasks(void);
 void handle_incantation(void);
+
+void push_players_to_tile(client_t *cli, int x, int y);
+void move_and_restore_orientation(client_t *tmp, game_t *game,
+    int new_orientation);
+void destroy_eggs(egg_t *egg, int x, int y);
+void delete_egg(egg_t **egg, egg_t **prev_egg, egg_t **curr_egg);
+
+char *build_message(char **bct_dict, map_t *map, int message_len);
+char **build_bct_dict(map_t *map, int *message_len);
+char *process_tile_and_get_message(map_t *map, int x, int y, int *message_len);
+char *compute_tile_stock(items_t *item_start, int x, int y);
+
+void lower_nb_cmd(client_t *cli);
 
 #endif /* !SERVER_H_ */

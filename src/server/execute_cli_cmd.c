@@ -35,12 +35,6 @@ client_t *get_client_by_socket(int cli_socket)
     return NULL;
 }
 
-static void lower_nb_cmd(client_t *cli)
-{
-    if (cli->nb_commands > 0)
-        cli->nb_commands--;
-}
-
 static int exec_func(int cli_s, char *command, client_t *cli)
 {
     if (cli->graphic == true)

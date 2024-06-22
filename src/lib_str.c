@@ -11,13 +11,14 @@ int append_to_msg(char **msg, size_t *current_size, const char *new_content)
 {
     size_t new_content_length = strlen(new_content);
     size_t current_length = strlen(*msg);
-    size_t new_size = current_length + new_content_length + 1; // +1 for null terminator
+    size_t new_size = current_length + new_content_length + 1;
+    char *new_msg;
 
     if (new_size > *current_size) {
-        char *new_msg = realloc(*msg, new_size);
+        new_msg = realloc(*msg, new_size);
         if (new_msg == NULL) {
             perror("realloc failed");
-            return -1; // Keep original message intact on failure
+            return -1;
         }
         *msg = new_msg;
         *current_size = new_size;
@@ -25,4 +26,3 @@ int append_to_msg(char **msg, size_t *current_size, const char *new_content)
     strcat(*msg, new_content);
     return 0;
 }
-

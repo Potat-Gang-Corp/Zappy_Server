@@ -15,13 +15,12 @@
 #include "../../include/notifications.h"
 #include "look.h"
 
-int follow(client_t *cli, char *msg, size_t msg_size, int index)
+int follow(client_t *cli, char *msg, size_t msg_size)
 {
     map_t *map = get_map_instance();
     unsigned int x = 1;
     int result = 0;
 
-    (void)index;
     for (; x <= cli->level; x++) {
         result = cmd_lvl(&msg, map, cli->pos, x);
         if (result == 84) {
@@ -33,9 +32,8 @@ int follow(client_t *cli, char *msg, size_t msg_size, int index)
         free(msg);
         return 84;
     }
-    for (size_t i = 0; i < strlen(msg); i++) {
+    for (size_t i = 0; i < strlen(msg); i++)
         msg[i] = tolower(msg[i]);
-    }
     write(cli->socket, msg, strlen(msg));
     free(msg);
     return 0;
@@ -46,7 +44,6 @@ int cmd_look(char *command_type, int cli_socket)
     client_t *cli = get_client_by_socket(cli_socket);
     size_t msg_size = 1;
     char *msg = malloc(sizeof(char) * 1000);
-    int index = 0;
 
     (void)command_type;
     if (!msg) {
@@ -59,7 +56,7 @@ int cmd_look(char *command_type, int cli_socket)
         free(msg);
         return 84;
     }
-    follow(cli, msg, msg_size, index);
+    follow(cli, msg, msg_size);
     cli->cd = 7;
     return 0;
 }

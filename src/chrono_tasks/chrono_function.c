@@ -10,6 +10,15 @@
 #include "commands_gui.h"
 #include "elevation.h"
 
+void handle_exec_chrono_task_bis(void)
+{
+    handle_end_game();
+    handle_timeout_login();
+    handle_egg_laying();
+    handle_renew_items();
+    handle_incantation();
+}
+
 void execute_chrono_tasks(void)
 {
     server_t *server = get_instance();
@@ -17,7 +26,7 @@ void execute_chrono_tasks(void)
     client_t *next_cli;
 
     while (cli != NULL) {
-        next_cli = cli->next;  // Save next client
+        next_cli = cli->next;
         if (!cli->logged) {
             cli = next_cli;
             continue;
@@ -26,14 +35,8 @@ void execute_chrono_tasks(void)
             cmd_mct("mct", cli->socket);
         } else {
             lower_cli_cd(cli);
-            handle_player_death(cli);  // This might remove cli
+            handle_player_death(cli);
         }
-        cli = next_cli;  // Move to next client safely
+        cli = next_cli;
     }
-    handle_end_game();
-    handle_timeout_login();
-    handle_egg_laying();
-    handle_renew_items();
-    handle_incantation();
 }
-

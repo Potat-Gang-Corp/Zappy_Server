@@ -35,7 +35,7 @@ void notice_graphic_client_fork_begin(client_t *cli)
 
     for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
         if (graphic->graphic == true) {
-            dprintf(graphic->socket, "pfk #%d\n", cli->socket);
+            dprintf(graphic->socket, "pfk #%d\n", cli->id);
         }
     }
 }

@@ -31,7 +31,7 @@ void client_fork_end(client_t *cli)
     for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
         if (graphic->graphic == true) {
             dprintf(graphic->socket, "enw #%d #%d %d %d\n", cli->egg_id_laying,
-                cli->socket, cli->pos.x, cli->pos.y);
+                cli->id, cli->pos.x, cli->pos.y);
         }
     }
     cli->egg_id_laying = -1;

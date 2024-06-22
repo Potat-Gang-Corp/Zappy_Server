@@ -18,7 +18,7 @@ void notice_player_death_event(client_t *cli)
 
     for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
         if (graphic->graphic == true) {
-            dprintf(graphic->socket, "pdi #%d\n", cli->socket);
+            dprintf(graphic->socket, "pdi #%d\n", cli->id);
         }
     }
     dprintf(cli->socket, "dead\n");

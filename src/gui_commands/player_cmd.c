@@ -78,12 +78,12 @@ int cmd_pin(char *command, int gui_socket)
     client_t *player = NULL;
     char *command_type = strtok(command, " ");
     char *player_nb = strtok(NULL, " #");
-    int socket_nb = atoi(player_nb);
+    int id_nb = atoi(player_nb);
     client_t *cli = get_client_by_socket(gui_socket);
 
     command_type = command_type;
     for (player = server->clients; player != NULL; player = player->next) {
-        if (socket_nb == player->id) {
+        if (id_nb == player->id) {
             dprintf(cli->socket, "pin #%d %d %d %d %d %d %d %d %d %d\n",
                 player->id, player->pos.x, player->pos.y,
                 player->inventory.food, player->inventory.linemate,

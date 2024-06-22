@@ -24,16 +24,20 @@ void notice_player_death_event(client_t *cli)
     dprintf(cli->socket, "dead\n");
 }
 
-void handle_player_death(client_t *cli)
+void handle_player_death(client_t *cli) 
 {
-    if (cli->time_to_live > 0)
+    if (cli->time_to_live > 0) {
         cli->time_to_live--;
-    if (cli->time_to_live == 0 && cli->inventory.food == 0) {
-        notice_player_death_event(cli);
-        remove_client(cli->socket);
     }
-    if (cli->time_to_live == 0 && cli->inventory.food > 0) {
-        cli->time_to_live += 126;
-        cli->inventory.food--;
+    if (cli->time_to_live == 0) {
+        if (cli->inventory.food == 0) {
+            notice_player_death_event(cli);
+            remove_client(cli->socket);
+            return;
+        } else if (cli->inventory.food > 0) {
+            cli->time_to_live += 126;
+            cli->inventory.food--;
+        }
     }
 }
+

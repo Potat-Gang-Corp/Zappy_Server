@@ -18,23 +18,26 @@
 int follow(client_t *cli, char *msg, size_t msg_size, int index)
 {
     map_t *map = get_map_instance();
-    size_t i = 0;
     unsigned int x = 1;
+    int result = 0;
 
+    (void)index;
     for (; x <= cli->level; x++) {
-        if (cmd_lvl(&msg, map, cli->pos, x) == 84) {
+        result = cmd_lvl(&msg, map, cli->pos, x);
+        if (result == 84) {
             free(msg);
             return 84;
         }
-        index++;
     }
     if (append_to_msg(&msg, &msg_size, "]\n") == -1) {
         free(msg);
         return 84;
     }
-    for (; i < strlen(msg); i++)
+    for (size_t i = 0; i < strlen(msg); i++) {
         msg[i] = tolower(msg[i]);
+    }
     write(cli->socket, msg, strlen(msg));
+    free(msg);
     return 0;
 }
 

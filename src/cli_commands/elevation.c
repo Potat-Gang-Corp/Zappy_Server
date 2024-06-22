@@ -36,8 +36,6 @@ bool check_level_players(int x, int y, int level, int nb)
             cpt++;
         }
     }
-    printf("cpt: %d\n", cpt);
-    printf("nb: %d\n", nb);
     if (cpt >= nb) {
         return true;
     }

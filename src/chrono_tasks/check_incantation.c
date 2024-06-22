@@ -36,6 +36,7 @@ static void check_evolve(client_t *cli)
         set_level(cli->pos.x, cli->pos.y, cli->level, cli->socket);
         cli->is_incanting = false;
         cli->level++;
+        cli->evolving = false;
         dprintf(cli->socket, "Current level: %d\n", cli->level);
     }
 }

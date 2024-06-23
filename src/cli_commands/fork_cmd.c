@@ -14,16 +14,6 @@
 #include "../../include/inventory.h"
 #include "../../include/notifications.h"
 
-static int get_team_index_by_name(game_t *game, char *team_name)
-{
-    for (int i = 0; i < game->nb_teams; i++) {
-        if (strcmp(game->teams[i]->name, team_name) == 0) {
-            return i;
-        }
-    }
-    return -1;
-}
-
 void client_fork_end(client_t *cli)
 {
     server_t *server = get_instance();
@@ -41,7 +31,7 @@ void client_fork_end(client_t *cli)
     for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
         if (graphic->graphic == true) {
             dprintf(graphic->socket, "enw #%d #%d %d %d\n", cli->egg_id_laying,
-                cli->socket, cli->pos.x, cli->pos.y);
+                cli->id, cli->pos.x, cli->pos.y);
         }
     }
     cli->egg_id_laying = -1;

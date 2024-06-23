@@ -18,22 +18,28 @@ void notice_player_death_event(client_t *cli)
 
     for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
         if (graphic->graphic == true) {
-            dprintf(graphic->socket, "pdi #%d\n", cli->socket);
+            dprintf(graphic->socket, "pdi #%d\n", cli->id);
         }
     }
     dprintf(cli->socket, "dead\n");
+}
+
+void update_player_status(client_t *cli)
+{
+    if (cli->inventory.food == 0) {
+        notice_player_death_event(cli);
+        remove_client(cli->socket);
+    } else {
+        cli->time_to_live += 126;
+        cli->inventory.food--;
+    }
 }
 
 void handle_player_death(client_t *cli)
 {
     if (cli->time_to_live > 0)
         cli->time_to_live--;
-    if (cli->time_to_live == 0 && cli->inventory.food == 0) {
-        notice_player_death_event(cli);
-        remove_client(cli->socket);
-    }
-    if (cli->time_to_live == 0 && cli->inventory.food > 0) {
-        cli->time_to_live += 126;
-        cli->inventory.food--;
+    if (cli->time_to_live == 0) {
+        update_player_status(cli);
     }
 }

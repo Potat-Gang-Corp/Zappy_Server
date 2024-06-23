@@ -84,7 +84,7 @@ void send_message_to_client(client_t *cli, client_t *c_cli, int dir, char *m)
     if (!cli->graphic && cli->socket != c_cli->socket) {
         dprintf(cli->socket, "message %d, %s\n", dir, m);
     } else if (cli->graphic) {
-        dprintf(cli->socket, "pbc #%d %s\n", c_cli->socket, m);
+        dprintf(cli->socket, "pbc #%d %s\n", c_cli->id, m);
         return;
     }
     if (cli->socket == c_cli->socket) {

@@ -16,7 +16,7 @@ void notice_graphic_move_cmd(client_t *cli)
 
     for (cli_ll = server->clients; cli_ll != NULL; cli_ll = cli_ll->next) {
         if (cli_ll->graphic == true) {
-            dprintf(cli_ll->socket, "ppo #%d %d %d %d\n", cli->socket,
+            dprintf(cli_ll->socket, "ppo #%d %d %d %d\n", cli->id,
                 cli->pos.x, cli->pos.y, (cli->pos.orientation + 1));
         }
     }
@@ -29,7 +29,7 @@ void notice_graphic_player_ejection(client_t *cli)
 
     for (cli_ll = server->clients; cli_ll != NULL; cli_ll = cli_ll->next) {
         if (cli_ll->graphic == true) {
-            dprintf(cli_ll->socket, "pex #%d\n", cli->socket);
+            dprintf(cli_ll->socket, "pex #%d\n", cli->id);
         }
     }
 }

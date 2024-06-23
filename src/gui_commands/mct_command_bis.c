@@ -55,7 +55,7 @@ char *process_tile_and_get_message(map_t *map, int x, int y, int *message_len)
     return result;
 }
 
-static char **build_bct_dict(map_t *map, int *message_len)
+char **build_bct_dict(map_t *map, int *message_len)
 {
     int total_tiles = map->width * map->height;
     char **bct_dict = malloc(sizeof(char *) * total_tiles + 1);
@@ -69,7 +69,7 @@ static char **build_bct_dict(map_t *map, int *message_len)
     return bct_dict;
 }
 
-static char *build_message(char **bct_dict, map_t *map, int message_len)
+char *build_message(char **bct_dict, map_t *map, int message_len)
 {
     char *message = malloc(sizeof(char) * (message_len + 1));
     int x = 0;

@@ -39,6 +39,7 @@ static void check_evolve(client_t *cli)
         notice_gui_end_incantation(cli->pos.x, cli->pos.y, 0);
         cli->is_incanting = false;
         cli->level++;
+        cli->evolving = false;
         dprintf(cli->socket, "Current level: %d\n", cli->level);
     }
 }

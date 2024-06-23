@@ -37,10 +37,9 @@ int fill_tab(int **tab, int *nb, client_t *s, int cpt)
     for (; cli != NULL; cli = cli->next) {
         if (cli->pos.x == s->pos.x && cli->pos.y == s->pos.y
             && cli->level == s->level && cli != s) {
-            if (create_new_tab(tab, cpt, nb) == -1) {
-                return cpt;
-            }
-            (*tab)[cpt++] = cli->id;
+            create_new_tab(tab, cpt, nb);
+            cpt++;
+            (*tab)[cpt] = cli->id;
         }
     }
     return cpt;

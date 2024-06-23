@@ -11,28 +11,11 @@
 #include "../../include/server.h"
 #include "../../include/commands.h"
 #include "../../include/map.h"
+#include "notifications.h"
 #include "elevation.h"
-
-void notice_gui_incantation(int x, int y, int level, int *tab)
-{
-    server_t *server = get_instance();
-    client_t *cli = server->clients;
-
-    for (; cli != NULL; cli = cli->next) {
-        if (cli->graphic == true) {
-            dprintf(cli->socket, "pic %d %d %d", x, y, level);
-            for (int i = 0; tab[i] != -1 ; i++) {
-                dprintf(cli->socket, " %d", tab[i]);
-            }
-            dprintf(cli->socket, "\n");
-        }
-    }
-}
 
 bool check_level_players(client_t *s, int level, int nb)
 {
-    server_t *server = get_instance();
-    client_t *cli = server->clients;
     int cpt = 0;
     int size = nb;
     int *tab = malloc((size + 1) * sizeof(int));
@@ -41,23 +24,9 @@ bool check_level_players(client_t *s, int level, int nb)
         perror("malloc");
         return false;
     }
-    tab[cpt++] = s->socket;
-    for (; cli != NULL; cli = cli->next) {
-        if (cli->pos.x == s->pos.x && cli->pos.y == s->pos.y
-            && cli->level == (unsigned int)level && cli != s) {
-            if (cpt >= size) {
-                size *= 2;
-                int *new_tab = realloc(tab, (size + 1) * sizeof(int));
-                if (new_tab == NULL) {
-                    free(tab);
-                    perror("realloc");
-                    return false;
-                }
-                tab = new_tab;
-            }
-            tab[cpt++] = cli->id;
-        }
-    }
+    cpt++;
+    tab[cpt] = s->id;
+    cpt = fill_tab(tab, level, nb, s);
     tab[cpt] = -1;
     if (cpt >= nb) {
         notice_gui_incantation(s->pos.x, s->pos.y, level, tab);
@@ -102,8 +71,6 @@ int check_condition_incantation(client_t *cli)
     if (compare_structs(&elevation_tab, cli->level) == false) {
         return 0;
     }
-    if (cli->level <= 1)
-        return 1;
     if (check_level_players(cli, cli->level,
         elevation_table[cli->level - 1].nb_players) == false) {
         return 0;

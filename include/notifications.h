@@ -18,5 +18,6 @@ void notice_graphic_init(client_t *cli);
 void notice_graphic_move_cmd(client_t *cli);
 void notice_graphic_player_ejection(client_t *cli);
 void notice_gui_end_incantation(int x, int y, int status);
+void notice_gui_incantation(int x, int y, int level, int *tab);
 
 #endif /* !NOTIFICATIONS_H_ */

@@ -26,6 +26,8 @@ void get_items_on_tile(int x, int y, elevation_requirements_t *elevation_tab);
 bool compare_structs(elevation_requirements_t *elevation_tab, int level);
 bool check_level_players(client_t *s, int level, int nb);
 void increment_item(elevation_requirements_t *lvl_tab, item_type_t type);
+int create_new_tab(int *tab, int cpt, int *nb);
+int fill_tab(int *tab, int level, int nb, client_t *s);
 
 extern const elevation_requirements_t elevation_table[];
 

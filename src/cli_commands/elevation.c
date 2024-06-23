@@ -16,7 +16,7 @@
 
 bool check_level_players(client_t *s, int level, int nb)
 {
-    int cpt = 0;
+    int cpt = 1;
     int size = nb;
     int *tab = malloc((size + 1) * sizeof(int));
 
@@ -24,9 +24,8 @@ bool check_level_players(client_t *s, int level, int nb)
         perror("malloc");
         return false;
     }
-    cpt++;
-    tab[cpt] = s->id;
-    cpt = fill_tab(tab, level, nb, s);
+    tab[0] = s->id;
+    cpt = fill_tab(&tab, &size, s, cpt);
     tab[cpt] = -1;
     if (cpt >= nb) {
         notice_gui_incantation(s->pos.x, s->pos.y, level, tab);

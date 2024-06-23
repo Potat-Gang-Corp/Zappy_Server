@@ -74,7 +74,7 @@ int detect_team_validity(char *team_name, client_t *cli)
             cli->logged = true;
             cli->graphic = true;
             notice_graphic_init(cli);
-            return 0;
+            return 2;
         }
     }
     return 84;

@@ -13,34 +13,34 @@
 #include "../../include/map.h"
 #include "elevation.h"
 
-int create_new_tab(int *tab, int cpt, int *nb)
+int create_new_tab(int **tab, int cpt, int *nb)
 {
     int *new_tab = NULL;
 
     if (cpt >= *nb) {
         *nb *= 2;
-        new_tab = realloc(tab, (*nb + 1) * sizeof(int));
+        new_tab = realloc(*tab, (*nb + 1) * sizeof(int));
         if (new_tab == NULL) {
-            free(tab);
+            free(*tab);
             perror("realloc");
-            return -84;
+            return -1;
         }
-        tab = new_tab;
+        *tab = new_tab;
     }
     return 0;
 }
 
-int fill_tab(int *tab, int level, int nb, client_t *s)
+int fill_tab(int **tab, int *nb, client_t *s, int cpt)
 {
     client_t *cli = get_instance()->clients;
-    int cpt = 1;
 
     for (; cli != NULL; cli = cli->next) {
         if (cli->pos.x == s->pos.x && cli->pos.y == s->pos.y
-            && cli->level == (unsigned int)level && cli != s) {
-            create_new_tab(tab, cpt, &nb);
-            cpt++;
-            tab[cpt] = cli->id;
+            && cli->level == s->level && cli != s) {
+            if (create_new_tab(tab, cpt, nb) == -1) {
+                return cpt;
+            }
+            (*tab)[cpt++] = cli->id;
         }
     }
     return cpt;

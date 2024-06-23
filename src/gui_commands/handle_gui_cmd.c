@@ -26,7 +26,6 @@ void execute_gui_cmd(int gui_socket, char *command)
     char *command_type = strtok(command, " ");
     int result = -1;
 
-    printf("command_type: %s\n", command_type);
     gui_socket = gui_socket;
     if (command_type != NULL) {
         result = parse_gui_cmd_table(command_type, gui_socket, buffer);

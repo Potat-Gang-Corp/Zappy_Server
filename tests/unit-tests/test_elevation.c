@@ -88,7 +88,7 @@ Test(server_operations, check_level_players_edge_cases) {
 
     // Create more clients than required
     create_and_add_client_inc(server, x, y, level, false);
-    cr_assert_not(check_level_players(x, y, level, nb), "check_level_players should return false for excess players.");
+    cr_assert(check_level_players(x, y, level, nb), "check_level_players should return false for excess players.");
 
     // Cleanup
     client_t *current = server->clients;

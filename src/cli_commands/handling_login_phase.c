@@ -46,6 +46,7 @@ int handle_team_full(client_t *cli, int i, char *team_name)
         add_to_waiting_list(cli->socket, team_name);
         write(cli->socket, "This team is full, please wait\n",
             strlen("This team is full, please wait\n"));
+        return 1;
     } else {
         game->teams[i]->max_clients -= 1;
         len = snprintf(s, sizeof(s), "%d\n", game->teams[i]->max_clients);
@@ -55,8 +56,8 @@ int handle_team_full(client_t *cli, int i, char *team_name)
         write(cli->socket, coordinates, len);
         player_spawn(cli, i);
         notice_graphic_client(cli, team_name);
+        return 0;
     }
-    return 0;
 }
 
 int detect_team_validity(char *team_name, client_t *cli)
@@ -90,12 +91,12 @@ void handle_cli_login(client_t *cli, char *command)
         return;
     }
     if (cli->logged == false && ret == 0) {
-        cli->id = get_instance()->client_id;
-        get_instance()->client_id++;
         return;
     }
     if (cli->logged == false && ret == 84) {
         write(cli->socket, msg, strlen(msg));
         return;
     }
+    cli->id = get_instance()->client_id;
+    get_instance()->client_id++;
 }

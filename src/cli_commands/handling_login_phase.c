@@ -83,13 +83,18 @@ int detect_team_validity(char *team_name, client_t *cli)
 void handle_cli_login(client_t *cli, char *command)
 {
     char *msg = "Wrong team name, please try again\n";
+    int ret = 0;
 
-    if (cli->logged == false && detect_team_validity(command, cli) == 0) {
+    ret = detect_team_validity(command, cli);
+    if (ret == 2) {
+        return;
+    }
+    if (cli->logged == false && ret == 0) {
         cli->id = get_instance()->client_id;
         get_instance()->client_id++;
         return;
     }
-    if (cli->logged == false && detect_team_validity(command, cli) == 84) {
+    if (cli->logged == false && ret == 84) {
         write(cli->socket, msg, strlen(msg));
         return;
     }

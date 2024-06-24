@@ -16,13 +16,13 @@ bool append_to_message(char **msg, size_t *msg_size, int *length, int value)
     char *new_message;
 
     if (needed > *msg_size) {
-        *msg_size = needed;
-        new_message = realloc(*msg, *msg_size);
+        new_message = realloc(*msg, needed);
         if (!new_message) {
             free(*msg);
             return false;
         }
         *msg = new_message;
+        *msg_size = needed;
     }
     ret = snprintf(*msg + *length, *msg_size - *length, " %d", value);
     if (ret < 0) {
@@ -44,17 +44,21 @@ void send_incantation_message(client_t *cli, const char *message)
 
 char *build_incantation_message(int x, int y, int level, int *tab)
 {
-    size_t s = 1;
+    size_t s = 32;
     char *msg = malloc(s);
     int length;
-    int i;
 
-    length = snprintf(msg, s, "pic %d %d %d", x, y, level);
-    if (!msg || length < 0) {
-        free(msg);
+    if (!msg) {
+        perror("malloc");
         return NULL;
     }
-    for (i = 0; tab[i] != -1; i++) {
+    length = snprintf(msg, s, "pic %d %d %d", x, y, level);
+    if (length < 0) {
+        free(msg);
+        perror("snprintf");
+        return NULL;
+    }
+    for (int i = 0; tab[i] != -1; i++) {
         if (!append_to_message(&msg, &s, &length, tab[i])) {
             return NULL;
         }

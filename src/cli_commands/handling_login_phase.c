@@ -44,8 +44,7 @@ int handle_team_full(client_t *cli, int i, char *team_name)
 
     if (game->teams[i]->max_clients < 1 && game->teams[i]->egg == NULL) {
         add_to_waiting_list(cli->socket, team_name);
-        write(cli->socket, "This team is full, please wait\n",
-            strlen("This team is full, please wait\n"));
+        write(cli->socket, "This team is full, please wait\n", 31);
         return 1;
     } else {
         game->teams[i]->max_clients -= 1;

@@ -30,3 +30,15 @@ void print_all_teams_eggs(client_t *cli)
         print_egg_team(cli, game->teams[i]);
     }
 }
+
+void notice_graphic_client_fork_spawn(int egg_id)
+{
+    server_t *server = get_instance();
+    client_t *graphic = NULL;
+
+    for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
+        if (graphic->graphic == true) {
+            dprintf(graphic->socket, "ebo #%d\n", egg_id);
+        }
+    }
+}

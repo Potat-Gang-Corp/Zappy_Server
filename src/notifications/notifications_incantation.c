@@ -29,6 +29,6 @@ void notice_gui_incantation(int x, int y, int level, int *tab)
     snprintf(message + length, msg_size - length, "\n");
     for (; cli != NULL; cli = cli->next)
         if (cli->graphic == true)
-            dprintf(cli->id, "%s", message);
+            dprintf(cli->socket, "%s", message);
     free(message);
 }

@@ -26,7 +26,7 @@ int cmd_sst(char *command_type, int gui_socket)
 
     time_parameter = strtok(NULL, " #");
     time_nb = atoi(time_parameter);
-    game->freq = time_nb;
     dprintf(gui_socket, "sst %d\n", time_nb);
+    game->freq = time_nb;
     return 0;
 }

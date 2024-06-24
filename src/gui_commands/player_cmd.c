@@ -62,6 +62,10 @@ int cmd_plv(char *command, int gui_socket)
     client_t *cli = get_client_by_socket(gui_socket);
 
     player_nb = strtok(NULL, " #");
+    if (player_nb == NULL) {
+        dprintf(gui_socket, "sbp\n");
+        return 0;
+    }
     socket_nb = atoi(player_nb);
     for (cli = server->clients; cli != NULL; cli = cli->next) {
         if (socket_nb == cli->id) {
@@ -72,24 +76,33 @@ int cmd_plv(char *command, int gui_socket)
     return 0;
 }
 
-int cmd_pin(char *command, int gui_socket)
+static void print_inventory(client_t *gui, client_t *player)
 {
-    server_t *server = get_instance();
-    client_t *player = NULL;
-    char *command_type = strtok(command, " ");
-    char *player_nb = strtok(NULL, " #");
-    int id_nb = atoi(player_nb);
-    client_t *cli = get_client_by_socket(gui_socket);
-
-    command_type = command_type;
-    for (player = server->clients; player != NULL; player = player->next) {
-        if (id_nb == player->id) {
-            dprintf(cli->socket, "pin #%d %d %d %d %d %d %d %d %d %d\n",
+    dprintf(gui->socket, "pin #%d %d %d %d %d %d %d %d %d %d\n",
                 player->id, player->pos.x, player->pos.y,
                 player->inventory.food, player->inventory.linemate,
                 player->inventory.deraumere, player->inventory.sibur,
                 player->inventory.mendiane, player->inventory.phiras,
                 player->inventory.thystame);
+}
+
+int cmd_pin(char *command, int gui_socket)
+{
+    server_t *server = get_instance();
+    client_t *player = NULL;
+    char *player_nb = strtok(command, " ");
+    int id_nb;
+    client_t *gui = get_client_by_socket(gui_socket);
+
+    player_nb = strtok(NULL, " #");
+    if (player_nb == NULL) {
+        dprintf(gui_socket, "sbp\n");
+        return 0;
+    }
+    id_nb = atoi(player_nb);
+    for (player = server->clients; player != NULL; player = player->next) {
+        if (id_nb == player->id && player->graphic == false) {
+            print_inventory(gui, player);
             return 0;
         }
     }

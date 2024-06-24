@@ -32,21 +32,36 @@ int *construct_message(items_t *item_start, int *items_counter)
     return items_counter;
 }
 
+static int set_up_x_y(char *command, int *x_int, int *y_int)
+{
+    char *x = strtok(command, " ");
+    char *y;
+
+    x = strtok(NULL, " ");
+    y = strtok(NULL, " ");
+    if (x == NULL || y == NULL)
+        return 84;
+    *x_int = atoi(x);
+    *y_int = atoi(y);
+    return 0;
+}
+
 int cmd_bct(char *command, int gui_socket)
 {
     map_t *map = get_map_instance();
     client_t *cli = get_client_by_socket(gui_socket);
-    char *command_type = strtok(command, " ");
-    char *x = strtok(NULL, " ");
-    char *y = strtok(NULL, " ");
-    int x_int = atoi(x);
-    int y_int = atoi(y);
+    int x_int = 0;
+    int y_int = 0;
+    int ret = set_up_x_y(command, &x_int, &y_int);
     items_t *item = map->tiles[x_int + y_int * map->width]->items;
     items_t *item_start = item;
     int item_counter[MAX_ITEMS];
 
+    if (ret == 84) {
+        dprintf(gui_socket, "sbp\n");
+        return 84;
+    }
     construct_message(item_start, item_counter);
-    command_type = command_type;
     dprintf(cli->socket, "bct %d %d %d %d %d %d %d %d %d\n",
         x_int, y_int, item_counter[0], item_counter[1],
         item_counter[2], item_counter[3],

@@ -15,7 +15,8 @@
 #include "../../include/struct_client.h"
 #include <time.h>
 
-Test(map_tests, initialize_map_success) {
+Test(map_tests, initialize_map_success)
+{
     cr_redirect_stdout();
     int result = initialize_map(10, 10);
     cr_assert_eq(result, 0, "initialize_map should return 0 for successful initialization");

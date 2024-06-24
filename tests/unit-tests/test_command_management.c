@@ -133,7 +133,6 @@ Test(add_cmd_to_ll_tests_empty_command, empty_command)
     TAILQ_INIT(&server->commands);
     FD_ZERO(&server->readfs);
 
-    // Add multiple test clients
     client_t *client1 = malloc(sizeof(client_t));
     client1->socket = 1;
     client1->nb_commands = 0;
@@ -178,7 +177,6 @@ Test(add_cmd_to_ll_tests_too_much_cmd, too_much_cmd)
     TAILQ_INIT(&server->commands);
     FD_ZERO(&server->readfs);
 
-    // Add multiple test clients
     client_t *client1 = malloc(sizeof(client_t));
     client1->socket = 1;
     client1->nb_commands = 10;

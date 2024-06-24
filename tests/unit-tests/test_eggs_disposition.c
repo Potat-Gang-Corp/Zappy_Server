@@ -23,7 +23,7 @@ Test(add_egg_to_team_ll, should_add_egg_to_team)
     cr_assert_eq(team.egg->x_pos, 1);
     cr_assert_eq(team.egg->y_pos, 2);
     cr_assert_eq(team.egg->egg_id, 3);
-    free(team.egg); // Don't forget to free the allocated memory
+    free(team.egg);
 }
 
 Test(place_egg_on_map_bis, should_place_egg_on_map)
@@ -58,8 +58,6 @@ Test(place_egg_on_map_bis, should_place_egg_on_map)
         }
     }
     cr_assert(egg_placed);
-
-    // Free memory after test
     for (int i = 0; i < 100; i++) {
         free(map.tiles[i]);
     }
@@ -92,7 +90,6 @@ Test(place_egg_on_map, should_place_eggs_for_each_team)
         cr_assert_not_null(game->teams[i]->egg, "No egg was placed for team %d", i);
     }
 
-    // Free memory after test
     for (int i = 0; i < 100; i++) {
         free(map.tiles[i]);
     }

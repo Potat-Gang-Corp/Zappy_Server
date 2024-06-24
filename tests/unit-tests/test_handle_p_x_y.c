@@ -10,7 +10,8 @@
 #include <criterion/assert.h>
 #include "../../include/handle_flags.h"
 
-Test(handle_p, test_handle_x_function) {
+Test(handle_p, test_handle_x_function)
+{
     char *invalid_buffer = "abc";
     char *negative_value = "-1";
     char *valid_value = "8080";
@@ -23,7 +24,8 @@ Test(handle_p, test_handle_x_function) {
     cr_assert_eq(handle_p(letter_and_digits), 84, "Expected exit code 84 for a string that contains digits and letter : %s", letter_and_digits);
 }
 
-Test(handle_x, test_handle_x_function) {
+Test(handle_x, test_handle_x_function)
+{
     char *invalid_buffer = "abc";
     char *negative_value = "-1";
     char *valid_value = "1";
@@ -32,7 +34,8 @@ Test(handle_x, test_handle_x_function) {
     cr_assert_eq(handle_x(valid_value), 0, "Expected exit code 0 for positive value : %s", valid_value);
 }
 
-Test(handle_y, test_handle_y_function) {
+Test(handle_y, test_handle_y_function)
+{
     char *invalid_buffer = "abc";
     char *negative_value = "-1";
     char *valid_value = "1";
@@ -41,12 +44,12 @@ Test(handle_y, test_handle_y_function) {
     cr_assert_eq(handle_y(valid_value), 0, "Expected exit code 0 for positive value : %s", valid_value);
 }
 
-Test(handle_x_y, test_handle_x_y_function) {
+Test(handle_x_y, test_handle_x_y_function)
+{
     char *no_valid_x_def[13] = {"./zappy_server", "-p", "8080", "-x", "a", "-y", "10", "-n", "the", "potato", "group", "-c", "10"};
     char *valid_x_def[13] = {"./zappy_server", "-p", "8080", "-x", "10", "-y", "10", "-n", "the", "potato", "group", "-c", "10"};
     char *no_valid_y_def[13] = {"./zappy_server", "-p", "8080", "-x", "10", "-y", "a", "-n", "the", "potato", "group", "-c", "10"};
     char *valid_y_def[13] = {"./zappy_server", "-p", "8080", "-x", "10", "-y", "10", "-n", "the", "potato", "group", "-c", "10"};
-    
     int i = 3;
     int fp = 0;
 

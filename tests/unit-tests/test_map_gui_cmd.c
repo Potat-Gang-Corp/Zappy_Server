@@ -25,7 +25,8 @@ void add_item_to_tile(tile_t *tile, item_type_t type, int count) {
     }
 }
 
-void setup_map(map_t *map, int width, int height) {
+void setup_map(map_t *map, int width, int height)
+{
     map->width = width;
     map->height = height;
     map->tiles = malloc(sizeof(tile_t *) * width * height);
@@ -37,7 +38,8 @@ void setup_map(map_t *map, int width, int height) {
     }
 }
 
-Test(map_gui_cmd, no_items) {
+Test(map_gui_cmd, no_items)
+{
     map_t *map = get_map_instance();
     setup_map(map, 5, 5);
     char *result = compute_tile_stock(map->tiles[0]->items, map->tiles[0]->x, map->tiles[0]->y);
@@ -54,7 +56,8 @@ Test(map_gui_cmd, single_item_type) {
     free(result);
 }
 
-Test(map_gui_cmd, multiple_items_same_type) {
+Test(map_gui_cmd, multiple_items_same_type)
+{
     map_t *map = get_map_instance();
     setup_map(map, 5, 5);
     add_item_to_tile(map->tiles[0], FOOD, 5);
@@ -63,7 +66,8 @@ Test(map_gui_cmd, multiple_items_same_type) {
     free(result);
 }
 
-Test(map_gui_cmd, multiple_different_items) {
+Test(map_gui_cmd, multiple_different_items)
+{
     map_t *map = get_map_instance();
     setup_map(map, 5, 5);
     add_item_to_tile(map->tiles[0], FOOD, 3);
@@ -74,7 +78,8 @@ Test(map_gui_cmd, multiple_different_items) {
     free(result);
 }
 
-Test(map_gui_cmd, maximum_items_and_types) {
+Test(map_gui_cmd, maximum_items_and_types)
+{
     map_t *map = get_map_instance();
     setup_map(map, 5, 5);
     for (int type = 0; type < MAX_ITEMS; type++) {
@@ -86,7 +91,8 @@ Test(map_gui_cmd, maximum_items_and_types) {
     free(result);
 }
 
-Test(map_gui_cmd, multiple_tiles) {
+Test(map_gui_cmd, multiple_tiles)
+{
     map_t *map = get_map_instance();
     setup_map(map, 5, 5);
     add_item_to_tile(map->tiles[0], FOOD, 1);
@@ -117,7 +123,6 @@ void add_item_to_list(items_t **item_start, item_type_t type) {
     *item_start = new_item;
 }
 
-// Helper function to free the list
 void free_item_list(items_t *item_start) {
     items_t *current = item_start;
     while (current != NULL) {

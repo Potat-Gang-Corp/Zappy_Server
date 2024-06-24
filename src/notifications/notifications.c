@@ -51,7 +51,8 @@ void notice_graphic_init(client_t *cli)
     client_t *cli_ll = NULL;
 
     for (cli_ll = server->clients; cli_ll != NULL; cli_ll = cli_ll->next) {
-        if (cli_ll->graphic == false) {
+        if (cli_ll->graphic == false && cli_ll->logged) {
+            printf("player\n");
             dprintf(cli->socket, "pnw #%d %d %d %d %d %s\n", cli_ll->id,
                 cli_ll->pos.x, cli_ll->pos.y, (cli_ll->pos.orientation + 1),
                 cli_ll->level, cli_ll->team);

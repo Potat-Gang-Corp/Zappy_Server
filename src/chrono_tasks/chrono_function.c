@@ -32,7 +32,7 @@ void execute_chrono_tasks(void)
             continue;
         }
         if (cli->graphic) {
-            cmd_mct("mct", cli->socket);
+            //cmd_mct("mct", cli->socket);
         } else {
             lower_cli_cd(cli);
             handle_player_death(cli);

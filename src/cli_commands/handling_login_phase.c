@@ -54,7 +54,6 @@ int handle_team_full(client_t *cli, int i, char *team_name)
             "%d %d\n", game->width, game->height);
         write(cli->socket, coordinates, len);
         player_spawn(cli, i);
-        notice_graphic_client(cli, team_name);
         return 0;
     }
 }
@@ -98,4 +97,5 @@ void handle_cli_login(client_t *cli, char *command)
     }
     cli->id = get_instance()->client_id;
     get_instance()->client_id++;
+    notice_graphic_client(cli, cli->team);
 }

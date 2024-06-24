@@ -74,6 +74,7 @@ int detect_team_validity(char *team_name, client_t *cli)
             cli->graphic = true;
             notice_graphic_init(cli);
             print_all_teams_eggs(cli);
+            cli->cd = 0;
             return 2;
         }
     }

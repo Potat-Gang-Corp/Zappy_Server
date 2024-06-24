@@ -27,6 +27,16 @@ void handle_exec_chrono_task_bis(void)
     handle_incantation();
 }
 
+static void send_mct(client_t *cli)
+{
+    if (cli->cd >= 20) {
+        cli->cd = 0;
+        cmd_mct("mct", cli->socket);
+    } else {
+        cli->cd++;
+    }
+}
+
 void execute_chrono_tasks(void)
 {
     server_t *server = get_instance();
@@ -40,7 +50,7 @@ void execute_chrono_tasks(void)
             continue;
         }
         if (cli->graphic) {
-            cmd_mct("mct", cli->socket);
+            send_mct(cli);
         } else {
             lower_cli_cd(cli);
             handle_player_death(cli);

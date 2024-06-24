@@ -9,26 +9,70 @@
 #include "struct_server.h"
 #include "get_instance.h"
 
+bool append_to_message(char **msg, size_t *msg_size, int *length, int value)
+{
+    size_t needed = *length + snprintf(NULL, 0, " %d", value) + 1;
+    int ret;
+    char *new_message;
+
+    if (needed > *msg_size) {
+        *msg_size = needed;
+        new_message = realloc(*msg, *msg_size);
+        if (!new_message) {
+            free(*msg);
+            return false;
+        }
+        *msg = new_message;
+    }
+    ret = snprintf(*msg + *length, *msg_size - *length, " %d", value);
+    if (ret < 0) {
+        free(*msg);
+        return false;
+    }
+    *length += ret;
+    return true;
+}
+
+void send_incantation_message(client_t *cli, const char *message)
+{
+    for (; cli != NULL; cli = cli->next) {
+        if (cli->graphic && dprintf(cli->socket, "%s", message) < 0) {
+            perror("dprintf");
+        }
+    }
+}
+
+char *build_incantation_message(int x, int y, int level, int *tab)
+{
+    size_t s = 1;
+    char *msg = malloc(s);
+    int length;
+    int i;
+
+    length = snprintf(msg, s, "pic %d %d %d", x, y, level);
+    if (!msg || length < 0) {
+        free(msg);
+        return NULL;
+    }
+    for (i = 0; tab[i] != -1; i++) {
+        if (!append_to_message(&msg, &s, &length, tab[i])) {
+            return NULL;
+        }
+    }
+    if (snprintf(msg + length, s - length, "\n") < 0) {
+        free(msg);
+        return NULL;
+    }
+    return msg;
+}
+
 void notice_gui_incantation(int x, int y, int level, int *tab)
 {
     client_t *cli = get_instance()->clients;
-    size_t msg_size = 128;
-    char *message = malloc(msg_size);
-    size_t needed;
-    int length = snprintf(message, msg_size, "pic %d %d %d", x, y, level);
-    int i;
+    char *message = build_incantation_message(x, y, level, tab);
 
-    for (i = 0; tab[i] != -1; i++) {
-        needed = length + snprintf(NULL, 0, " %d", tab[i]) + 1;
-        if (needed > msg_size) {
-            msg_size = needed;
-            message = realloc(message, msg_size);
-        }
-        length += snprintf(message + length, msg_size - length, " %d", tab[i]);
+    if (message) {
+        send_incantation_message(cli, message);
+        free(message);
     }
-    snprintf(message + length, msg_size - length, "\n");
-    for (; cli != NULL; cli = cli->next)
-        if (cli->graphic == true)
-            dprintf(cli->socket, "%s", message);
-    free(message);
 }

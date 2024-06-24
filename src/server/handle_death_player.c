@@ -14,11 +14,11 @@
 void notice_player_death_event(client_t *cli)
 {
     server_t *server = get_instance();
-    client_t *graphic = NULL;
+    client_t *cli_ll = NULL;
 
-    for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
-        if (graphic->graphic == true) {
-            dprintf(graphic->socket, "pdi #%d\n", cli->id);
+    for (cli_ll = server->clients; cli_ll != NULL; cli_ll = cli_ll->next) {
+        if (cli_ll->graphic == true) {
+            dprintf(cli_ll->socket, "pdi #%d\n", cli->id);
         }
     }
     dprintf(cli->socket, "dead\n");

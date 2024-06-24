@@ -49,6 +49,23 @@ bool handle_error(char **msg, const char *error_msg)
     return false;
 }
 
+static char *follow(int *tab, char **msg, size_t s, int length)
+{
+    if (length < 0) {
+        handle_error(msg, "snprintf");
+        return NULL;
+    }
+    for (int i = 0; tab[i] != -1; i++) {
+        if (!append_to_message(msg, &s, &length, tab[i]))
+            return NULL;
+    }
+    if (snprintf((*msg) + length, s - length, "\n") < 0) {
+        handle_error(msg, "snprintf");
+        return NULL;
+    }
+    return *msg;
+}
+
 char *build_incantation_message(int x, int y, int level, int *tab)
 {
     size_t s = 32;
@@ -60,18 +77,8 @@ char *build_incantation_message(int x, int y, int level, int *tab)
         return NULL;
     }
     length = snprintf(msg, s, "pic %d %d %d", x, y, level);
-    if (length < 0) {
-        handle_error(&msg, "snprintf");
+    if (follow(tab, &msg, s, length) == NULL)
         return NULL;
-    }
-    for (int i = 0; tab[i] != -1; i++) {
-        if (!append_to_message(&msg, &s, &length, tab[i]))
-            return NULL;
-    }
-    if (snprintf(msg + length, s - length, "\n") < 0) {
-        handle_error(&msg, "snprintf");
-        return NULL;
-    }
     return msg;
 }
 

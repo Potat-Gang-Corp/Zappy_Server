@@ -20,5 +20,6 @@ void notice_graphic_player_ejection(client_t *cli);
 void notice_gui_end_incantation(int x, int y, int status);
 void notice_gui_incantation(int x, int y, int level, int *tab);
 void notice_player_death_event(client_t *cli);
+void print_all_teams_eggs(client_t *cli);
 
 #endif /* !NOTIFICATIONS_H_ */

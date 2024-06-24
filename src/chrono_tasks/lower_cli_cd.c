@@ -10,6 +10,7 @@
 
 int lower_cli_cd(client_t *cli)
 {
+    printf("cli->cd = %d\n", cli->cd);
     if (cli->cd > 0)
         cli->cd--;
     return 0;

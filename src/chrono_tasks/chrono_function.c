@@ -39,4 +39,5 @@ void execute_chrono_tasks(void)
         }
         cli = next_cli;
     }
+    handle_exec_chrono_task_bis();
 }

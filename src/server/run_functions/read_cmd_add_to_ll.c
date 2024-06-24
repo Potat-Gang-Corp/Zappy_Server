@@ -15,6 +15,16 @@
 * @brief read and write command for the server
 */
 
+static int count_nb_cmd(client_t *cli)
+{
+    if (cli->nb_commands < 10) {
+        cli->nb_commands++;
+        return 0;
+    } else {
+        return 84;
+    }
+}
+
 int max_cmd_cli(int cli_id)
 {
     server_t *server = get_instance();
@@ -22,66 +32,61 @@ int max_cmd_cli(int cli_id)
 
     while (cli != NULL) {
         if (cli->socket == cli_id) {
-            if (cli->nb_commands < 10) {
-                cli->nb_commands++;
-                return 0;
-            } else {
-                return 84;
-            }
+            return count_nb_cmd(cli);
         }
         cli = cli->next;
     }
     return 84;
 }
 
-static int separate_function(int cli_id, command_t *new_command)
+static int separate_function(int cli_socket, command_t *new_command)
 {
     server_t *server = get_instance();
 
-    if (is_gui(cli_id))
+    if (is_gui(cli_socket))
         TAILQ_INSERT_TAIL(&server->commands_gui, new_command, entries);
     else
         TAILQ_INSERT_TAIL(&server->commands, new_command, entries);
     return 0;
 }
 
-int add_cmd_to_ll(int cli_id, const char *cmd)
+int add_cmd_to_ll(int cli_socket, const char *cmd)
 {
     command_t *new_command;
 
-    if (!cmd || cmd[0] == '\0' || max_cmd_cli(cli_id) == 84)
+    if (!cmd || cmd[0] == '\0' || max_cmd_cli(cli_socket) == 84)
         return 84;
     new_command = malloc(sizeof(command_t));
     if (!new_command) {
         perror("malloc");
         return 84;
     }
-    new_command->cli_id = cli_id;
+    new_command->cli_id = cli_socket;
     new_command->command = strdup(cmd);
     if (!new_command->command) {
         perror("strdup");
         free(new_command);
         return 84;
     }
-    separate_function(cli_id, new_command);
+    separate_function(cli_socket, new_command);
     return 0;
 }
 
 void read_buffer_to_list(client_t *cli)
 {
-    char *buffer = read_cli_cmd(cli->socket);
-    char *cmd;
-    char *saveptr = NULL;
+    char *b = read_cli_cmd(cli->socket);
+    char *c;
+    char *sptr = NULL;
 
-    if (!buffer || buffer[0] == '\0' || buffer[0] == '\n') {
-        free(buffer);
+    if (!b || b[0] == '\0' || b[0] == '\n') {
+        free(b);
         return;
     }
-    for (cmd = strtok_r(buffer, "\n", &saveptr); cmd; cmd = strtok_r(NULL, "\n", &saveptr)) {
-        if (*cmd != '\0')
-            add_cmd_to_ll(cli->socket, cmd);
+    for (c = strtok_r(b, "\n", &sptr); c; c = strtok_r(NULL, "\n", &sptr)) {
+        if (*c != '\0')
+            add_cmd_to_ll(cli->socket, c);
     }
-    free(buffer);
+    free(b);
 }
 
 int handle_clients(void)

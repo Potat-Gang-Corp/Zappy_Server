@@ -48,7 +48,7 @@ int cmd_fork(char *command_type, int cli_socket)
     (void)command_type;
     for (int j = 0; j < game->nb_teams; j++) {
         if (strcmp(game->teams[j]->name, cli->team) == 0) {
-            cli->egg_id_laying = game->nb_eggs_layed + 1;
+            cli->egg_id_laying = game->nb_eggs_layed;
             game->nb_eggs_layed++;
             cli->is_laying = true;
         }

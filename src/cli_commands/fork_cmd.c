@@ -51,18 +51,6 @@ waiting_client_t *get_waiting_client(server_t *server, char *team_name)
     return waiting_client;
 }
 
-static void notice_graphic_client_fork_spawn(int egg_id)
-{
-    server_t *server = get_instance();
-    client_t *graphic = NULL;
-
-    for (graphic = server->clients; graphic != NULL; graphic = graphic->next) {
-        if (graphic->graphic == true) {
-            dprintf(graphic->socket, "ebo #%d\n", egg_id);
-        }
-    }
-}
-
 void spawn_player_if_waiting(server_t *server,
     waiting_client_t *waiting_client, int team_index, int egg_id)
 {

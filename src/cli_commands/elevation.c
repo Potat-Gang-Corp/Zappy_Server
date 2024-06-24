@@ -24,6 +24,7 @@ bool check_level_players(client_t *s, int level, int nb)
         perror("malloc");
         return false;
     }
+    memset(tab, 0, (size + 1) * sizeof(int));
     tab[0] = s->id;
     cpt = fill_tab(&tab, &size, s, cpt);
     tab[cpt] = -1;

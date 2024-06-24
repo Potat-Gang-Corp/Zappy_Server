@@ -42,29 +42,34 @@ void send_incantation_message(client_t *cli, const char *message)
     }
 }
 
+bool handle_error(char **msg, const char *error_msg)
+{
+    free(*msg);
+    perror(error_msg);
+    return false;
+}
+
 char *build_incantation_message(int x, int y, int level, int *tab)
 {
     size_t s = 32;
-    char *msg = malloc(s);
+    char *msg = malloc(sizeof(char) * s);
     int length;
 
     if (!msg) {
-        perror("malloc");
+        handle_error(&msg, "malloc");
         return NULL;
     }
     length = snprintf(msg, s, "pic %d %d %d", x, y, level);
     if (length < 0) {
-        free(msg);
-        perror("snprintf");
+        handle_error(&msg, "snprintf");
         return NULL;
     }
     for (int i = 0; tab[i] != -1; i++) {
-        if (!append_to_message(&msg, &s, &length, tab[i])) {
+        if (!append_to_message(&msg, &s, &length, tab[i]))
             return NULL;
-        }
     }
     if (snprintf(msg + length, s - length, "\n") < 0) {
-        free(msg);
+        handle_error(&msg, "snprintf");
         return NULL;
     }
     return msg;

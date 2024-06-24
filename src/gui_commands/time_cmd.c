@@ -25,7 +25,11 @@ int cmd_sst(char *command_type, int gui_socket)
     int time_nb;
 
     time_parameter = strtok(NULL, " #");
+    if (!time_parameter)
+        return 84;
     time_nb = atoi(time_parameter);
+    if (time_nb < 0)
+        return 84;
     dprintf(gui_socket, "sst %d\n", time_nb);
     game->freq = time_nb;
     return 0;

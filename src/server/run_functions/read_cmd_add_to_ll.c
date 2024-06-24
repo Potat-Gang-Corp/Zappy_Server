@@ -31,7 +31,7 @@ int max_cmd_cli(int cli_id)
     client_t *cli = server->clients;
 
     while (cli != NULL) {
-        if (cli->socket == cli_id) {
+        if (cli->socket == cli_id && cli->graphic != true) {
             return count_nb_cmd(cli);
         }
         cli = cli->next;
@@ -54,11 +54,13 @@ int add_cmd_to_ll(int cli_socket, const char *cmd)
 {
     command_t *new_command;
 
-    if (!cmd || cmd[0] == '\0' || max_cmd_cli(cli_socket) == 84)
-        return 84;
     new_command = malloc(sizeof(command_t));
     if (!new_command) {
         perror("malloc");
+        return 84;
+    }
+    if (max_cmd_cli(cli_socket) == 84 || cmd[0] == '\0' || cmd[0] == '\n') {
+        free(new_command);
         return 84;
     }
     new_command->cli_id = cli_socket;
@@ -83,8 +85,9 @@ void read_buffer_to_list(client_t *cli)
         return;
     }
     for (c = strtok_r(b, "\n", &sptr); c; c = strtok_r(NULL, "\n", &sptr)) {
-        if (*c != '\0')
+        if (*c != '\0') {
             add_cmd_to_ll(cli->socket, c);
+        }
     }
     free(b);
 }

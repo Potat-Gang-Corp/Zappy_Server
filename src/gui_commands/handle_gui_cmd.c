@@ -50,6 +50,8 @@ void handle_gui_cmd(void)
         command = cmd->command;
         gui_socket = cmd->cli_id;
         execute_gui_cmd(gui_socket, command);
+        if (cmd->command != NULL)
+            free(cmd->command);
         TAILQ_REMOVE(&s->commands_gui, cmd, entries);
         free(cmd);
     }

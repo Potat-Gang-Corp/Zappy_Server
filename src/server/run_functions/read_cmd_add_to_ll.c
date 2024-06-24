@@ -51,8 +51,10 @@ int add_cmd_to_ll(int cli_id, const char *cmd)
         perror("malloc");
         return 84;
     }
-    if (max_cmd_cli(cli_id) == 84 || cmd[0] == '\0')
+    if (max_cmd_cli(cli_id) == 84 || cmd[0] == '\0') {
+        free(new_command);
         return 84;
+    }
     new_command->cli_id = cli_id;
     new_command->command = strdup(cmd);
     if (new_command->command == NULL) {

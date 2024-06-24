@@ -62,7 +62,6 @@ void place_egg_on_map_bis(int team_index, map_t *map)
     int x = 0;
     int y = 0;
     item_type_t type;
-    int nb_eggs = game->nb_eggs_layed;
 
     for (int j = 0; j < game->player_slots; j++) {
         x = rand() % map->width;
@@ -73,7 +72,8 @@ void place_egg_on_map_bis(int team_index, map_t *map)
         }
         type = EGG;
         add_item_to_tiles(map->tiles[tile_index], type);
-        add_egg_to_team_ll(game->teams[team_index], x, y, nb_eggs + 1);
+        add_egg_to_team_ll(game->teams[team_index], x, y,
+            game->nb_eggs_layed + 1);
         game->nb_eggs_layed++;
     }
 }

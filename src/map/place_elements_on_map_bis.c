@@ -73,7 +73,7 @@ void place_egg_on_map_bis(int team_index, map_t *map)
         type = EGG;
         add_item_to_tiles(map->tiles[tile_index], type);
         add_egg_to_team_ll(game->teams[team_index], x, y,
-            game->nb_eggs_layed + 1);
+            game->nb_eggs_layed);
         game->nb_eggs_layed++;
     }
 }
@@ -82,6 +82,7 @@ int place_egg_on_map(map_t *map)
 {
     game_t *game = get_game_instance();
 
+    game->nb_eggs_layed = 1;
     for (int i = 0; i < game->nb_teams; i++) {
         place_egg_on_map_bis(i, map);
     }

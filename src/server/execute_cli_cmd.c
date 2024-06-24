@@ -37,10 +37,14 @@ client_t *get_client_by_socket(int cli_socket)
 
 static int exec_func(int cli_s, char *command, client_t *cli)
 {
+    if (cli == NULL) {
+        return 84;
+    }
     if (cli->graphic == true)
         return 2;
     if (cli->socket == cli_s && cli->logged == false) {
-        handle_cli_login(cli, command);
+        if (handle_cli_login(cli, command) == 1)
+            return 1;
         return 0;
     }
     if (cli->socket == cli_s && cli->logged == true && cli->cd == 0) {
@@ -53,18 +57,12 @@ static int exec_func(int cli_s, char *command, client_t *cli)
 
 int found_cli_and_exec(int cli_socket, char *command)
 {
-    server_t *server = get_instance();
-    client_t *cli = server->clients;
-    int ret_val = 0;
+    client_t *cli = get_client_by_socket(cli_socket);
 
-    for (cli = server->clients; cli != NULL; cli = cli->next) {
-        ret_val = exec_func(cli_socket, command, cli);
-        if (ret_val == 0)
-            return 0;
-        if (ret_val == 2)
-            continue;
+    if (cli == NULL) {
+        return 84;
     }
-    return 1;
+    return exec_func(cli_socket, command, cli);
 }
 
 int execute_cli_cmd_bis(command_t *cmd)

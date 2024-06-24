@@ -202,7 +202,7 @@ int select_function(void);
  * and if the team is full or not.
  * @return return noting.
  */
-void handle_cli_login(client_t *cli, char *command);
+int handle_cli_login(client_t *cli, char *command);
 
 /**
  * @brief Function to check if the team name is valid or not

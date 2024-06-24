@@ -55,8 +55,12 @@ int remove_client(int cli_socket)
     client_t *prev;
     client_t *cli = find_client_and_prev(cli_socket, &prev);
 
-    if (remove_found_client(prev, cli) == 84)
+    if (cli == NULL) {
         return 84;
+    }
+    if (remove_found_client(prev, cli) == 84) {
+        return 84;
+    }
     return 0;
 }
 

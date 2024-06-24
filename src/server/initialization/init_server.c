@@ -86,7 +86,6 @@ int init_server(void)
     server->maxfd = 0;
     server->nb_players = 0;
     server->clients = NULL;
-    server->nb_connected_players = 0;
     server->client_id = 1;
     TAILQ_INIT(&server->waiting_list);
     TAILQ_INIT(&server->commands);

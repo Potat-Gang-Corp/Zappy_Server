@@ -68,8 +68,9 @@ int found_cli_and_exec(int cli_socket, char *command)
 int execute_cli_cmd_bis(command_t *cmd)
 {
     server_t *server = get_instance();
+    int ret = found_cli_and_exec(cmd->cli_id, cmd->command);
 
-    if (found_cli_and_exec(cmd->cli_id, cmd->command) == 0) {
+    if (ret == 0 || ret == 1) {
         TAILQ_REMOVE(&server->commands, cmd, entries);
         free(cmd->command);
         free(cmd);

@@ -51,18 +51,38 @@ waiting_client_t *get_waiting_client(server_t *server, char *team_name)
     return waiting_client;
 }
 
-void spawn_player_if_waiting(server_t *server,
-    waiting_client_t *waiting_client, int team_index, int egg_id)
+static void setup_waiting_client(int socket, int team_index)
 {
-    client_t *cli;
+    char s[1024];
+    char coordinates[1024];
+    int len;
 
-    for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (waiting_client->socket == cli->socket) {
-            player_spawn(cli, team_index);
-            notice_graphic_client_fork_spawn(egg_id);
-            printf("Player spawned\n");
-        }
+    len = snprintf(s, sizeof(s), "%d\n",
+        get_game_instance()->teams[team_index]->max_clients);
+    write(socket, s, len);
+    len = snprintf(coordinates, sizeof(coordinates),
+    "%d %d\n", get_game_instance()->width, get_game_instance()->height);
+    write(socket, coordinates, len);
+}
+
+void spawn_player_if_waiting(waiting_client_t *waiting_client, int team_index)
+{
+    client_t *new_client = calloc(1, sizeof(client_t));
+    int so;
+
+    if (new_client == NULL) {
+        perror("calloc");
+        close(waiting_client->socket);
+        return;
     }
+    add_cli_to_ll(new_client, new_client->socket);
+    new_client->socket = waiting_client->socket;
+    new_client->team = strdup(waiting_client->team);
+    new_client->logged = true;
+    so = new_client->socket;
+    printf("Added client from waiting list with socket %d\n", so);
+    player_spawn(new_client, team_index);
+    setup_waiting_client(so, team_index);
 }
 
 void handle_team_egg_laying(server_t *server, team_t *team, int team_index)
@@ -73,11 +93,10 @@ void handle_team_egg_laying(server_t *server, team_t *team, int team_index)
     while (egg != NULL && team->max_clients > 0 &&
         !TAILQ_EMPTY(&server->waiting_list)) {
         waiting_client = get_waiting_client(server, team->name);
-        if (waiting_client != NULL) {
-            spawn_player_if_waiting(server, waiting_client,
-                team_index, egg->egg_id);
-        }
         team->max_clients--;
+        if (waiting_client != NULL) {
+            spawn_player_if_waiting(waiting_client, team_index);
+        }
         egg = egg->next;
     }
 }

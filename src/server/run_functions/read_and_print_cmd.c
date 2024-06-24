@@ -51,7 +51,7 @@ char *read_cli_cmd(int cli_socket)
         fprintf(stderr, "Error reading command from Client %d\n", cli_socket);
         if (cli->graphic == false)
             notice_player_death_event(cli);
-        remove_client(cli_socket);
+        remove_client(cli_socket, true);
         return NULL;
     }
     printf("Reading command from Client %d: %s", cli_socket, cmd);

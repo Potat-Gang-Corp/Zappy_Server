@@ -28,7 +28,7 @@ bool update_player_status(client_t *cli)
 {
     if (cli->inventory.food == 0) {
         notice_player_death_event(cli);
-        remove_client(cli->socket);
+        remove_client(cli->socket, true);
         return false;
     } else {
         cli->time_to_live += 126;

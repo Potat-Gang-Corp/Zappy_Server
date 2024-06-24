@@ -329,7 +329,7 @@ double current_time_millis(void);
  * @details will remove the client from the linked list.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-int remove_client(int cli_socket);
+int remove_client(int cli_socket, bool flag);
 
 //read_and_print_cmd.c
 
@@ -520,7 +520,7 @@ int handle_team_full(client_t *cli, int team_index, char *team_name);
  * @details will remove the found client from the linked list.
  * @return return 0 if everything's good or 84 if an error occured.
  */
-int remove_found_client(client_t *prev, client_t *cli);
+int remove_found_client(client_t *prev, client_t *cli, bool flag);
 
 /**
  * @brief Function to find the client and the previous client

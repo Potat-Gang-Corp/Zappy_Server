@@ -20,7 +20,7 @@ void handle_timeout_login(void)
         cli->cycle++;
         if (cli->logged == false && cli->cycle == 120) {
             dprintf(cli->socket, "Connexion Timeout\n");
-            remove_client(cli->socket);
+            remove_client(cli->socket, true);
             cli = next_cli;
             continue;
         }

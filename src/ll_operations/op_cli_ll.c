@@ -31,7 +31,7 @@ client_t *find_client_and_prev(int cli_socket, client_t **prev_out)
     return NULL;
 }
 
-int remove_found_client(client_t *prev, client_t *cli)
+int remove_found_client(client_t *prev, client_t *cli, bool flag)
 {
     server_t *server = get_instance();
 
@@ -42,7 +42,8 @@ int remove_found_client(client_t *prev, client_t *cli)
     } else {
         prev->next = cli->next;
     }
-    close(cli->socket);
+    if (flag == true)
+        close(cli->socket);
     if (cli->team != NULL) {
         free(cli->team);
     }
@@ -50,7 +51,7 @@ int remove_found_client(client_t *prev, client_t *cli)
     return 0;
 }
 
-int remove_client(int cli_socket)
+int remove_client(int cli_socket, bool flag)
 {
     client_t *prev;
     client_t *cli = find_client_and_prev(cli_socket, &prev);
@@ -58,7 +59,7 @@ int remove_client(int cli_socket)
     if (cli == NULL) {
         return 84;
     }
-    if (remove_found_client(prev, cli) == 84) {
+    if (remove_found_client(prev, cli, flag) == 84) {
         return 84;
     }
     return 0;
@@ -114,7 +115,6 @@ void add_cli_to_ll(client_t *new_client, int client_socket)
 
 int add_client(int client_socket)
 {
-    server_t *server = get_instance();
     client_t *new_client = calloc(1, sizeof(client_t));
 
     if (new_client == NULL) {
@@ -125,6 +125,5 @@ int add_client(int client_socket)
     add_cli_to_ll(new_client, client_socket);
     printf("Added new client with socket %d\n", client_socket);
     write(new_client->socket, "WELCOME\n", strlen("WELCOME\n"));
-    server->nb_connected_players++;
     return 0;
 }

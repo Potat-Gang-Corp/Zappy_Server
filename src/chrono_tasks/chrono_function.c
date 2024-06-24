@@ -37,6 +37,18 @@ static void send_mct(client_t *cli)
     }
 }
 
+void handle_non_graphic_client(client_t *cli)
+{
+    bool status;
+
+    lower_cli_cd(cli);
+    status = handle_player_death(cli);
+    if (status == false) {
+        return;
+    }
+    check_egg_layed(cli);
+}
+
 void execute_chrono_tasks(void)
 {
     server_t *server = get_instance();
@@ -52,9 +64,7 @@ void execute_chrono_tasks(void)
         if (cli->graphic) {
             send_mct(cli);
         } else {
-            lower_cli_cd(cli);
-            handle_player_death(cli);
-            check_egg_layed(cli);
+            handle_non_graphic_client(cli);
         }
         cli = next_cli;
     }

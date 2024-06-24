@@ -611,7 +611,7 @@ item_type_t get_item_type(const char *item_name);
 void delete_item_from_tiles(tile_t *tile, item_type_t type);
 int checking_item_existence(items_t *item, item_type_t type);
 
-void handle_player_death(client_t *cli);
+bool handle_player_death(client_t *cli);
 
 bool is_gui(int cli_id);
 int lower_cli_cd(client_t *cli);

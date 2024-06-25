@@ -54,6 +54,6 @@ char *read_cli_cmd(int cli_socket)
         remove_client(cli_socket, true);
         return NULL;
     }
-    printf("Reading command from Client %d: %s", cli_socket, cmd);
+    // printf("Reading command from Client %d: %s", cli_socket, cmd);
     return cmd;
 }

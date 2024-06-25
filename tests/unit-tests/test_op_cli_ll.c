@@ -85,11 +85,9 @@ Test(client_management, add_cli_to_ll_test)
     int test_socket3 = 789;
 
     client_t *new_client3 = malloc(sizeof(client_t));
-
+ 
     add_cli_to_ll(new_client3, test_socket3);
-
     cr_assert_not_null(server->clients->next->next, "Next client should not be NULL after adding a third client");
-
     free(new_client);
 }
 

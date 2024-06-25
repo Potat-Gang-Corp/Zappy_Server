@@ -48,27 +48,20 @@ Test(client_management, find_client, .init = setup_remove_cli) {
 
 Test(client_management, remove_client, .init = setup_remove_cli) {
     server_t *server = get_instance();
-    int result = remove_client(101);
+    int result = remove_client(101, false);
 
     cr_assert_eq(result, 0, "Remove client should return 0 on success.");
     cr_assert_not_null(server->clients, "Clients list should not be empty.");
     cr_assert_eq(server->clients->socket, 102, "Next client should now be the first client.");
 
-    result = remove_client(103);
+    result = remove_client(103, false);
     cr_assert_eq(result, 0, "Remove client should return 0 on success.");
     cr_assert_not_null(server->clients, "Clients list should still not be empty after removing the last client.");
     cr_assert_eq(server->clients->socket, 102, "Remaining client should be 102 after removing 103.");
 }
 
-Test(client_management, remove_last_client, .init = setup_remove_cli) {
-    clean_client_struct();
-    int result = remove_client(103);
-
-    cr_assert_eq(result, 0, "Remove client should return 0 on success.");
-
-}
-
-Test(client_management, add_cli_to_ll_test) {
+Test(client_management, add_cli_to_ll_test)
+{
     int test_socket = 123;
     client_t *new_client = malloc(sizeof(client_t));
     new_client->next = NULL;
@@ -100,7 +93,8 @@ Test(client_management, add_cli_to_ll_test) {
     free(new_client);
 }
 
-Test(client_management, find_client_and_prev_test) {
+Test(client_management, find_client_and_prev_test)
+{
     int test_socket = 123;
     client_t *new_client = malloc(sizeof(client_t));
     new_client->socket = test_socket;

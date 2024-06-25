@@ -45,7 +45,7 @@ void add_egg_to_team_ll(team_t *team, int x, int y, int egg_id);
  * @param x X-coordinate where the map will be placed
  * @param y Y-coordinate where the map will be placed
  * @param width Width of the map
- * 
+ *
  * @details this function will initialize the map
  * @return nothing.
  */

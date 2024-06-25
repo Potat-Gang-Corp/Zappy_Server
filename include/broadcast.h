@@ -28,7 +28,7 @@
 int compute_direction(int dist_x, int dist_y, orientation_t orientation);
 
 /**
- * @brief Function to correct distance value between the sender and the receiver
+ * @brief Function to correct dist value between the sender and the receiver
  * @param int dist_x distance between the two sender and receiver
  * on the x axis
  * @param int dist_y distance between the two sender and receiver

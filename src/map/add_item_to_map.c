@@ -33,14 +33,6 @@ const char *get_items(item_type_t item)
     return item_name;
 }
 
-void display_item(items_t *item)
-{
-    while (item) {
-        printf("Item: %s\n", get_items(item->type));
-        item = item->next;
-    }
-}
-
 void add_item_to_tiles(tile_t *tile, item_type_t type)
 {
     items_t *new_item = malloc(sizeof(items_t));

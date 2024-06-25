@@ -568,97 +568,109 @@ void insert_new_client(client_t *cli, server_t *server);
  */
 int found_cli_and_exec(int cli_socket, char *command);
 
-void execute_cli_cmd_g(client_t *cli, char *command);
-int add_func(int a, int b);
-void second_init_map(map_t *map, int x, int y, int width);
-void init_map(map_t *map, int width, int height);
-int initialize_map(int width, int height);
-void display(struct map_s *map);
-
-int place_mendiane_on_map(map_t *map);
-int place_sibur_on_map(map_t *map);
-int place_deraumere_on_map(map_t *map);
-int place_linemate_on_map(map_t *map);
-int place_food_on_map(map_t *map);
-void place_egg_on_map_bis(int team_index, map_t *map);
-void add_egg_to_team_ll(team_t *team, int x, int y, int egg_id);
-
-int place_phiras_on_map(map_t *map);
-int place_thystame_on_map(map_t *map);
-
-const char *get_north_pos(void);
-const char *get_east_pos(void);
-const char *get_south_pos(void);
-const char *get_south_pos(void);
+/**
+ * @brief Function to organize the spawn of the player
+ * @param client_t *cli represent the client entity
+ * @param int team_index represent the team index
+ *
+ * @details will organize the spawn of the player by
+ * defining a player position with an egg of the team
+ * and a random orientation.
+ * @return noting.
+ */
 void player_spawn(client_t *cli, int team_index);
 
-const char *get_food(void);
-const char *get_linemate(void);
-const char *get_deraumere(void);
-const char *get_sibur(void);
-const char *get_mendiane(void);
-const char *get_phiras(void);
-const char *get_thystame(void);
-const char *get_egg(void);
-const char *get_player(void);
-const char *get_unknown(void);
-
-void add_item_to_tiles(tile_t *tile, item_type_t type);
-void place_randomly_items(map_t *map);
-void display_item(items_t *item);
-const char *get_items(item_type_t item);
-item_type_t get_item_type(const char *item_name);
-void delete_item_from_tiles(tile_t *tile, item_type_t type);
-int checking_item_existence(items_t *item, item_type_t type);
-
+/**
+ * @brief Function to check if a player is dead or not
+ * @param client_t *cli represent the client entity
+ *
+ * @details will check inventory of a player and if
+ * the cycle of life is over, and he has no food
+ * the player is dead.
+ * @return bool : true if is dead or false.
+ */
 bool handle_player_death(client_t *cli);
 
+/**
+ * @brief Function to check if a client is a graphical client
+ * @param int cli_id represent the client id.
+ *
+ * @details will check if the client is a graphical client.
+ * @return bool : true if is a graphical client or false.
+ */
 bool is_gui(int cli_id);
+
+/**
+ * @brief Function to decrement the waiting time of a client
+ * command
+ * @param client_t *cli represent the client entity
+ *
+ * @details if the client has a waiting time, the function
+ * will decrement it of one.
+ * @return noting special.
+ */
 int lower_cli_cd(client_t *cli);
 
-void handle_egg_laying(void);
-void client_fork_end(client_t *cli);
-
-void move_player(client_t *cli, game_t *game);
-
-int parse_cmd_table(char *cmd, int cli_socket, char *full_cmd);
-
+/**
+ * @brief Function to get the waiting client
+ * @param server_t *server represent the server entity
+ * @param char *team_name represent the team name
+ *
+ * @details will get the waiting client node desired in
+ * the attached linked list..
+ * @return return the waiting client entity.
+ */
 waiting_client_t *get_waiting_client(server_t *server, char *team_name);
-void look_orientation(int *x, int *y, position_t pos, int *stock);
-int cross_items_ll(items_t *item, char **msg, size_t msg_size);
-int check_to_append(int offset, char **msg, size_t msg_size, int cond);
-int lvl_zero(char **msg, size_t *msg_size, position_t pos);
-int cmd_lvl(char **msg, map_t *map, position_t pos, int lvl);
+
+/**
+ * @brief Function to get the team index by name
+ * @param game_t *game represent the game entity
+ * @param char *team_name represent the team name
+ *
+ * @details will get the team intex related to the
+ * team name.
+ * @return return the team index.
+ */
 int get_team_index_by_name(game_t *game, char *team_name);
 
-void handle_renew_items(void);
-void refill_deraumere(map_t *map, int *counter_items);
-void refill_linemate(map_t *map, int *counter_items);
-void refill_food(map_t *map, int *counter_items);
-void count_items_on_map(int *counter_items, tile_t *tile);
-void refill_mendiane(map_t *map, int *counter_items);
-void refill_phiras(map_t *map, int *counter_items);
-void refill_thystame(map_t *map, int *counter_items);
-void handle_renew_items_bis(map_t *map, int *counter_items);
-void refill_sibur(map_t *map, int *counter_items);
-
+/**
+ * @brief Function to check if a team has win the game
+ * @param void
+ *
+ * @details will check if a team has 6 players of level 8. If
+ * yes, the team has win the game and the game ends.
+ * @return nothing.
+ */
 void handle_end_game(void);
 
+/**
+ * @brief Function to check the elapsed time of connexion for client.
+ * @param void.
+ *
+ * @details will check the elapsed time of connexion for client and
+ * disconnect the client if the time is over.
+ * @return void.
+ */
 void handle_timeout_login(void);
+
+/**
+ * @brief Function to execute differents tasks related to update of the game.
+ * @param void.
+ *
+ * @details will execute differents tasks related to update of the game like
+ * the renew of the map or also the end game condition.
+ * @return nothing.
+ */
 void execute_chrono_tasks(void);
-void handle_incantation(void);
 
-void push_players_to_tile(client_t *cli, int x, int y);
-void move_and_restore_orientation(client_t *tmp, game_t *game,
-    int new_orientation);
-void destroy_eggs(egg_t *egg, int x, int y);
-void delete_egg(egg_t **egg, egg_t **prev_egg, egg_t **curr_egg);
-
-char *build_message(char **bct_dict, map_t *map, int message_len);
-char **build_bct_dict(map_t *map, int *message_len);
-char *process_tile_and_get_message(map_t *map, int x, int y, int *message_len);
-char *compute_tile_stock(items_t *item_start, int x, int y);
-
+/**
+ * @brief Function to decrement the number of commands of a client.
+ * @param client_t *cli represent the client entity.
+ *
+ * @details will decrement the number of commands of a client when a command
+ * is executed by him related to the total number of commands sent.
+ * @return nothing.
+ */
 void lower_nb_cmd(client_t *cli);
 
 #endif /* !SERVER_H_ */

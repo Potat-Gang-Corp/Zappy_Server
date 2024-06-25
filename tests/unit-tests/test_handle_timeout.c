@@ -29,4 +29,3 @@ Test(timeout_testing, handle_timeout_login)
     remove_client(cli->socket, true);
     cr_assert_null(server->clients, "Client was not removed after timeout");
 }
-

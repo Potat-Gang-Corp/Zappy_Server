@@ -40,7 +40,6 @@ int handle_team_full(client_t *cli, int i, char *team_name)
     game_t *game = get_game_instance();
     char s[1024];
     char coordinates[1024];
-    // int len;
 
     if (game->teams[i]->max_clients < 1 && game->teams[i]->egg == NULL) {
         add_to_waiting_list(cli->socket, team_name);

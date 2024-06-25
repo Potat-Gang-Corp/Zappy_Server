@@ -13,7 +13,7 @@
 
 void notice_player_death_event(client_t *cli)
 {
-    signal(SIGPIPE, SIG_IGN);
+    //signal(SIGPIPE, SIG_IGN);
     server_t *server = get_instance();
     client_t *cli_ll = NULL;
 
@@ -22,9 +22,7 @@ void notice_player_death_event(client_t *cli)
             dprintf(cli_ll->socket, "pdi #%d\n", cli->id);
         }
     }
-    if ((dprintf(cli->socket, "dead\n")) < 0) {
-        perror("dprintf failed");
-    }
+    dprintf(cli->socket, "dead\n");
 }
 
 bool update_player_status(client_t *cli)

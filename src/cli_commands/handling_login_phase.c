@@ -40,20 +40,19 @@ int handle_team_full(client_t *cli, int i, char *team_name)
     game_t *game = get_game_instance();
     char s[1024];
     char coordinates[1024];
-    int len;
 
     if (game->teams[i]->max_clients < 1 && game->teams[i]->egg == NULL) {
         add_to_waiting_list(cli->socket, team_name);
-        write(cli->socket, "This team is full, please wait\n", 31);
+        dprintf(cli->socket, "This team is full, please wait\n");
         remove_client(cli->socket, false);
         return 1;
     } else {
         game->teams[i]->max_clients -= 1;
-        len = snprintf(s, sizeof(s), "%d\n", game->teams[i]->max_clients);
-        write(cli->socket, s, len);
-        len = snprintf(coordinates, sizeof(coordinates),
+        snprintf(s, sizeof(s), "%d\n", game->teams[i]->max_clients);
+        dprintf(cli->socket, "%s\n", s);
+        snprintf(coordinates, sizeof(coordinates),
             "%d %d\n", game->width, game->height);
-        write(cli->socket, coordinates, len);
+        dprintf(cli->socket, "%s\n", coordinates);
         player_spawn(cli, i);
         return 0;
     }
@@ -95,7 +94,7 @@ int handle_cli_login(client_t *cli, char *command)
         return 1;
     }
     if (cli->logged == false && ret == 84) {
-        write(cli->socket, msg, strlen(msg));
+        dprintf(cli->socket, "%s\n", msg);
         return 84;
     }
     cli->id = get_instance()->client_id;

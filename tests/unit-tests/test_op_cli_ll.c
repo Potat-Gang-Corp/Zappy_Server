@@ -110,4 +110,3 @@ Test(client_management, find_client_and_prev_test)
 
     free(new_client);
 }
-

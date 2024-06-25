@@ -15,6 +15,11 @@
     #include "struct_client.h"
 
 /**
+* @file broadcast.h
+* @brief File for broadcast functions
+*/
+
+/**
  * @brief Function to compute the direction of the broadcast
  * @param int dist_x distance between the two sender and receiver
  * on the x axis

@@ -43,6 +43,13 @@ map_t *get_map_instance(void);
  */
 game_t *get_game_instance(void);
 
+/**
+ * @brief Function that return the client by it socket.
+ * @param int cli_socket the client socket
+ *
+ * @details will return the structure of the client by it socket.
+ * @return client_t * return the client instance.
+ */
 client_t *get_client_by_socket(int cli_socket);
 
 #endif /* !GET_INSTANCE_H_ */

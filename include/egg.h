@@ -7,6 +7,12 @@
 
 #ifndef EGG_H
     #define EGG_H
+
+/**
+* @file egg.h
+* @brief File for the egg structure
+*/
+
 /**
  * @brief Handling the display of eggs
  * @param team_index Index of the team

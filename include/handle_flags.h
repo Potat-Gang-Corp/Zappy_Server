@@ -156,14 +156,12 @@ int n_flag_detection(int ac, int *i, char **av, int *fp);
 int handle_n_c_f(int ac, int *i, char **av, int *fp);
 
 /**
-* @brief Function that check the existence of a definition for n, c and f flags
-* @param int flags_present reference value of flags present in command line
+* @brief Function that check if every flags are present
+* @param int flags_present
 *
-* @details The function gets the reference value to detect what are the flags
-* present in the command line.
-* @return value 0 if all of the required flags are presents, else return 84.
+* @details The function checks if every flags are present
+* @return int unless the function found a problem so it exit 84
 */
-
 int handle_fp(int flags_present);
 
 #endif /* !HANDLE_FLAGS_H_ */

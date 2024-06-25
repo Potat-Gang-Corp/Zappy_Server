@@ -11,30 +11,10 @@
     #include "my.h"
 
 /**
- * @brief Function to handle the left command
- * @param client_t *cli the client who sent the command
- *
- * @details will change the orientation of the client to the left
- * @return nothing.
- */
-void handle_left_command(client_t *cli);
-/**
- * @brief Function to handle the right command
- * @param client_t *cli the client who sent the command
- *
- * @details will change the orientation of the client to the right
- * @return nothing.
- */
-void handle_right_command(client_t *cli);
-/**
- * @brief Function to handle the connect_nbr command
- * @param client_t *cli the client who sent the command
- *
- * @details will return the number of of slots avalaible for the
- * choosen team
- * @return nothing.
- */
-void handle_connect_nbr_command(client_t *cli);
+* @file commands.h
+* @brief File for the client commands
+*/
+
 /**
  * @brief Function to handle the look command
  * @param client_t *cli the client who sent the command
@@ -44,43 +24,7 @@ void handle_connect_nbr_command(client_t *cli);
  * @return nothing.
  */
 void move_player(client_t *cli, game_t *game);
-/**
- * @brief Function to handle the forward command
- * @param client_t *cli the client who sent the command
- *
- * @details will move the client forward
- * @return nothing.
- */
-void handle_forward_command(client_t *cli);
-/**
- * @brief Function to handle the inventory command
- * @param client_t *cli the client who sent the command
- *
- * @details will return the inventory of the client
- * @return nothing.
- */
-void handle_inventory_command(client_t *cli);
-/**
- * @brief Function to handle the take command
- * @param client_t *cli the client who sent the command
- * @param char *command the command sent by the client
- *
- * @details will take an item on the map and put it
- * in the client inventory
- * @return nothing.
- */
-void handle_take_command(client_t *cli, char *command);
 
-/**
- * @brief Function to handle the set command
- * @param client_t *cli the client who sent the command
- * @param char *command the command sent by the client
- *
- * @details will take an item from the client inventory and put it
- * on the tile of the client.
- * @return nothing.
- */
-void handle_set_command(client_t *cli, char *command);
 /**
  * @brief Function to handle the fork command
  * @param client_t *cli the client who sent the command.

@@ -11,6 +11,11 @@
     #include "my.h"
 
 /**
+* @file commands_entry_gui.h
+* @brief File for the gui commands
+*/
+
+/**
  * @brief Function to handle the msz command
  * @param command_type the command type
  * @param gui_socket the gui socket

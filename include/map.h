@@ -11,6 +11,11 @@
     #include "struct_map.h"
 
 /**
+* @file map.h
+* @brief File for the map functions
+*/
+
+/**
  * @brief delete item from tiles
  * @param team_index Index of the team
  * @param map Map structure where eggs will be placed

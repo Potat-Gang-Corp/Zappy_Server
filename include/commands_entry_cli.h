@@ -9,6 +9,12 @@
     #define COMMANDS_ENTRY_T_H_
 
     #include "my.h"
+
+/**
+* @file commands_entry_cli.h
+* @brief File for the client commands
+*/
+
 /**
  * @brief Function to handle the left command
  * @param command_type the command type

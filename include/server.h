@@ -673,4 +673,20 @@ void execute_chrono_tasks(void);
  */
 void lower_nb_cmd(client_t *cli);
 
+/**
+ * @brief Place an egg on the map
+ * @param map_t *map the map structure
+ * @return int.
+ */
+int place_egg_on_map(map_t *map);
+
+/**
+ * @brief Function append the content to the message
+ * @param char **msg the current message
+ * @param size_t *current_size the size of the message
+ * @param char *new_content the new content to append
+ * @return int.
+ */
+int append_to_msg(char **msg, size_t *current_size, const char *new_content);
+
 #endif /* !SERVER_H_ */

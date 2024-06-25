@@ -81,14 +81,39 @@ int calculate_direction(int dist_x, int dist_y, orientation_t orientation)
 
 void send_message_to_client(client_t *cli, client_t *c_cli, int dir, char *m)
 {
+    char buffer[1024];
+    int len;
+
     if (!cli->graphic && cli->socket != c_cli->socket) {
-        dprintf(cli->socket, "message %d, %s\n", dir, m);
+        len = snprintf(buffer, sizeof(buffer), "message %d, %s\n", dir, m);
+        if (len >= 0) {
+            if (send(cli->socket, buffer, len, MSG_NOSIGNAL) == -1) {
+                perror("send");
+                // Supprimez le client en cas d'erreur d'envoi
+                remove_client(cli->socket, true);
+            }
+        }
     } else if (cli->graphic) {
-        dprintf(cli->socket, "pbc #%d %s\n", c_cli->id, m);
+        len = snprintf(buffer, sizeof(buffer), "pbc #%d %s\n", c_cli->id, m);
+        if (len >= 0) {
+            if (send(cli->socket, buffer, len, MSG_NOSIGNAL) == -1) {
+                perror("send");
+                // Supprimez le client en cas d'erreur d'envoi
+                remove_client(cli->socket, true);
+            }
+        }
         return;
     }
+
     if (cli->socket == c_cli->socket) {
-        dprintf(cli->socket, "ok\n");
+        len = snprintf(buffer, sizeof(buffer), "ok\n");
+        if (len >= 0) {
+            if (send(cli->socket, buffer, len, MSG_NOSIGNAL) == -1) {
+                perror("send");
+                // Supprimez le client en cas d'erreur d'envoi
+                remove_client(cli->socket, true);
+            }
+        }
     }
 }
 

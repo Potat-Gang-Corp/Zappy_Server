@@ -11,18 +11,31 @@
 #include "../../include/server.h"
 #include "../../include/struct_client.h"
 
-void notice_player_death_event(client_t *cli)
-{
-    //signal(SIGPIPE, SIG_IGN);
+void notice_player_death_event(client_t *cli) {
     server_t *server = get_instance();
     client_t *cli_ll = NULL;
+    char buffer[1024];
+    int len;
 
     for (cli_ll = server->clients; cli_ll != NULL; cli_ll = cli_ll->next) {
         if (cli_ll->graphic == true) {
-            dprintf(cli_ll->socket, "pdi #%d\n", cli->id);
+            len = snprintf(buffer, sizeof(buffer), "pdi #%d\n", cli->id);
+            if (len >= 0) {
+                if (send(cli_ll->socket, buffer, len, MSG_NOSIGNAL) == -1) {
+                    perror("send");
+                    remove_client(cli_ll->socket, true);
+                }
+            }
         }
     }
-    dprintf(cli->socket, "dead\n");
+
+    len = snprintf(buffer, sizeof(buffer), "dead\n");
+    if (len >= 0) {
+        if (send(cli->socket, buffer, len, MSG_NOSIGNAL) == -1) {
+            perror("send");
+            remove_client(cli->socket, true);
+        }
+    }
 }
 
 bool update_player_status(client_t *cli)

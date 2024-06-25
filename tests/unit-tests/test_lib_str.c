@@ -15,8 +15,9 @@
 #include "../../include/struct_client.h"
 #include <time.h>
 
-Test(append_tests, append_to_empty_string) {
-    char *msg = malloc(1);  // Start with enough space for an empty string
+Test(append_tests, append_to_empty_string)
+{
+    char *msg = malloc(1);
     *msg = '\0';
     size_t current_size = 1;
 
@@ -30,8 +31,8 @@ Test(append_tests, append_to_empty_string) {
     free(msg);
 }
 
-// Test appending when reallocation is needed
-Test(append_tests, append_with_reallocation) {
+Test(append_tests, append_with_reallocation)
+{
     char *msg = malloc(5);
     strcpy(msg, "Hi");
     size_t current_size = 5;

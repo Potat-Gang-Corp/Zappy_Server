@@ -14,6 +14,7 @@
 #include "../../include/struct_server.h"
 #include "../../include/struct_client.h"
 #include <time.h>
+#include "commands.h"
 
 // Test moving player north
 Test(player_movement, move_player_north) {

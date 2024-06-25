@@ -3,6 +3,7 @@
 #include "../../include/get_instance.h"
 #include "../../include/my.h"
 #include "../../include/server.h"
+#include "map.h"
 
 Test(tile_tests, remove_middle_item) {
     

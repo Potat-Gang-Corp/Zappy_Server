@@ -15,7 +15,7 @@
 #include "../../include/struct_client.h"
 #include "../../include/struct_map.h"
 #include "../../include/get_instance.h"
-
+#include "map.h"
 
 Test(init_map, test_init_map_no_failure) {
     map_t *map = malloc(sizeof(map_t));

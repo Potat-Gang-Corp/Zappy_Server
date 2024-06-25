@@ -15,6 +15,7 @@
 #include "../../include/struct_client.h"
 #include "elevation.h"
 #include <time.h>
+#include "map.h"
 
 map_t *create_map(int width, int height) {
     map_t *map = malloc(sizeof(map_t));

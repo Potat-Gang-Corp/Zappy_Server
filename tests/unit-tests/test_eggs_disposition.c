@@ -14,6 +14,8 @@
 #include "../../include/struct_server.h"
 #include "../../include/struct_client.h"
 #include <time.h>
+#include "map.h"
+#include "egg.h"
 
 Test(add_egg_to_team_ll, should_add_egg_to_team)
 {

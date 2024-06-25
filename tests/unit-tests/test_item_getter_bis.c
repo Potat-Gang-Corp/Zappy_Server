@@ -14,6 +14,7 @@
 #include "../../include/struct_server.h"
 #include "../../include/struct_client.h"
 #include <time.h>
+#include "map.h"
 
 Test(item_type_tests, recognize_known_items) {
     cr_assert(get_item_type("food") == FOOD, "Should identify 'food' as FOOD");

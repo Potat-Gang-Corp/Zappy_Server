@@ -14,6 +14,8 @@
 #include "../../include/struct_server.h"
 #include "../../include/struct_client.h"
 #include <time.h>
+#include "map.h"
+#include "commands.h"
 
 void setup_map_tiles(map_t *map) {
     map->tiles = calloc(map->width * map->height, sizeof(tile_t *));

@@ -14,6 +14,7 @@
 #include "../../include/struct_server.h"
 #include "../../include/struct_client.h"
 #include <time.h>
+#include "commands.h"
 
 client_t *create_and_add_client(server_t *server, int x, int y, orientation_t orientation) {
     client_t *new_client = malloc(sizeof(client_t));

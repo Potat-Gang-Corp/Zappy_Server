@@ -14,6 +14,7 @@
 #include "../../include/struct_server.h"
 #include "../../include/struct_client.h"
 #include <time.h>
+#include "map.h"
 
 Test(get_items, should_return_correct_item_names)
 {

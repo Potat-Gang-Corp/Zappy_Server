@@ -14,6 +14,7 @@
 #include "../../include/struct_server.h"
 #include "../../include/struct_client.h"
 #include <time.h>
+#include "map.h"
 
 Test(resource_tests, get_phiras_returns_correct_string) {
     cr_assert_str_eq(get_phiras(), "phiras", "get_phiras should return the string 'PHIRAS'");

@@ -47,7 +47,7 @@ void handle_end_game(void)
         }
     }
     for (int i = 0; i < game->nb_teams; i++) {
-        if (count_players[i] == 6) {
+        if (count_players[i] >= 6) {
             notice_client_end_game(game->teams[i]->name);
             handle_sigint(0);
         }

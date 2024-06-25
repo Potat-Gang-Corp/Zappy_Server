@@ -71,7 +71,9 @@ int handle_f(char *av, int *fp)
 {
     int nb;
     game_t *game = get_game_instance();
-
+    
+    if (av == NULL)
+        return 84;
     (*fp) |= 1 << 5;
     for (int i = 0; av[i]; i++) {
         if (av[i] < '0' || av[i] > '9') {

@@ -13,6 +13,7 @@
 
 void notice_player_death_event(client_t *cli)
 {
+    signal(SIGPIPE, SIG_IGN);
     server_t *server = get_instance();
     client_t *cli_ll = NULL;
 
@@ -21,12 +22,15 @@ void notice_player_death_event(client_t *cli)
             dprintf(cli_ll->socket, "pdi #%d\n", cli->id);
         }
     }
-    dprintf(cli->socket, "dead\n");
+    if ((dprintf(cli->socket, "dead\n")) < 0) {
+        perror("dprintf failed");
+    }
 }
 
 bool update_player_status(client_t *cli)
 {
     if (cli->inventory.food == 0) {
+        printf("alice\n");
         notice_player_death_event(cli);
         remove_client(cli->socket, true);
         return false;

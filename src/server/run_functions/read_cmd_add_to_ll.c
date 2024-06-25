@@ -80,7 +80,7 @@ void read_buffer_to_list(client_t *cli)
     char *c;
     char *sptr = NULL;
 
-    if (!b || b[0] == '\0' || b[0] == '\n') {
+    if (b == NULL || b[0] == '\0' || b[0] == '\n') {
         free(b);
         return;
     }

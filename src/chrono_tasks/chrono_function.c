@@ -21,7 +21,7 @@ void check_egg_layed(client_t *cli)
 void handle_exec_chrono_task_bis(void)
 {
     handle_end_game();
-    handle_timeout_login();
+    //handle_timeout_login();
     handle_egg_laying();
     handle_renew_items();
     handle_incantation();

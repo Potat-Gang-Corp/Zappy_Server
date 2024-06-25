@@ -48,9 +48,10 @@ char *read_cli_cmd(int cli_socket)
     client_t *cli = get_client_by_socket(cli_socket);
 
     if (cmd == NULL) {
+        printf("bob\n");
         fprintf(stderr, "Error reading command from Client %d\n", cli_socket);
-        if (cli->graphic == false)
-            notice_player_death_event(cli);
+        // if (cli->graphic == false)
+        //     notice_player_death_event(cli);
         remove_client(cli_socket, true);
         return NULL;
     }

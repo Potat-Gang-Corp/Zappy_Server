@@ -9,6 +9,9 @@
 #include "get_instance.h"
 #include "commands_gui.h"
 #include "elevation.h"
+#include "commands.h"
+#include "egg.h"
+#include "map.h"
 
 void check_egg_layed(client_t *cli)
 {

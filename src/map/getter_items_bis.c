@@ -10,6 +10,7 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 #include "../../include/struct_client.h"
+#include "map.h"
 
 item_type_t get_item_type(const char *item_name)
 {

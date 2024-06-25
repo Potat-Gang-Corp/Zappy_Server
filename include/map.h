@@ -70,14 +70,7 @@ void init_map(map_t *map, int width, int height);
  *@return 1 if the map is initialized, 0 otherwise.
 */
 int initialize_map(int width, int height);
-/**
- *@brief display map
- *@param map Pointer to the map structure
- *
- *@details this function will display the map
- *@return nothing.
-*/
-void display(struct map_s *map);
+
 /**
  *@brief place mendiane on map
  *@param map Pointer to the map structure

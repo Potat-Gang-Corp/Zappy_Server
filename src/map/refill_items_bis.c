@@ -9,6 +9,7 @@
 #include "struct_map.h"
 #include "get_instance.h"
 #include "server.h"
+#include "map.h"
 
 void count_items_on_map(int *counter_items, tile_t *tile)
 {

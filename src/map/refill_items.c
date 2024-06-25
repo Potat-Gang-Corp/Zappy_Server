@@ -9,6 +9,7 @@
 #include "struct_map.h"
 #include "get_instance.h"
 #include "server.h"
+#include "map.h"
 
 void refill_mendiane(map_t *map, int *counter_items)
 {

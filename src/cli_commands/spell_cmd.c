@@ -12,6 +12,7 @@
 #include "../../include/commands.h"
 #include "../../include/map.h"
 #include "elevation.h"
+#include "broadcast.h"
 
 int cmd_broadcast(char *command_type, int cli_socket)
 {

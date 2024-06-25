@@ -11,6 +11,7 @@
 #include "../../include/server.h"
 #include "../../include/struct_client.h"
 #include "notifications.h"
+#include "map.h"
 
 void player_spawn(client_t *cli, int team_index)
 {

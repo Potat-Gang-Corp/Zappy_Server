@@ -14,6 +14,7 @@
 #include "../../include/inventory.h"
 #include "../../include/notifications.h"
 #include "look.h"
+#include "egg.h"
 
 int follow(client_t *cli, char *msg, size_t msg_size)
 {

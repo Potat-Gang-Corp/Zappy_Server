@@ -10,6 +10,7 @@
 #include "struct_server.h"
 #include "get_instance.h"
 #include "server.h"
+#include "map.h"
 
 /**
 * @file main.c

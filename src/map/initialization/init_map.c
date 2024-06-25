@@ -9,23 +9,11 @@
 #include "struct_map.h"
 #include "server.h"
 #include "get_instance.h"
+#include "map.h"
 /**
 * @file init_map.c
 * @brief Initializes the map structure
 */
-
-void display(struct map_s *map)
-{
-    items_t *item;
-
-    for (int x = 0; x < map->width; x++) {
-        for (int y = 0; y < map->height; y++) {
-            printf("Tile at (%d, %d):\n", x, y);
-            item = map->tiles[x + y * map->width]->items;
-            display_item(item);
-        }
-    }
-}
 
 void second_init_map(map_t *map, int x, int y, int width)
 {
@@ -52,7 +40,6 @@ void init_map(map_t *map, int width, int height)
             map->tiles[x + y * width]->x = x;
             map->tiles[x + y * width]->y = y;
             map->tiles[x + y * width]->items = NULL;
-            display_item(map->tiles[x + y * width]->items);
         }
     }
     place_randomly_items(map);
@@ -83,6 +70,5 @@ int initialize_map(int width, int height)
     init_map(map, width, height);
     if (check_map(map) == 84)
         return 84;
-    map->display = &display;
     return 0;
 }

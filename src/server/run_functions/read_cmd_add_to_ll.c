@@ -37,6 +37,7 @@ int max_cmd_cli(int cli_id)
 static int separate_function(int cli_socket, command_t *new_command)
 {
     server_t *server = get_instance();
+
     if (is_gui(cli_socket) == true) {
         TAILQ_INSERT_TAIL(&server->commands_gui, new_command, entries);
     } else {

@@ -41,7 +41,7 @@ Test(get_map_instance, test_get_map_instance) {
 }
 
 Test(get_game_instance, test_get_game_instance) {
-    char *av[] = { "./zappy_server", "-p", "1234", "-x", "100", "-y", "100", "-n", "team1", "-c", "10", "-f", "10" };
+    char *av[] = { "./zappy_server", "-p", "1234", "-x", "35", "-y", "35", "-n", "team1", "-c", "10", "-f", "10" };
 
     handle_flags(13, av);
 
@@ -51,8 +51,8 @@ Test(get_game_instance, test_get_game_instance) {
     cr_assert_not_null(game_instance1, "Expected get_game_instance() to return a non-null pointer");
     cr_assert_eq(game_instance1, game_instance2, "Expected get_game_instance() to return the same pointer on multiple calls");
 
-    cr_assert_eq(game_instance1->width, 100);
-    cr_assert_eq(game_instance1->height, 100);
+    cr_assert_eq(game_instance1->width, 35);
+    cr_assert_eq(game_instance1->height, 35);
     cr_assert_eq(game_instance1->freq, 10);
     cr_assert_eq(game_instance1->nb_teams, 1);
 }

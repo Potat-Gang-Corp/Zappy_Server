@@ -15,7 +15,7 @@
 
 Test(handle_flags, flags_test)
 {
-    char *av[] = { "./zappy_server", "-p", "1234", "-x", "100", "-y", "100", "-n", "team1", "-c", "10", "-f", "50" };
+    char *av[] = { "./zappy_server", "-p", "1234", "-x", "34", "-y", "34", "-n", "team1", "-c", "10", "-f", "50" };
     int ac = 11;
 
     int result = handle_flags(ac, av);

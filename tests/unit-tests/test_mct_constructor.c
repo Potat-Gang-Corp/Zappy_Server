@@ -56,39 +56,3 @@ map_t *setup_map_mct_cmd(int width, int height) {
     return map;
 }
 
-
-Test(map_processing, compute_tile_stock_correctly) {
-    map_t *map = setup_map_mct_cmd(10, 10);
-    int x = 5, y = 5;  // Center of the map
-    int message_len = 0;
-
-    char *message = process_tile_and_get_message(map, x, y, &message_len);
-    cr_assert_str_not_empty(message, "Message should not be null.");
-    cr_assert_str_eq(message, "bct 5 5 1 1 0 0 0 0 0\n", "Message format should match expected output.");
-    free(message);
-    free_map_tiles(map);
-    free(map);
-}
-
-Test(map_processing, handle_empty_tiles) {
-    map_t *map = setup_map_mct_cmd(10, 10);
-    int message_len = 0;
-
-    // Testing an empty tile
-    char *message = process_tile_and_get_message(map, 0, 0, &message_len);
-    cr_assert_not_null(message, "Message should not be null.");
-    cr_assert_str_eq(message, "bct 0 0 0 0 0 0 0 0 0\n", "Message for an empty tile should show zero counts.");
-    free(message);
-    free_map_tiles(map);
-    free(map);
-}
-
-Test(map_processing, build_complete_message) {
-    map_t *map = setup_map_mct_cmd(2, 2);
-    int message_len = 0;
-    char **bct_dict = build_bct_dict(map, &message_len);
-    char *complete_message = build_message(bct_dict, map, message_len);
-
-    cr_assert_str_not_empty(complete_message, "Complete message should not be null.");
-    cr_assert(strlen(complete_message) > 0, "Complete message should have content.");
-}

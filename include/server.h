@@ -17,6 +17,8 @@
 * @brief Contains definitions of the server management functions
 */
 
+#define MAX_CLIENTS 1024
+
 typedef struct timespec timespec_t;
 //init_server.c
 
@@ -688,5 +690,19 @@ int place_egg_on_map(map_t *map);
  * @return int.
  */
 int append_to_msg(char **msg, size_t *current_size, const char *new_content);
+
+/**
+ * @brief Function that calculate the length of the linked list of cli
+ * @param client_t *clients the linked list of clients
+ * @return int. len of the linked list
+ */
+int calc_len_ll(client_t *clients);
+
+/**
+ * @brief Function that chandle the socket error
+ * @param void no parameters are required.
+ * @return int return 84 
+ */
+int handle_socket_error(void);
 
 #endif /* !SERVER_H_ */

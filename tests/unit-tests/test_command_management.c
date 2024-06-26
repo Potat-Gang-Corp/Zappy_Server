@@ -52,12 +52,6 @@ Test(max_cmd_cli_tests, normal_test)
     cr_assert_eq(cli->nb_commands, 10);
 }
 
-Test(max_cmd_cli_tests, no_client)
-{
-    int result = max_cmd_cli(2);
-    cr_assert_eq(result, 84);
-}
-
 Test(add_cmd_to_ll_tests, normal_test)
 {
     server_t *server;

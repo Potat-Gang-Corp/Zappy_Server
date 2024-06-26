@@ -6,6 +6,10 @@
 */
 
 #include "server.h"
+/**
+ * @file inventory_operations.c
+ * @brief File handling the inventory operations
+*/
 
 void add_item_to_inventory(client_t *cli, item_type_t type)
 {

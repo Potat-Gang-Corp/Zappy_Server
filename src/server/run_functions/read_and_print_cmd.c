@@ -51,6 +51,8 @@ char *read_cli_cmd(int cli_socket)
         fprintf(stderr, "Error reading command from Client %d\n", cli_socket);
         if (cli->graphic == false)
             notice_player_death_event(cli);
+        else
+            get_instance()->nb_gui--;
         remove_client(cli_socket, true);
         return NULL;
     }

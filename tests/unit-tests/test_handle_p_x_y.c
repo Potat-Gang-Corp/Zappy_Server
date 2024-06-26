@@ -28,9 +28,11 @@ Test(handle_x, test_handle_x_function)
 {
     char *invalid_buffer = "abc";
     char *negative_value = "-1";
-    char *valid_value = "1";
+    char *inferior_value = "4";
+    char *valid_value = "5";
     cr_assert_eq(handle_x(invalid_buffer), 84, "Expected exit code 84 for char value : %s", invalid_buffer);
     cr_assert_eq(handle_x(negative_value), 84, "Expected exit code 84 for negative value : %s", negative_value);
+    cr_assert_eq(handle_y(negative_value), 84, "Expected exit code 84 for inferior value : %s", inferior_value);
     cr_assert_eq(handle_x(valid_value), 0, "Expected exit code 0 for positive value : %s", valid_value);
 }
 
@@ -38,9 +40,11 @@ Test(handle_y, test_handle_y_function)
 {
     char *invalid_buffer = "abc";
     char *negative_value = "-1";
-    char *valid_value = "1";
+    char *inferior_value = "4";
+    char *valid_value = "5";
     cr_assert_eq(handle_y(invalid_buffer), 84, "Expected exit code 84 for char value : %s", invalid_buffer);
     cr_assert_eq(handle_y(negative_value), 84, "Expected exit code 84 for negative value : %s", negative_value);
+    cr_assert_eq(handle_y(negative_value), 84, "Expected exit code 84 for inferior value : %s", inferior_value);
     cr_assert_eq(handle_y(valid_value), 0, "Expected exit code 0 for positive value : %s", valid_value);
 }
 

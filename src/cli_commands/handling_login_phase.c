@@ -66,7 +66,7 @@ int handle_team_full(client_t *cli, int i, char *team_name)
 static void init_gui_cli(client_t *cli, game_t *game)
 {
     printf("tezg %d\n", get_instance()->nb_gui);
-    if (get_instance()->nb_gui > MAX_GUI) {
+    if (get_instance()->nb_gui >= MAX_GUI) {
         dprintf(cli->socket, "Too many graphic clients connected\n");
         remove_client(cli->socket, false);
         return;

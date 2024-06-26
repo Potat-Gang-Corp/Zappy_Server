@@ -11,7 +11,7 @@
 
 bool append_to_message(char **msg, size_t *msg_size, int *length, int value)
 {
-    size_t needed = *length + snprintf(NULL, 0, " %d", value) + 1;
+    size_t needed = *length + snprintf(NULL, 0, " #%d", value) + 1;
     int ret;
     char *new_message;
 
@@ -24,7 +24,7 @@ bool append_to_message(char **msg, size_t *msg_size, int *length, int value)
         *msg = new_message;
         *msg_size = needed;
     }
-    ret = snprintf(*msg + *length, *msg_size - *length, " %d", value);
+    ret = snprintf(*msg + *length, *msg_size - *length, " #%d", value);
     if (ret < 0) {
         free(*msg);
         return false;

@@ -10,6 +10,10 @@
 #include "../../include/server.h"
 #include "../../include/get_instance.h"
 
+/**
+ * @file clean_game_data.c
+ * @brief File handling cleaning the game's data
+*/
 void free_team_eggs(team_t *team)
 {
     egg_t *current = team->egg;

@@ -11,6 +11,10 @@
 #include "../../include/get_instance.h"
 #include <sys/queue.h>
 
+/**
+ * @file clean_server_data.c
+ * @brief File handling cleaning the server's data
+*/
 void clean_waiting_list(server_t *server)
 {
     waiting_client_t *current_client = NULL;

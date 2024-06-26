@@ -10,6 +10,10 @@
 #include "../../include/server.h"
 #include "../../include/get_instance.h"
 
+/**
+ * @file clean_client_data.c
+ * @brief File handling cleaning the client's data
+*/
 void clean_client_struct(void)
 {
     server_t *server = get_instance();

@@ -12,7 +12,10 @@
 #include "commands.h"
 #include "egg.h"
 #include "map.h"
-
+/**
+ * @file chrono_function.c
+ * @brief File containing functions to handle chrono tasks
+*/
 void check_egg_layed(client_t *cli)
 {
     if (cli->cd == 0 && cli->is_laying == true) {

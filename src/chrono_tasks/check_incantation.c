@@ -10,6 +10,10 @@
 #include "elevation.h"
 #include "notifications.h"
 
+/**
+* @file check_incantation.c
+* @brief File containing functions to check incantation conditions
+*/
 void set_level(int x, int y, int lvl, int cli_socket)
 {
     server_t *server = get_instance();

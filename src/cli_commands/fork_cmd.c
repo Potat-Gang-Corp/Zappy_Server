@@ -69,7 +69,7 @@ static void setup_waiting_client(int socket, int team_index)
     write(socket, coordinates, len);
 }
 
-void spawn_player_if_waiting(waiting_client_t *waiting_client, int team_index)
+int spawn_player_if_waiting(waiting_client_t *waiting_client, int team_index)
 {
     client_t *new_client = calloc(1, sizeof(client_t));
     int so;
@@ -77,7 +77,7 @@ void spawn_player_if_waiting(waiting_client_t *waiting_client, int team_index)
     if (new_client == NULL) {
         perror("calloc");
         close(waiting_client->socket);
-        return;
+        return 84;
     }
     add_cli_to_ll(new_client, new_client->socket);
     new_client->socket = waiting_client->socket;
@@ -87,6 +87,18 @@ void spawn_player_if_waiting(waiting_client_t *waiting_client, int team_index)
     printf("Added client from waiting list with socket %d\n", so);
     player_spawn(new_client, team_index);
     setup_waiting_client(so, team_index);
+    return 0;
+}
+
+static void handle_spawn(int team_index, egg_t *egg, waiting_client_t *waiting_client)
+{
+    int ret = 0;
+
+    ret = spawn_player_if_waiting(waiting_client, team_index);
+    if (ret == 0)
+        notice_graphic_client_fork_spawn(egg->egg_id);
+    else
+        fprintf(stderr, "Error spawning player\n");
 }
 
 void handle_team_egg_laying(server_t *server, team_t *team, int team_index)
@@ -99,7 +111,7 @@ void handle_team_egg_laying(server_t *server, team_t *team, int team_index)
         waiting_client = get_waiting_client(server, team->name);
         team->max_clients--;
         if (waiting_client != NULL) {
-            spawn_player_if_waiting(waiting_client, team_index);
+            handle_spawn(team_index, egg, waiting_client);
         }
         egg = egg->next;
     }

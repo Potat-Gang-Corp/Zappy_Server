@@ -13,6 +13,10 @@
 #include "../../include/map.h"
 #include "../../include/notifications.h"
 
+/**
+ * @file move_cmd.c
+ * @brief File handling the Move command
+*/
 int cmd_left(char *command_type, int cli_socket)
 {
     client_t *cli = get_client_by_socket(cli_socket);

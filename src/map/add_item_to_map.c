@@ -12,7 +12,7 @@
 #include "map.h"
 /**
 * @file add_item_to_map.c
-* @brief add item to map
+* @brief add item to map, place items on map
 */
 
 const char *get_items(item_type_t item)

@@ -10,6 +10,11 @@
 #include "struct_server.h"
 #include "get_instance.h"
 
+/**
+* @file  check_cli.c
+* @brief   Contains the function that checks if a client is a gui
+*/
+
 bool is_gui(int cli_id)
 {
     server_t *server = get_instance();

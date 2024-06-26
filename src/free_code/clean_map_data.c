@@ -10,6 +10,10 @@
 #include "../../include/server.h"
 #include "../../include/get_instance.h"
 
+/**
+ * @file clean_map_data.c
+ * @brief File handling cleaning the map's data
+*/
 void clean_item_linked_list(items_t **items)
 {
     items_t *current_node;

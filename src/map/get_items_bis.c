@@ -8,6 +8,11 @@
 #include "my.h"
 #include "struct_map.h"
 
+/**
+* @file get_items_bis.c
+* @brief Contains the functions that return the name of an item
+*/
+
 const char *get_phiras(void)
 {
     return "phiras";

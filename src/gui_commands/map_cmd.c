@@ -8,6 +8,11 @@
 #include "get_instance.h"
 #include "server.h"
 
+/**
+ * @file map_cmd.c
+ * @brief File handling the map commands
+*/
+
 int cmd_msz(char *command_type, int gui_socket)
 {
     game_t *game = get_game_instance();

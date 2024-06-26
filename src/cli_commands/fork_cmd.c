@@ -14,6 +14,10 @@
 #include "../../include/inventory.h"
 #include "../../include/notifications.h"
 
+/**
+ * @file fork_cmd.c
+ * @brief File handling the Fork command
+*/
 void client_fork_end(client_t *cli)
 {
     server_t *server = get_instance();

@@ -10,6 +10,11 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 
+/**
+* @file operation_on_map.c
+* @brief Contains the function that delete an item from a tile
+*/
+
 void delete_item_from_tiles(tile_t *tile, item_type_t type)
 {
     items_t *item = tile->items;

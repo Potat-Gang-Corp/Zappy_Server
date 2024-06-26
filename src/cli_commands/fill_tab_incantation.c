@@ -13,6 +13,10 @@
 #include "../../include/map.h"
 #include "elevation.h"
 
+/**
+ * @file fill_tab_incantation.c
+ * @brief File handling the incantation
+*/
 int create_new_tab(int **tab, int cpt, int *nb)
 {
     int *new_tab = NULL;

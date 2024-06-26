@@ -12,7 +12,7 @@
 
 /**
 * @file init_server.c
-* @brief init server
+* @brief initialize the server with its port and socket
 */
 int init_server_listen(void)
 {

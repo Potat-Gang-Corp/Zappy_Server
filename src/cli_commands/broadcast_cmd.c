@@ -15,6 +15,11 @@
 #include "../../include/notifications.h"
 #include "broadcast.h"
 
+/**
+ * @file broadcast_cmd.c
+ * @brief File handling the broadcast
+*/
+
 static const int direction_matrix[4][3][3] = {
     { // NORTH
         {2, 1, 8},

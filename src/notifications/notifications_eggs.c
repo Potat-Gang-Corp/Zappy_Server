@@ -11,6 +11,12 @@
 #include "struct_game.h"
 #include "get_instance.h"
 
+/**
+* @file notifications_eggs.c
+* @brief Contains the functions that send notifications to the graphic clients
+* especially for the eggs
+*/
+
 void print_egg_team(client_t *cli, team_t *team)
 {
     egg_t *egg = team->egg;

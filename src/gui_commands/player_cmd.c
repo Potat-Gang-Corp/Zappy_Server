@@ -8,6 +8,11 @@
 #include "my.h"
 #include "get_instance.h"
 
+/**
+ * @file player_cmd.c
+ * @brief File handling the player commands
+*/
+
 int cmd_tna(char *command_type, int gui_socket)
 {
     int char_count = 0;

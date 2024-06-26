@@ -9,6 +9,11 @@
 #include "../../../include/get_instance.h"
 #include "../../../include/server.h"
 
+/**
+* @file handle_timeout.c
+* @brief Contains the function that handles the timeout of a cli
+*/
+
 void handle_timeout_login(void)
 {
     server_t *server = get_instance();

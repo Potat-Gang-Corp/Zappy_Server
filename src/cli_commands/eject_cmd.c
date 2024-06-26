@@ -15,6 +15,10 @@
 #include "../../include/notifications.h"
 #include "look.h"
 
+/**
+ * @file eject_cmd.c
+ * @brief File handling the eject
+*/
 void delete_egg(egg_t **egg, egg_t **prev_egg, egg_t **curr_egg)
 {
     map_t *map = get_map_instance();

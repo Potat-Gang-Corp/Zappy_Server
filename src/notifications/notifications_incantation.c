@@ -9,6 +9,12 @@
 #include "struct_server.h"
 #include "get_instance.h"
 
+/**
+* @file notifications_incantation.c
+* @brief Contains the functions that send notifications to the graphic clients
+* especially for the incantation command
+*/
+
 bool append_to_message(char **msg, size_t *msg_size, int *length, int value)
 {
     size_t needed = *length + snprintf(NULL, 0, " #%d", value) + 1;

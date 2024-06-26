@@ -11,6 +11,11 @@
 #include "../../include/my.h"
 #include "commands_gui.h"
 
+/**
+* @file run_server.c
+* @brief Contains the functions to make the server run
+*/
+
 static void notice_client_closing(void)
 {
     server_t *server = get_instance();

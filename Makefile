@@ -48,7 +48,7 @@ $(NAME): $(OBJS)
 
 run: all
 	@$(ECHO) "$(MAGENTA)$(BOLD)Running $(NAME)...$(RESET)"
-	./$(NAME) -p 8080 -x 10 -y 10 -n name1 name2 -c 1 -f 10
+	./$(NAME) -p 12345 -x 10 -y 10 -n name1 name2 -c 10 -f 450
 
 $(TESTNAME): $(TOBJS) $(OBJS_NO_MAIN)
 	@$(ECHO) "$(CYAN)$(BOLD)Linking $(TESTNAME)...$(RESET)"

@@ -37,7 +37,7 @@ static void send_mct(client_t *cli)
 {
     if (cli->cd >= 20) {
         cli->cd = 0;
-        cmd_mct("mct", cli->socket);
+        //cmd_mct("mct", cli->socket);
     } else {
         cli->cd++;
     }

@@ -40,7 +40,7 @@ int handle_team_full(client_t *cli, int i, char *team_name)
 {
     game_t *game = get_game_instance();
     char s[1024];
-    char coordinates[1024];
+    char coor[1024];
 
     if (game->teams[i]->max_clients < 1 && game->teams[i]->egg == NULL) {
         add_to_waiting_list(cli->socket, team_name);
@@ -49,11 +49,10 @@ int handle_team_full(client_t *cli, int i, char *team_name)
         return 1;
     } else {
         game->teams[i]->max_clients -= 1;
-        snprintf(s, sizeof(s), "%d\n", game->teams[i]->max_clients);
+        snprintf(s, sizeof(s), "%d", game->teams[i]->max_clients);
         dprintf(cli->socket, "%s\n", s);
-        snprintf(coordinates, sizeof(coordinates),
-            "%d %d\n", game->width, game->height);
-        dprintf(cli->socket, "%s\n", coordinates);
+        snprintf(coor, sizeof(coor), "%d %d", game->width, game->height);
+        dprintf(cli->socket, "%s\n", coor);
         player_spawn(cli, i);
         return 0;
     }
@@ -95,7 +94,7 @@ int handle_cli_login(client_t *cli, char *command)
         return 1;
     }
     if (cli->logged == false && ret == 84) {
-        dprintf(cli->socket, "%s\n", msg);
+        dprintf(cli->socket, "%s", msg);
         return 84;
     }
     cli->id = get_instance()->client_id;

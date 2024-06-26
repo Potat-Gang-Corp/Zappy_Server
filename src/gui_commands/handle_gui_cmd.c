@@ -31,7 +31,7 @@ void execute_gui_cmd(int gui_socket, char *command)
         result = parse_gui_cmd_table(command_type, gui_socket, buffer);
     }
     if (result == 1) {
-        write(gui_socket, "suc\n", 4);
+        dprintf(gui_socket, "suc\n");
     }
     free(buffer);
 }

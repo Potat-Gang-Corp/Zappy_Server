@@ -27,26 +27,21 @@ static int count_nb_cmd(client_t *cli)
 
 int max_cmd_cli(int cli_id)
 {
-    server_t *server = get_instance();
-    client_t *cli = server->clients;
+    client_t *cli = get_client_by_socket(cli_id);
 
-    while (cli != NULL) {
-        if (cli->socket == cli_id && cli->graphic != true) {
-            return count_nb_cmd(cli);
-        }
-        cli = cli->next;
-    }
-    return 84;
+    if (cli->graphic == true)
+        return 0;
+    return count_nb_cmd(cli);
 }
 
 static int separate_function(int cli_socket, command_t *new_command)
 {
     server_t *server = get_instance();
-
-    if (is_gui(cli_socket))
+    if (is_gui(cli_socket) == true) {
         TAILQ_INSERT_TAIL(&server->commands_gui, new_command, entries);
-    else
+    } else {
         TAILQ_INSERT_TAIL(&server->commands, new_command, entries);
+    }
     return 0;
 }
 

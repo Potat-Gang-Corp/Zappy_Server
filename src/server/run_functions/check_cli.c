@@ -16,8 +16,9 @@ bool is_gui(int cli_id)
     client_t *cli = NULL;
 
     for (cli = server->clients; cli != NULL; cli = cli->next) {
-        if (cli->socket == cli_id && cli->graphic == true)
+        if (cli->socket == cli_id && cli->graphic == true) {
             return true;
+        }
     }
     return false;
 }

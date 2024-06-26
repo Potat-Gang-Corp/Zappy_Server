@@ -10,6 +10,11 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 
+/**
+* @file execute_cli_cmd.c
+* @brief Contains the funcion that execute the client command
+*/
+
 int detect_client_waiting(int cli_socket)
 {
     server_t *server = get_instance();

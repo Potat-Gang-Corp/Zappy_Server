@@ -11,6 +11,11 @@
 #include "../../include/server.h"
 #include "../../include/struct_client.h"
 
+/**
+* @file handling_player_death.c
+* @brief Contains the functions that handles the player death
+*/
+
 void notice_player_death_event(client_t *cli)
 {
     server_t *server = get_instance();

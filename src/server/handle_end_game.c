@@ -11,6 +11,11 @@
 #include "../../include/server.h"
 #include "../../include/struct_client.h"
 
+/**
+* @file handling_end_game.c
+* @brief Contains the commands that handles the end of the game
+*/
+
 void notice_client_end_game(char *team_name)
 {
     server_t *server = get_instance();

@@ -62,6 +62,7 @@ int main(int argc, char **argv)
 {
     if (cpt_slash(argc, argv) == 84)
         return 84;
-    init_main(argc, argv);
+    if (init_main(argc, argv) == 84)
+        return 84;
     return 0;
 }

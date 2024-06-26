@@ -25,14 +25,15 @@ static int compute_stock_buffer_size(int item_counter[EGG], int x, int y)
     return size;
 }
 
-char *compute_tile_stock(items_t *item_start, int x, int y)
+static char *compute_tile_stock(items_t *item_start, int x, int y)
 {
     int item_counter[MAX_ITEMS];
     items_t *item = item_start;
     char *message;
     int size;
+    int i;
 
-    for (int i = 0; i < MAX_ITEMS; i++)
+    for (i = 0; i < MAX_ITEMS; i++)
         item_counter[i] = 0;
     while (item) {
         item_counter[item->type] += 1;
@@ -48,64 +49,29 @@ char *compute_tile_stock(items_t *item_start, int x, int y)
     return message;
 }
 
-char *process_tile_and_get_message(map_t *map, int x, int y, int *message_len)
+static void send_tile_stock(int gui_socket, items_t *item, int x, int y)
 {
-    items_t *item = map->tiles[x + y * map->width]->items;
     char *message = compute_tile_stock(item, x, y);
-    char *result = strdup(message ? message : "");
 
-    *message_len += strlen(result);
-    if (message)
+    if (message != NULL) {
+        dprintf(gui_socket, "%s", message);
         free(message);
-    return result;
-}
-
-char **build_bct_dict(map_t *map, int *message_len)
-{
-    int total_tiles = map->width * map->height;
-    char **bct_dict = malloc(sizeof(char *) * total_tiles + 1);
-
-    for (int x = 0; x < map->width; x++) {
-        for (int y = 0; y < map->height; y++) {
-            bct_dict[x + y * map->width] = process_tile_and_get_message(
-                map, x, y, message_len);
-        }
     }
-    return bct_dict;
-}
-
-char *build_message(char **bct_dict, map_t *map, int message_len)
-{
-    char *message = malloc(sizeof(char) * (message_len + 1));
-    int x = 0;
-    int y = 0;
-    char *current_str;
-
-    if (message == NULL) {
-        return NULL;
-    }
-    message[0] = '\0';
-    for (x = 0; x < map->width; x++) {
-        for (y = 0; y < map->height; y++) {
-            current_str = bct_dict[x + y * map->width];
-            strcat(message, current_str ? current_str : "");
-            free(current_str);
-        }
-    }
-    return message;
 }
 
 int cmd_mct(char *command_type, int gui_socket)
 {
     map_t *map = get_map_instance();
-    client_t *cli = get_client_by_socket(gui_socket);
-    int message_len = 0;
-    char **bct_dict = build_bct_dict(map, &message_len);
-    char *message = build_message(bct_dict, map, message_len);
+    int x;
+    int y;
+    items_t *item;
 
-    dprintf(cli->socket, "%s", message);
-    free(message);
-    free(bct_dict);
+    for (x = 0; x < map->width; x++) {
+        for (y = 0; y < map->height; y++) {
+            item = map->tiles[x + y * map->width]->items;
+            send_tile_stock(gui_socket, item, x, y);
+        }
+    }
     (void)command_type;
     return 0;
 }

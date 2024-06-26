@@ -9,6 +9,12 @@
 #include "struct_server.h"
 #include "get_instance.h"
 
+/**
+* @file notifications_move_cmd.c
+* @brief Contains the functions that send notifications to the graphic clients
+* especially for the move command
+*/
+
 void notice_graphic_move_cmd(client_t *cli)
 {
     server_t *server = get_instance();

@@ -9,6 +9,11 @@
 #include "struct_server.h"
 #include "get_instance.h"
 
+/**
+* @file notifications.c
+* @brief Contains the functions that send notifications to the graphic clients
+*/
+
 void notice_player_take_object(client_t *cli, item_type_t type)
 {
     server_t *server = get_instance();

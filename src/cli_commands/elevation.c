@@ -18,7 +18,7 @@
  * @file elevation.c
  * @brief File handling the incantation
 */
-bool check_level_players(client_t *s, int level, int nb)
+bool check_level_players(client_t *s, int level, int nb, int flag)
 {
     int cpt = 1;
     int size = nb;
@@ -33,7 +33,8 @@ bool check_level_players(client_t *s, int level, int nb)
     cpt = fill_tab(&tab, &size, s, cpt);
     tab[cpt] = -1;
     if (cpt >= nb) {
-        notice_gui_incantation(s->pos.x, s->pos.y, level, tab);
+        if (flag == 0)
+            notice_gui_incantation(s->pos.x, s->pos.y, level, tab);
         free(tab);
         return true;
     }
@@ -67,7 +68,7 @@ void get_items_on_tile(int x, int y, elevation_requirements_t *elevation_tab)
     }
 }
 
-int check_condition_incantation(client_t *cli)
+int check_condition_incantation(client_t *cli, int flag)
 {
     elevation_requirements_t elevation_tab = {0};
 
@@ -76,7 +77,7 @@ int check_condition_incantation(client_t *cli)
         return 0;
     }
     if (check_level_players(cli, cli->level,
-        elevation_table[cli->level - 1].nb_players) == false) {
+        elevation_table[cli->level - 1].nb_players, flag) == false) {
         return 0;
     }
     return 1;

@@ -69,7 +69,7 @@ int cmd_incantation(char *command_type, int cli_socket)
     client_t *cli = get_client_by_socket(cli_socket);
 
     (void)command_type;
-    if (check_condition_incantation(cli) == 0) {
+    if (check_condition_incantation(cli, 0) == 0) {
         dprintf(cli_socket, "ko\n");
         return 84;
     }

@@ -34,7 +34,7 @@ void set_level(int x, int y, int lvl, int cli_socket)
 static void check_evolve(client_t *cli)
 {
     if (cli->evolving == true) {
-        if (check_condition_incantation(cli) == 0) {
+        if (check_condition_incantation(cli, 1) == 0) {
             notice_gui_end_incantation(cli->pos.x, cli->pos.y, 1);
             dprintf(cli->socket, "ko\n");
             return;

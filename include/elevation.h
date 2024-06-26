@@ -32,9 +32,10 @@ typedef struct elevation_requirements_s {
 /**
  * @brief Function to check if the incantation is possible
  * @param client_t *cli the client
+ * @param int flag the flag to send notice to GUI
  * @return int 1 if the incantation is possible, 0 otherwise
  */
-int check_condition_incantation(client_t *cli);
+int check_condition_incantation(client_t *cli, int flag);
 
 /**
  * @brief Function to set the incantation boolean
@@ -67,9 +68,10 @@ bool compare_structs(elevation_requirements_t *elevation_tab, int level);
  * @param client_t *s the client
  * @param int level the level
  * @param int nb the number of players
+ * @param int flag the flag to send notice to GUI
  * @return int 1 if the level is correct, 0 otherwise
  */
-bool check_level_players(client_t *s, int level, int nb);
+bool check_level_players(client_t *s, int level, int nb, int flag);
 
 /**
  * @brief Function to fill struct that will be compared later

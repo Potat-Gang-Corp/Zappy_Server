@@ -43,6 +43,10 @@ int handle_x(char *av)
             fprintf(stderr, "Error: flag -x must be a number\n");
             return 84;
         }
+    if (x < 5) {
+        fprintf(stderr, "Error: width must be at least 5\n");
+        return 84;
+    }
     game->width = x;
     return 0;
 }
@@ -58,6 +62,10 @@ int handle_y(char *av)
             fprintf(stderr, "Error: flag -y has no definition\n");
             return 84;
         }
+    if (y < 5) {
+        fprintf(stderr, "Error: height must be at least 5\n");
+        return 84;
+    }
     game->height = y;
     return 0;
 }

@@ -9,6 +9,11 @@
 #include "get_instance.h"
 #include "server.h"
 
+/**
+ * @file mct_command_bis.c
+ * @brief File handling the mct command
+*/
+
 static int compute_stock_buffer_size(int item_counter[EGG], int x, int y)
 {
     int size = snprintf(NULL, 0,

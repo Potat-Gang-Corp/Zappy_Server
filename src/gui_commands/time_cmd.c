@@ -9,6 +9,11 @@
 #include "my.h"
 #include "get_instance.h"
 
+/**
+ * @file time_cmd.c
+ * @brief File handling the time
+*/
+
 int cmd_sgt(char *command_type, int gui_socket)
 {
     game_t *game = get_game_instance();

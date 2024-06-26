@@ -10,6 +10,10 @@
 #include "struct_server.h"
 #include "get_instance.h"
 
+/**
+ * @file handle_gui_cmd.c
+ * @brief File handling the gui commands
+*/
 int parse_gui_cmd_table(char *command_type, int gui_socket, char *command)
 {
     for (int i = 0; command_table_gui[i].command_name != NULL; ++i) {

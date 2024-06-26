@@ -7,6 +7,11 @@
 
 #include "my.h"
 
+/**
+* @file my.h
+* @brief Contain a function that concatenate a string to another
+*/
+
 int append_to_msg(char **msg, size_t *current_size, const char *new_content)
 {
     size_t new_content_length = strlen(new_content);

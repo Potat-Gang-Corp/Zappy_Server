@@ -63,6 +63,23 @@ int handle_team_full(client_t *cli, int i, char *team_name)
     }
 }
 
+static void init_gui_cli(client_t *cli, game_t *game)
+{
+    printf("tezg %d\n", get_instance()->nb_gui);
+    if (get_instance()->nb_gui > MAX_GUI) {
+        dprintf(cli->socket, "Too many graphic clients connected\n");
+        remove_client(cli->socket, false);
+        return;
+    }
+    dprintf(cli->socket, "msz %d %d\n", game->width, game->height);
+    cli->logged = true;
+    cli->graphic = true;
+    notice_graphic_init(cli);
+    print_all_teams_eggs(cli);
+    cli->cd = 0;
+    get_instance()->nb_gui++;
+}
+
 int detect_team_validity(char *team_name, client_t *cli)
 {
     game_t *game = get_game_instance();
@@ -74,12 +91,7 @@ int detect_team_validity(char *team_name, client_t *cli)
             return handle_team_full(cli, i, team_name);
         }
         if (strcmp(team_name, "GRAPHIC") == 0) {
-            dprintf(cli->socket, "msz %d %d\n", game->width, game->height);
-            cli->logged = true;
-            cli->graphic = true;
-            notice_graphic_init(cli);
-            print_all_teams_eggs(cli);
-            cli->cd = 0;
+            init_gui_cli(cli, game);
             return 2;
         }
     }

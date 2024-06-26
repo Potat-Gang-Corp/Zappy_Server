@@ -17,7 +17,7 @@
 
 static int count_nb_cmd(client_t *cli)
 {
-    if (cli->nb_commands < 10) {
+    if (cli->nb_commands < MAX_CMD) {
         cli->nb_commands++;
         return 0;
     } else {

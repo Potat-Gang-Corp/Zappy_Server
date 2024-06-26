@@ -58,6 +58,7 @@ typedef struct server_s {
     fd_set readfs;
     fd_set writefds;
     int nb_players;
+    int nb_gui;
 } server_t;
 
 #endif /* !STRUCT_SERVER_H_ */

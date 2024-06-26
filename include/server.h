@@ -17,7 +17,10 @@
 * @brief Contains definitions of the server management functions
 */
 
-#define MAX_CLIENTS 1024
+    #define MAX_CLIENTS 1024
+    #define MAX_CMD 10
+    #define MAX_WAITING_CLIENTS 1024
+    #define MAX_GUI 20
 
 typedef struct timespec timespec_t;
 //init_server.c
@@ -701,7 +704,7 @@ int calc_len_ll(client_t *clients);
 /**
  * @brief Function that chandle the socket error
  * @param void no parameters are required.
- * @return int return 84 
+ * @return int return 84
  */
 int handle_socket_error(void);
 

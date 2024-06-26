@@ -87,6 +87,9 @@ int spawn_player_if_waiting(waiting_client_t *waiting_client, int team_index)
     printf("Added client from waiting list with socket %d\n", so);
     player_spawn(new_client, team_index);
     setup_waiting_client(so, team_index);
+    new_client->id = get_instance()->client_id;
+    get_instance()->client_id++;
+    notice_graphic_client(new_client, new_client->team);
     return 0;
 }
 
@@ -96,9 +99,9 @@ static void handle_spawn(int team_index, egg_t *egg, waiting_client_t *wait_c)
     int id_save = egg->egg_id;
 
     ret = spawn_player_if_waiting(wait_c, team_index);
-    if (ret == 0)
+    if (ret == 0) {
         notice_graphic_client_fork_spawn(id_save);
-    else
+    } else
         fprintf(stderr, "Error spawning player\n");
 }
 

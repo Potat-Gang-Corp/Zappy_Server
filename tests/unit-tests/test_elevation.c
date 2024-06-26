@@ -110,7 +110,7 @@ Test(server_operations, check_condition_incantation_multiple_clients) {
     create_and_add_client_inc(server, x, y, 2, false);
 
     client_t *cli = server->clients;
-    cr_assert(check_condition_incantation(cli) == 0, "Should return false due to incorrect client setup at level.");
+    cr_assert(check_condition_incantation(cli, 0) == 0, "Should return false due to incorrect client setup at level.");
 
     client_t *current = server->clients;
     while (current) {

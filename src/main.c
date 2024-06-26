@@ -16,7 +16,8 @@
 * @file main.c
 * @brief just brief main
 */
-int main(int argc, char **argv)
+
+int init_main(int argc, char **argv)
 {
     game_t *game = get_game_instance();
 
@@ -37,5 +38,30 @@ int main(int argc, char **argv)
         fprintf(stderr, "Error: In the run_server can't launch server\n");
         return 84;
     }
+    return 0;
+}
+
+int cpt_slash(int argc, char **argv)
+{
+    int i = 0;
+    int cpt = 0;
+
+    while (i < argc) {
+        if (argv[i][0] == '-')
+            cpt++;
+        i++;
+    }
+    if (cpt >= 7) {
+        fprintf(stderr, "Error: Too many flags\n");
+        return 84;
+    }
+    return 0;
+}
+
+int main(int argc, char **argv)
+{
+    if (cpt_slash(argc, argv) == 84)
+        return 84;
+    init_main(argc, argv);
     return 0;
 }

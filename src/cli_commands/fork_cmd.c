@@ -90,13 +90,14 @@ int spawn_player_if_waiting(waiting_client_t *waiting_client, int team_index)
     return 0;
 }
 
-static void handle_spawn(int team_index, egg_t *egg, waiting_client_t *waiting_client)
+static void handle_spawn(int team_index, egg_t *egg, waiting_client_t *wait_c)
 {
     int ret = 0;
+    int id_save = egg->egg_id;
 
-    ret = spawn_player_if_waiting(waiting_client, team_index);
+    ret = spawn_player_if_waiting(wait_c, team_index);
     if (ret == 0)
-        notice_graphic_client_fork_spawn(egg->egg_id);
+        notice_graphic_client_fork_spawn(id_save);
     else
         fprintf(stderr, "Error spawning player\n");
 }

@@ -11,6 +11,12 @@
 #include "server.h"
 #include "map.h"
 
+/**
+* @file refill_items.c
+* @brief Contains the function that refills the items on the map such as
+* mendiane, phiras and thystame
+*/
+
 void refill_mendiane(map_t *map, int *counter_items)
 {
     int total_tiles = map->width * map->height;

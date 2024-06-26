@@ -8,6 +8,11 @@
 #include "my.h"
 #include "struct_map.h"
 
+/**
+* @file get_items.c
+* @brief Contains the functions that return the name of an item
+*/
+
 const char *get_food(void)
 {
     return "food";

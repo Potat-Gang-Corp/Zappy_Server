@@ -11,6 +11,12 @@
 #include "server.h"
 #include "map.h"
 
+/**
+* @file refill_items.c
+* @brief Contains the function that refills the items on the map such as
+* phyras, thystame and eggs
+*/
+
 int place_phiras_on_map(map_t *map)
 {
     int total_tiles = map->width * map->height;

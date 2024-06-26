@@ -11,6 +11,12 @@
 #include "server.h"
 #include "map.h"
 
+/**
+* @file refill_items_bis.c
+* @brief Contains the function that refills the items on the map such as
+* food, linemate, deraumere and sibur
+*/
+
 void count_items_on_map(int *counter_items, tile_t *tile)
 {
     items_t *item = tile->items;

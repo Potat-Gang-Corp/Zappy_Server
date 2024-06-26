@@ -12,6 +12,11 @@
 #include "../../include/struct_client.h"
 #include "map.h"
 
+/**
+* @file getter_items_bis.c
+* @brief Contains the functions that return the name of an item
+*/
+
 item_type_t get_item_type(const char *item_name)
 {
     const char *(*functions[MAX_ITEMS + 1])() = {

@@ -11,6 +11,12 @@
 #include "server.h"
 #include "map.h"
 
+/**
+* @file place_elements_on_map.c
+* @brief Contains the function that place the items on the map such as
+* food, linemate, deraumere, sibur and mendiane
+*/
+
 int place_food_on_map(map_t *map)
 {
     int total_tiles = map->width * map->height;

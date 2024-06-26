@@ -47,6 +47,11 @@ int handle_x(char *av)
         fprintf(stderr, "Error: width must be at least 5\n");
         return 84;
     }
+    if (x > 35) {
+        fprintf(stderr, "Error: width must be at most 35"
+        " (you want our GUI to die ?)\n");
+        return 84;
+    }
     game->width = x;
     return 0;
 }
@@ -64,6 +69,11 @@ int handle_y(char *av)
         }
     if (y < 5) {
         fprintf(stderr, "Error: height must be at least 5\n");
+        return 84;
+    }
+    if (y > 35) {
+        fprintf(stderr, "Error: height must be at most 35"
+        " (you want our GUI to die ?)\n");
         return 84;
     }
     game->height = y;

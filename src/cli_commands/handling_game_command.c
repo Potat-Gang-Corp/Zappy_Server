@@ -12,6 +12,10 @@
 #include "../../include/commands.h"
 #include "../../include/commands_entry_cli.h"
 
+/**
+ * @file handling_game_command.c
+ * @brief File handling the all commands
+*/
 int parse_cmd_table(char *cmd, int cli_socket, char *full_cmd)
 {
     for (int i = 0; command_table_cli[i].command_name != NULL; ++i) {

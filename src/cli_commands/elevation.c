@@ -14,6 +14,10 @@
 #include "notifications.h"
 #include "elevation.h"
 
+/**
+ * @file elevation.c
+ * @brief File handling the incantation
+*/
 bool check_level_players(client_t *s, int level, int nb)
 {
     int cpt = 1;

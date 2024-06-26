@@ -14,6 +14,10 @@
 #include "../../include/inventory.h"
 #include "../../include/notifications.h"
 
+/**
+ * @file fork_cmd_bis.c
+ * @brief File handling the Fork command
+*/
 int get_team_index_by_name(game_t *game, char *team_name)
 {
     for (int i = 0; i < game->nb_teams; i++) {

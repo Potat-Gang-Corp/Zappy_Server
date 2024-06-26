@@ -15,7 +15,10 @@
 #include "../../include/notifications.h"
 #include "look.h"
 #include "egg.h"
-
+/**
+ * @file action_cmd.c
+ * @brief File containing functions to handle action commands
+*/
 int follow(client_t *cli, char *msg, size_t msg_size)
 {
     map_t *map = get_map_instance();

@@ -13,6 +13,11 @@
 #include "notifications.h"
 #include "map.h"
 
+/**
+ * @file handle_login_phase.c
+ * @brief File handling the Login phase
+*/
+
 void player_spawn(client_t *cli, int team_index)
 {
     map_t *map = get_map_instance();

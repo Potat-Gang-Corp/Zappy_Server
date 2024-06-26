@@ -10,7 +10,10 @@
 #include "../../include/my.h"
 #include "../../include/server.h"
 #include "../../include/commands.h"
-
+/**
+ * @file basic_cmd.c
+ * @brief File containing functions to handle basic commands
+*/
 int cmd_inventory(char *command_type, int cli_socket)
 {
     client_t *cli = get_client_by_socket(cli_socket);

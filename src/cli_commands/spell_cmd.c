@@ -14,6 +14,10 @@
 #include "elevation.h"
 #include "broadcast.h"
 
+/**
+ * @file spell_cmd.c
+ * @brief File handling the spell command
+*/
 int cmd_broadcast(char *command_type, int cli_socket)
 {
     char *msg_without_prefix = strstr(command_type, "Broadcast ");

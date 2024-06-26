@@ -13,6 +13,10 @@
 #include "../../include/map.h"
 #include "elevation.h"
 
+/**
+ * @file elevation_bis.c
+ * @brief File handling the incantation
+*/
 const elevation_requirements_t elevation_table[] = {
     {1, 1, 0, 0, 0, 0, 0},
     {2, 1, 1, 1, 0, 0, 0},

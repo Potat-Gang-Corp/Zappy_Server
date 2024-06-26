@@ -14,6 +14,10 @@
 #include "../../include/inventory.h"
 #include "../../include/notifications.h"
 
+/**
+ * @file look_cmd.c
+ * @brief File handling the Look command
+*/
 void look_orientation(int *x, int *y, position_t pos, int *st)
 {
     map_t *map = get_map_instance();

@@ -13,7 +13,7 @@
 #include "../../include/server.h"
 #include "../../include/struct_server.h"
 #include "../../include/struct_client.h"
-#include "../../include/commands_entry_gui.h"
+int cmd_mct(char *command_type, int gui_socket);
 
 Test(cmd_mct_test, cmd_mct)
 {

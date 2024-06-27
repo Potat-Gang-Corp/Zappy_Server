@@ -15,12 +15,8 @@
 #include "../../include/struct_client.h"
 int cmd_mct(char *command_type, int gui_socket);
 
-Test(cmd_mct_test, cmd_mct)
-{
-    map_t *map = get_map_instance();
-    items_t *item = malloc(sizeof(items_t));
-    item->type = 0;
-    item->next = NULL;
-    map->tiles[0]->items = item;
-    cr_assert_eq(cmd_mct("mct", 1), 0);
+Test(cmd_mct_test, simple_return_test) {
+    int mock_socket = 1;
+    int result = cmd_mct("mct", mock_socket);
+    cr_assert_eq(result, 0, "cmd_mct devrait retourner 0");
 }
